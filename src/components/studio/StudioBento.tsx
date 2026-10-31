@@ -15,7 +15,7 @@ import {
 import { toast } from 'sonner';
 import { playClickSound, playTone } from '#/lib/sound/sound-effects';
 
-type TelemetryTab = 'isocalendar' | 'habits' | 'languages' | 'achievements';
+type TelemetryTab = 'isocalendar' | 'heatmap' | 'habits' | 'languages' | 'achievements';
 
 export function StudioBento() {
   const [telemetryTab, setTelemetryTab] = useState<TelemetryTab>('isocalendar');
@@ -85,9 +85,10 @@ export function StudioBento() {
               </div>
 
               {/* Telemetry Tabs */}
-              <div className="flex flex-wrap gap-1.5 pt-2 border-b-2 border-neutral-900 dark:border-slate-800 pb-3">
+              <div className="flex flex-wrap gap-1.5 pt-2 border-b-2 border-slate-300 pb-3">
                 {[
-                  { id: 'isocalendar', label: '3D Isocalendar' },
+                  { id: 'isocalendar', label: '3D Skyline' },
+                  { id: 'heatmap', label: '2D Heatmap' },
                   { id: 'habits', label: 'Coding Habits' },
                   { id: 'languages', label: 'Language Breakdown' },
                   { id: 'achievements', label: 'Trophy Matrix' },
@@ -96,10 +97,10 @@ export function StudioBento() {
                     key={tab.id}
                     type="button"
                     onClick={() => handleTabChange(tab.id as TelemetryTab)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all btn-tactile ${
+                    className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all btn-tactile cursor-pointer ${
                       telemetryTab === tab.id
-                        ? 'bg-[#ffe600] text-neutral-950 border-2 border-neutral-900 font-black shadow-[2px_2px_0px_#18181b]'
-                        : 'bg-white dark:bg-slate-800 border-2 border-neutral-900 dark:border-slate-700 text-neutral-800 dark:text-slate-200 hover:bg-[#ffe600] hover:text-neutral-950 dark:hover:bg-[#ffe600] dark:hover:text-neutral-950'
+                        ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 font-black shadow-[2px_2px_0px_#334155]'
+                        : 'bg-white border-2 border-slate-300 text-slate-700 hover:bg-[#ffe600] hover:text-slate-950 hover:border-slate-800'
                     }`}
                   >
                     {tab.label}
@@ -108,23 +109,23 @@ export function StudioBento() {
               </div>
 
               {/* Live Interactive Telemetry Canvas */}
-              <div className="relative rounded-xl border-2 border-neutral-900 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4 min-h-[220px] flex items-center justify-center overflow-hidden">
+              <div className="relative rounded-xl border-2 border-slate-300 bg-slate-50 p-4 min-h-[220px] flex items-center justify-center overflow-hidden">
                 {telemetryTab === 'isocalendar' && (
                   <div className="w-full space-y-3">
-                    <div className="flex items-center justify-between text-[11px] font-mono text-neutral-600 dark:text-slate-400 font-bold">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-slate-700 font-bold">
                       <span>ISOMETRIC CONTRIBUTION CALENDAR (365 DAYS)</span>
-                      <span className="text-emerald-500 font-bold">1,842 COMMITS</span>
+                      <span className="text-emerald-700 font-black">1,842 COMMITS</span>
                     </div>
                     {/* Simulated Isometric SVG commit grid */}
-                    <div className="grid grid-cols-12 gap-1.5 p-3 rounded-lg bg-white dark:bg-slate-900 border-2 border-neutral-900 dark:border-slate-700">
+                    <div className="grid grid-cols-12 gap-1.5 p-3 rounded-lg bg-white border-2 border-slate-300">
                       {Array.from({ length: 48 }).map((_, i) => {
                         const level = (i * 7) % 5;
                         const colors = [
-                          'bg-neutral-200 dark:bg-slate-800',
-                          'bg-emerald-200 dark:bg-emerald-950',
-                          'bg-emerald-400 dark:bg-emerald-800',
-                          'bg-emerald-500 dark:bg-emerald-600',
-                          'bg-emerald-600 dark:bg-emerald-400',
+                          'bg-slate-200',
+                          'bg-emerald-200',
+                          'bg-emerald-400',
+                          'bg-emerald-500',
+                          'bg-emerald-600',
                         ];
                         return (
                           <div
@@ -135,9 +136,42 @@ export function StudioBento() {
                         );
                       })}
                     </div>
-                    <div className="flex items-center justify-between text-[10px] font-mono text-neutral-500 dark:text-slate-400 font-bold">
+                    <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 font-bold">
                       <span>RENDER: CAMO-SAFE SVG // NO JS REQUIRED</span>
                       <span>OUTPUT: GITHUB ACTIONS OR HOSTED SVG</span>
+                    </div>
+                  </div>
+                )}
+
+                {telemetryTab === 'heatmap' && (
+                  <div className="w-full space-y-3">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-slate-700 font-bold">
+                      <span>ANNUAL 52-WEEK CONTRIBUTION MATRIX</span>
+                      <span className="text-emerald-700 font-black">ACTIVE STREAK: 14 DAYS 🔥</span>
+                    </div>
+                    {/* 2D Heatmap Grid */}
+                    <div className="grid grid-cols-16 gap-1 p-3 rounded-lg bg-white border-2 border-slate-300">
+                      {Array.from({ length: 64 }).map((_, i) => {
+                        const level = ((i * 11) + 3) % 5;
+                        const colors = [
+                          'bg-slate-100',
+                          'bg-emerald-200',
+                          'bg-emerald-400',
+                          'bg-emerald-500',
+                          'bg-emerald-600',
+                        ];
+                        return (
+                          <div
+                            key={i}
+                            className={`h-3.5 rounded-xs ${colors[level]} transition-transform hover:scale-125`}
+                            title={`Week block: Level ${level}`}
+                          />
+                        );
+                      })}
+                    </div>
+                    <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 font-bold">
+                      <span>LEVELS: 0-4 INTENSITY // GITHUB SYNC</span>
+                      <span>AUTO-UPDATED ON COMMIT</span>
                     </div>
                   </div>
                 )}

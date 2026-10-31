@@ -33,5 +33,25 @@ describe('API Route: /api/telemetry/svg', () => {
     const text = await res.text();
     expect(text).toContain('monoforge@neo');
   });
+
+  it('returns valid SVG for real contribution heatmap plugin', async () => {
+    const req = new NextRequest('http://localhost:3000/api/telemetry/svg?plugin=heatmap&user=shadcn');
+    const res = await GET(req);
+
+    expect(res.status).toBe(200);
+    const text = await res.text();
+    expect(text).toContain('Annual Contribution Activity Heatmap');
+    expect(text).toContain('@shadcn');
+  });
+
+  it('returns valid SVG for contributor velocity momentum plugin', async () => {
+    const req = new NextRequest('http://localhost:3000/api/telemetry/svg?plugin=velocity&user=torvalds');
+    const res = await GET(req);
+
+    expect(res.status).toBe(200);
+    const text = await res.text();
+    expect(text).toContain('Contributor Velocity &amp; Momentum Radar');
+    expect(text).toContain('@torvalds');
+  });
 });
 

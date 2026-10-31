@@ -18,6 +18,18 @@ export const telemetryIsocalendarPlugin: Plugin = {
       required: false,
     },
     {
+      name: 'format',
+      label: 'Contributor Activity Form',
+      type: 'select',
+      defaultValue: 'isocalendar',
+      options: [
+        { label: '3D Isometric Skyline Landscape', value: 'isocalendar' },
+        { label: '2D Annual Contribution Heatmap', value: 'heatmap' },
+        { label: 'Contributor Velocity & Momentum Radar', value: 'velocity' },
+      ],
+      required: false,
+    },
+    {
       name: 'duration',
       label: 'Isometric Horizon Duration',
       type: 'select',
@@ -30,16 +42,20 @@ export const telemetryIsocalendarPlugin: Plugin = {
     },
   ],
   defaultConfig: {
+    format: 'isocalendar',
     duration: 'half-year',
   },
   renderMarkdown: (props: Record<string, unknown>, settings: UserSettings) => {
     const effectiveUser = resolveEffectiveUsername(props, settings);
     const user = effectiveUser || 'octocat';
     const duration = props.duration === 'full-year' ? 'full-year' : 'half-year';
-    const url = `https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=isocalendar&user=${encodeURIComponent(user)}&duration=${duration}`;
+    const format = props.format === 'heatmap' ? 'heatmap' : props.format === 'velocity' ? 'velocity' : 'isocalendar';
+    const url = `https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=${format}&user=${encodeURIComponent(user)}&duration=${duration}`;
+
+    const title = format === 'heatmap' ? "Annual Contribution Heatmap" : format === 'velocity' ? "Contributor Velocity Radar" : "3D Isometric Calendar";
 
     return {
-      markdown: `<div align="${settings.align || 'center'}">\n  <img src="${url}" alt="${user}'s 3D Isometric Calendar" />\n</div>`,
+      markdown: `<div align="${settings.align || 'center'}">\n  <img src="${url}" alt="${user}'s ${title}" />\n</div>`,
     };
   },
 };

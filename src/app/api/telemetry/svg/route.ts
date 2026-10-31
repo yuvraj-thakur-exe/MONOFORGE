@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {
   generateIsocalendarSvg,
+  generateContributionHeatmapSvg,
+  generateContributionVelocitySvg,
   generateLanguagesDonutSvg,
   generateHabitsRadarSvg,
   generateAchievementsRackSvg,
@@ -9,6 +11,7 @@ import {
   generateMusicPlayerSvg,
   generateLeetCodeStatsSvg,
 } from '#/lib/forge-telemetry/svg-generators';
+import { fetchUserContributions } from '#/lib/github/contributions';
 
 export const runtime = 'nodejs';
 
@@ -23,10 +26,64 @@ export async function GET(request: NextRequest) {
     case 'isocalendar':
     case 'calendar':
     case 'iso': {
-      const streak = searchParams.get('streak') ? parseInt(searchParams.get('streak')!, 10) : undefined;
-      const maxStreak = searchParams.get('max_streak') ? parseInt(searchParams.get('max_streak')!, 10) : undefined;
-      const commits = searchParams.get('commits') ? parseInt(searchParams.get('commits')!, 10) : undefined;
-      svgContent = generateIsocalendarSvg({ username: user, streak, maxStreak, commits });
+      const realStats = await fetchUserContributions(user);
+      const streak = searchParams.get('streak') ? parseInt(searchParams.get('streak')!, 10) : realStats.currentStreak;
+      const maxStreak = searchParams.get('max_streak') ? parseInt(searchParams.get('max_streak')!, 10) : realStats.maxStreak;
+      const commits = searchParams.get('commits') ? parseInt(searchParams.get('commits')!, 10) : realStats.totalContributions;
+      const average = searchParams.get('average') ? parseFloat(searchParams.get('average')!) : realStats.dailyAverage;
+      const highestDay = searchParams.get('highest_day') ? parseInt(searchParams.get('highest_day')!, 10) : realStats.highestDay;
+      const weeksData = realStats.weeks.map(w => w.days.map(d => ({ level: d.level, count: d.count })));
+
+      svgContent = generateIsocalendarSvg({
+        username: user,
+        streak,
+        maxStreak,
+        commits,
+        average,
+        highestDay,
+        weeksData,
+      });
+      break;
+    }
+
+    case 'heatmap':
+    case 'contributions':
+    case 'matrix': {
+      const realStats = await fetchUserContributions(user);
+      const streak = searchParams.get('streak') ? parseInt(searchParams.get('streak')!, 10) : realStats.currentStreak;
+      const maxStreak = searchParams.get('max_streak') ? parseInt(searchParams.get('max_streak')!, 10) : realStats.maxStreak;
+      const commits = searchParams.get('commits') ? parseInt(searchParams.get('commits')!, 10) : realStats.totalContributions;
+      const average = searchParams.get('average') ? parseFloat(searchParams.get('average')!) : realStats.dailyAverage;
+      const highestDay = searchParams.get('highest_day') ? parseInt(searchParams.get('highest_day')!, 10) : realStats.highestDay;
+      const weeksData = realStats.weeks.map(w => w.days.map(d => ({ level: d.level, count: d.count, date: d.date })));
+
+      svgContent = generateContributionHeatmapSvg({
+        username: user,
+        commits,
+        streak,
+        maxStreak,
+        average,
+        highestDay,
+        weeksData,
+      });
+      break;
+    }
+
+    case 'velocity':
+    case 'momentum': {
+      const realStats = await fetchUserContributions(user);
+      const streak = searchParams.get('streak') ? parseInt(searchParams.get('streak')!, 10) : realStats.currentStreak;
+      const maxStreak = searchParams.get('max_streak') ? parseInt(searchParams.get('max_streak')!, 10) : realStats.maxStreak;
+      const commits = searchParams.get('commits') ? parseInt(searchParams.get('commits')!, 10) : realStats.totalContributions;
+      const activeDays = realStats.days.filter(d => d.count > 0).length;
+
+      svgContent = generateContributionVelocitySvg({
+        username: user,
+        commits,
+        streak,
+        maxStreak,
+        activeDays,
+      });
       break;
     }
 

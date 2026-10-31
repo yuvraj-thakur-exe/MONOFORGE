@@ -11,6 +11,26 @@ export interface IsocalendarOptions {
   commits?: number;
   average?: number;
   highestDay?: number;
+  weeksData?: Array<Array<{ level: number; count: number }>>;
+}
+
+export interface ContributionHeatmapOptions {
+  username?: string;
+  commits?: number;
+  streak?: number;
+  maxStreak?: number;
+  average?: number;
+  highestDay?: number;
+  weeksData?: Array<Array<{ level: number; count: number; date?: string }>>;
+}
+
+export interface ContributionVelocityOptions {
+  username?: string;
+  commits?: number;
+  streak?: number;
+  maxStreak?: number;
+  velocityScore?: number;
+  activeDays?: number;
 }
 
 export interface LanguagesOptions {
@@ -96,7 +116,7 @@ function esc(unsafe: string): string {
 }
 
 // ==========================================
-// 1. ISOCALENDAR 3D COMMIT VOXEL GRID
+// 1. ISOCALENDAR 3D COMMIT VOXEL GRID (REAL & SYNTHETIC)
 // ==========================================
 export function generateIsocalendarSvg(options: IsocalendarOptions = {}): string {
   const user = esc(options.username || 'octocat');
@@ -113,14 +133,27 @@ export function generateIsocalendarSvg(options: IsocalendarOptions = {}): string
   const daySpacing = 10;
 
   const voxels: string[] = [];
-  const basePalette = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
+  // Refined GitHub-native green shades for light / soft dark theme
+  const basePalette = ['#f1f5f9', '#86efac', '#4ade80', '#22c55e', '#15803d'];
 
   for (let w = 0; w < weeks; w++) {
     for (let d = 0; d < daysPerWeek; d++) {
-      const seed = Math.sin((w + 1) * 0.45) * Math.cos((d + 1) * 0.8) + Math.sin(w * 0.15) * 0.5;
-      const normalized = Math.max(0, Math.min(1, (seed + 0.9) / 2.1));
-      const level = Math.floor(normalized * 4);
-      const heightVal = Math.round(normalized * size * 1.8);
+      let level = 0;
+      let heightVal = 2;
+
+      // If real week data was provided, use it directly!
+      const realDay = options.weeksData?.[w]?.[d];
+      if (realDay) {
+        level = Math.max(0, Math.min(4, realDay.level));
+        const count = realDay.count || 0;
+        heightVal = level === 0 ? 2 : Math.min(36, Math.max(5, Math.round(level * 7 + (count > 5 ? 5 : 0))));
+      } else {
+        // Fallback seeded realistic mathematical landscape
+        const seed = Math.sin((w + 1) * 0.45) * Math.cos((d + 1) * 0.8) + Math.sin(w * 0.15) * 0.5;
+        const normalized = Math.max(0, Math.min(1, (seed + 0.9) / 2.1));
+        level = Math.floor(normalized * 4);
+        heightVal = Math.round(normalized * size * 1.8);
+      }
 
       const color = basePalette[level];
       const isoX = 140 + w * weekSpacing - d * daySpacing;
@@ -128,9 +161,9 @@ export function generateIsocalendarSvg(options: IsocalendarOptions = {}): string
 
       voxels.push(`
         <g class="voxel" transform="translate(${isoX.toFixed(1)}, ${isoY.toFixed(1)})">
-          <polygon points="0,0 8.5,-4.5 17,0 8.5,4.5" fill="${color}" stroke="#d4d4d8" stroke-width="0.5" />
-          <polygon points="0,0 8.5,4.5 8.5,${(4.5 + heightVal).toFixed(1)} 0,${heightVal.toFixed(1)}" fill="${color}" filter="url(#dim-left)" stroke="#d4d4d8" stroke-width="0.5" />
-          <polygon points="8.5,4.5 17,0 17,${heightVal.toFixed(1)} 8.5,${(4.5 + heightVal).toFixed(1)}" fill="${color}" filter="url(#dim-right)" stroke="#d4d4d8" stroke-width="0.5" />
+          <polygon points="0,0 8.5,-4.5 17,0 8.5,4.5" fill="${color}" stroke="#cbd5e1" stroke-width="0.5" />
+          <polygon points="0,0 8.5,4.5 8.5,${(4.5 + heightVal).toFixed(1)} 0,${heightVal.toFixed(1)}" fill="${color}" filter="url(#dim-left)" stroke="#cbd5e1" stroke-width="0.5" />
+          <polygon points="8.5,4.5 17,0 17,${heightVal.toFixed(1)} 8.5,${(4.5 + heightVal).toFixed(1)}" fill="${color}" filter="url(#dim-right)" stroke="#cbd5e1" stroke-width="0.5" />
         </g>
       `);
     }
@@ -140,20 +173,20 @@ export function generateIsocalendarSvg(options: IsocalendarOptions = {}): string
   <defs>
     <linearGradient id="iso-card-bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ffffff" />
-      <stop offset="100%" stop-color="#fcfcfc" />
+      <stop offset="100%" stop-color="#f8fafc" />
     </linearGradient>
     <filter id="dim-left">
       <feComponentTransfer>
-        <feFuncR type="linear" slope="0.75" />
-        <feFuncG type="linear" slope="0.75" />
-        <feFuncB type="linear" slope="0.75" />
+        <feFuncR type="linear" slope="0.82" />
+        <feFuncG type="linear" slope="0.82" />
+        <feFuncB type="linear" slope="0.82" />
       </feComponentTransfer>
     </filter>
     <filter id="dim-right">
       <feComponentTransfer>
-        <feFuncR type="linear" slope="0.55" />
-        <feFuncG type="linear" slope="0.55" />
-        <feFuncB type="linear" slope="0.55" />
+        <feFuncR type="linear" slope="0.65" />
+        <feFuncG type="linear" slope="0.65" />
+        <feFuncB type="linear" slope="0.65" />
       </feComponentTransfer>
     </filter>
   </defs>
@@ -163,7 +196,7 @@ export function generateIsocalendarSvg(options: IsocalendarOptions = {}): string
     .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
     .pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
     @keyframes pulseGlow {
-      0%, 100% { opacity: 0.85; filter: drop-shadow(0 0 2px #10b981); }
+      0%, 100% { opacity: 0.9; filter: drop-shadow(0 0 2px #10b981); }
       50% { opacity: 1; filter: drop-shadow(0 0 8px #34d399); }
     }
     .wave-float { animation: waveFloat 6s ease-in-out infinite; }
@@ -176,45 +209,45 @@ export function generateIsocalendarSvg(options: IsocalendarOptions = {}): string
     }
   </style>
 
-  <!-- Container Box -->
-  <rect x="1" y="1" width="798" height="368" rx="14" fill="#ffffff" stroke="#18181b" stroke-width="2" />
+  <!-- Container Box with Soft-Dark Outline and Light Surface -->
+  <rect x="1" y="1" width="798" height="368" rx="14" fill="url(#iso-card-bg)" stroke="#334155" stroke-width="2" />
 
   <!-- Card Header -->
   <g transform="translate(28, 36)">
     <circle cx="8" cy="8" r="6" fill="#10b981" class="pulse-glow" />
-    <text x="24" y="13" fill="#18181b" font-size="16" font-weight="700" class="font-base">
+    <text x="24" y="13" fill="#1e293b" font-size="16" font-weight="800" class="font-base">
       Isometric Contribution Landscape
     </text>
-    <text x="315" y="13" fill="#52525b" font-size="13" class="font-mono">
+    <text x="315" y="13" fill="#475569" font-size="13" font-weight="600" class="font-mono">
       @${user}
     </text>
-    <rect x="700" y="-3" width="72" height="22" rx="6" fill="#f4f4f5" stroke="#18181b" stroke-width="1.5" />
-    <text x="736" y="12" fill="#58a6ff" font-size="10" font-weight="600" text-anchor="middle" class="font-mono">
+    <rect x="700" y="-3" width="72" height="22" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5" />
+    <text x="736" y="12" fill="#2563eb" font-size="10" font-weight="700" text-anchor="middle" class="font-mono">
       26 WEEKS
     </text>
   </g>
 
   <!-- Top Telemetry Ribbon -->
   <g transform="translate(28, 70)">
-    <rect x="0" y="0" width="138" height="48" rx="8" fill="#f4f4f5" stroke="#18181b" stroke-width="1.5" />
-    <text x="14" y="20" fill="#52525b" font-size="10" font-weight="600" class="font-mono">CURRENT STREAK</text>
-    <text x="14" y="40" fill="#34d399" font-size="18" font-weight="800" class="font-mono">${streak} <tspan font-size="11" font-weight="500" fill="#52525b">days 🔥</tspan></text>
+    <rect x="0" y="0" width="138" height="48" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="14" y="20" fill="#475569" font-size="10" font-weight="700" class="font-mono">CURRENT STREAK</text>
+    <text x="14" y="40" fill="#059669" font-size="18" font-weight="800" class="font-mono">${streak} <tspan font-size="11" font-weight="600" fill="#64748b">days 🔥</tspan></text>
 
-    <rect x="148" y="0" width="138" height="48" rx="8" fill="#f4f4f5" stroke="#18181b" stroke-width="1.5" />
-    <text x="162" y="20" fill="#52525b" font-size="10" font-weight="600" class="font-mono">BEST STREAK</text>
-    <text x="162" y="40" fill="#18181b" font-size="18" font-weight="800" class="font-mono">${maxStreak} <tspan font-size="11" font-weight="500" fill="#52525b">days</tspan></text>
+    <rect x="148" y="0" width="138" height="48" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="162" y="20" fill="#475569" font-size="10" font-weight="700" class="font-mono">BEST STREAK</text>
+    <text x="162" y="40" fill="#1e293b" font-size="18" font-weight="800" class="font-mono">${maxStreak} <tspan font-size="11" font-weight="600" fill="#64748b">days</tspan></text>
 
-    <rect x="296" y="0" width="138" height="48" rx="8" fill="#f4f4f5" stroke="#18181b" stroke-width="1.5" />
-    <text x="310" y="20" fill="#52525b" font-size="10" font-weight="600" class="font-mono">TOTAL COMMITS</text>
-    <text x="310" y="40" fill="#fbbf24" font-size="18" font-weight="800" class="font-mono">${commits.toLocaleString()}</text>
+    <rect x="296" y="0" width="138" height="48" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="310" y="20" fill="#475569" font-size="10" font-weight="700" class="font-mono">TOTAL COMMITS</text>
+    <text x="310" y="40" fill="#d97706" font-size="18" font-weight="800" class="font-mono">${commits.toLocaleString()}</text>
 
-    <rect x="444" y="0" width="144" height="48" rx="8" fill="#f4f4f5" stroke="#18181b" stroke-width="1.5" />
-    <text x="458" y="20" fill="#52525b" font-size="10" font-weight="600" class="font-mono">DAILY AVERAGE</text>
-    <text x="458" y="40" fill="#18181b" font-size="18" font-weight="800" class="font-mono">~${average} <tspan font-size="11" font-weight="500" fill="#52525b">/ day</tspan></text>
+    <rect x="444" y="0" width="144" height="48" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="458" y="20" fill="#475569" font-size="10" font-weight="700" class="font-mono">DAILY AVERAGE</text>
+    <text x="458" y="40" fill="#1e293b" font-size="18" font-weight="800" class="font-mono">~${average} <tspan font-size="11" font-weight="600" fill="#64748b">/ day</tspan></text>
 
-    <rect x="598" y="0" width="146" height="48" rx="8" fill="#f4f4f5" stroke="#18181b" stroke-width="1.5" />
-    <text x="612" y="20" fill="#52525b" font-size="10" font-weight="600" class="font-mono">PEAK DAY</text>
-    <text x="612" y="40" fill="#58a6ff" font-size="18" font-weight="800" class="font-mono">${highestDay} <tspan font-size="11" font-weight="500" fill="#52525b">commits</tspan></text>
+    <rect x="598" y="0" width="146" height="48" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="612" y="20" fill="#475569" font-size="10" font-weight="700" class="font-mono">PEAK DAY</text>
+    <text x="612" y="40" fill="#2563eb" font-size="18" font-weight="800" class="font-mono">${highestDay} <tspan font-size="11" font-weight="600" fill="#64748b">commits</tspan></text>
   </g>
 
   <!-- 3D Isometric Voxel Mesh -->
@@ -224,16 +257,195 @@ export function generateIsocalendarSvg(options: IsocalendarOptions = {}): string
 
   <!-- Footer Legend -->
   <g transform="translate(28, 345)">
-    <text x="0" y="0" fill="#52525b" font-size="11" class="font-mono">MonoForge Isometric Telemetry</text>
+    <text x="0" y="0" fill="#475569" font-size="11" font-weight="600" class="font-mono">MonoForge Isometric Telemetry</text>
     <g transform="translate(620, -10)">
-      <text x="-40" y="9" fill="#52525b" font-size="10" class="font-mono">Less</text>
-      <rect x="0" y="0" width="10" height="10" rx="2" fill="#161b22" stroke="#30363d" />
-      <rect x="15" y="0" width="10" height="10" rx="2" fill="#0e4429" />
-      <rect x="30" y="0" width="10" height="10" rx="2" fill="#006d32" />
-      <rect x="45" y="0" width="10" height="10" rx="2" fill="#26a641" />
-      <rect x="60" y="0" width="10" height="10" rx="2" fill="#39d353" />
-      <text x="76" y="9" fill="#52525b" font-size="10" class="font-mono">More</text>
+      <text x="-40" y="9" fill="#64748b" font-size="10" font-weight="700" class="font-mono">Less</text>
+      <rect x="0" y="0" width="10" height="10" rx="2" fill="#f1f5f9" stroke="#cbd5e1" />
+      <rect x="15" y="0" width="10" height="10" rx="2" fill="#86efac" stroke="#cbd5e1" />
+      <rect x="30" y="0" width="10" height="10" rx="2" fill="#4ade80" stroke="#cbd5e1" />
+      <rect x="45" y="0" width="10" height="10" rx="2" fill="#22c55e" stroke="#cbd5e1" />
+      <rect x="60" y="0" width="10" height="10" rx="2" fill="#15803d" stroke="#cbd5e1" />
+      <text x="76" y="9" fill="#64748b" font-size="10" font-weight="700" class="font-mono">More</text>
     </g>
+  </g>
+</svg>`;
+}
+
+// ==========================================
+// 1B. 2D ANNUAL CONTRIBUTION HEATMAP MATRIX
+// ==========================================
+export function generateContributionHeatmapSvg(options: ContributionHeatmapOptions = {}): string {
+  const user = esc(options.username || 'octocat');
+  const commits = options.commits ?? 1840;
+  const streak = options.streak ?? 14;
+  const maxStreak = options.maxStreak ?? 42;
+  const average = options.average ?? 5.0;
+  const highestDay = options.highestDay ?? 32;
+
+  const weeks = 52;
+  const daysPerWeek = 7;
+  const cellSize = 10;
+  const cellGap = 3.5;
+  const startX = 54;
+  const startY = 110;
+
+  const basePalette = ['#f1f5f9', '#86efac', '#4ade80', '#22c55e', '#15803d'];
+  const cells: string[] = [];
+
+  for (let w = 0; w < weeks; w++) {
+    for (let d = 0; d < daysPerWeek; d++) {
+      let level = 0;
+      const realDay = options.weeksData?.[w]?.[d];
+      if (realDay) {
+        level = Math.max(0, Math.min(4, realDay.level));
+      } else {
+        const seed = Math.sin((w + 1) * 0.45) * Math.cos((d + 1) * 0.8);
+        const norm = Math.max(0, Math.min(1, (seed + 0.9) / 2.0));
+        level = Math.floor(norm * 4);
+      }
+
+      const x = startX + w * (cellSize + cellGap);
+      const y = startY + d * (cellSize + cellGap);
+      const color = basePalette[level];
+
+      cells.push(`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${cellSize}" height="${cellSize}" rx="2" fill="${color}" stroke="#cbd5e1" stroke-width="0.5" />`);
+    }
+  }
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 240" width="800" height="240" fill="none" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="heatmap-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f8fafc" />
+    </linearGradient>
+  </defs>
+
+  <style>
+    .font-base { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+  </style>
+
+  <!-- Container Box with Soft Slate Outline -->
+  <rect x="1" y="1" width="798" height="238" rx="14" fill="url(#heatmap-bg)" stroke="#334155" stroke-width="2" />
+
+  <!-- Header Section -->
+  <g transform="translate(28, 30)">
+    <circle cx="8" cy="8" r="6" fill="#10b981" />
+    <text x="24" y="13" fill="#1e293b" font-size="15" font-weight="800" class="font-base">
+      Annual Contribution Activity Heatmap
+    </text>
+    <text x="325" y="13" fill="#475569" font-size="12" font-weight="600" class="font-mono">
+      @${user}
+    </text>
+    <rect x="670" y="-3" width="102" height="22" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5" />
+    <text x="721" y="12" fill="#059669" font-size="10" font-weight="800" text-anchor="middle" class="font-mono">
+      ${commits.toLocaleString()} COMMITS
+    </text>
+  </g>
+
+  <!-- Metrics Bar -->
+  <g transform="translate(28, 62)">
+    <text x="0" y="14" fill="#475569" font-size="11" font-weight="700" class="font-mono">
+      CURRENT STREAK: <tspan fill="#059669" font-weight="800">${streak} DAYS 🔥</tspan>
+    </text>
+    <text x="180" y="14" fill="#475569" font-size="11" font-weight="700" class="font-mono">
+      MAX STREAK: <tspan fill="#1e293b" font-weight="800">${maxStreak} DAYS</tspan>
+    </text>
+    <text x="350" y="14" fill="#475569" font-size="11" font-weight="700" class="font-mono">
+      DAILY AVG: <tspan fill="#1e293b" font-weight="800">~${average}/DAY</tspan>
+    </text>
+    <text x="500" y="14" fill="#475569" font-size="11" font-weight="700" class="font-mono">
+      PEAK DAY: <tspan fill="#2563eb" font-weight="800">${highestDay} COMMITS</tspan>
+    </text>
+  </g>
+
+  <!-- Days of week labels -->
+  <g transform="translate(28, 118)" fill="#64748b" font-size="9" font-weight="700" class="font-mono">
+    <text x="0" y="0">Mon</text>
+    <text x="0" y="27">Wed</text>
+    <text x="0" y="54">Fri</text>
+  </g>
+
+  <!-- Heatmap Grid -->
+  <g>
+    ${cells.join('')}
+  </g>
+
+  <!-- Footer Legend -->
+  <g transform="translate(28, 218)">
+    <text x="0" y="0" fill="#64748b" font-size="10" font-weight="600" class="font-mono">52-Week Contribution Matrix</text>
+    <g transform="translate(620, -10)">
+      <text x="-36" y="9" fill="#64748b" font-size="10" font-weight="700" class="font-mono">Less</text>
+      <rect x="0" y="0" width="10" height="10" rx="2" fill="#f1f5f9" stroke="#cbd5e1" />
+      <rect x="14" y="0" width="10" height="10" rx="2" fill="#86efac" stroke="#cbd5e1" />
+      <rect x="28" y="0" width="10" height="10" rx="2" fill="#4ade80" stroke="#cbd5e1" />
+      <rect x="42" y="0" width="10" height="10" rx="2" fill="#22c55e" stroke="#cbd5e1" />
+      <rect x="56" y="0" width="10" height="10" rx="2" fill="#15803d" stroke="#cbd5e1" />
+      <text x="72" y="9" fill="#64748b" font-size="10" font-weight="700" class="font-mono">More</text>
+    </g>
+  </g>
+</svg>`;
+}
+
+// ==========================================
+// 1C. CONTRIBUTOR VELOCITY & MOMENTUM CARD
+// ==========================================
+export function generateContributionVelocitySvg(options: ContributionVelocityOptions = {}): string {
+  const user = esc(options.username || 'octocat');
+  const commits = options.commits ?? 2847;
+  const streak = options.streak ?? 42;
+  const maxStreak = options.maxStreak ?? 189;
+  const velocityScore = options.velocityScore ?? 94;
+  const activeDays = options.activeDays ?? 245;
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 180" width="800" height="180" fill="none" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="velocity-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f8fafc" />
+    </linearGradient>
+  </defs>
+
+  <style>
+    .font-base { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+  </style>
+
+  <!-- Container Box -->
+  <rect x="1" y="1" width="798" height="178" rx="14" fill="url(#velocity-bg)" stroke="#334155" stroke-width="2" />
+
+  <!-- Header -->
+  <g transform="translate(28, 30)">
+    <circle cx="8" cy="8" r="6" fill="#f59e0b" />
+    <text x="24" y="13" fill="#1e293b" font-size="16" font-weight="800" class="font-base">
+      Contributor Velocity &amp; Momentum Radar
+    </text>
+    <text x="350" y="13" fill="#475569" font-size="12" font-weight="600" class="font-mono">
+      @${user}
+    </text>
+  </g>
+
+  <!-- Stat Tiles -->
+  <g transform="translate(28, 62)">
+    <rect x="0" y="0" width="170" height="85" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="16" y="24" fill="#475569" font-size="10" font-weight="700" class="font-mono">ANNUAL COMMITS</text>
+    <text x="16" y="56" fill="#1e293b" font-size="24" font-weight="800" class="font-mono">${commits.toLocaleString()}</text>
+    <text x="16" y="74" fill="#059669" font-size="10" font-weight="700" class="font-mono">Top 2% Globally</text>
+
+    <rect x="190" y="0" width="170" height="85" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="206" y="24" fill="#475569" font-size="10" font-weight="700" class="font-mono">CURRENT STREAK</text>
+    <text x="206" y="56" fill="#d97706" font-size="24" font-weight="800" class="font-mono">${streak} <tspan font-size="13">days 🔥</tspan></text>
+    <text x="206" y="74" fill="#64748b" font-size="10" font-weight="700" class="font-mono">Record: ${maxStreak} days</text>
+
+    <rect x="380" y="0" width="170" height="85" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="396" y="24" fill="#475569" font-size="10" font-weight="700" class="font-mono">ACTIVE DAYS</text>
+    <text x="396" y="56" fill="#2563eb" font-size="24" font-weight="800" class="font-mono">${activeDays} <tspan font-size="13">/ 365</tspan></text>
+    <text x="396" y="74" fill="#64748b" font-size="10" font-weight="700" class="font-mono">${Math.round((activeDays / 365) * 100)}% consistency</text>
+
+    <rect x="570" y="0" width="174" height="85" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="586" y="24" fill="#475569" font-size="10" font-weight="700" class="font-mono">VELOCITY INDEX</text>
+    <text x="586" y="56" fill="#7c3aed" font-size="24" font-weight="800" class="font-mono">${velocityScore}<tspan font-size="14">/100</tspan></text>
+    <text x="586" y="74" fill="#059669" font-size="10" font-weight="700" class="font-mono">Elite Momentum</text>
   </g>
 </svg>`;
 }

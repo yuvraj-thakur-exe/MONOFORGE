@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import {
   generateIsocalendarSvg,
+  generateContributionHeatmapSvg,
+  generateContributionVelocitySvg,
   generateLanguagesDonutSvg,
   generateHabitsRadarSvg,
   generateAchievementsRackSvg,
@@ -19,6 +21,26 @@ describe('MonoForge Telemetry SVG Generator Suite', () => {
     expect(svg).toContain('45');
     expect(svg).not.toContain('<foreignObject>');
     expect(svg).not.toContain('<script>');
+  });
+
+  it('generates valid 2D Annual Contribution Heatmap SVG', () => {
+    const svg = generateContributionHeatmapSvg({ username: 'shadcn', commits: 1840, streak: 14 });
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('Annual Contribution Activity Heatmap');
+    expect(svg).toContain('@shadcn');
+    expect(svg).toContain('1,840 COMMITS');
+    expect(svg).toContain('14 DAYS 🔥');
+    expect(svg).not.toContain('<foreignObject>');
+    expect(svg).not.toContain('<script>');
+  });
+
+  it('generates valid Contributor Velocity & Momentum SVG', () => {
+    const svg = generateContributionVelocitySvg({ username: 'torvalds', commits: 2847, streak: 42 });
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('Contributor Velocity &amp; Momentum Radar');
+    expect(svg).toContain('@torvalds');
+    expect(svg).toContain('2,847');
+    expect(svg).not.toContain('<foreignObject>');
   });
 
   it('generates valid Languages Donut SVG', () => {
