@@ -17,6 +17,7 @@ import {
 import { useState, useEffect } from 'react';
 import { ThemeToggle } from '#/components/theme/ThemeToggle';
 import { MonoForgeMonkeyIcon } from '#/components/common/MonoForgeLogo';
+import { GitHubSyncModal } from '#/components/sync/GitHubSyncModal';
 
 export function TopNav() {
   const pathname = usePathname();
@@ -28,6 +29,7 @@ export function TopNav() {
 
   const [isMuted, setIsMuted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -207,8 +209,21 @@ export function TopNav() {
       </div>
 
       {/* Mobile Drawer Navigation (Slide-down with full touch targets) */}
+      <GitHubSyncModal isOpen={isSyncModalOpen} onClose={() => setIsSyncModalOpen(false)} />
+
       {mobileMenuOpen && (
         <div className="md:hidden border-t-2 border-neutral-900 bg-white p-4 space-y-2.5 animate-in slide-in-from-top-2 duration-150">
+          <button
+            type="button"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              setIsSyncModalOpen(true);
+            }}
+            className="w-full flex items-center justify-center gap-2 p-3 rounded-xl border-2 border-neutral-900 bg-[#ffe600] text-neutral-950 font-mono text-xs font-black shadow-[2px_2px_0px_#18181b] cursor-pointer"
+          >
+            <Github className="w-4 h-4" />
+            <span>CONNECT &amp; PUSH TO GITHUB</span>
+          </button>
           <Link
             href="/wizard"
             onClick={() => setMobileMenuOpen(false)}
