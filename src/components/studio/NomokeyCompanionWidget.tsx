@@ -29,9 +29,9 @@ export function NomokeyCompanionWidget() {
     pathname?.includes('/wizard') ||
     pathname?.includes('/canvas');
 
-  if (isWorkspace) return null;
 
   useEffect(() => {
+    if (isWorkspace) return;
     const handleScroll = () => {
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (totalHeight > 0) {
@@ -65,7 +65,7 @@ export function NomokeyCompanionWidget() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [isWorkspace]);
 
   const feedBanana = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -90,6 +90,8 @@ export function NomokeyCompanionWidget() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  if (isWorkspace) return null;
 
   return (
     <>

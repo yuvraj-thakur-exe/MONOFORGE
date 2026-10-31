@@ -29,7 +29,8 @@ export function InitialPageLoader() {
   return (
     <div
       aria-hidden="true"
-      className={`fixed inset-0 z-9999 flex flex-col items-center justify-center bg-white dark:bg-[#0f172a] pointer-events-none transition-opacity duration-400 ease-out ${
+      suppressHydrationWarning
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white dark:bg-[#0f172a] pointer-events-none transition-opacity duration-400 ease-out ${
         visible ? 'opacity-100' : 'opacity-0'
       }`}
     >
