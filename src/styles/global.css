@@ -167,33 +167,31 @@ button * {
   cursor: pointer;
 }
 
-input,
-textarea {
-  cursor: text;
-}
+@layer base {
+  body {
+    @apply font-sans text-sm text-palette-contrast font-normal bg-palette-base;
+  }
 
-body,
-input,
-textarea {
-  @apply font-sans text-sm text-palette-contrast font-normal;
-}
+  input,
+  textarea {
+    @apply font-sans text-sm font-normal;
+    cursor: text;
+    color: inherit;
+  }
 
-button {
-  @apply font-sans text-sm font-normal;
-  color: inherit;
-}
+  button {
+    @apply font-sans text-sm font-normal;
+    color: inherit;
+  }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply font-semibold;
-}
-
-body {
-  @apply bg-palette-base;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold;
+  }
 }
 
 .scrollbar::-webkit-scrollbar {

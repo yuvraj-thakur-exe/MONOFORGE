@@ -1,11 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Link } from '#/i18n/navigation';
 import {
   Copy,
   Check,
-  Code2,
   RefreshCw,
   AlertCircle,
   Loader2,
@@ -95,7 +93,7 @@ export function LivePlaygroundBar() {
     });
     setAdded(true);
     toast.success(`Added ${activePlugin.toUpperCase()} to your profile README!`, {
-      description: 'Open the /developer IDE or Visual Studio to preview and commit to GitHub.',
+      description: 'Your contribution widget has been saved to your active profile config.',
     });
     setTimeout(() => setAdded(false), 2500);
   };
@@ -108,18 +106,18 @@ export function LivePlaygroundBar() {
   };
 
   return (
-    <section className="relative bg-white border-b-2 border-neutral-900 py-12 sm:py-16 px-4 sm:px-6 transition-colors">
+    <section className="relative bg-[#fafbfc] dark:bg-[#1e293b]/50 border-b-2 border-slate-300 dark:border-slate-700 py-12 sm:py-16 px-4 sm:px-6 transition-colors">
       <div className="max-w-5xl mx-auto space-y-8">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-2 border-neutral-900 pb-5">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-2 border-slate-300 dark:border-slate-700 pb-5">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-neutral-950 mb-1.5">
-              <span className="px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b]">
+            <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-200 mb-1.5">
+              <span className="px-2 py-0.5 rounded bg-[#ffe600] text-slate-950 font-black border border-slate-400 shadow-2xs">
                 LIVE SANDBOX
               </span>
-              <span className="font-bold text-neutral-800">INSTANT TELEMETRY PREVIEW</span>
+              <span className="font-bold text-slate-600 dark:text-slate-400">INSTANT TELEMETRY PREVIEW</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-neutral-950 uppercase font-sans">
+            <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white uppercase font-sans">
               TEST YOUR GITHUB HANDLE LIVE.
             </h2>
           </div>
@@ -129,7 +127,7 @@ export function LivePlaygroundBar() {
         <div className="space-y-2">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <div className="relative flex-1">
-              <span className="absolute left-3.5 top-3 text-sm font-mono text-neutral-600 font-bold select-none">@</span>
+              <span className="absolute left-3.5 top-3 text-sm font-mono text-slate-500 dark:text-slate-400 font-bold select-none">@</span>
               <input
                 type="text"
                 value={inputVal}
@@ -139,9 +137,9 @@ export function LivePlaygroundBar() {
                   setHasError(false);
                 }}
                 placeholder="github-username"
-                className={`w-full pl-8 pr-4 py-2.5 rounded-xl border-2 bg-white text-neutral-950 font-mono text-sm font-bold shadow-[2px_2px_0px_#18181b] focus:outline-hidden ${
+                className={`w-full pl-8 pr-4 py-2.5 rounded-xl border-2 bg-white dark:bg-slate-800 text-slate-950 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 font-mono text-sm font-bold shadow-[2px_2px_0px_#334155] dark:shadow-[2px_2px_0px_#475569] focus:outline-hidden ${
                   isValidInput
-                    ? 'border-neutral-900 focus:border-[#ffe600]'
+                    ? 'border-slate-300 dark:border-slate-700 focus:border-[#ffe600] dark:focus:border-[#ffe600]'
                     : 'border-red-500 focus:border-red-500 bg-red-50/30'
                 }`}
               />
@@ -149,7 +147,7 @@ export function LivePlaygroundBar() {
 
             {/* Sample Handle Pills */}
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
-              <span className="text-[11px] font-mono text-neutral-800 font-black hidden md:inline">TRY:</span>
+              <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300 font-black hidden md:inline">TRY:</span>
               {SAMPLE_USERS.map((user) => (
                 <button
                   key={user}
@@ -163,8 +161,8 @@ export function LivePlaygroundBar() {
                   }}
                   className={`px-2.5 py-2 rounded-lg font-mono text-xs font-bold border-2 transition-all cursor-pointer shrink-0 btn-tactile ${
                     effectiveUsername === user
-                      ? 'bg-[#ffe600] text-neutral-950 border-neutral-950 shadow-[2px_2px_0px_#18181b] font-black'
-                      : 'bg-white text-neutral-900 border-neutral-900 hover:bg-[#ffe600] hover:text-neutral-950'
+                      ? 'bg-[#ffe600] text-slate-950 border-slate-900 shadow-[2px_2px_0px_#334155] font-black'
+                      : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-slate-300 dark:border-slate-700 hover:bg-[#ffe600] hover:text-slate-950 dark:hover:bg-[#ffe600] dark:hover:text-slate-950'
                   }`}
                 >
                   @{user}
@@ -182,7 +180,7 @@ export function LivePlaygroundBar() {
         </div>
 
         {/* Contributor Activity & Telemetry Form Selector Tabs */}
-        <div className="flex items-center gap-2 border-b-2 border-slate-300 pb-3 overflow-x-auto scrollbar-none">
+        <div className="flex items-center gap-2 border-b-2 border-slate-300 dark:border-slate-700 pb-3 overflow-x-auto scrollbar-none">
           {[
             { id: 'isocalendar', label: '3D ISOMETRIC CALENDAR' },
             { id: 'heatmap', label: '2D ANNUAL HEATMAP' },
@@ -202,7 +200,7 @@ export function LivePlaygroundBar() {
               className={`px-3 py-1.5 rounded-lg font-mono text-xs font-black transition-all border-2 cursor-pointer shrink-0 btn-tactile ${
                 activePlugin === tab.id
                   ? 'bg-[#ffe600] text-slate-950 border-slate-900 shadow-[2px_2px_0px_#334155]'
-                  : 'bg-white text-slate-700 border-slate-300 hover:border-slate-700 hover:text-slate-950'
+                  : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-500 hover:text-slate-950 dark:hover:text-white'
               }`}
             >
               {tab.label}
@@ -211,47 +209,47 @@ export function LivePlaygroundBar() {
         </div>
 
         {/* Live SVG Preview Card with Real-Data Telemetry Strip */}
-        <div className="rounded-2xl border-2 border-slate-400 bg-white p-4 sm:p-8 shadow-[6px_6px_0px_#334155] space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b-2 border-slate-200 text-xs font-mono">
+        <div className="rounded-2xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/90 p-4 sm:p-8 shadow-[6px_6px_0px_#334155] dark:shadow-[6px_6px_0px_#475569] space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b-2 border-slate-200 dark:border-slate-700 text-xs font-mono">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="font-black text-slate-900">
+              <span className="font-black text-slate-900 dark:text-white">
                 LIVE OUTPUT FOR @{effectiveUsername}
               </span>
-              <span className="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300">
+              <span className="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
                 DYNAMIC REAL DATA
               </span>
             </div>
-            <span className="text-[11px] text-slate-600 font-bold hidden sm:inline">
+            <span className="text-[11px] text-slate-600 dark:text-slate-400 font-bold hidden sm:inline">
               100% GITHUB CAMO CDN SAFE // UPDATES WITH CONTRIBUTIONS
             </span>
           </div>
 
           {/* Live Real Telemetry Metrics Strip */}
           {liveStats && (
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200 font-mono">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 font-mono">
               <div className="space-y-0.5">
-                <span className="text-[10px] text-slate-500 font-bold uppercase block">YEARLY COMMITS</span>
-                <span className="text-base sm:text-lg font-black text-slate-900">
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase block">YEARLY COMMITS</span>
+                <span className="text-base sm:text-lg font-black text-slate-900 dark:text-white">
                   {liveStats.totalContributions.toLocaleString()}
                 </span>
               </div>
               <div className="space-y-0.5">
-                <span className="text-[10px] text-slate-500 font-bold uppercase block">ACTIVE STREAK</span>
-                <span className="text-base sm:text-lg font-black text-emerald-700 flex items-center gap-1">
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase block">ACTIVE STREAK</span>
+                <span className="text-base sm:text-lg font-black text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
                   <span>{liveStats.currentStreak} days</span>
                   <Flame className="w-4 h-4 fill-amber-500 text-amber-500" />
                 </span>
               </div>
               <div className="space-y-0.5">
-                <span className="text-[10px] text-slate-500 font-bold uppercase block">PEAK DAY</span>
-                <span className="text-base sm:text-lg font-black text-blue-700">
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase block">PEAK DAY</span>
+                <span className="text-base sm:text-lg font-black text-blue-700 dark:text-blue-400">
                   {liveStats.highestDay} commits
                 </span>
               </div>
               <div className="space-y-0.5">
-                <span className="text-[10px] text-slate-500 font-bold uppercase block">DAILY AVG</span>
-                <span className="text-base sm:text-lg font-black text-slate-800">
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase block">DAILY AVG</span>
+                <span className="text-base sm:text-lg font-black text-slate-800 dark:text-slate-200">
                   ~{liveStats.dailyAverage}/day
                 </span>
               </div>
@@ -259,18 +257,18 @@ export function LivePlaygroundBar() {
           )}
 
           {/* SVG Frame with Skeleton & Error Handling */}
-          <div className="relative p-4 rounded-xl bg-slate-50 border-2 border-slate-300 flex items-center justify-center min-h-[180px] overflow-x-auto">
+          <div className="relative p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 flex items-center justify-center min-h-[180px] overflow-x-auto">
             {loading && !hasError && (
-              <div className="absolute inset-0 bg-white/90 flex flex-col items-center justify-center gap-2 z-10">
+              <div className="absolute inset-0 bg-white/90 dark:bg-slate-900/90 flex flex-col items-center justify-center gap-2 z-10">
                 <Loader2 className="w-6 h-6 animate-spin text-amber-500" />
-                <span className="text-xs font-mono font-bold text-slate-700">Fetching Real Contributor Activity...</span>
+                <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300">Fetching Real Contributor Activity...</span>
               </div>
             )}
 
             {hasError ? (
               <div className="flex flex-col items-center justify-center gap-3 py-6 text-center">
                 <AlertCircle className="w-8 h-8 text-amber-500" />
-                <p className="text-xs font-mono text-slate-700">
+                <p className="text-xs font-mono text-slate-700 dark:text-slate-300">
                   Could not load preview for @{effectiveUsername}.
                 </p>
                 <button
@@ -301,8 +299,8 @@ export function LivePlaygroundBar() {
           </div>
 
           {/* Action Row: Add to Profile, Copy Markdown, Open IDE */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2 border-t border-slate-200">
-            <span className="text-xs font-mono text-slate-500 truncate max-w-sm">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2 border-t border-slate-200 dark:border-slate-700">
+            <span className="text-xs font-mono text-slate-500 dark:text-slate-400 truncate max-w-sm">
               {embedUrl}
             </span>
 
@@ -327,14 +325,6 @@ export function LivePlaygroundBar() {
                 {copied ? <Check className="w-3.5 h-3.5 text-slate-950" /> : <Copy className="w-3.5 h-3.5 text-slate-950" />}
                 <span>{copied ? 'COPIED TO CLIPBOARD!' : 'COPY CAMO MARKDOWN'}</span>
               </button>
-
-              <Link
-                href="/developer"
-                className="flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-white text-slate-900 font-mono text-xs font-bold border-2 border-slate-400 shadow-[2px_2px_0px_#334155] hover:bg-slate-100 transition-all cursor-pointer btn-tactile"
-              >
-                <Code2 className="w-3.5 h-3.5" />
-                <span>OPEN IN /DEVELOPER</span>
-              </Link>
             </div>
           </div>
         </div>

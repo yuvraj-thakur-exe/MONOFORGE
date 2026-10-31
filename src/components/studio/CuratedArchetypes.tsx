@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Link } from '#/i18n/navigation';
-import { Code2, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { TemplateGallery } from '#/components/landing/TemplateGallery';
 import { playClickSound } from '#/lib/sound/sound-effects';
 
@@ -129,19 +129,10 @@ export function CuratedArchetypes() {
                 <Link
                   href={`/developer?template=${arch.id}&mode=visual`}
                   onClick={() => playClickSound()}
-                  className="px-3.5 py-2 rounded-xl bg-[#ffe600] text-slate-950 text-xs font-mono font-black border-2 border-slate-900 shadow-[2px_2px_0px_#334155] hover:bg-[#ffdf00] inline-flex items-center gap-1.5 transition-all btn-tactile"
+                  className="w-full justify-center px-3.5 py-2 rounded-xl bg-[#ffe600] text-slate-950 text-xs font-mono font-black border-2 border-slate-900 shadow-[2px_2px_0px_#334155] hover:bg-[#ffdf00] inline-flex items-center gap-1.5 transition-all btn-tactile"
                 >
                   <span>Use Template</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </Link>
-
-                <Link
-                  href={`/developer?template=${arch.id}&mode=editor`}
-                  onClick={() => playClickSound()}
-                  className="p-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-white border-2 border-slate-300 dark:border-slate-700 shadow-[2px_2px_0px_#334155] transition-all btn-tactile"
-                  title="Edit in Monaco Raw Mode"
-                >
-                  <Code2 className="w-4 h-4" />
                 </Link>
               </div>
             </div>
