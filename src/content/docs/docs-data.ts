@@ -1549,3 +1549,4 @@ export function searchDocs(query: string): DocItem[] {
     return titleMatch || descMatch || categoryMatch || headingMatch || contentMatch;
   });
 }
+

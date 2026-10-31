@@ -92,3 +92,4 @@ This is a test paragraph with **bold text** and \`inline code\`.
     expect(screen.getByText(/First item/i)).toBeDefined();
   });
 });
+

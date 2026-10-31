@@ -50,3 +50,4 @@ export default async function DocsPage({ params }: DocsPageProps) {
 
   return <DocsLayout currentDoc={doc} />;
 }
+

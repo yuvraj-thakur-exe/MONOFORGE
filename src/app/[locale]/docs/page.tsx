@@ -20,3 +20,4 @@ export default function DocsIndexPage() {
   }
   return <DocsLayout currentDoc={doc} />;
 }
+
