@@ -13,6 +13,8 @@ import { CyberMonkeyCopilot } from '#/components/mascot/CyberMonkeyCopilot';
 import { MonoForgeMonkeyIcon } from '#/components/common/MonoForgeLogo';
 import { EditorSkeleton } from '#/components/developer/EditorSkeleton';
 import { TEMPLATES } from '#/lib/templates/catalog';
+import { buildMarkdown } from '#/lib/buildMarkdown';
+import confetti from 'canvas-confetti';
 import {
   Sparkles,
   Layers,
@@ -22,6 +24,9 @@ import {
   BookOpen,
   Eye,
   FileCode2,
+  Columns2,
+  Copy,
+  Check,
 } from 'lucide-react';
 
 const Editor = dynamic(
@@ -42,6 +47,24 @@ function LocalizedDeveloperContent() {
   const [showCopilot, setShowCopilot] = useState<boolean>(false);
   const [isSyncModalOpen, setIsSyncModalOpen] = useState<boolean>(false);
   const [mobileTab, setMobileTab] = useState<'editor' | 'preview' | 'plugins' | 'copilot'>('editor');
+  const [desktopView, setDesktopView] = useState<'split' | 'editor' | 'preview'>('split');
+  const [copiedMd, setCopiedMd] = useState<boolean>(false);
+
+  const handleQuickCopy = () => {
+    try {
+      const md = buildMarkdown(config);
+      navigator.clipboard?.writeText(md);
+      setCopiedMd(true);
+      setTimeout(() => setCopiedMd(false), 2000);
+      try {
+        confetti({ particleCount: 30, spread: 50, origin: { y: 0.8 }, colors: ['#ffe600', '#06b6d4'] });
+      } catch {
+        // Ignored
+      }
+    } catch {
+      // Fallback
+    }
+  };
 
   // Decode config or load template from URL if provided (?config=base64 or ?template=id)
   useEffect(() => {
@@ -215,6 +238,60 @@ function LocalizedDeveloperContent() {
 
         {/* Global Navigation Shortcuts */}
         <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Desktop Layout Switcher: Split / Editor / Preview */}
+          <div className="hidden lg:flex items-center bg-white p-1 rounded-xl border-2 border-neutral-900 gap-1 shadow-[2px_2px_0px_#18181b]">
+            <button
+              type="button"
+              onClick={() => setDesktopView('split')}
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                desktopView === 'split'
+                  ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs'
+                  : 'text-neutral-700 hover:text-neutral-950 hover:bg-neutral-100'
+              }`}
+              title="Split View (Editor + Preview)"
+            >
+              <Columns2 className="w-3.5 h-3.5" />
+              <span>Split</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setDesktopView('editor')}
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                desktopView === 'editor'
+                  ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs'
+                  : 'text-neutral-700 hover:text-neutral-950 hover:bg-neutral-100'
+              }`}
+              title="Editor Fullscreen"
+            >
+              <FileCode2 className="w-3.5 h-3.5" />
+              <span>Editor</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setDesktopView('preview')}
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                desktopView === 'preview'
+                  ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs'
+                  : 'text-neutral-700 hover:text-neutral-950 hover:bg-neutral-100'
+              }`}
+              title="Preview Fullscreen"
+            >
+              <Eye className="w-3.5 h-3.5" />
+              <span>Preview</span>
+            </button>
+          </div>
+
+          {/* Quick Copy Markdown Action */}
+          <button
+            type="button"
+            onClick={handleQuickCopy}
+            className="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-950 text-white hover:bg-[#ffe600] hover:text-neutral-950 text-xs font-mono font-bold transition-all border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] cursor-pointer"
+            title="1-Click Copy Generated Markdown"
+          >
+            {copiedMd ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-[#ffe600]" />}
+            <span>{copiedMd ? 'COPIED MD' : 'COPY MD'}</span>
+          </button>
+
           <Link
             href="/wizard"
             className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-[#ffe600] hover:text-neutral-950 text-neutral-950 text-xs font-mono font-bold transition-all border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] btn-tactile"
@@ -265,9 +342,13 @@ function LocalizedDeveloperContent() {
 
         {/* Center: Monaco JSON Editor */}
         <section
-          className={`flex-1 min-w-[280px] h-full ${
-            mobileTab === 'editor' ? 'block' : 'hidden md:block'
-          }`}
+          className={`h-full ${
+            desktopView === 'preview'
+              ? 'hidden'
+              : desktopView === 'editor'
+              ? 'flex-1 w-full'
+              : 'flex-1 min-w-[280px]'
+          } ${mobileTab === 'editor' ? 'block' : 'hidden md:block'}`}
         >
           <Editor />
         </section>
@@ -288,9 +369,13 @@ function LocalizedDeveloperContent() {
 
         {/* Right: Live Markdown Preview */}
         <section
-          className={`flex-1 min-w-[280px] h-full ${
-            mobileTab === 'preview' ? 'block' : 'hidden lg:block'
-          }`}
+          className={`h-full ${
+            desktopView === 'editor'
+              ? 'hidden'
+              : desktopView === 'preview'
+              ? 'flex-1 w-full'
+              : 'flex-1 min-w-[280px]'
+          } ${mobileTab === 'preview' ? 'block' : 'hidden lg:block'}`}
         >
           <LivePreview />
         </section>

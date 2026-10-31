@@ -31,7 +31,6 @@ import { Modal } from '#/components/molecules/modal';
 import { Features } from '#/features';
 import { routing } from '#/i18n/routing';
 import { ThemeProvider } from '#/components/theme/ThemeProvider';
-import { ClickEffect } from '#/components/studio/ClickEffect';
 import { NomokeyCompanionWidget } from '#/components/studio/NomokeyCompanionWidget';
 import { RouteLoadingIndicator } from '#/components/common/RouteLoadingIndicator';
 import { StudioCursor } from '#/components/studio/StudioCursor';
@@ -202,7 +201,6 @@ export default async function RootLayout({
         <ThemeProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <RouteLoadingIndicator />
-            <ClickEffect />
             <StudioCursor />
             <NomokeyCompanionWidget />
             <Handles />

@@ -1,10 +1,15 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 export function StudioCursor() {
+  const pathname = usePathname();
+  const isDeveloperPage = pathname?.includes('/developer');
+
   const [isVisible, setIsVisible] = useState(false);
-  const [hoverLabel, setHoverLabel] = useState<string | null>(null);
+  const [isInteractive, setIsInteractive] = useState(false);
+  const [isTextInput, setIsTextInput] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
 
   const dotRef = useRef<HTMLDivElement | null>(null);
@@ -15,7 +20,7 @@ export function StudioCursor() {
   const animFrameId = useRef<number | null>(null);
 
   useEffect(() => {
-    // Only enable on desktop devices with fine pointer
+    // Only enable on desktop devices with fine pointer (mouse)
     if (typeof window === 'undefined' || !window.matchMedia('(pointer: fine)').matches) {
       return;
     }
@@ -29,27 +34,20 @@ export function StudioCursor() {
         dotRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
       }
 
-      // Check hovered element for context-aware cursor labels
+      // Check hovered element
       const target = e.target as HTMLElement | null;
       if (target) {
-        if (target.closest('[data-cursor-label]')) {
-          const el = target.closest('[data-cursor-label]') as HTMLElement;
-          setHoverLabel(el.getAttribute('data-cursor-label') || 'VIEW');
-        } else if (target.closest('button[title*="feed"], [data-banana]')) {
-          setHoverLabel('FEED 🍌');
-        } else if (target.closest('button[title*="Copy"], [data-copy]')) {
-          setHoverLabel('COPY');
-        } else if (target.closest('a[href*="developer"], button[title*="Monaco"]')) {
-          setHoverLabel('CODE ⚡');
-        } else if (target.closest('a[href*="wizard"], button[title*="Visual"]')) {
-          setHoverLabel('FORGE');
-        } else if (target.closest('.interactive-sticker, [data-draggable]')) {
-          setHoverLabel('GRAB');
-        } else if (target.closest('button, a, [role="button"], input, select, textarea, .tab-pill, .btn-tactile')) {
-          setHoverLabel('CLICK');
-        } else {
-          setHoverLabel(null);
-        }
+        // If hovering over Monaco editor, text inputs, textareas, or code blocks, hide custom cursor
+        const isText = Boolean(
+          target.closest('.monaco-editor, .monaco-mouse-cursor-text, input, textarea, [contenteditable="true"], pre, code')
+        );
+        setIsTextInput(isText);
+
+        // Subtle interactive hover state (buttons, links, controls) without text popups
+        const isClickable = Boolean(
+          target.closest('button, a, [role="button"], .btn-tactile, .tab-pill, [data-draggable]')
+        );
+        setIsInteractive(isClickable);
       }
     };
 
@@ -64,14 +62,14 @@ export function StudioCursor() {
     document.addEventListener('mouseleave', onMouseLeave);
     document.addEventListener('mouseenter', onMouseEnter);
 
-    // Smooth Lerp loop for the trailing magnetic ring (NoMonkey / Poulo physics)
+    // Smooth physics lerp loop for the trailing ring
     let lastTime = performance.now();
     const render = (time: number) => {
       const dt = Math.min((time - lastTime) / 16.67, 2.0);
       lastTime = time;
 
-      // Lerp factor: 0.16 for responsive spring trailing
-      const lerpFactor = 0.16 * dt;
+      // Spring trailing physics: 0.20 lerp factor
+      const lerpFactor = 0.20 * dt;
       ringPos.current.x += (mousePos.current.x - ringPos.current.x) * lerpFactor;
       ringPos.current.y += (mousePos.current.y - ringPos.current.y) * lerpFactor;
 
@@ -96,11 +94,12 @@ export function StudioCursor() {
     };
   }, [isVisible]);
 
-  if (!isVisible) return null;
+  // Don't render on developer page or when invisible or inside code/text editor
+  if (!isVisible || isDeveloperPage || isTextInput) return null;
 
   return (
     <>
-      {/* 1. Instant Center Dot */}
+      {/* 1. Precision Center Dot */}
       <div
         ref={dotRef}
         aria-hidden="true"
@@ -108,13 +107,15 @@ export function StudioCursor() {
         style={{ transform: `translate3d(${mousePos.current.x}px, ${mousePos.current.y}px, 0)` }}
       >
         <div
-          className={`-translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full transition-transform duration-100 ${
-            hoverLabel ? 'scale-0' : 'scale-100 bg-neutral-950'
+          className={`-translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-150 ${
+            isInteractive
+              ? 'w-1.5 h-1.5 bg-[#ffe600] ring-1 ring-neutral-900 shadow-2xs'
+              : 'w-1.5 h-1.5 bg-neutral-950'
           }`}
         />
       </div>
 
-      {/* 2. Magnetic Spring Ring with Dynamic Hover Label */}
+      {/* 2. Fluid Trailing Circle Follower (Clean, Subtle, No Text Bubbles) */}
       <div
         ref={ringRef}
         aria-hidden="true"
@@ -122,20 +123,14 @@ export function StudioCursor() {
         style={{ transform: `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0)` }}
       >
         <div
-          className={`-translate-x-1/2 -translate-y-1/2 rounded-full border-2 transition-all duration-200 ease-out flex items-center justify-center font-mono font-black select-none ${
-            hoverLabel
-              ? 'w-14 h-14 bg-[#ffe600] border-neutral-950 text-neutral-950 shadow-[3px_3px_0px_#18181b] scale-110'
+          className={`-translate-x-1/2 -translate-y-1/2 rounded-full border-2 transition-all duration-200 ease-out ${
+            isInteractive
+              ? 'w-9 h-9 border-[#ffe600] bg-[#ffe600]/15 shadow-sm scale-110'
               : isClicking
-              ? 'w-7 h-7 bg-[#ffe600] border-neutral-950 scale-90'
-              : 'w-8 h-8 bg-transparent border-neutral-900 scale-100 shadow-2xs'
+              ? 'w-5 h-5 border-neutral-950 bg-neutral-950/20 scale-90'
+              : 'w-7 h-7 border-neutral-900/50 bg-transparent scale-100 shadow-2xs'
           }`}
-        >
-          {hoverLabel && (
-            <span className="text-[9px] tracking-tighter uppercase text-center animate-in zoom-in-50 duration-150 leading-none px-1">
-              {hoverLabel}
-            </span>
-          )}
-        </div>
+        />
       </div>
     </>
   );

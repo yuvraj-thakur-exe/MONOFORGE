@@ -141,6 +141,11 @@ export const Editor: React.FC<EditorProps> = ({ theme, className = '' }) => {
             tabSize: 2,
             wordWrap: 'on',
             formatOnPaste: true,
+            cursorBlinking: 'smooth',
+            cursorSmoothCaretAnimation: 'on',
+            smoothScrolling: true,
+            bracketPairColorization: { enabled: true },
+            guides: { bracketPairs: true, indentation: true },
             fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
           }}
         />

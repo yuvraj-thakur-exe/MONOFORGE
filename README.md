@@ -2,7 +2,7 @@
 
   <!-- MonoForge Official Geometric Monkey Logo (Exact Uploaded Identity) -->
   <a href="https://monoforge-studio.vercel.app">
-    <img src="https://monoforge-studio.vercel.app/assets/monoforge-monkey-logo.jpg" width="160" height="160" alt="MonoForge Official Logo" style="border-radius: 28px; border: 3px solid #18181b;" />
+    <img src="./public/assets/monoforge-monkey-logo.jpg" width="160" height="160" alt="MonoForge Official Logo" style="border-radius: 28px; border: 3px solid #18181b;" />
   </a>
 
   <br />
@@ -51,7 +51,7 @@
 
 <!-- SIGNATURE CYBER MONKEY BANNER -->
 <p align="center">
-  <img src="https://monoforge-studio.vercel.app/assets/monkey-code-hud.svg" width="100%" alt="MonoForge Cyber Monkey Workstation HUD" />
+  <img src="./public/assets/monkey-code-hud.svg" width="100%" alt="MonoForge Cyber Monkey Workstation HUD" />
 </p>
 
 ---
@@ -67,10 +67,10 @@ Generate telemetry that can be embedded everywhere, including your GitHub profil
   </tr>
   <tr>
     <td align="center">
-      <img alt="User Classic Profile Telemetry" width="420" src="https://monoforge-studio.vercel.app/assets/about-me-telemetry.svg" />
+      <img alt="User Classic Profile Telemetry" width="420" src="./public/assets/about-me-telemetry.svg" />
     </td>
     <td align="center">
-      <img alt="Organization Dashboard Telemetry" width="420" src="https://monoforge-studio.vercel.app/assets/bento-dashboard-full.svg" />
+      <img alt="Organization Dashboard Telemetry" width="420" src="./public/assets/bento-dashboard-full.svg" />
     </td>
   </tr>
   <tr>
@@ -86,21 +86,21 @@ Generate telemetry that can be embedded everywhere, including your GitHub profil
     <td align="center">
       <details open>
         <summary>3D Isometric Full Year Sphere</summary>
-        <img alt="3D Isometric Calendar" width="420" src="https://monoforge-studio.vercel.app/assets/telemetry-isocalendar-3d.svg" />
+        <img alt="3D Isometric Calendar" width="420" src="./public/assets/telemetry-isocalendar-3d.svg" />
       </details>
       <details>
         <summary>Terminal Commit Stream</summary>
-        <img alt="Terminal Commit Stream" width="420" src="https://monoforge-studio.vercel.app/assets/terminal_animated.svg" />
+        <img alt="Terminal Commit Stream" width="420" src="./public/assets/terminal_animated.svg" />
       </details>
     </td>
     <td align="center">
       <details open>
         <summary>Language Distribution Donut</summary>
-        <img alt="Languages Donut" width="420" src="https://monoforge-studio.vercel.app/assets/telemetry-languages-donut.svg" />
+        <img alt="Languages Donut" width="420" src="./public/assets/telemetry-languages-donut.svg" />
       </details>
       <details>
         <summary>In-depth Polyglot Analysis</summary>
-        <img alt="Language Breakdown" width="420" src="https://monoforge-studio.vercel.app/assets/mock-github-stats.svg" />
+        <img alt="Language Breakdown" width="420" src="./public/assets/mock-github-stats.svg" />
       </details>
     </td>
   </tr>
@@ -112,17 +112,17 @@ Generate telemetry that can be embedded everywhere, including your GitHub profil
     <td align="center">
       <details open>
         <summary>Active Hours &amp; Circadian Radar</summary>
-        <img alt="Coding Habits Radar" width="420" src="https://monoforge-studio.vercel.app/assets/telemetry-habits-radar.svg" />
+        <img alt="Coding Habits Radar" width="420" src="./public/assets/telemetry-habits-radar.svg" />
       </details>
       <details>
         <summary>Velocity Facts &amp; Streak Metrics</summary>
-        <img alt="Streak Stats" width="420" src="https://monoforge-studio.vercel.app/assets/mock-streak-stats.svg" />
+        <img alt="Streak Stats" width="420" src="./public/assets/mock-streak-stats.svg" />
       </details>
     </td>
     <td align="center">
       <details open>
         <summary>Ranked Trophy Rack &amp; Badges</summary>
-        <img alt="Achievements Trophy Rack" width="420" src="https://monoforge-studio.vercel.app/assets/telemetry-achievements-rack.svg" />
+        <img alt="Achievements Trophy Rack" width="420" src="./public/assets/telemetry-achievements-rack.svg" />
       </details>
     </td>
   </tr>
@@ -134,13 +134,13 @@ Generate telemetry that can be embedded everywhere, including your GitHub profil
     <td align="center">
       <details open>
         <summary>Solved Problems, Acceptance &amp; Global Ranking</summary>
-        <img alt="LeetCode Telemetry" width="420" src="https://monoforge-studio.vercel.app/assets/telemetry-leetcode-stats.svg" />
+        <img alt="LeetCode Telemetry" width="420" src="./public/assets/telemetry-leetcode-stats.svg" />
       </details>
     </td>
     <td align="center">
       <details open>
         <summary>Weekly Editor Hours &amp; Language Timers</summary>
-        <img alt="WakaTime Productivity Breakdown" width="420" src="https://monoforge-studio.vercel.app/assets/telemetry-terminal-hud.svg" />
+        <img alt="WakaTime Productivity Breakdown" width="420" src="./public/assets/telemetry-terminal-hud.svg" />
       </details>
     </td>
   </tr>
@@ -152,13 +152,13 @@ Generate telemetry that can be embedded everywhere, including your GitHub profil
     <td align="center">
       <details open>
         <summary>Vinyl Player &amp; Audio Spectrum</summary>
-        <img alt="Music Telemetry Player" width="420" src="https://monoforge-studio.vercel.app/assets/telemetry-music-player.svg" />
+        <img alt="Music Telemetry Player" width="420" src="./public/assets/telemetry-music-player.svg" />
       </details>
     </td>
     <td align="center">
       <details open>
         <summary>Core Web Vitals &amp; Performance Scores</summary>
-        <img alt="Google PageSpeed Audit" width="420" src="https://monoforge-studio.vercel.app/assets/telemetry-pagespeed-audit.svg" />
+        <img alt="Google PageSpeed Audit" width="420" src="./public/assets/telemetry-pagespeed-audit.svg" />
       </details>
     </td>
   </tr>
@@ -170,17 +170,17 @@ Generate telemetry that can be embedded everywhere, including your GitHub profil
     <td align="center">
       <details open>
         <summary>Retro Arcade Pacman</summary>
-        <img alt="Arcade Activity" width="420" src="https://monoforge-studio.vercel.app/assets/pacman.svg" />
+        <img alt="Arcade Activity" width="420" src="./public/assets/pacman.svg" />
       </details>
       <details>
         <summary>Arcade Galaga &amp; Snake</summary>
-        <img alt="Snake Game" width="420" src="https://monoforge-studio.vercel.app/assets/snake.svg" />
+        <img alt="Snake Game" width="420" src="./public/assets/snake.svg" />
       </details>
     </td>
     <td align="center">
       <details open>
         <summary>Notable Open Source PRs &amp; Organizations</summary>
-        <img alt="Notable Contributions" width="420" src="https://monoforge-studio.vercel.app/assets/octocat-coffee.svg" />
+        <img alt="Notable Contributions" width="420" src="./public/assets/octocat-coffee.svg" />
       </details>
     </td>
   </tr>
@@ -193,13 +193,13 @@ Generate telemetry that can be embedded everywhere, including your GitHub profil
 MonoForge features official interactive animated vector characters engineered with 60fps GPU keyframe kinematics. Built specifically to bypass GitHub's Camo sanitizer with **zero `<script>` tags, zero `<foreignObject>` tags, and 100% native SVG `@keyframes`**.
 
 <p align="center">
-  <img src="https://monoforge-studio.vercel.app/assets/monkey-cyber-dj.svg" width="100%" alt="MonoForge Cyber Monkey DJ Studio Session" />
+  <img src="./public/assets/monkey-cyber-dj.svg" width="100%" alt="MonoForge Cyber Monkey DJ Studio Session" />
 </p>
 
 ### 1-Click Camo Badge &amp; Sticker Vault
 
 <p align="center">
-  <img src="https://monoforge-studio.vercel.app/assets/cyber-stickers-pack.svg" width="100%" alt="MonoForge Tactile Sticker Vault" />
+  <img src="./public/assets/cyber-stickers-pack.svg" width="100%" alt="MonoForge Tactile Sticker Vault" />
 </p>
 
 ```markdown
@@ -302,10 +302,10 @@ MonoForge provides 18+ battle-tested archetypes designed to suit every developer
   </tr>
   <tr>
     <td align="center">
-      <img src="https://monoforge-studio.vercel.app/assets/wow-profile-full.svg" width="380" alt="3D City Cat Archetype" />
+      <img src="./public/assets/wow-profile-full.svg" width="380" alt="3D City Cat Archetype" />
     </td>
     <td align="center">
-      <img src="https://monoforge-studio.vercel.app/assets/bento-dashboard-full.svg" width="380" alt="Bento Signal Dashboard" />
+      <img src="./public/assets/bento-dashboard-full.svg" width="380" alt="Bento Signal Dashboard" />
     </td>
   </tr>
   <tr>
@@ -314,10 +314,10 @@ MonoForge provides 18+ battle-tested archetypes designed to suit every developer
   </tr>
   <tr>
     <td align="center">
-      <img src="https://monoforge-studio.vercel.app/assets/isometric-terminal.svg" width="380" alt="Isometric Terminal" />
+      <img src="./public/assets/isometric-terminal.svg" width="380" alt="Isometric Terminal" />
     </td>
     <td align="center">
-      <img src="https://monoforge-studio.vercel.app/assets/terminal_animated.svg" width="380" alt="Terminal Matrix Rain" />
+      <img src="./public/assets/terminal_animated.svg" width="380" alt="Terminal Matrix Rain" />
     </td>
   </tr>
 </table>
