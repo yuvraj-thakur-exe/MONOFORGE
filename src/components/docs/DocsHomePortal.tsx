@@ -22,6 +22,7 @@ import {
 import { getDocsNavigation } from '#/content/docs/docs-data';
 import { GitHubStarButton } from '#/components/common/GitHubStarButton';
 import { GeometricLoader } from '#/components/common/GeometricLoader';
+import { KineticTypewriter, KineticGradientText } from '#/components/common/KineticText';
 
 type ShowcaseTab = 'geometric' | 'cyberbot' | 'ninja' | 'matrix';
 
@@ -83,11 +84,27 @@ export function DocsHomePortal() {
             </span>
           </div>
 
-          {/* Headline */}
+          {/* Headline with Kinetic Text Animation */}
           <div className="space-y-4 max-w-4xl">
             <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-slate-900 dark:text-white uppercase font-sans leading-[1.08]">
-              FORGE AN ICONIC GITHUB IDENTITY.
+              FORGE AN ICONIC{' '}
+              <KineticGradientText className="relative inline-block my-1">
+                GITHUB IDENTITY.
+              </KineticGradientText>
             </h1>
+            <div className="flex items-center gap-2 font-mono text-xs sm:text-sm text-amber-600 dark:text-amber-400">
+              <span className="font-bold text-slate-400">&gt;</span>
+              <KineticTypewriter
+                words={[
+                  '100% Camo CDN Safe with Zero Broken Links',
+                  '60fps CSS Keyframe Vector Characters & Banners',
+                  '47+ Modular Scraped Telemetry Engines',
+                  'Single Zustand Source-of-Truth Store Architecture',
+                  'Zero Silent Push with Line-by-Line Diff Review',
+                ]}
+                className="font-bold"
+              />
+            </div>
             <p className="text-base sm:text-xl text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed font-sans font-normal">
               The definitive developer manual for MonoForge. Learn the single-store state architecture, explore the 47+ telemetry engines, review GitHub Camo sanitization rules, and integrate the standalone CLI.
             </p>
