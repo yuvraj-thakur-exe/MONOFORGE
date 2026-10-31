@@ -22,6 +22,9 @@ import {
   TrendingUp,
   Package,
   Code2,
+  Brain,
+  ShoppingBag,
+  FolderKanban,
 } from 'lucide-react';
 import { buildMarkdown } from '#/lib/buildMarkdown';
 import { TEMPLATES } from '#/lib/templates/catalog';
@@ -36,6 +39,9 @@ import { VersionHistoryModal } from '#/components/studio/VersionHistoryModal';
 import { AssetVaultModal } from '#/components/studio/AssetVaultModal';
 import { AiAssistantModal } from '#/components/ai/AiAssistantModal';
 import { DiagnosticsHUDModal } from '#/components/diagnostics/DiagnosticsHUDModal';
+import { ProfileIntelligenceModal } from '#/components/intelligence/ProfileIntelligenceModal';
+import { AssetMarketplaceModal } from '#/components/marketplace/AssetMarketplaceModal';
+import { WorkspaceManagerModal } from '#/components/workspace/WorkspaceManagerModal';
 
 interface CommandPaletteProps {
   onOpenImport?: () => void;
@@ -60,6 +66,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   const [isVaultOpen, setIsVaultOpen] = useState(false);
   const [isAiOpen, setIsAiOpen] = useState(false);
   const [isDiagnosticsOpen, setIsDiagnosticsOpen] = useState(false);
+  const [isIntelligenceOpen, setIsIntelligenceOpen] = useState(false);
+  const [isMarketplaceOpen, setIsMarketplaceOpen] = useState(false);
+  const [isWorkspaceOpen, setIsWorkspaceOpen] = useState(false);
 
   // Listen to Cmd+K / Ctrl+K and global trigger events
   useEffect(() => {
@@ -231,6 +240,39 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               >
                 <Sparkles className="w-4 h-4 text-[#00F0FF]" />
                 <span className="font-bold">AI Profile Architect (Model-Agnostic Generation)</span>
+              </Command.Item>
+
+              <Command.Item
+                onSelect={() => {
+                  setOpen(false);
+                  setIsIntelligenceOpen(true);
+                }}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 cursor-pointer transition-colors"
+              >
+                <Brain className="w-4 h-4 text-purple-600" />
+                <span className="font-bold">Profile Intelligence (Developer IQ Audit)</span>
+              </Command.Item>
+
+              <Command.Item
+                onSelect={() => {
+                  setOpen(false);
+                  setIsMarketplaceOpen(true);
+                }}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 cursor-pointer transition-colors"
+              >
+                <ShoppingBag className="w-4 h-4 text-pink-600" />
+                <span className="font-bold">Community Asset Marketplace</span>
+              </Command.Item>
+
+              <Command.Item
+                onSelect={() => {
+                  setOpen(false);
+                  setIsWorkspaceOpen(true);
+                }}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 cursor-pointer transition-colors"
+              >
+                <FolderKanban className="w-4 h-4 text-blue-600" />
+                <span className="font-bold">Developer Profile Workspace (Projects &amp; Snapshots)</span>
               </Command.Item>
 
               <Command.Item
@@ -444,6 +486,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       <AssetVaultModal isOpen={isVaultOpen} onClose={() => setIsVaultOpen(false)} />
       <AiAssistantModal isOpen={isAiOpen} onClose={() => setIsAiOpen(false)} />
       <DiagnosticsHUDModal isOpen={isDiagnosticsOpen} onClose={() => setIsDiagnosticsOpen(false)} />
+      <ProfileIntelligenceModal isOpen={isIntelligenceOpen} onClose={() => setIsIntelligenceOpen(false)} />
+      <AssetMarketplaceModal isOpen={isMarketplaceOpen} onClose={() => setIsMarketplaceOpen(false)} />
+      <WorkspaceManagerModal isOpen={isWorkspaceOpen} onClose={() => setIsWorkspaceOpen(false)} />
     </>
   );
 };

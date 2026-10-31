@@ -93,4 +93,19 @@ describe('PluginPanel Developer Component', () => {
 
     expect(navigator.clipboard.writeText).toHaveBeenCalled();
   });
+
+  it('switches to Blocks tab, renders active sections, and inserts a reusable block', () => {
+    const handleInserted = vi.fn();
+    render(<PluginPanel onPluginInserted={handleInserted} />);
+
+    const blocksTab = screen.getByRole('button', { name: /blocks/i });
+    fireEvent.click(blocksTab);
+
+    expect(screen.getByText(/11 reusable blocks/i)).toBeDefined();
+    const insertButtons = screen.getAllByRole('button', { name: /insert/i });
+    expect(insertButtons.length).toBeGreaterThan(0);
+
+    fireEvent.click(insertButtons[0]);
+    expect(handleInserted).toHaveBeenCalled();
+  });
 });

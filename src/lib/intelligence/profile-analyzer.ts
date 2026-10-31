@@ -438,6 +438,25 @@ export function analyzeDeveloperProfile(
       a11yScore += 14;
       a11yHighlights.push('Images supply valid accessible alt labels');
     }
+
+    // Broken or empty image links check
+    const emptyMdImages = (text.match(/!\[([^\]]*)\]\(\s*\)/g) || []).length;
+    const emptyHtmlImages = (text.match(/<img[^>]*src=["']\s*["'][^>]*>/gi) || []).length;
+    const totalBrokenImages = emptyMdImages + emptyHtmlImages;
+
+    if (totalBrokenImages > 0) {
+      a11yScore = Math.max(0, a11yScore - 6);
+      a11yDrawbacks.push(`Detected ${totalBrokenImages} broken or empty image link(s) without valid source target`);
+      suggestions.push({
+        id: 'broken-images',
+        category: 'a11y',
+        priority: 'critical',
+        title: 'Fix broken or empty image URLs',
+        description: `${totalBrokenImages} image tags have empty parentheses () or empty src attributes, causing broken image icons on GitHub.`,
+        autoFixAvailable: true,
+        autoFixType: 'fix-broken-images',
+      });
+    }
   }
 
   // 9. Security & GitHub Camo CDN Safety (Max 20)
@@ -532,4 +551,31 @@ export function analyzeDeveloperProfile(
     suggestions,
     readability,
   };
+}
+
+/**
+ * Extracts and inspects all image URLs from a markdown document for external verification.
+ */
+export function extractProfileImageUrls(text: string): { url: string; alt: string; isCheckable: boolean }[] {
+  const results: { url: string; alt: string; isCheckable: boolean }[] = [];
+  const mdImgRegex = /!\[([^\]]*)\]\(([^)]*)\)/g;
+  let match: RegExpExecArray | null;
+
+  while ((match = mdImgRegex.exec(text)) !== null) {
+    const alt = match[1]?.trim() || '';
+    const url = match[2]?.trim() || '';
+    const isCheckable = /^https?:\/\//i.test(url);
+    results.push({ url, alt, isCheckable });
+  }
+
+  const htmlImgRegex = /<img\s+[^>]*src=["']([^"']*)["'][^>]*>/gi;
+  while ((match = htmlImgRegex.exec(text)) !== null) {
+    const url = match[1]?.trim() || '';
+    const altMatch = match[0].match(/alt=["']([^"']*)["']/i);
+    const alt = altMatch ? altMatch[1].trim() : '';
+    const isCheckable = /^https?:\/\//i.test(url);
+    results.push({ url, alt, isCheckable });
+  }
+
+  return results;
 }

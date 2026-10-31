@@ -18,6 +18,9 @@ import { VersionHistoryModal } from '#/components/studio/VersionHistoryModal';
 import { AssetVaultModal } from '#/components/studio/AssetVaultModal';
 import { AiAssistantModal } from '#/components/ai/AiAssistantModal';
 import { DiagnosticsHUDModal } from '#/components/diagnostics/DiagnosticsHUDModal';
+import { ProfileIntelligenceModal } from '#/components/intelligence/ProfileIntelligenceModal';
+import { AssetMarketplaceModal } from '#/components/marketplace/AssetMarketplaceModal';
+import { WorkspaceManagerModal } from '#/components/workspace/WorkspaceManagerModal';
 import { calculateProfileQualityScore } from '#/lib/optimizer/quality-score';
 import { TEMPLATES } from '#/lib/templates/catalog';
 import { buildMarkdown } from '#/lib/buildMarkdown';
@@ -43,6 +46,9 @@ import {
   FileUp,
   History,
   Package,
+  Brain,
+  ShoppingBag,
+  FolderKanban,
 } from 'lucide-react';
 
 // Dynamic lazy-loaded studio modes for high-speed initial bundle & zero lag
@@ -130,6 +136,9 @@ function LocalizedDeveloperContent() {
   const [isVaultModalOpen, setIsVaultModalOpen] = useState<boolean>(false);
   const [isAiModalOpen, setIsAiModalOpen] = useState<boolean>(false);
   const [isDiagnosticsModalOpen, setIsDiagnosticsModalOpen] = useState<boolean>(false);
+  const [isIntelligenceModalOpen, setIsIntelligenceModalOpen] = useState<boolean>(false);
+  const [isMarketplaceModalOpen, setIsMarketplaceModalOpen] = useState<boolean>(false);
+  const [isWorkspaceModalOpen, setIsWorkspaceModalOpen] = useState<boolean>(false);
   const [mobileTab, setMobileTab] = useState<'editor' | 'preview' | 'plugins' | 'copilot'>('editor');
   const [desktopView, setDesktopView] = useState<'split' | 'editor' | 'preview'>('split');
   const [copiedMd, setCopiedMd] = useState<boolean>(false);
@@ -349,7 +358,40 @@ function LocalizedDeveloperContent() {
             <span>VAULT</span>
           </button>
 
-          {/* Templates Catalog Link */}
+          {/* Profile Intelligence (IQ) Action */}
+          <button
+            type="button"
+            onClick={() => setIsIntelligenceModalOpen(true)}
+            className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border-2 border-neutral-900 bg-white hover:bg-[#ffe600] text-neutral-950 text-xs font-mono font-bold shadow-[2px_2px_0px_#18181b] btn-tactile cursor-pointer"
+            title="Profile Intelligence & Developer IQ Audit"
+          >
+            <Brain className="w-3.5 h-3.5 text-purple-600" />
+            <span>INTELLIGENCE</span>
+          </button>
+
+          {/* Community Asset Marketplace */}
+          <button
+            type="button"
+            onClick={() => setIsMarketplaceModalOpen(true)}
+            className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border-2 border-neutral-900 bg-white hover:bg-[#ffe600] text-neutral-950 text-xs font-mono font-bold shadow-[2px_2px_0px_#18181b] btn-tactile cursor-pointer"
+            title="Community Asset Marketplace"
+          >
+            <ShoppingBag className="w-3.5 h-3.5 text-pink-600" />
+            <span>MARKETPLACE</span>
+          </button>
+
+          {/* Local-First Project Workspace */}
+          <button
+            type="button"
+            onClick={() => setIsWorkspaceModalOpen(true)}
+            className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border-2 border-neutral-900 bg-white hover:bg-[#ffe600] text-neutral-950 text-xs font-mono font-bold shadow-[2px_2px_0px_#18181b] btn-tactile cursor-pointer"
+            title="Developer Profile Workspace & Snapshots"
+          >
+            <FolderKanban className="w-3.5 h-3.5 text-blue-600" />
+            <span>WORKSPACE</span>
+          </button>
+
+                    {/* Templates Catalog Link */}
           <Link
             href="/templates"
             className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-[#ffe600] text-neutral-950 text-xs font-mono font-bold transition-all border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] btn-tactile"
@@ -690,6 +732,18 @@ function LocalizedDeveloperContent() {
       <DiagnosticsHUDModal
         isOpen={isDiagnosticsModalOpen}
         onClose={() => setIsDiagnosticsModalOpen(false)}
+      />
+      <ProfileIntelligenceModal
+        isOpen={isIntelligenceModalOpen}
+        onClose={() => setIsIntelligenceModalOpen(false)}
+      />
+      <AssetMarketplaceModal
+        isOpen={isMarketplaceModalOpen}
+        onClose={() => setIsMarketplaceModalOpen(false)}
+      />
+      <WorkspaceManagerModal
+        isOpen={isWorkspaceModalOpen}
+        onClose={() => setIsWorkspaceModalOpen(false)}
       />
     </div>
   );

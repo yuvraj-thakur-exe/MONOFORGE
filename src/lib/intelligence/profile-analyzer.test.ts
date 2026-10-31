@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { analyzeDeveloperProfile } from './profile-analyzer';
+import { analyzeDeveloperProfile, extractProfileImageUrls } from './profile-analyzer';
 
 describe('Profile Intelligence Engine', () => {
   it('correctly analyzes an empty or sparse profile and surfaces critical recommendations', () => {
@@ -74,5 +74,21 @@ Building hyper-scalable distributed query engines, high-speed telemetry, and ope
     const report = analyzeDeveloperProfile(maliciousMarkdown);
     expect(report.dimensions.securityAndCamo.score).toBeLessThan(10);
     expect(report.suggestions.some(s => s.id === 'sec-script')).toBe(true);
+  });
+
+  it('detects broken or empty image links and extracts checkable URLs', () => {
+    const brokenMarkdown = `
+# Developer Profile
+![Valid Banner](https://img.shields.io/badge/Status-Active-brightgreen)
+![Empty Target]()
+<img src="" alt="Broken Tag" />
+    `;
+
+    const report = analyzeDeveloperProfile(brokenMarkdown);
+    expect(report.suggestions.some(s => s.id === 'broken-images')).toBe(true);
+
+    const urls = extractProfileImageUrls(brokenMarkdown);
+    expect(urls.length).toBeGreaterThanOrEqual(2);
+    expect(urls.some(u => u.isCheckable)).toBe(true);
   });
 });

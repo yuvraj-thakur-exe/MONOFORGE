@@ -32,3 +32,4 @@ When proposing new developer telemetry engines, visual archetypes, or animation 
 To propose assets for inclusion in the Community Asset Marketplace:
 - Reference the metadata schema in `docs/COMMUNITY_ASSETS.md`.
 - Ensure permissive licensing (MIT, Apache-2.0, or CC-BY-4.0).
+

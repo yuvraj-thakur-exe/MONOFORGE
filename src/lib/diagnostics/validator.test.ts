@@ -56,5 +56,20 @@ const a = 1;
     expect(reportAfter.errorCount).toBe(0);
     expect(reportAfter.camoSafe).toBe(true);
   });
+
+  it('validates configuration and catches placeholder username', () => {
+    const config: any = {
+      version: '1.0.0',
+      title: 'Dev Profile',
+      settings: {
+        user: { github: 'username', name: '' },
+      },
+      sections: [{ id: '1', type: 'github-readme-stats', props: {} }],
+    };
+
+    const report = runDiagnostics('# Valid Header', config);
+    expect(report.issues.some((i) => i.id === 'cfg_placeholder_username')).toBe(true);
+    expect(report.issues.some((i) => i.id === 'integration_unconfigured_telemetry')).toBe(true);
+  });
 });
 

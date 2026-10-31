@@ -32,8 +32,8 @@ export function DiagnosticsHUDModal({ isOpen, onClose }: DiagnosticsHUDModalProp
   const [fixedNotice, setFixedNotice] = useState<boolean>(false);
 
   const report = useMemo(() => {
-    return runDiagnostics(rawMarkdown);
-  }, [rawMarkdown]);
+    return runDiagnostics(rawMarkdown, config);
+  }, [rawMarkdown, config]);
 
   if (!isOpen) return null;
 

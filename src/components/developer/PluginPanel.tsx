@@ -16,7 +16,16 @@ import {
   ExternalLink,
   Bot,
   Sliders,
+  Layers,
+  Eye,
+  EyeOff,
+  ChevronUp,
+  ChevronDown,
+  CopyPlus,
+  Trash2,
+  Box,
 } from 'lucide-react';
+import { REUSABLE_BLOCKS } from '#/lib/blocks/reusable-blocks';
 
 interface PluginPanelProps {
   className?: string;
@@ -30,8 +39,13 @@ export const PluginPanel: React.FC<PluginPanelProps> = ({
   const config = useReadmeStore(state => state.config);
   const addSection = useReadmeStore(state => state.addSection);
   const setEntireConfig = useReadmeStore(state => state.setEntireConfig);
+  const toggleSectionVisibility = useReadmeStore(state => state.toggleSectionVisibility);
+  const duplicateSection = useReadmeStore(state => state.duplicateSection);
+  const moveSection = useReadmeStore(state => state.moveSection);
+  const removeSection = useReadmeStore(state => state.removeSection);
 
-  const [panelTab, setPanelTab] = useState<'plugins' | 'templates' | 'schema'>('plugins');
+  const [panelTab, setPanelTab] = useState<'plugins' | 'blocks' | 'templates' | 'schema'>('plugins');
+  const [insertedBlockId, setInsertedBlockId] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [insertedPluginId, setInsertedPluginId] = useState<string | null>(null);
@@ -142,6 +156,18 @@ ${JSON.stringify(config, null, 2)}`;
         <button
           type="button"
           onClick={() => {
+            setPanelTab('blocks');
+            setSelectedCategory('all');
+          }}
+          className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${panelTab === 'blocks' ? 'bg-[#ffe600] text-neutral-950 border-2 border-neutral-900 font-black shadow-[2px_2px_0px_#18181b]' : 'text-neutral-700 hover:bg-neutral-100 hover:text-neutral-950'}`}
+        >
+          <Layers className="w-3.5 h-3.5" />
+          <span>BLOCKS ({config.sections.length})</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => {
             setPanelTab('templates');
             setSelectedCategory('all');
           }}
@@ -168,6 +194,184 @@ ${JSON.stringify(config, null, 2)}`;
           <span>AI &amp; Schema</span>
         </button>
       </div>
+
+      
+      {/* BLOCKS & OUTLINE TAB */}
+      {panelTab === 'blocks' && (
+        <div className="flex-1 overflow-y-auto p-3 space-y-4">
+          {/* Active Sections Outline */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-mono font-black text-neutral-900 uppercase tracking-wider flex items-center gap-1.5">
+                <Layers className="w-3.5 h-3.5 text-blue-600" />
+                <span>Active Sections ({config.sections.length})</span>
+              </span>
+              <span className="text-[10px] font-mono text-neutral-500">
+                Drag / Move to Reorder
+              </span>
+            </div>
+
+            {config.sections.length === 0 ? (
+              <div className="p-4 rounded-xl border-2 border-dashed border-neutral-300 bg-neutral-50 text-center font-mono text-xs text-neutral-500">
+                No active sections yet. Insert a reusable block below to get started!
+              </div>
+            ) : (
+              <div className="space-y-1.5">
+                {config.sections.map((section, idx) => {
+                  const plugin = pluginRegistry.find(p => p.id === section.type);
+                  const isHidden = section.visible === false || (section.props as { visible?: boolean })?.visible === false;
+                  return (
+                    <div
+                      key={section.id || idx}
+                      className={`flex items-center justify-between p-2 rounded-xl border-2 border-neutral-900 bg-white shadow-2xs transition-all ${
+                        isHidden ? 'opacity-50 bg-neutral-100' : ''
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="w-5 h-5 rounded bg-neutral-100 text-neutral-700 font-mono text-[10px] font-bold flex items-center justify-center shrink-0 border border-neutral-300">
+                          {idx + 1}
+                        </span>
+                        <div className="truncate">
+                          <p className="text-xs font-mono font-bold text-neutral-950 truncate">
+                            {plugin?.name || section.type}
+                          </p>
+                          <span className="text-[10px] font-mono text-neutral-500">
+                            {section.type} {isHidden && '• [HIDDEN]'}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-1 shrink-0">
+                        {/* Visibility Toggle */}
+                        <button
+                          type="button"
+                          onClick={() => toggleSectionVisibility(section.id)}
+                          title={isHidden ? 'Show section' : 'Hide section'}
+                          className="p-1 rounded hover:bg-neutral-100 text-neutral-700 transition-colors cursor-pointer"
+                        >
+                          {isHidden ? (
+                            <EyeOff className="w-3.5 h-3.5 text-neutral-400" />
+                          ) : (
+                            <Eye className="w-3.5 h-3.5 text-emerald-600" />
+                          )}
+                        </button>
+
+                        {/* Move Up */}
+                        <button
+                          type="button"
+                          disabled={idx === 0}
+                          onClick={() => moveSection(section.id, 'up')}
+                          title="Move section up"
+                          className="p-1 rounded hover:bg-neutral-100 disabled:opacity-30 text-neutral-700 transition-colors cursor-pointer"
+                        >
+                          <ChevronUp className="w-3.5 h-3.5" />
+                        </button>
+
+                        {/* Move Down */}
+                        <button
+                          type="button"
+                          disabled={idx === config.sections.length - 1}
+                          onClick={() => moveSection(section.id, 'down')}
+                          title="Move section down"
+                          className="p-1 rounded hover:bg-neutral-100 disabled:opacity-30 text-neutral-700 transition-colors cursor-pointer"
+                        >
+                          <ChevronDown className="w-3.5 h-3.5" />
+                        </button>
+
+                        {/* Duplicate */}
+                        <button
+                          type="button"
+                          onClick={() => duplicateSection(section.id)}
+                          title="Duplicate section"
+                          className="p-1 rounded hover:bg-neutral-100 text-blue-600 transition-colors cursor-pointer"
+                        >
+                          <CopyPlus className="w-3.5 h-3.5" />
+                        </button>
+
+                        {/* Remove */}
+                        <button
+                          type="button"
+                          onClick={() => removeSection(section.id)}
+                          title="Remove section"
+                          className="p-1 rounded hover:bg-red-50 text-red-600 transition-colors cursor-pointer"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* 11 Reusable Blocks Palette */}
+          <div className="space-y-2 pt-2 border-t-2 border-neutral-900">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-mono font-black text-neutral-900 uppercase tracking-wider flex items-center gap-1.5">
+                <Box className="w-3.5 h-3.5 text-amber-500" />
+                <span>11 Reusable Blocks</span>
+              </span>
+              <span className="text-[10px] font-mono text-neutral-500">
+                1-Click Insert
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 gap-2">
+              {REUSABLE_BLOCKS.map((block) => {
+                const isJustInserted = insertedBlockId === block.type;
+                return (
+                  <div
+                    key={block.type}
+                    className="p-2.5 rounded-xl border-2 border-neutral-900 bg-white hover:border-[#ffe600] transition-colors shadow-2xs space-y-1.5"
+                  >
+                    <div className="flex items-center justify-between gap-1">
+                      <div className="flex items-center gap-1.5">
+                        <span className="px-1.5 py-0.5 rounded bg-neutral-100 border border-neutral-300 text-neutral-700 font-mono text-[9px] uppercase font-bold">
+                          {block.category}
+                        </span>
+                        <h4 className="text-xs font-mono font-bold text-neutral-950">
+                          {block.name}
+                        </h4>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const blockConfig = block.createSection(config.settings.user);
+                          addSection(block.pluginId, blockConfig.props as Record<string, unknown>);
+                          setInsertedBlockId(block.type);
+                          setTimeout(() => setInsertedBlockId(null), 1500);
+                          if (onPluginInserted) onPluginInserted(block.pluginId);
+                        }}
+                        className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-mono font-black border border-neutral-900 transition-all cursor-pointer ${
+                          isJustInserted
+                            ? 'bg-emerald-400 text-neutral-950'
+                            : 'bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 shadow-[1px_1px_0px_#18181b]'
+                        }`}
+                      >
+                        {isJustInserted ? (
+                          <>
+                            <Check className="w-3 h-3" />
+                            <span>ADDED</span>
+                          </>
+                        ) : (
+                          <>
+                            <Plus className="w-3 h-3" />
+                            <span>INSERT</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                    <p className="text-[11px] text-neutral-600 leading-snug">
+                      {block.description}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* PLUGINS TAB */}
       {panelTab === 'plugins' && (

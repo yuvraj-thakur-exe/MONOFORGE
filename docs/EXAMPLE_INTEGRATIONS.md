@@ -103,3 +103,4 @@ const myConfig: ReadmeConfig = {
 const outputMarkdown = buildMarkdown(myConfig);
 console.log(outputMarkdown);
 ```
+

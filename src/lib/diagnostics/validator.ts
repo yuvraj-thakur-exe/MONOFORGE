@@ -2,8 +2,11 @@
  * MonoForge Central Diagnostics & Quality Engine
  *
  * Comprehensive validator inspecting Markdown syntax, security boundaries,
- * Camo CDN compatibility, URL health, and profile completeness.
+ * Camo CDN compatibility, URL health, profile completeness, configuration integrity,
+ * and export bounds.
  */
+
+import { ReadmeConfig } from '#/lib/plugins/types';
 
 export type DiagnosticSeverity = 'error' | 'warning' | 'info';
 
@@ -13,7 +16,10 @@ export type DiagnosticCategory =
   | 'camo-svg'
   | 'urls'
   | 'completeness'
-  | 'accessibility';
+  | 'accessibility'
+  | 'config'
+  | 'integration'
+  | 'export';
 
 export interface DiagnosticIssue {
   id: string;
@@ -38,7 +44,7 @@ export interface DiagnosticReport {
 /**
  * Runs deep diagnostic checks on raw markdown and optional profile metadata.
  */
-export function runDiagnostics(markdown: string): DiagnosticReport {
+export function runDiagnostics(markdown: string, config?: ReadmeConfig): DiagnosticReport {
   const issues: DiagnosticIssue[] = [];
   const lines = (markdown || '').split('\n');
 
@@ -64,6 +70,32 @@ export function runDiagnostics(markdown: string): DiagnosticReport {
         line: lineNum,
         autoFixable: true,
         fixLabel: 'Strip <script> tags',
+      });
+    }
+
+    if (/<(?:iframe|object|embed|applet)/i.test(line)) {
+      issues.push({
+        id: `sec_embed_${lineNum}`,
+        severity: 'error',
+        category: 'security',
+        title: 'Prohibited embedding tag (<iframe/object/embed>)',
+        description: 'GitHub markdown strips embedded frame/object elements for security.',
+        line: lineNum,
+        autoFixable: true,
+        fixLabel: 'Remove embedding elements',
+      });
+    }
+
+    if (/\bon\w+\s*=/i.test(line)) {
+      issues.push({
+        id: `sec_event_handler_${lineNum}`,
+        severity: 'error',
+        category: 'security',
+        title: 'Inline javascript event handler detected',
+        description: 'Inline event handlers (like onclick or onerror) are forbidden by GitHub sanitizers.',
+        line: lineNum,
+        autoFixable: true,
+        fixLabel: 'Strip event handlers',
       });
     }
 
@@ -184,6 +216,59 @@ export function runDiagnostics(markdown: string): DiagnosticReport {
     });
   }
 
+  // 5. Configuration and Integration Integrity checks (when config is provided)
+  if (config) {
+    const userHandle = config.settings?.user?.github?.trim().toLowerCase();
+    if (!userHandle || userHandle === 'username' || userHandle === 'zusername' || userHandle === 'your-username') {
+      issues.push({
+        id: 'cfg_placeholder_username',
+        severity: 'warning',
+        category: 'config',
+        title: 'Placeholder GitHub handle detected',
+        description: 'Configure your real GitHub username in Profile Settings to generate live telemetry.',
+        autoFixable: false,
+      });
+    }
+
+    if (!config.settings?.user?.name) {
+      issues.push({
+        id: 'cfg_missing_name',
+        severity: 'info',
+        category: 'config',
+        title: 'Developer name not set',
+        description: 'Add your display name in settings to personalize profile introductions.',
+        autoFixable: false,
+      });
+    }
+
+    // Check integration dependencies
+    const hasTelemetry = config.sections?.some(
+      s => s.type === 'github-readme-stats' || s.type === 'telemetry-isocalendar' || s.type === 'activity-graph'
+    );
+    if (hasTelemetry && (!userHandle || userHandle === 'username')) {
+      issues.push({
+        id: 'integration_unconfigured_telemetry',
+        severity: 'warning',
+        category: 'integration',
+        title: 'Telemetry integration requires valid GitHub username',
+        description: 'Telemetry widgets will fall back to demo mode until your GitHub handle is specified.',
+        autoFixable: false,
+      });
+    }
+  }
+
+  // 6. Export Bounds checks
+  if (markdown.length > 50000) {
+    issues.push({
+      id: 'export_size_warning',
+      severity: 'warning',
+      category: 'export',
+      title: 'Large profile size (>50KB)',
+      description: 'GitHub README pages render smoothest under 30KB. Consider optimizing image counts.',
+      autoFixable: false,
+    });
+  }
+
   const errorCount = issues.filter((i) => i.severity === 'error').length;
   const warningCount = issues.filter((i) => i.severity === 'warning').length;
   const infoCount = issues.filter((i) => i.severity === 'info').length;
@@ -219,24 +304,31 @@ export function autoFixDiagnostics(markdown: string): string {
   fixed = fixed.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
   fixed = fixed.replace(/<script.*?>/gi, '');
 
-  // 2. Remove javascript: URIs
+  // 2. Remove <iframe>, <object>, <embed>, <applet>
+  fixed = fixed.replace(/<(?:iframe|object|embed|applet)\b[^<]*(?:(?!<\/(?:iframe|object|embed|applet)>)<[^<]*)*<\/(?:iframe|object|embed|applet)>/gi, '');
+  fixed = fixed.replace(/<\/?(?:iframe|object|embed|applet)[^>]*>/gi, '');
+
+  // 3. Remove inline on* event handlers
+  fixed = fixed.replace(/\bon\w+\s*=\s*(?:["'][^"']*["']|[^\s>]+)/gi, '');
+
+  // 4. Remove javascript: URIs
   fixed = fixed.replace(/javascript:[^"'\s)]+/gi, '#');
 
-  // 3. Upgrade http to https
+  // 5. Upgrade http to https
   fixed = fixed.replace(/http:\/\//gi, 'https://');
 
-  // 4. Remove empty links: [text]() -> text
+  // 6. Remove empty links: [text]() -> text
   fixed = fixed.replace(/\[([^\]]+)\]\(\s*\)/g, '$1');
 
-  // 5. Replace empty image alt: ![](url) -> ![Image](url)
+  // 7. Replace empty image alt: ![](url) -> ![Developer Badge](url)
   fixed = fixed.replace(/!\[\s*\]\((.*?)\)/g, '![Developer Badge]($1)');
 
-  // 6. Remove empty headings
+  // 8. Remove empty headings
   const lines = fixed.split('\n');
   const filteredLines = lines.filter((l) => !/^#+\s*$/.test(l.trim()));
   fixed = filteredLines.join('\n');
 
-  // 7. Close unclosed code fences
+  // 9. Close unclosed code fences
   const fenceMatches = fixed.match(/```/g);
   if (fenceMatches && fenceMatches.length % 2 !== 0) {
     fixed += '\n```\n';
@@ -244,4 +336,3 @@ export function autoFixDiagnostics(markdown: string): string {
 
   return fixed;
 }
-

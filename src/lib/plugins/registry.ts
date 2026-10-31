@@ -19,6 +19,8 @@ import { socialsPlugin } from './wrappers/socials';
 import { telemetryEnginePlugin } from './wrappers/telemetry-engine';
 import { telemetryIsocalendarPlugin } from './wrappers/telemetry-isocalendar';
 import { projectsShowcasePlugin } from './wrappers/projects-showcase';
+import { customHtmlPlugin } from './wrappers/custom-html';
+import { footerPlugin } from './wrappers/footer';
 
 export const pluginRegistry: Plugin[] = [
   socialsPlugin,
@@ -27,6 +29,8 @@ export const pluginRegistry: Plugin[] = [
   pinterestImagePlugin,
   figmaDesignPlugin,
   projectsShowcasePlugin,
+  customHtmlPlugin,
+  footerPlugin,
   telemetryEnginePlugin,
   telemetryIsocalendarPlugin,
   readmeTypingSvgPlugin,

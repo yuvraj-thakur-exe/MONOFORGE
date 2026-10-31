@@ -11,7 +11,7 @@ import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
 import { useReadmeStore } from '#/store/useReadmeStore';
 import { buildMarkdown } from '#/lib/buildMarkdown';
-import { Copy, Check, Eye, Code, FileText, Monitor, Smartphone, Terminal } from 'lucide-react';
+import { Copy, Check, Eye, Code, FileText, Monitor, Tablet, Smartphone, Terminal } from 'lucide-react';
 
 const sanitizeSchema = {
   ...defaultSchema,
@@ -45,7 +45,7 @@ interface LivePreviewProps {
 export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
   const config = useReadmeStore(state => state.config);
   const [tab, setTab] = useState<'preview' | 'raw'>('preview');
-  const [viewMode, setViewMode] = useState<'desktop' | 'mobile' | 'crt'>('desktop');
+  const [viewMode, setViewMode] = useState<'desktop' | 'tablet' | 'mobile' | 'crt'>('desktop');
   const [copied, setCopied] = useState<boolean>(false);
 
   const markdown = useMemo(() => {
@@ -138,6 +138,16 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
               </button>
               <button
                 type="button"
+                onClick={() => setViewMode('tablet')}
+                className={`p-1 rounded transition-colors ${
+                  viewMode === 'tablet' ? 'bg-neutral-100 dark:bg-neutral-800 text-blue-600 dark:text-blue-400' : 'hover:text-neutral-900 dark:hover:text-neutral-200'
+                }`}
+                title="Tablet View (768px)"
+              >
+                <Tablet className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
                 onClick={() => setViewMode('mobile')}
                 className={`p-1 rounded transition-colors ${
                   viewMode === 'mobile' ? 'bg-neutral-100 dark:bg-neutral-800 text-amber-600 dark:text-amber-400' : 'hover:text-neutral-900 dark:hover:text-neutral-200'
@@ -186,7 +196,9 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
           <div
             className={`w-full transition-all duration-300 ${
               viewMode === 'mobile'
-                ? 'max-w-[390px] border-4 border-neutral-300 dark:border-neutral-800 rounded-3xl p-3 bg-white bg-white shadow-2xl my-2'
+                ? 'max-w-[390px] border-4 border-neutral-300 dark:border-neutral-800 rounded-3xl p-3 bg-white shadow-2xl my-2'
+                : viewMode === 'tablet'
+                ? 'max-w-[768px] border-4 border-neutral-300 dark:border-neutral-800 rounded-2xl p-4 bg-white shadow-xl my-2'
                 : viewMode === 'crt'
                 ? 'max-w-4xl border-2 border-emerald-500/40 rounded-xl p-4 bg-[#0a100d] text-emerald-300 font-mono shadow-[0_0_20px_rgba(16,185,129,0.15)] scanline-overlay'
                 : 'max-w-4xl'
