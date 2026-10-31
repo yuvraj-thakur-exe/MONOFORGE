@@ -235,3 +235,4 @@ export async function fetchUserContributions(username: string): Promise<UserCont
   const synthetic = generateSyntheticContributions(cleanUser);
   return synthetic;
 }
+

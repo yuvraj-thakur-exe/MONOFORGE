@@ -38,3 +38,4 @@ describe('GitHub Contributions Metric Engine', () => {
     expect(stats1.isRealData).toBe(false);
   });
 });
+

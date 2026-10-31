@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronDown, HelpCircle } from 'lucide-react';
+import { ChevronDown, HelpCircle, Star, Github, ExternalLink } from 'lucide-react';
 import { playClickSound } from '#/lib/sound/sound-effects';
 
 interface FaqItem {
@@ -56,35 +56,35 @@ export function NomokeyManifesto() {
   };
 
   return (
-    <section className="relative bg-[#faf9f6] border-b-2 border-neutral-900 py-16 sm:py-24 px-4 sm:px-6 transition-colors duration-200">
+    <section className="relative bg-[#fafbfc] dark:bg-[#1e293b]/50 border-b-2 border-slate-300 dark:border-slate-700 py-16 sm:py-24 px-4 sm:px-6 transition-colors duration-200">
       <div className="max-w-5xl mx-auto space-y-16">
         {/* Manifesto Block */}
-        <div className="p-8 sm:p-12 rounded-3xl border-2 border-neutral-900 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-[6px_6px_0px_#18181b] dark:shadow-[6px_6px_0px_#334155] space-y-6">
-          <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-neutral-950 dark:text-slate-300">
-            <span className="px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs">
+        <div className="p-8 sm:p-12 rounded-3xl border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-[#1e293b] shadow-[5px_5px_0px_#334155] dark:shadow-[5px_5px_0px_#475569] space-y-6">
+          <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-200">
+            <span className="px-2 py-0.5 rounded bg-[#ffe600] text-slate-950 font-black border border-slate-400 shadow-2xs">
               [ 07 // THE MONOFORGE MANIFESTO ]
             </span>
             <span>NO MONKEY BUSINESS</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-neutral-950 dark:text-white uppercase leading-[1.05] font-sans">
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white uppercase leading-[1.05] font-sans">
             FIRST IMPRESSIONS ON GITHUB ARE PERMANENT. STOP SETTLING FOR BORING.
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 text-xs font-mono leading-relaxed text-neutral-800 dark:text-slate-200">
-            <div className="space-y-2 p-5 rounded-2xl bg-neutral-50 dark:bg-slate-800 border-2 border-neutral-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 text-xs font-mono leading-relaxed text-slate-700 dark:text-slate-300">
+            <div className="space-y-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-[2px_2px_0px_#334155]">
               <span className="text-amber-600 dark:text-amber-400 font-black block text-sm">01 / CRAFT</span>
               <p>
                 We believe engineering excellence should be visible at first glance. Generic bulleted READMEs fail to communicate the caliber of your technical skill.
               </p>
             </div>
-            <div className="space-y-2 p-5 rounded-2xl bg-neutral-50 dark:bg-slate-800 border-2 border-neutral-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b]">
-              <span className="text-cyan-600 dark:text-cyan-400 font-black block text-sm">02 / INTEGRITY</span>
+            <div className="space-y-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-[2px_2px_0px_#334155]">
+              <span className="text-sky-600 dark:text-sky-400 font-black block text-sm">02 / INTEGRITY</span>
               <p>
                 No third-party trackers, no tracking cookies, no fragile third-party CDNs that break when maintainers abandon them. 100% self-hosted &amp; open-source.
               </p>
             </div>
-            <div className="space-y-2 p-5 rounded-2xl bg-neutral-50 dark:bg-slate-800 border-2 border-neutral-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b]">
+            <div className="space-y-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-[2px_2px_0px_#334155]">
               <span className="text-emerald-600 dark:text-emerald-400 font-black block text-sm">03 / VELOCITY</span>
               <p>
                 From raw JSON in /developer to one-click confirmed GitHub commit in under 60 seconds. Precision tooling without friction.
@@ -95,17 +95,17 @@ export function NomokeyManifesto() {
 
         {/* Technical FAQ Accordion */}
         <div className="space-y-4">
-          <div className="border-b-2 border-neutral-900 dark:border-slate-800 pb-4 mb-6 flex items-center justify-between">
+          <div className="border-b-2 border-slate-300 dark:border-slate-700 pb-4 mb-6 flex items-center justify-between">
             <div>
-              <div className="flex items-center gap-2 font-mono text-xs font-bold text-neutral-600 dark:text-slate-400 uppercase mb-1">
+              <div className="flex items-center gap-2 font-mono text-xs font-bold text-slate-600 dark:text-slate-400 uppercase mb-1">
                 <HelpCircle className="w-3.5 h-3.5 text-amber-500" />
                 <span>FREQUENTLY ASKED QUESTIONS</span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-black uppercase text-neutral-950 dark:text-white font-sans">
+              <h3 className="text-2xl sm:text-3xl font-black uppercase text-slate-900 dark:text-white font-sans">
                 EVERYTHING YOU NEED TO KNOW
               </h3>
             </div>
-            <span className="text-xs font-mono font-bold text-neutral-500 dark:text-slate-400 hidden sm:inline">
+            <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400 hidden sm:inline">
               7 QUESTIONS ANSWERED
             </span>
           </div>
@@ -116,19 +116,23 @@ export function NomokeyManifesto() {
               return (
                 <div
                   key={idx}
-                  className="rounded-2xl border-2 border-neutral-900 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden shadow-[3px_3px_0px_#18181b] dark:shadow-[3px_3px_0px_#334155] transition-all"
+                  className={`rounded-2xl border-2 transition-all ${
+                    isOpen
+                      ? 'border-amber-400 dark:border-amber-400/80 bg-[#fffdf0] dark:bg-slate-800/90 shadow-[4px_4px_0px_#f59e0b]'
+                      : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-[#1e293b] shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#475569] hover:border-slate-400'
+                  }`}
                 >
                   <button
                     type="button"
                     onClick={() => toggleIdx(idx)}
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${idx}`}
-                    className="w-full p-5 text-left font-bold text-sm sm:text-base flex items-center justify-between text-neutral-950 dark:text-white hover:bg-[#fffde6] dark:hover:bg-slate-800 transition-colors cursor-pointer btn-tactile"
+                    className="w-full p-5 text-left font-bold text-sm sm:text-base flex items-center justify-between text-slate-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-300 transition-colors cursor-pointer"
                   >
                     <span className="font-sans font-black pr-4 text-inherit">{faq.question}</span>
-                    <div className="p-1 rounded-lg border border-neutral-900 bg-[#ffe600] shrink-0">
+                    <div className="p-1 rounded-lg border border-slate-400 dark:border-slate-600 bg-[#ffe600] shrink-0 text-slate-950 shadow-2xs">
                       <ChevronDown
-                        className={`w-4 h-4 text-neutral-950 transition-transform duration-200 ${
+                        className={`w-4 h-4 text-slate-950 transition-transform duration-200 ${
                           isOpen ? 'rotate-180' : ''
                         }`}
                       />
@@ -138,7 +142,7 @@ export function NomokeyManifesto() {
                   {isOpen && (
                     <div
                       id={`faq-answer-${idx}`}
-                      className="px-5 pb-5 text-xs sm:text-sm font-mono text-neutral-800 dark:text-slate-200 leading-relaxed border-t border-neutral-200 dark:border-slate-800 pt-3 animate-in fade-in duration-150"
+                      className="px-5 pb-5 text-xs sm:text-sm font-sans text-slate-700 dark:text-slate-300 leading-relaxed border-t border-amber-200/60 dark:border-slate-700/80 pt-3 animate-in fade-in duration-150"
                     >
                       {faq.answer}
                     </div>
@@ -148,7 +152,38 @@ export function NomokeyManifesto() {
             })}
           </div>
         </div>
+
+        {/* GitHub Star Recommendation & Open-Source Community Banner */}
+        <div className="p-6 sm:p-8 rounded-2xl border-2 border-amber-400/80 bg-gradient-to-r from-amber-500/10 via-amber-400/5 to-transparent dark:from-amber-500/15 dark:via-slate-800 dark:to-[#1e293b] shadow-[4px_4px_0px_#f59e0b] flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="space-y-1.5 text-center sm:text-left">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#ffe600] text-slate-950 font-mono text-[10px] font-black uppercase tracking-wider border border-slate-400">
+              <Star className="w-3 h-3 fill-slate-950 text-slate-950" />
+              <span>COMMUNITY RECOMMENDATION</span>
+            </div>
+            <h4 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white uppercase font-sans">
+              LOVE MONOFORGE? STAR THE REPOSITORY!
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 max-w-xl font-medium">
+              MonoForge is completely free and open-source. Help us empower thousands of developers by giving the repo a star on GitHub.
+            </p>
+          </div>
+
+          <a
+            href="https://github.com/yuvraj-thakur-exe/MONOFORGE"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => playClickSound()}
+            className="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white dark:bg-[#ffe600] dark:hover:bg-amber-400 dark:text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wide border-2 border-slate-900 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#f59e0b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] transition-all cursor-pointer shrink-0"
+          >
+            <Github className="w-4 h-4" />
+            <Star className="w-4 h-4 fill-amber-400 text-amber-400 dark:fill-slate-950 dark:text-slate-950" />
+            <span>STAR ON GITHUB</span>
+            <ExternalLink className="w-3.5 h-3.5 opacity-70" />
+          </a>
+        </div>
       </div>
     </section>
   );
 }
+
+export default NomokeyManifesto;

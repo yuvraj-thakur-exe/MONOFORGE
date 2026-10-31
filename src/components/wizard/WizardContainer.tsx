@@ -471,6 +471,7 @@ export function WizardContainer() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                   {[
+                    { id: 'telemetry-isocalendar', title: 'Real Contributor Activity (Live Telemetry)', desc: 'Dynamic 3D isometric skyline, 2D annual heatmap, or velocity radar that updates with your real GitHub commits.' },
                     { id: 'readme-typing-svg', title: 'Typing SVG Hero', desc: 'Animated typewriter header with customizable text.' },
                     { id: 'github-readme-stats', title: 'GitHub Readme Stats', desc: 'Real-time commits, stars, PRs, and top languages.' },
                     { id: 'pie-chart', title: 'Skills & Languages Pie Chart', desc: 'Dynamic Donut and Pie charts for skills and language breakdowns.' },
@@ -498,6 +499,66 @@ export function WizardContainer() {
                           </div>
                           <p className="text-xs text-palette-contrast/60 mt-1">{plugin.desc}</p>
                         </div>
+
+                        {active && plugin.id === 'telemetry-isocalendar' && (() => {
+                          const section = config.sections.find(s => s.type === 'telemetry-isocalendar');
+                          const currentFormat = (section?.props.content.format as string) || 'isocalendar';
+                          const currentDuration = (section?.props.content.duration as string) || 'half-year';
+                          return (
+                            <div className="pt-2 border-t border-palette-line/60 space-y-2">
+                              <span className="text-[11px] font-medium text-palette-contrast/70">Activity Representation Form:</span>
+                              <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
+                                {[
+                                  { id: 'isocalendar', label: '3D Skyline' },
+                                  { id: 'heatmap', label: '2D Heatmap' },
+                                  { id: 'velocity', label: 'Streak Radar' },
+                                ].map(fmt => (
+                                  <button
+                                    key={fmt.id}
+                                    type="button"
+                                    onClick={() => {
+                                      if (!section) return;
+                                      updateSection(section.id, {
+                                        content: { ...section.props.content, format: fmt.id },
+                                      });
+                                    }}
+                                    className={`px-2 py-1 text-[11px] rounded border text-center transition-all ${
+                                      currentFormat === fmt.id
+                                        ? 'border-emerald-500 bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 font-bold'
+                                        : 'border-palette-line bg-palette-soft text-palette-contrast/70 hover:bg-palette-soft/80'
+                                    }`}
+                                  >
+                                    {fmt.label}
+                                  </button>
+                                ))}
+                              </div>
+                              <div className="flex items-center justify-between text-[10px] text-palette-contrast/60 pt-1">
+                                <span>Horizon Range:</span>
+                                <div className="flex gap-1">
+                                  {['half-year', 'full-year'].map(dur => (
+                                    <button
+                                      key={dur}
+                                      type="button"
+                                      onClick={() => {
+                                        if (!section) return;
+                                        updateSection(section.id, {
+                                          content: { ...section.props.content, duration: dur },
+                                        });
+                                      }}
+                                      className={`px-2 py-0.5 rounded border text-[10px] ${
+                                        currentDuration === dur
+                                          ? 'border-amber-400 bg-amber-400/20 text-amber-600 dark:text-amber-300 font-bold'
+                                          : 'border-palette-line text-palette-contrast/60'
+                                      }`}
+                                    >
+                                      {dur === 'half-year' ? '180 Days' : '365 Days'}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })()}
 
                         {active && plugin.id === 'pie-chart' && (() => {
                           const section = config.sections.find(s => s.type === 'pie-chart');
