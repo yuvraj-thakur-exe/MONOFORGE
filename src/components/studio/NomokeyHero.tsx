@@ -252,16 +252,10 @@ export function NomokeyHero() {
 
           {/* Right Column: The Interactive Geometric Monkey Companion */}
           <div className="lg:col-span-5 relative" ref={containerRef}>
-            {/* Playful Floating Tactile Stickers (Nomokey Style) */}
-            <div className="absolute -top-6 -left-4 z-20 hidden sm:block rotate-[-6deg] animate-bounce-slow">
-              <div className="px-3 py-1.5 rounded-lg bg-[#ffe600] text-neutral-950 border-2 border-neutral-950 font-mono text-[11px] font-black uppercase tracking-wider shadow-[3px_3px_0px_#18181b]">
-                ✦ 100% ZERO JS
-              </div>
-            </div>
-
-            <div className="absolute -bottom-4 -right-2 z-20 rotate-[5deg]">
-              <div className="px-3 py-1.5 rounded-lg bg-[#ffe600] text-neutral-950 border-2 border-neutral-950 font-mono text-[11px] font-black uppercase tracking-wider shadow-[3px_3px_0px_#18181b]">
-                ⚡ 60FPS CAMO SVG
+            {/* Clean Floating Badge positioned safely at outer boundary */}
+            <div className="absolute -top-7 right-0 z-20 hidden sm:block">
+              <div className="px-2.5 py-1 rounded-lg bg-[#ffe600] text-neutral-950 border-2 border-neutral-950 font-mono text-[10px] font-black uppercase tracking-wider shadow-[2px_2px_0px_#18181b]">
+                ✦ 100% ZERO JS &bull; 60FPS CAMO
               </div>
             </div>
 

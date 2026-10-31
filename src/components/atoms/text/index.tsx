@@ -40,10 +40,10 @@ const Paragraph = tailwind.twx.p`text-palette-contrast text-sm transition-all`;
 
 const Link = tailwind.twx(
   NextIntlLink
-)`text-palette-accent text-sm hover:underline`;
+)`text-amber-700 dark:text-amber-400 font-bold text-sm underline decoration-amber-400 decoration-2 hover:text-amber-600 transition-colors`;
 
 const Clickable = tailwind.twx
-  .button`inline text-palette-ring! text-sm hover:underline`;
+  .button`inline text-amber-700 dark:text-amber-400 font-bold text-sm underline decoration-amber-400 decoration-2 hover:text-amber-600 transition-colors cursor-pointer`;
 
 const Strong = tailwind.twx.strong`text-palette-contrast text-sm font-semibold`;
 

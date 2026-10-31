@@ -290,12 +290,12 @@ export function InfoHub() {
         {/* Breadcrumb & Navigation Bar */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b border-neutral-300">
           <div className="flex items-center gap-2 text-xs font-mono text-neutral-600">
-            <Link href="/" className="hover:text-violet-400 transition-colors flex items-center gap-1.5">
+            <Link href="/" className="hover:text-violet-600 transition-colors flex items-center gap-1.5">
               <Globe className="w-3.5 h-3.5 text-neutral-600" />
               <span>MonoForge</span>
             </Link>
             <span>/</span>
-            <span className="text-emerald-400 font-semibold">Developer Hub &amp; Documentation Portal</span>
+            <span className="text-emerald-800 font-bold font-mono">Developer Hub &amp; Documentation Portal</span>
           </div>
 
           <div className="flex items-center gap-2.5">
@@ -374,7 +374,7 @@ export function InfoHub() {
                   onClick={() => setActiveTab('playground')}
                   className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-neutral-100 border-2 border-neutral-900 text-neutral-950 font-bold text-xs shadow-[2px_2px_0px_#18181b] btn-tactile"
                 >
-                  <Sliders className="w-3.5 h-3.5 text-amber-400" />
+                  <Sliders className="w-3.5 h-3.5 text-amber-600" />
                   <span>Interactive Playground</span>
                 </button>
               </div>
@@ -419,7 +419,7 @@ export function InfoHub() {
                     <div className="p-3 rounded-xl bg-white border border-neutral-900 text-[11px] font-mono text-neutral-800 space-y-1">
                       <div className="flex items-center justify-between text-neutral-500 text-[10px]">
                         <span>DYNAMIC BANNER (SVG 60FPS)</span>
-                        <span className="text-emerald-400">Zero JS &bull; Camo Ready</span>
+                        <span className="text-emerald-600">Zero JS &bull; Camo Ready</span>
                       </div>
                       <div className="text-cyan-800 font-bold font-semibold truncate">
                         &gt; Synthesizing Cloud Systems &amp; Real-Time AI Toolchains
@@ -492,7 +492,7 @@ export function InfoHub() {
           >
             <Layers className="w-4 h-4 text-violet-400" />
             <span>README Archetypes</span>
-            <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-violet-500/30 text-violet-200 font-mono font-bold">
+            <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-violet-100 text-violet-950 border border-violet-300 font-mono font-black">
               {TEMPLATES.length}
             </span>
           </button>
@@ -506,9 +506,9 @@ export function InfoHub() {
                 : 'text-neutral-600 hover:text-neutral-950 font-bold hover:bg-neutral-100 border border-transparent'
             }`}
           >
-            <Sliders className="w-4 h-4 text-cyan-400" />
+            <Sliders className="w-4 h-4 text-cyan-600" />
             <span>Live Mini-Studio</span>
-            <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-cyan-400/20 text-cyan-200 font-mono font-bold">
+            <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-cyan-100 text-cyan-950 border border-cyan-300 font-mono font-black">
               INTERACTIVE
             </span>
           </button>
@@ -535,7 +535,7 @@ export function InfoHub() {
                 : 'text-neutral-600 hover:text-neutral-950 font-bold hover:bg-neutral-100 border border-transparent'
             }`}
           >
-            <BookOpen className="w-4 h-4 text-indigo-400" />
+            <BookOpen className="w-4 h-4 text-indigo-600" />
             <span>Studio Walkthrough</span>
           </button>
 

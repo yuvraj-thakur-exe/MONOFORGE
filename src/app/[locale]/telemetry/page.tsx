@@ -445,7 +445,7 @@ export default function TelemetryStudioPage() {
                             className="rounded border-neutral-900 text-amber-500 focus:ring-0 bg-white cursor-pointer"
                           />
                           <span className="font-semibold text-xs text-neutral-900">{plugin.name}</span>
-                          <span className="text-[10px] px-1.5 py-0.2 rounded bg-neutral-800/80 text-neutral-600 font-mono">
+                          <span className="text-[10px] px-1.5 py-0.2 rounded bg-neutral-100 text-neutral-900 border border-neutral-300 font-mono font-bold">
                             {plugin.category}
                           </span>
                         </div>
@@ -545,7 +545,7 @@ export default function TelemetryStudioPage() {
                     >
                       <Icon className="w-3.5 h-3.5 text-amber-400/90" />
                       <span>{preset.label}</span>
-                      <span className="text-[10px] px-1.5 py-0.2 rounded bg-neutral-800/80 text-neutral-600 font-mono">
+                      <span className="text-[10px] px-1.5 py-0.2 rounded bg-neutral-100 text-neutral-900 border border-neutral-300 font-mono font-bold">
                         {preset.tag}
                       </span>
                     </button>
@@ -656,13 +656,13 @@ export default function TelemetryStudioPage() {
                     <button
                       type="button"
                       onClick={() => handleCopy(activeMarkdownSnippet, 'markdown', 'Markdown Snippet')}
-                      className="flex items-center gap-1 px-2.5 py-1 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-900 text-xs transition-colors"
+                      className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 text-white font-mono text-xs font-bold border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] btn-tactile transition-all cursor-pointer"
                     >
                       {copiedKey === 'markdown' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                       <span>{copiedKey === 'markdown' ? 'Copied' : 'Copy Snippet'}</span>
                     </button>
                   </div>
-                  <pre className="p-4 rounded-lg bg-white border border-neutral-900/80 font-mono text-xs text-amber-200/90 overflow-x-auto leading-relaxed">
+                  <pre className="p-4 rounded-lg bg-neutral-950 border-2 border-neutral-900 font-mono text-xs text-emerald-400 overflow-x-auto leading-relaxed shadow-inner">
                     {activeMarkdownSnippet}
                   </pre>
                 </div>
@@ -676,7 +676,7 @@ export default function TelemetryStudioPage() {
                     <button
                       type="button"
                       onClick={() => handleCopy(actionWorkflow, 'action', 'Workflow YAML')}
-                      className="flex items-center gap-1 px-2.5 py-1 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-900 text-xs transition-colors"
+                      className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 text-white font-mono text-xs font-bold border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] btn-tactile transition-all cursor-pointer"
                     >
                       {copiedKey === 'action' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                       <span>{copiedKey === 'action' ? 'Copied' : 'Copy Workflow YAML'}</span>
@@ -717,7 +717,7 @@ export default function TelemetryStudioPage() {
                     <label className="block text-xs font-semibold text-neutral-600 mb-1 font-mono">
                       cURL Command
                     </label>
-                    <pre className="p-3 rounded-lg bg-white border border-neutral-900 font-mono text-xs text-amber-300/90 overflow-x-auto">
+                    <pre className="p-3 rounded-lg bg-neutral-950 border-2 border-neutral-900 font-mono text-xs text-emerald-400 overflow-x-auto shadow-inner">
                       curl -s "https://monoforge-studio.vercel.app{activeSvgUrl}" -o telemetry-{selectedPluginPreset}.svg
                     </pre>
                   </div>
@@ -743,7 +743,7 @@ export default function TelemetryStudioPage() {
                   <button
                     type="button"
                     onClick={() => handleCopy(activeMarkdownSnippet, 'bottom_md', 'Markdown Snippet')}
-                    className="px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 font-semibold hover:bg-amber-500/20 transition-colors flex items-center gap-1.5"
+                    className="px-3.5 py-1.5 rounded-lg bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-mono text-xs font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] btn-tactile transition-all flex items-center gap-1.5 cursor-pointer"
                   >
                     <Copy className="w-3.5 h-3.5" />
                     <span>Copy Markdown</span>

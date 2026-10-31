@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Link } from '#/i18n/navigation';
+import { Link, usePathname } from '#/i18n/navigation';
 import { Sparkles, Code2, X, ChevronUp } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { toast } from 'sonner';
@@ -23,6 +23,13 @@ export function NomokeyCompanionWidget() {
   const [bananaCount, setBananaCount] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const widgetRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const isWorkspace =
+    pathname?.includes('/developer') ||
+    pathname?.includes('/wizard') ||
+    pathname?.includes('/canvas');
+
+  if (isWorkspace) return null;
 
   useEffect(() => {
     const handleScroll = () => {

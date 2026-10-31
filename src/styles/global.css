@@ -162,11 +162,20 @@ body {
 }
 
 a {
-  @apply text-palette-ring;
+  color: inherit;
+  text-decoration: none;
 }
 
 a:hover {
+  text-decoration: none;
+}
+
+.text-link {
+  color: #0284c7;
   text-decoration: underline;
+}
+.text-link:hover {
+  color: #0369a1;
 }
 
 .is-used {
