@@ -14,6 +14,10 @@ import {
   Wand2,
   FileText,
   Code2,
+  BarChart3,
+  LayoutTemplate,
+  Layers,
+  Palette,
 } from 'lucide-react';
 import { AI_MODELS, AiActionType, AiResponseResult } from '#/lib/ai/types';
 import { requestAiAssistant } from '#/lib/ai/ai-service';
@@ -144,9 +148,13 @@ export function AiAssistantModal({ isOpen, onClose }: AiAssistantModalProps) {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {[
               { id: 'generate-readme', label: 'Full Profile', icon: Wand2 },
-              { id: 'improve-readme', label: 'Profile Polisher', icon: Sparkles },
+              { id: 'improve-readme', label: 'Improve Profile', icon: Sparkles },
               { id: 'generate-bio', label: 'Bio Generator', icon: FileText },
               { id: 'describe-project', label: 'Project Cards', icon: Code2 },
+              { id: 'suggest-sections', label: 'Suggest Sections', icon: Layers },
+              { id: 'generate-template', label: 'Custom Template', icon: LayoutTemplate },
+              { id: 'explain-telemetry', label: 'Explain Telemetry', icon: BarChart3 },
+              { id: 'recommend-design', label: 'Design Advisor', icon: Palette },
             ].map((tab) => {
               const Icon = tab.icon;
               const isSelected = action === tab.id;
@@ -312,6 +320,14 @@ export function AiAssistantModal({ isOpen, onClose }: AiAssistantModalProps) {
                 <div className="p-3 bg-[#0E1117] rounded-lg border border-[#1E293B] text-xs text-neutral-200 leading-relaxed">
                   <p className="font-semibold text-white mb-1">Headline: {result.headline}</p>
                   <p>{result.bio}</p>
+                </div>
+              )}
+
+              {/* Summary / Analysis Preview */}
+              {result.summary && (
+                <div className="p-3 bg-[#0E1117] rounded-lg border border-[#1E293B] text-xs text-neutral-200 leading-relaxed">
+                  <p className="font-semibold text-white mb-1">Architecture &amp; Intelligence Summary</p>
+                  <p className="text-neutral-300">{result.summary}</p>
                 </div>
               )}
 

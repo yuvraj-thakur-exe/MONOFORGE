@@ -55,3 +55,4 @@ export interface CommunityAsset {
 1. Add your asset object to `COMMUNITY_ASSETS` in `src/lib/assets/registry.ts`.
 2. Add a test in `src/lib/assets/registry.test.ts`.
 3. Open a GitHub pull request to `yuvraj-thakur-exe/MONOFORGE`.
+

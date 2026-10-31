@@ -30,3 +30,4 @@ describe('Community Asset Registry', () => {
     expect(results.some(r => r.name.toLowerCase().includes('cyber') || r.tags.includes('cyber'))).toBe(true);
   });
 });
+

@@ -179,3 +179,4 @@ export function searchAssets(query: string, category?: AssetCategory): Community
     return matchesCategory && matchesQuery;
   });
 }
+

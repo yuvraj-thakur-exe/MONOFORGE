@@ -57,3 +57,4 @@ const a = 1;
     expect(reportAfter.camoSafe).toBe(true);
   });
 });
+

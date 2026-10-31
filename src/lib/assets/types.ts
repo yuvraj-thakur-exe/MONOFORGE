@@ -57,3 +57,4 @@ export const CommunityAssetSchema = z.object({
 });
 
 export type CommunityAsset = z.infer<typeof CommunityAssetSchema>;
+

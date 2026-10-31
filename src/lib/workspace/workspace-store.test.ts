@@ -79,3 +79,4 @@ describe('LocalWorkspace Engine', () => {
     expect(history[0].byteSize).toBe(1420);
   });
 });
+

@@ -117,3 +117,4 @@ const markdownString = buildMarkdown(config);
 - Zero side-effects, 100% pure function.
 - Respects `visible: false` on section items.
 - Camo-tested and covered by unit tests in `src/lib/buildMarkdown.test.ts`.
+

@@ -82,6 +82,74 @@ export function synthesizeFallbackAiResponse(
       };
     }
 
+    case 'suggest-sections': {
+      return {
+        suggestions: [
+          '1. Kinetic Cyber Banner (Header hook)',
+          '2. Elevator Bio with role declaration',
+          '3. 3-Tier Categorized Tech Badges (Languages, Frameworks, Cloud)',
+          '4. Flagship Projects Showcase with live demo URLs',
+          '5. 3D Isometric Commit Terrain & 24h Rhythm Dial',
+          '6. Gamified Achievement Badges',
+          '7. Social Gateways & Contact Footer',
+        ],
+        summary: 'Recommended high-conversion 7-stage developer narrative.',
+      };
+    }
+
+    case 'generate-template': {
+      const templateMd = `# Alex Vance — Principal Systems Architect
+
+> Designing resilient distributed state machines and high-throughput stream engines.
+
+### ⚡ Technical Stack
+\`Rust\` \`TypeScript\` \`Go\` \`PostgreSQL\` \`Kubernetes\` \`Docker\` \`Kafka\`
+
+### 🏆 Featured Artifacts
+- **[AetherNet](https://github.com)** — Zero-copy peer-to-peer event broker.
+- **[VoxelGrid](https://github.com)** — 60fps GPU telemetry engine for web.
+
+### 📊 Activity Radar
+<p align="center">
+  <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?type=radar&user=octocat&theme=cyberpunk" alt="Radar Telemetry" />
+</p>
+`;
+      return {
+        markdown: templateMd,
+        headline: 'Principal Systems Architect',
+        bio: 'Designing resilient distributed state machines and high-throughput stream engines.',
+        technologies: ['Rust', 'TypeScript', 'Go', 'PostgreSQL', 'Kubernetes', 'Docker'],
+        suggestions: [
+          'Applied Cyberpunk Architect layout archetype',
+          'Configured high-contrast neon badges',
+          'Injected Camo-safe activity radar SVG',
+        ],
+      };
+    }
+
+    case 'explain-telemetry': {
+      return {
+        summary:
+          'Your profile telemetry highlights a strong weekend rhythm with highest commit density between 14:00 and 19:00 UTC. The 3D isometric terrain reflects sustained 42-day streak consistency, while the polyglot donut indicates a TypeScript-dominant architecture (64%) supported by Go (22%) and Rust (14%).',
+        suggestions: [
+          'Feature the 3D Isometric terrain prominently to showcase streak momentum',
+          'Pair the 24h Activity dial with your primary timezone badge',
+        ],
+      };
+    }
+
+    case 'recommend-design': {
+      return {
+        suggestions: [
+          'Align badge styles: use uniform "for-the-badge" or "flat" style across all skill tags',
+          'Maintain consistent spacing: introduce horizontal rules (<hr/>) between major sections',
+          'Center telemetry charts with <p align="center"> for balanced GitHub desktop & mobile presentation',
+          'Adopt a curated theme (e.g. TokyoNight or Cyberpunk) across SVG badges for visual unity',
+        ],
+        summary: 'Audited visual hierarchy: recommended badge standardization and section centering.',
+      };
+    }
+
     case 'generate-readme':
     default: {
       const name = cleanPrompt.length < 40 ? cleanPrompt : 'Lead Engineer';
@@ -158,3 +226,4 @@ export async function requestAiAssistant(request: AiRequest): Promise<AiResponse
     };
   }
 }
+

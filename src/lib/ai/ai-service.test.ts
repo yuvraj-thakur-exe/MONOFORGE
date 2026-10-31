@@ -34,6 +34,28 @@ describe('AI Creation Assistant Service', () => {
     expect(res.technologies).toContain('Tailwind CSS');
   });
 
+  it('suggests structured section layout for profile architecture', () => {
+    const res = synthesizeFallbackAiResponse('suggest-sections', 'Cloud Native Architect');
+    expect(res.suggestions).toBeDefined();
+    expect(res.suggestions?.length).toBeGreaterThan(4);
+    expect(res.summary).toBeDefined();
+  });
+
+  it('generates custom template and explains telemetry metrics', () => {
+    const tmpl = synthesizeFallbackAiResponse('generate-template', 'Rust Systems Engineer');
+    expect(tmpl.markdown).toContain('# Alex Vance');
+    expect(tmpl.technologies).toContain('Rust');
+
+    const telemetry = synthesizeFallbackAiResponse('explain-telemetry', 'Weekly commit activity');
+    expect(telemetry.summary).toContain('telemetry');
+    expect(telemetry.suggestions?.length).toBeGreaterThan(0);
+  });
+
+  it('provides design hierarchy recommendations', () => {
+    const design = synthesizeFallbackAiResponse('recommend-design', 'Audit visual contrast');
+    expect(design.suggestions?.some(s => s.includes('badge'))).toBe(true);
+  });
+
   it('validates AiRequest schema correctly', () => {
     const valid = AiRequestSchema.safeParse({
       action: 'generate-readme',
@@ -48,3 +70,4 @@ describe('AI Creation Assistant Service', () => {
     expect(invalid.success).toBe(false);
   });
 });
+

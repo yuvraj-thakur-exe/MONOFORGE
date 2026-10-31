@@ -70,3 +70,4 @@ export interface ArchetypeTemplate {
 
 5. **Open Pull Request**:
    Create a PR with screenshot comparisons and title `feat(templates): add [Template Name] archetype`.
+

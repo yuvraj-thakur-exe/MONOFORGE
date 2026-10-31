@@ -244,3 +244,4 @@ export function autoFixDiagnostics(markdown: string): string {
 
   return fixed;
 }
+

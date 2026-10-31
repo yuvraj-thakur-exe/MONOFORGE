@@ -31,3 +31,4 @@ describe('projectsShowcasePlugin', () => {
     expect(result).toContain('- **[QueryEngine]');
   });
 });
+

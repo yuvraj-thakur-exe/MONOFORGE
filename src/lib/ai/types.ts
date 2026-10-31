@@ -5,7 +5,11 @@ export type AiActionType =
   | 'improve-readme'
   | 'generate-bio'
   | 'describe-project'
-  | 'suggest-skills';
+  | 'suggest-skills'
+  | 'suggest-sections'
+  | 'generate-template'
+  | 'explain-telemetry'
+  | 'recommend-design';
 
 export interface AiModelOption {
   id: string;
@@ -50,6 +54,10 @@ export const AiRequestSchema = z.object({
     'generate-bio',
     'describe-project',
     'suggest-skills',
+    'suggest-sections',
+    'generate-template',
+    'explain-telemetry',
+    'recommend-design',
   ]),
   prompt: z.string().min(1).max(12000),
   model: z.string().optional().default('google/gemini-2.0-flash-exp:free'),
@@ -89,3 +97,4 @@ export interface AiResponse {
   error?: string;
   modelUsed?: string;
 }
+
