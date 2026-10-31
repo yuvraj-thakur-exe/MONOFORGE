@@ -32,9 +32,9 @@ describe('TopNav', () => {
     expect(screen.getAllByText(/MONO/i).length).toBeGreaterThanOrEqual(1);
 
     // Navigation Links
-    expect(screen.getAllByText(/STUDIO/i).length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText(/TEMPLATES/i)).toBeDefined();
     expect(screen.getByText(/DOCS/i)).toBeDefined();
     expect(screen.getByText(/INFO/i)).toBeDefined();
+    expect(screen.queryByRole('link', { name: /STUDIO/i })).toBeNull();
   });
 });

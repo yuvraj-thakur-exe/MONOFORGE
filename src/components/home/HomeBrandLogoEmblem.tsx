@@ -31,9 +31,6 @@ export function HomeBrandLogoEmblem() {
           <span className="font-sans font-black text-2xl sm:text-3xl tracking-tight text-slate-900 dark:text-white uppercase">
             MONO<span className="text-amber-500">FORGE</span>
           </span>
-          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-black bg-amber-400 text-slate-950 uppercase shadow-2xs">
-            OFFICIAL STUDIO
-          </span>
           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             100% CLIENT-SIDE

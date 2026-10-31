@@ -41,11 +41,11 @@ export function FinalCta() {
             <Link
               href="/developer?mode=visual"
               onClick={() => playClickSound()}
-              data-cursor-label="STUDIO"
+              data-cursor-label="BUILD"
               className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-black text-sm tracking-wide border-2 border-neutral-900 shadow-[4px_4px_0px_#18181b] hover:shadow-[2px_2px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all btn-tactile cursor-pointer"
             >
               <Sparkles className="w-4 h-4 text-neutral-950 group-hover:rotate-12 transition-transform" />
-              <span>LAUNCH STUDIO</span>
+              <span>BUILD PROFILE</span>
               <ArrowRight className="w-4 h-4 text-neutral-950 group-hover:translate-x-1 transition-transform" />
             </Link>
 

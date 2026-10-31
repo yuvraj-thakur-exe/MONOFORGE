@@ -63,23 +63,13 @@ export function TopNav() {
                 MONO<span className="text-amber-500">FORGE</span>
               </span>
               <span className="text-[9px] text-slate-500 dark:text-slate-400 font-mono font-medium hidden sm:inline uppercase">
-                GITHUB PROFILE STUDIO &amp; ENGINES
+                GITHUB PROFILE BUILDER &amp; ENGINES
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation Links */}
           <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-1.5 sm:gap-2 font-mono text-xs">
-            {/* Visual Studio */}
-            <Link
-              href="/developer?mode=visual"
-              onClick={() => playClickSound()}
-              className="flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg bg-amber-400 text-slate-950 hover:bg-amber-300 transition-all shadow-xs cursor-pointer"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-slate-950" />
-              <span>STUDIO</span>
-            </Link>
-
             {/* 85+ Templates */}
             <Link
               href="/templates"
