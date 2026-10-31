@@ -530,12 +530,17 @@ a:hover {
 
 .btn-tactile:hover {
   transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0px #18181b !important;
+  box-shadow: 3px 3px 0px rgba(15, 23, 42, 0.9);
+}
+
+:root[data-theme='dark'] .btn-tactile:hover,
+.dark .btn-tactile:hover {
+  box-shadow: 3px 3px 0px rgba(251, 191, 36, 0.4);
 }
 
 .btn-tactile:active {
-  transform: translate(2px, 2px);
-  box-shadow: 0px 0px 0px #18181b !important;
+  transform: translate(1px, 1px);
+  box-shadow: 0px 0px 0px transparent;
 }
 
 /* Rubber pop on cards */
@@ -545,7 +550,12 @@ a:hover {
 
 .card-tactile:hover {
   transform: translateY(-4px);
-  box-shadow: 6px 6px 0px #18181b !important;
+  box-shadow: 4px 4px 0px rgba(15, 23, 42, 0.85);
+}
+
+:root[data-theme='dark'] .card-tactile:hover,
+.dark .card-tactile:hover {
+  box-shadow: 4px 4px 0px rgba(251, 191, 36, 0.35);
 }
 
 /* Monkey Wiggle Keyframe */
