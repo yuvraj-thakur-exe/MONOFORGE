@@ -26,14 +26,26 @@ export function ThemeProvider({
         }
       });
     }
+
+    // Keep data-theme and class in sync for universal CSS rule compatibility
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains('dark');
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   return (
     <NextThemesProvider
-      attribute="data-theme"
+      attribute="class"
       defaultTheme="light"
-      forcedTheme="light"
-      enableSystem={false}
+      enableSystem={true}
       {...props}
     >
       {children}

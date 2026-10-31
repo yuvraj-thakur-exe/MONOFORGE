@@ -1,88 +1,101 @@
-:root[data-theme='dark'] {
-  --palette-base: oklch(1 0 0);
-  --palette-soft: oklch(0.96 0.005 248);
-  --palette-line: oklch(0.89 0.01 247.9);
-  --palette-contrast: oklch(0.2 0.012 248.2);
-  --palette-accent: oklch(0.3 0.016 248.2);
+/* MonoForge Sophisticated Slate Dark Palette
+   Engineered for developer comfort — high legibility, not pitch black, harmonious accents. */
+
+:root[data-theme='dark'],
+.dark {
+  --palette-base: #0f172a;
+  --palette-soft: #1e293b;
+  --palette-line: #334155;
+  --palette-contrast: #f8fafc;
+  --palette-accent: #f59e0b;
   --palette-ring: #ffe600;
-  --palette-state-shift: -0.1;
+  --palette-state-shift: 0.1;
 }
 
-/* Force light crisp palette across dark theme */
-:root[data-theme='dark'] .palette-surface {
-  --palette-base: oklch(1 0 0);
-  --palette-soft: oklch(0.96 0.005 248);
-  --palette-line: oklch(0.89 0.01 247.9);
-  --palette-contrast: oklch(0.2 0.012 248.2);
-  --palette-accent: oklch(0.3 0.016 248.2);
-  --palette-ring: #ffe600;
-}
-
-:root[data-theme='dark'] .palette-surface-orange {
-  --palette-base: oklch(1 0 0);
-  --palette-soft: oklch(0.96 0.005 248);
-  --palette-line: oklch(0.89 0.01 247.9);
-  --palette-contrast: oklch(0.2 0.012 248.2);
-  --palette-accent: oklch(0.3 0.016 248.2);
+/* Surface — app floor (base, text, borders) */
+:root[data-theme='dark'] .palette-surface,
+.dark .palette-surface {
+  --palette-base: #0f172a;
+  --palette-soft: #1e293b;
+  --palette-line: #334155;
+  --palette-contrast: #f8fafc;
+  --palette-accent: #f59e0b;
   --palette-ring: #ffe600;
 }
 
-:root[data-theme='dark'] .palette-surface-green {
-  --palette-base: oklch(1 0 0);
-  --palette-soft: oklch(0.96 0.005 248);
-  --palette-line: oklch(0.89 0.01 247.9);
-  --palette-contrast: oklch(0.2 0.012 248.2);
-  --palette-accent: oklch(0.3 0.016 248.2);
-  --palette-ring: oklch(0.627 0.157 148.4);
+:root[data-theme='dark'] .palette-surface-orange,
+.dark .palette-surface-orange {
+  --palette-base: #0f172a;
+  --palette-soft: #1e293b;
+  --palette-line: #334155;
+  --palette-contrast: #f8fafc;
+  --palette-accent: #f59e0b;
+  --palette-ring: #ffe600;
+}
+
+:root[data-theme='dark'] .palette-surface-green,
+.dark .palette-surface-green {
+  --palette-base: #0f172a;
+  --palette-soft: #1e293b;
+  --palette-line: #334155;
+  --palette-contrast: #f8fafc;
+  --palette-accent: #10b981;
+  --palette-ring: #34d399;
 }
 
 /* Raised — elevated surface (cards, popovers, dialogs) */
-:root[data-theme='dark'] .palette-raised {
-  --palette-base: oklch(1 0 0);
-  --palette-soft: oklch(0.96 0.005 248);
-  --palette-line: oklch(0.89 0.01 247.9);
-  --palette-contrast: oklch(0.2 0.012 248.2);
-  --palette-accent: oklch(0.3 0.016 248.2);
+:root[data-theme='dark'] .palette-raised,
+.dark .palette-raised {
+  --palette-base: #1e293b;
+  --palette-soft: #253349;
+  --palette-line: #3b4a6b;
+  --palette-contrast: #f8fafc;
+  --palette-accent: #f59e0b;
   --palette-ring: #ffe600;
 }
 
-/* Blue — primary brand */
-:root[data-theme='dark'] .palette-blue {
-  --palette-base: oklch(0.57 0.211 257.9);
-  --palette-soft: oklch(0.882 0.059 251.9);
-  --palette-line: oklch(0.713 0.153 253.4);
-  --palette-contrast: oklch(0.318 0.012 248.2);
-  --palette-accent: oklch(0.48 0.174 257.5);
+/* Blue / Indigo — primary brand */
+:root[data-theme='dark'] .palette-blue,
+.dark .palette-blue {
+  --palette-base: #6366f1;
+  --palette-soft: #1e293b;
+  --palette-line: #4f46e5;
+  --palette-contrast: #ffffff;
+  --palette-accent: #818cf8;
   --palette-ring: var(--palette-accent);
 }
 
 /* Green — success/positive */
-:root[data-theme='dark'] .palette-green {
-  --palette-base: oklch(0.627 0.157 148.4);
-  --palette-soft: oklch(0.887 0.075 152.9);
-  --palette-line: oklch(0.778 0.15 150.3);
-  --palette-contrast: oklch(0.318 0.012 248.2);
-  --palette-accent: oklch(0.513 0.126 148.6);
+:root[data-theme='dark'] .palette-green,
+.dark .palette-green {
+  --palette-base: #10b981;
+  --palette-soft: #132e27;
+  --palette-line: #059669;
+  --palette-contrast: #ffffff;
+  --palette-accent: #34d399;
   --palette-ring: var(--palette-accent);
 }
 
 /* Danger — error/destructive */
 :root[data-theme='dark'] .palette-danger,
-:root[data-theme='dark'] [data-invalid] {
-  --palette-base: oklch(0.55 0.219 29.5);
-  --palette-soft: oklch(0.827 0.091 22.6);
-  --palette-line: oklch(0.666 0.204 27.2);
-  --palette-contrast: oklch(0.318 0.012 248.2);
-  --palette-accent: oklch(0.453 0.179 29.5);
+.dark .palette-danger,
+:root[data-theme='dark'] [data-invalid],
+.dark [data-invalid] {
+  --palette-base: #ef4444;
+  --palette-soft: #381a1d;
+  --palette-line: #b91c1c;
+  --palette-contrast: #ffffff;
+  --palette-accent: #f87171;
   --palette-ring: var(--palette-accent);
 }
 
 /* Warning — caution */
-:root[data-theme='dark'] .palette-orange {
-  --palette-base: #ffe600;
-  --palette-soft: #fffde6;
-  --palette-line: oklch(0.727 0.153 33.9);
-  --palette-contrast: #18181b;
-  --palette-accent: #eab308;
+:root[data-theme='dark'] .palette-orange,
+.dark .palette-orange {
+  --palette-base: #f59e0b;
+  --palette-soft: #382810;
+  --palette-line: #d97706;
+  --palette-contrast: #0f172a;
+  --palette-accent: #fbbf24;
   --palette-ring: var(--palette-accent);
 }

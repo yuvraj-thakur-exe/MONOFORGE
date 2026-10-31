@@ -95,8 +95,16 @@
 html,
 body {
   font-size: 10px;
-  background-color: #ffffff !important;
-  color: #18181b !important;
+  background-color: #fafbfc;
+  color: #0f172a;
+}
+
+:root[data-theme='dark'],
+.dark,
+:root[data-theme='dark'] body,
+.dark body {
+  background-color: #0f172a;
+  color: #f8fafc;
 }
 
 ul,
