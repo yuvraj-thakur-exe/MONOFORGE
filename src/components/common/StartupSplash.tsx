@@ -21,6 +21,8 @@ import { motion, AnimatePresence } from 'framer-motion';
  * - Mobile responsive (320px to ultrawide), prefers-reduced-motion safe, ARIA role="status"
  */
 
+const TOTAL_DURATION_MS = 10000;
+
 const LOADING_MESSAGES = [
   'Initializing MonoForge...',
   'Preparing your workspace...',
@@ -35,7 +37,10 @@ export function StartupSplash() {
   const [mounted, setMounted] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
   const [messageIndex, setMessageIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [secondsLeft, setSecondsLeft] = useState(10);
   const timerRefs = useRef<NodeJS.Timeout[]>([]);
+  const intervalRefs = useRef<NodeJS.Timeout[]>([]);
 
   const dismiss = useCallback(() => {
     setIsExiting(true);
@@ -69,23 +74,34 @@ export function StartupSplash() {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReducedMotion) {
-      const timer = setTimeout(() => dismiss(), 650);
+      const timer = setTimeout(() => dismiss(), 450);
       timerRefs.current.push(timer);
       return;
     }
 
-    // Contextual message progression timeline
-    const m1 = setTimeout(() => setMessageIndex(1), 600);
-    const m2 = setTimeout(() => setMessageIndex(2), 1200);
-    const m3 = setTimeout(() => setMessageIndex(3), 1750);
+    // 10-Second Contextual message progression timeline
+    const m1 = setTimeout(() => setMessageIndex(1), 2500);
+    const m2 = setTimeout(() => setMessageIndex(2), 5000);
+    const m3 = setTimeout(() => setMessageIndex(3), 7500);
 
-    // Smooth exit transition once application is ready
+    // Continuous progress and 10s countdown tracking
+    const startTime = Date.now();
+    const progressInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const pct = Math.min(100, Math.round((elapsed / 9700) * 100));
+      setProgress(pct);
+      const remaining = Math.max(0, Math.ceil((TOTAL_DURATION_MS - elapsed) / 1000));
+      setSecondsLeft(remaining);
+    }, 100);
+    intervalRefs.current.push(progressInterval);
+
+    // Smooth exit transition once 10-second readiness timeline completes
     const tReady = setTimeout(() => {
       dismiss();
-    }, 2250);
+    }, 9750);
 
     // Safety failsafe timer so user is never trapped
-    const tFailsafe = setTimeout(() => dismiss(), 3600);
+    const tFailsafe = setTimeout(() => dismiss(), 10500);
 
     timerRefs.current.push(m1, m2, m3, tReady, tFailsafe);
 
@@ -105,6 +121,8 @@ export function StartupSplash() {
       setMounted(true);
       setIsExiting(false);
       setMessageIndex(0);
+      setProgress(0);
+      setSecondsLeft(10);
     };
     window.addEventListener('monoforge:replay-startup', handleReplay);
 
@@ -112,6 +130,7 @@ export function StartupSplash() {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('monoforge:replay-startup', handleReplay);
       timerRefs.current.forEach(clearTimeout);
+      intervalRefs.current.forEach(clearInterval);
     };
   }, [dismiss]);
 
@@ -435,51 +454,54 @@ export function StartupSplash() {
 
           {/* 4. ANIMATED YELLOW PROGRESS LINE WITH MOVING FORGE SPARK */}
           <div className="mt-6 w-full flex flex-col items-center gap-3">
-            <div className="w-60 sm:w-68 h-1.5 rounded-full bg-neutral-800/90 overflow-hidden relative border border-neutral-700/60">
-              {/* Indeterminate moving progress bar */}
+            <div className="w-64 sm:w-80 h-2 rounded-full bg-neutral-900/90 overflow-hidden relative border border-neutral-700/60 p-[1px]">
+              {/* Dynamic 10-Second Progress Fill */}
               <motion.div
-                animate={{
-                  left: ['-35%', '30%', '100%'],
-                  width: ['35%', '45%', '30%'],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: [0.4, 0, 0.2, 1],
-                }}
-                className="absolute top-0 bottom-0 bg-[#FFE600] rounded-full shadow-[0_0_14px_#FFE600]"
+                className="h-full bg-gradient-to-r from-amber-500 via-[#FFE600] to-yellow-300 rounded-full shadow-[0_0_14px_#FFE600] transition-all duration-150 ease-out relative"
+                style={{ width: `${Math.max(4, progress)}%` }}
               />
 
               {/* Moving Forge Spark Riding Front Edge */}
               <motion.div
-                animate={{
-                  left: ['0%', '75%', '100%'],
-                  opacity: [0.4, 1, 0.4],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-                className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_10px_#FFE600,0_0_4px_#FFF]"
+                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white shadow-[0_0_12px_#FFE600,0_0_6px_#FFF] pointer-events-none transition-all duration-150 ease-out"
+                style={{ left: `${Math.max(4, progress)}%` }}
               />
             </div>
 
-            {/* 5. CONTEXTUAL ROTATING LOADING MESSAGES */}
-            <div className="h-5 flex items-center justify-center">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={messageIndex}
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -5 }}
-                  transition={{ duration: 0.22 }}
-                  className="flex items-center gap-2 text-[11px] font-mono tracking-wider uppercase text-neutral-400 font-semibold"
+            {/* Sub-bar Info Strip: Message & Auto-switch Timer */}
+            <div className="w-64 sm:w-80 flex items-center justify-between text-[11px] font-mono">
+              {/* 5. CONTEXTUAL ROTATING LOADING MESSAGES */}
+              <div className="h-5 flex items-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={messageIndex}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.2 }}
+                    className="flex items-center gap-2 tracking-wider uppercase text-neutral-300 font-semibold"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFE600] animate-pulse shrink-0" />
+                    <span>{LOADING_MESSAGES[messageIndex]}</span>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* 10s Countdown with Fast Launch shortcut */}
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="text-[10px] text-neutral-400 font-mono">
+                  {secondsLeft}s
+                </span>
+                <button
+                  type="button"
+                  onClick={dismiss}
+                  className="px-2 py-0.5 rounded bg-[#FFE600]/15 hover:bg-[#FFE600] text-[#FFE600] hover:text-neutral-950 border border-[#FFE600]/40 text-[10px] font-mono font-bold tracking-wider uppercase transition-all cursor-pointer flex items-center gap-1 shadow-2xs"
+                  aria-label="Fast launch into workspace"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFE600] animate-pulse shrink-0" />
-                  <span>{LOADING_MESSAGES[messageIndex]}</span>
-                </motion.div>
-              </AnimatePresence>
+                  <span>Fast Launch</span>
+                  <span className="font-sans font-black">&raquo;</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
