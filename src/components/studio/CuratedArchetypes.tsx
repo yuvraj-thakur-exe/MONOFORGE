@@ -59,18 +59,18 @@ export function CuratedArchetypes() {
   };
 
   return (
-    <section className="relative bg-white border-b-2 border-neutral-900 py-16 sm:py-24 px-4 sm:px-6 transition-colors duration-200">
+    <section className="relative bg-[#fafbfc] dark:bg-[#1e293b]/50 border-b-2 border-slate-300 dark:border-slate-700 py-16 sm:py-24 px-4 sm:px-6 transition-colors duration-200">
       <div className="max-w-7xl mx-auto space-y-12">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-2 border-neutral-900 pb-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-2 border-slate-300 dark:border-slate-700 pb-6">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-neutral-950 mb-2">
-              <span className="px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b]">
+            <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-200 mb-2">
+              <span className="px-2 py-0.5 rounded bg-[#ffe600] text-slate-950 font-black border border-slate-400 shadow-2xs">
                 [ 06 // SIGNATURE ARCHETYPES ]
               </span>
-              <span className="font-bold text-neutral-800">MARCO MADONNA &amp; POULO INSPIRED</span>
+              <span className="font-bold text-slate-600 dark:text-slate-400">MARCO MADONNA &amp; POULO INSPIRED</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-neutral-950 uppercase font-sans">
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white uppercase font-sans">
               CURATED PROFILE STARTERS.
             </h2>
           </div>
@@ -78,9 +78,9 @@ export function CuratedArchetypes() {
           <Link
             href="/templates"
             onClick={() => playClickSound()}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white text-neutral-950 text-xs font-mono font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] hover:bg-[#ffe600] transition-all btn-tactile cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-950 dark:text-white text-xs font-mono font-black border-2 border-slate-300 dark:border-slate-600 shadow-[2px_2px_0px_#334155] dark:shadow-[2px_2px_0px_#475569] hover:bg-[#ffe600] dark:hover:bg-[#ffe600] dark:hover:text-slate-950 transition-all btn-tactile cursor-pointer"
           >
-            <span>Browse All 85+ Archetypes &amp; Templates</span>
+            <span>Browse All Curated Archetypes &amp; Templates</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -90,24 +90,24 @@ export function CuratedArchetypes() {
           {ARCHETYPES.map((arch) => (
             <div
               key={arch.id}
-              className="rounded-2xl border-2 border-neutral-900 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 flex flex-col justify-between shadow-[4px_4px_0px_#18181b] dark:shadow-[4px_4px_0px_#334155] hover:shadow-[2px_2px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] transition-all group"
+              className="rounded-2xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/90 p-6 flex flex-col justify-between shadow-[4px_4px_0px_#334155] dark:shadow-[4px_4px_0px_#475569] hover:shadow-[2px_2px_0px_#334155] hover:translate-x-[2px] hover:translate-y-[2px] transition-all group"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span
-                    className="w-3.5 h-3.5 rounded-full border border-neutral-900 dark:border-white"
+                    className="w-3.5 h-3.5 rounded-full border border-slate-900 dark:border-slate-600"
                     style={{ backgroundColor: arch.accentColor }}
                   />
-                  <span className="text-[10px] font-mono font-black text-neutral-600 dark:text-slate-400 uppercase tracking-wider">
+                  <span className="text-[10px] font-mono font-black text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                     {arch.role}
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="font-extrabold text-xl text-neutral-950 dark:text-white group-hover:text-amber-500 transition-colors">
+                  <h3 className="font-extrabold text-xl text-slate-900 dark:text-white group-hover:text-amber-500 transition-colors">
                     {arch.name}
                   </h3>
-                  <p className="text-xs text-neutral-800 dark:text-slate-300 font-mono mt-2 leading-relaxed">
+                  <p className="text-xs text-slate-700 dark:text-slate-300 font-mono mt-2 leading-relaxed">
                     {arch.description}
                   </p>
                 </div>
@@ -117,7 +117,7 @@ export function CuratedArchetypes() {
                   {arch.tags.map((tag, idx) => (
                     <span
                       key={idx}
-                      className="px-2.5 py-1 rounded-lg text-[11px] font-mono font-black bg-neutral-50 dark:bg-slate-800 text-neutral-950 dark:text-slate-200 border-2 border-neutral-900 dark:border-slate-700 shadow-[1px_1px_0px_#18181b]"
+                      className="px-2.5 py-1 rounded-lg text-[11px] font-mono font-black bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700"
                     >
                       {tag}
                     </span>
@@ -125,11 +125,11 @@ export function CuratedArchetypes() {
                 </div>
               </div>
 
-              <div className="pt-6 mt-6 border-t-2 border-neutral-900 dark:border-slate-800 flex items-center justify-between">
+              <div className="pt-6 mt-6 border-t-2 border-slate-200 dark:border-slate-700 flex items-center justify-between">
                 <Link
                   href={`/developer?template=${arch.id}&mode=visual`}
                   onClick={() => playClickSound()}
-                  className="px-3.5 py-2 rounded-xl bg-[#ffe600] text-neutral-950 text-xs font-mono font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] hover:bg-[#ffdf00] inline-flex items-center gap-1.5 transition-all btn-tactile"
+                  className="px-3.5 py-2 rounded-xl bg-[#ffe600] text-slate-950 text-xs font-mono font-black border-2 border-slate-900 shadow-[2px_2px_0px_#334155] hover:bg-[#ffdf00] inline-flex items-center gap-1.5 transition-all btn-tactile"
                 >
                   <span>Use Template</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -138,7 +138,7 @@ export function CuratedArchetypes() {
                 <Link
                   href={`/developer?template=${arch.id}&mode=editor`}
                   onClick={() => playClickSound()}
-                  className="p-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-neutral-100 dark:hover:bg-slate-700 text-neutral-950 dark:text-white border-2 border-neutral-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b] transition-all btn-tactile"
+                  className="p-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-white border-2 border-slate-300 dark:border-slate-700 shadow-[2px_2px_0px_#334155] transition-all btn-tactile"
                   title="Edit in Monaco Raw Mode"
                 >
                   <Code2 className="w-4 h-4" />
@@ -153,15 +153,15 @@ export function CuratedArchetypes() {
           <button
             type="button"
             onClick={toggleTemplates}
-            className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-800 hover:bg-[#ffe600] dark:hover:bg-[#ffe600] text-neutral-950 dark:text-white dark:hover:text-neutral-950 font-mono text-xs sm:text-sm font-black border-2 border-neutral-900 dark:border-slate-700 shadow-[4px_4px_0px_#18181b] hover:shadow-[2px_2px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer btn-tactile"
+            className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-800 hover:bg-[#ffe600] dark:hover:bg-[#ffe600] text-slate-900 dark:text-white dark:hover:text-slate-950 font-mono text-xs sm:text-sm font-black border-2 border-slate-300 dark:border-slate-700 shadow-[4px_4px_0px_#334155] hover:shadow-[2px_2px_0px_#334155] hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer btn-tactile"
           >
-            <span>{showAllTemplates ? '▲ COLLAPSE ARCHETYPE VAULT' : '▼ EXPLORE ALL 85+ ARCHETYPES WITH LIVE SEARCH & PREVIEW'}</span>
+            <span>{showAllTemplates ? '▲ COLLAPSE ARCHETYPE VAULT' : '▼ EXPLORE CURATED ARCHETYPES WITH LIVE SEARCH & PREVIEW'}</span>
           </button>
         </div>
 
         {/* Embedded Full Template Gallery */}
         {showAllTemplates && (
-          <div className="pt-10 border-t-2 border-neutral-900 dark:border-slate-800 animate-in fade-in duration-300">
+          <div className="pt-10 border-t-2 border-slate-300 dark:border-slate-700 animate-in fade-in duration-300">
             <TemplateGallery />
           </div>
         )}

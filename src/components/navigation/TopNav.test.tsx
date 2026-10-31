@@ -34,7 +34,6 @@ describe('TopNav', () => {
     // Navigation Links
     expect(screen.getAllByText(/STUDIO/i).length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText(/TEMPLATES/i)).toBeDefined();
-    expect(screen.getByText(/IDE/i)).toBeDefined();
     expect(screen.getByText(/DOCS/i)).toBeDefined();
     expect(screen.getByText(/INFO/i)).toBeDefined();
   });

@@ -13,9 +13,7 @@ import {
   ChevronRight,
   Sparkles,
   LayoutTemplate,
-  Code2,
 } from 'lucide-react';
-import { ThemeToggle } from '#/components/theme/ThemeToggle';
 import { MonoForgeMonkeyIcon } from '#/components/common/MonoForgeLogo';
 import { DocsSearchModal } from '#/components/docs/DocsSearchModal';
 import { GitHubStarButton } from '#/components/common/GitHubStarButton';
@@ -92,16 +90,6 @@ export function TopNav() {
               <span>TEMPLATES</span>
             </Link>
 
-            {/* Monaco Dev IDE */}
-            <Link
-              href="/developer?mode=editor"
-              onClick={() => playClickSound()}
-              className="flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer"
-            >
-              <Code2 className="w-3.5 h-3.5 text-cyan-500" />
-              <span>IDE</span>
-            </Link>
-
             {/* Documentation Hub */}
             <Link
               href="/docs"
@@ -149,9 +137,6 @@ export function TopNav() {
               </kbd>
             </button>
 
-            {/* Theme Toggle */}
-            <ThemeToggle />
-
             {/* Animated GitHub Star Button from Uiverse.io */}
             <GitHubStarButton className="scale-95" />
           </nav>
@@ -166,8 +151,6 @@ export function TopNav() {
             >
               <Search className="w-4 h-4" />
             </button>
-
-            <ThemeToggle />
 
             <button
               type="button"

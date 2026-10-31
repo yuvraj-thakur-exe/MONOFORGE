@@ -5849,7 +5849,21 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
   }
 ];
 
-export const TEMPLATES: TemplateItem[] = RAW_TEMPLATES.map(t => ({
-  ...t,
-  prompt: buildRichPrompt(t),
-}));
+export const EXCLUDED_BAD_TEMPLATE_IDS = new Set([
+  'ai-ml',
+  'security-researcher',
+  'cs-student',
+  'web3-solidity-defi',
+  'computational-biology-crispr',
+  'green-software-carbon-engineer',
+  '3d-procedural-shader-artist',
+  'ninja-shadow-katana-coder',
+  'wizard-arcane-runic-mage',
+]);
+
+export const TEMPLATES: TemplateItem[] = RAW_TEMPLATES
+  .filter(t => !EXCLUDED_BAD_TEMPLATE_IDS.has(t.id))
+  .map(t => ({
+    ...t,
+    prompt: buildRichPrompt(t),
+  }));

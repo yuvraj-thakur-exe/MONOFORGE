@@ -616,10 +616,10 @@ export const TemplateGallery: React.FC = () => {
   }, [previewConfig]);
 
   return (
-    <section className="py-12 px-4 max-w-7xl mx-auto space-y-8 relative font-sans text-neutral-950">
+    <section className="py-12 px-4 max-w-7xl mx-auto space-y-8 relative font-sans text-slate-900 dark:text-slate-100">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white border-2 border-neutral-900 text-neutral-950 text-xs font-bold shadow-[4px_4px_0px_#18181b] animate-in fade-in slide-in-from-bottom-2">
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-900 dark:border-slate-700 text-slate-900 dark:text-white text-xs font-bold shadow-[4px_4px_0px_#334155] animate-in fade-in slide-in-from-bottom-2">
           <Sparkles className="w-4 h-4 text-amber-500 animate-pulse" />
           <span>{toastMessage}</span>
         </div>
@@ -627,22 +627,22 @@ export const TemplateGallery: React.FC = () => {
 
       {/* Header with Dynamic Text Animation */}
       <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border-2 border-neutral-900 text-neutral-950 text-xs font-mono font-bold shadow-[2px_2px_0px_#18181b]">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white text-xs font-mono font-bold shadow-[2px_2px_0px_#334155]">
           <LayoutTemplate className="w-3.5 h-3.5 text-amber-500" />
           <span>CURATED STARTERS &amp; ARCHETYPES</span>
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-[10px] text-neutral-600 font-mono font-black">{TEMPLATES.length} READY-TO-SHIP</span>
+          <span className="text-[10px] text-slate-600 dark:text-slate-400 font-mono font-black">{TEMPLATES.length} READY-TO-SHIP</span>
         </div>
 
-        <h2 className="text-3xl sm:text-5xl font-black text-neutral-950 tracking-tight uppercase font-sans">
+        <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight uppercase font-sans">
           CURATED STARTER ARCHETYPES
         </h2>
 
         {/* Animated Subtitle */}
-        <p className="text-sm font-mono text-neutral-700 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-sm font-mono text-slate-700 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
           One-click apply clean, structured templates designed to{' '}
           <span
-            className={`font-black text-neutral-950 bg-[#ffe600] px-2 py-0.5 rounded border border-neutral-900 shadow-2xs transition-opacity duration-300 ${
+            className={`font-black text-slate-950 bg-[#ffe600] px-2 py-0.5 rounded border border-slate-900 shadow-2xs transition-opacity duration-300 ${
               fadeKeyword ? 'opacity-100' : 'opacity-0'
             }`}
           >
@@ -654,19 +654,19 @@ export const TemplateGallery: React.FC = () => {
         {/* Search Bar */}
         <div className="pt-3 max-w-md mx-auto">
           <div className="relative flex items-center">
-            <Search className="w-4 h-4 text-neutral-500 absolute left-3.5 pointer-events-none" />
+            <Search className="w-4 h-4 text-slate-500 absolute left-3.5 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Search by archetype, stack, or keyword..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border-2 border-neutral-900 text-xs font-mono font-bold text-neutral-950 placeholder:text-neutral-400 focus:outline-hidden focus:border-[#ffe600] shadow-[2px_2px_0px_#18181b] transition-all"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-hidden focus:border-[#ffe600] shadow-[2px_2px_0px_#334155] transition-all"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 text-neutral-500 hover:text-neutral-900 p-1"
+                className="absolute right-3 text-slate-500 hover:text-slate-900 dark:hover:text-white p-1"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -688,14 +688,14 @@ export const TemplateGallery: React.FC = () => {
               onClick={() => setActiveCategory(cat)}
               className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-mono font-black border-2 transition-all cursor-pointer ${
                 isActive
-                  ? 'bg-[#ffe600] text-neutral-950 border-neutral-900 shadow-[2px_2px_0px_#18181b]'
-                  : 'bg-white text-neutral-700 border-neutral-300 hover:border-neutral-900 hover:text-neutral-950'
+                  ? 'bg-[#ffe600] text-slate-950 border-slate-900 shadow-[2px_2px_0px_#334155]'
+                  : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-500 hover:text-slate-950 dark:hover:text-white'
               }`}
             >
               <span className="capitalize">{cat}</span>
               <span
                 className={`text-[10px] px-1.5 py-0.2 rounded font-mono ${
-                  isActive ? 'bg-neutral-950 text-white' : 'bg-neutral-100 text-neutral-700'
+                  isActive ? 'bg-slate-950 text-white' : 'bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
                 }`}
               >
                 {count}
@@ -713,51 +713,51 @@ export const TemplateGallery: React.FC = () => {
           return (
             <div
               key={tmpl.id}
-              className="p-6 rounded-2xl bg-white border-2 border-neutral-900 shadow-[4px_4px_0px_#18181b] hover:shadow-[2px_2px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col justify-between group"
+              className="p-6 rounded-2xl bg-white dark:bg-slate-800/90 border-2 border-slate-300 dark:border-slate-700 shadow-[4px_4px_0px_#334155] dark:shadow-[4px_4px_0px_#475569] hover:shadow-[2px_2px_0px_#334155] hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-lg bg-neutral-100 text-neutral-900 border border-neutral-900 font-bold">
+                  <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700 font-bold">
                     {tmpl.category}
                   </span>
                   <div className="flex items-center gap-1.5">
                     <span
-                      className="w-2.5 h-2.5 rounded-full border border-neutral-900"
+                      className="w-2.5 h-2.5 rounded-full border border-slate-900 dark:border-slate-600"
                       style={{ backgroundColor: tmpl.accent }}
                     />
-                    <span className="text-[10px] font-mono text-neutral-500 uppercase font-bold">{tmpl.accent}</span>
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">{tmpl.accent}</span>
                   </div>
                 </div>
 
-                <h3 className="text-lg font-black text-neutral-950 group-hover:text-amber-600 transition-colors uppercase font-sans">
+                <h3 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors uppercase font-sans">
                   {tmpl.name}
                 </h3>
 
-                <p className="text-xs text-neutral-700 mt-2 line-clamp-2 leading-relaxed font-mono">
+                <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 line-clamp-2 leading-relaxed font-mono">
                   {tmpl.description}
                 </p>
 
                 {/* Visual Preview Window Box */}
                 <div
                   onClick={() => handleOpenPreview(tmpl)}
-                  className="my-4 rounded-xl border-2 border-neutral-900 bg-neutral-50 p-3 hover:bg-[#fffde6] cursor-pointer transition-all group/preview relative overflow-hidden shadow-2xs"
+                  className="my-4 rounded-xl border-2 border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 p-3 hover:bg-[#fffde6] dark:hover:bg-slate-900 cursor-pointer transition-all group/preview relative overflow-hidden shadow-2xs"
                 >
-                  <div className="flex items-center justify-between pb-2 mb-2 border-b border-neutral-200">
+                  <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-200 dark:border-slate-700">
                     <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-red-400 border border-neutral-900" />
-                      <span className="w-2 h-2 rounded-full bg-[#ffe600] border border-neutral-900" />
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 border border-neutral-900" />
-                      <span className="ml-1 text-[10px] font-mono text-neutral-600 font-bold">
+                      <span className="w-2 h-2 rounded-full bg-red-400 border border-slate-900" />
+                      <span className="w-2 h-2 rounded-full bg-[#ffe600] border border-slate-900" />
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 border border-slate-900" />
+                      <span className="ml-1 text-[10px] font-mono text-slate-600 dark:text-slate-400 font-bold">
                         {tmpl.config.settings.user.github || 'developer'} / README.md
                       </span>
                     </div>
-                    <span className="text-[10px] font-mono text-neutral-950 font-black flex items-center gap-1 bg-[#ffe600] px-1.5 py-0.5 rounded border border-neutral-900 shadow-2xs">
+                    <span className="text-[10px] font-mono text-slate-950 font-black flex items-center gap-1 bg-[#ffe600] px-1.5 py-0.5 rounded border border-slate-900 shadow-2xs">
                       <Eye className="w-3 h-3" /> Preview
                     </span>
                   </div>
 
                   {TEMPLATE_PREVIEWS[tmpl.id] ? (
-                    <div className="relative rounded-lg overflow-hidden border border-neutral-900 bg-white max-h-48 group-hover/preview:scale-[1.01] transition-transform">
+                    <div className="relative rounded-lg overflow-hidden border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 max-h-48 group-hover/preview:scale-[1.01] transition-transform">
                       <img
                         src={TEMPLATE_PREVIEWS[tmpl.id]}
                         alt={`${tmpl.name} Visual Preview`}
@@ -766,10 +766,10 @@ export const TemplateGallery: React.FC = () => {
                       />
                     </div>
                   ) : (
-                    <div className="space-y-2 p-2.5 rounded-lg bg-white border border-neutral-900 font-mono">
+                    <div className="space-y-2 p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 font-mono">
                       <div className="flex items-center gap-2">
                         <div
-                          className="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs border border-neutral-900 shadow-2xs"
+                          className="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs border border-slate-900 shadow-2xs"
                           style={{
                             backgroundColor: tmpl.accent,
                             color: '#ffffff',
@@ -778,10 +778,10 @@ export const TemplateGallery: React.FC = () => {
                           {tmpl.config.settings.user.name?.[0] || 'D'}
                         </div>
                         <div className="overflow-hidden flex-1">
-                          <p className="text-xs font-bold text-neutral-950 truncate">
+                          <p className="text-xs font-bold text-slate-900 dark:text-white truncate">
                             {tmpl.config.settings.user.name || 'Developer'}
                           </p>
-                          <p className="text-[10px] text-neutral-600 truncate">
+                          <p className="text-[10px] text-slate-600 dark:text-slate-400 truncate">
                             {tmpl.config.settings.user.role || 'Software Engineer'}
                           </p>
                         </div>
@@ -792,20 +792,20 @@ export const TemplateGallery: React.FC = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="grid grid-cols-3 gap-1.5 pt-2 border-t border-neutral-200">
+              <div className="grid grid-cols-3 gap-1.5 pt-2 border-t border-slate-200 dark:border-slate-700">
                 <button
                   type="button"
                   onClick={() => handleCopyPrompt(tmpl)}
                   title="Copy Archetype Spec"
-                  className={`flex items-center justify-center gap-1 px-2 py-2 rounded-xl text-[11px] font-mono font-black border-2 border-neutral-900 transition-all cursor-pointer ${
+                  className={`flex items-center justify-center gap-1 px-2 py-2 rounded-xl text-[11px] font-mono font-black border-2 border-slate-900 transition-all cursor-pointer ${
                     isCopied
-                      ? 'bg-emerald-400 text-neutral-950 shadow-[1px_1px_0px_#18181b]'
-                      : 'bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 shadow-[2px_2px_0px_#18181b] active:translate-x-[1px] active:translate-y-[1px]'
+                      ? 'bg-emerald-400 text-slate-950 shadow-[1px_1px_0px_#334155]'
+                      : 'bg-[#ffe600] hover:bg-[#ffdf00] text-slate-950 shadow-[2px_2px_0px_#334155] active:translate-x-[1px] active:translate-y-[1px]'
                   }`}
                 >
                   {isCopied ? (
                     <>
-                      <CheckCheck className="w-3 h-3 text-neutral-950" />
+                      <CheckCheck className="w-3 h-3 text-slate-950" />
                       <span>Copied!</span>
                     </>
                   ) : (
@@ -820,7 +820,7 @@ export const TemplateGallery: React.FC = () => {
                   type="button"
                   onClick={() => handleOpenPreview(tmpl)}
                   title="Preview Template"
-                  className="flex items-center justify-center gap-1 px-2 py-2 rounded-xl text-[11px] font-mono font-bold bg-white hover:bg-neutral-100 border-2 border-neutral-900 text-neutral-950 shadow-[2px_2px_0px_#18181b] transition-all cursor-pointer"
+                  className="flex items-center justify-center gap-1 px-2 py-2 rounded-xl text-[11px] font-mono font-bold bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border-2 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white shadow-[2px_2px_0px_#334155] transition-all cursor-pointer"
                 >
                   <Eye className="w-3 h-3" />
                   <span>Preview</span>
@@ -829,7 +829,7 @@ export const TemplateGallery: React.FC = () => {
                 <Link
                   href={`/developer?template=${tmpl.id}&mode=visual`}
                   title="Open in All-in-One Studio"
-                  className="flex items-center justify-center gap-1 px-2 py-2 rounded-xl text-[11px] font-mono font-black bg-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 text-white border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-all cursor-pointer"
+                  className="flex items-center justify-center gap-1 px-2 py-2 rounded-xl text-[11px] font-mono font-black bg-slate-900 dark:bg-slate-950 hover:bg-[#ffe600] dark:hover:bg-[#ffe600] text-white hover:text-slate-950 dark:hover:text-slate-950 border-2 border-slate-900 dark:border-slate-700 shadow-[2px_2px_0px_#334155] transition-all cursor-pointer"
                 >
                   <span>Studio</span>
                   <ArrowRight className="w-3 h-3" />
@@ -841,15 +841,15 @@ export const TemplateGallery: React.FC = () => {
       </div>
 
       {filtered.length === 0 && (
-        <div className="text-center py-12 space-y-3 bg-white border-2 border-neutral-900 rounded-2xl p-8">
-          <p className="text-sm font-mono text-neutral-600">No archetypes matched your search &quot;{searchQuery}&quot;.</p>
+        <div className="text-center py-12 space-y-3 bg-white dark:bg-slate-800/90 border-2 border-slate-300 dark:border-slate-700 rounded-2xl p-8 shadow-xs">
+          <p className="text-sm font-mono text-slate-600 dark:text-slate-300">No archetypes matched your search &quot;{searchQuery}&quot;.</p>
           <button
             type="button"
             onClick={() => {
               setActiveCategory('all');
               setSearchQuery('');
             }}
-            className="px-4 py-2 rounded-xl bg-[#ffe600] text-neutral-950 font-mono text-xs font-black border-2 border-neutral-900 shadow-2xs hover:bg-[#ffdf00]"
+            className="px-4 py-2 rounded-xl bg-[#ffe600] text-slate-950 font-mono text-xs font-black border-2 border-slate-900 shadow-2xs hover:bg-[#ffdf00] cursor-pointer"
           >
             Reset Filters
           </button>

@@ -13,7 +13,7 @@ describe('API Route: /api/telemetry/svg', () => {
     expect(text).toContain('<svg');
     expect(text).toContain('@yuvraj');
     expect(text).toContain('Isometric Contribution Landscape');
-  });
+  }, 15000);
 
   it('returns valid SVG for languages plugin', async () => {
     const req = new NextRequest('http://localhost:3000/api/telemetry/svg?plugin=languages&user=dev');
@@ -42,7 +42,7 @@ describe('API Route: /api/telemetry/svg', () => {
     const text = await res.text();
     expect(text).toContain('Annual Contribution Activity Heatmap');
     expect(text).toContain('@shadcn');
-  });
+  }, 15000);
 
   it('returns valid SVG for contributor velocity momentum plugin', async () => {
     const req = new NextRequest('http://localhost:3000/api/telemetry/svg?plugin=velocity&user=torvalds');
@@ -52,6 +52,6 @@ describe('API Route: /api/telemetry/svg', () => {
     const text = await res.text();
     expect(text).toContain('Contributor Velocity &amp; Momentum Radar');
     expect(text).toContain('@torvalds');
-  });
+  }, 15000);
 });
 

@@ -52,3 +52,4 @@ describe('RouteLoadingIndicator (Separate Page Loading Animation)', () => {
     expect(screen.getByText('PAGE LOADING')).toBeDefined();
   });
 });
+
