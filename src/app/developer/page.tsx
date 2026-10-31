@@ -9,7 +9,6 @@ import { LivePreview } from '#/components/developer/LivePreview';
 import { PluginPanel } from '#/components/developer/PluginPanel';
 import { ExportBar } from '#/components/developer/ExportBar';
 import { GitHubSyncModal } from '#/components/sync/GitHubSyncModal';
-import { CyberMonkeyCopilot } from '#/components/mascot/CyberMonkeyCopilot';
 import { MonoForgeMonkeyIcon } from '#/components/common/MonoForgeLogo';
 import {
   Sparkles,
@@ -41,7 +40,6 @@ function LocalizedDeveloperContent() {
   const updateSettings = useReadmeStore(state => state.updateSettings);
 
   const [showPluginPanel, setShowPluginPanel] = useState<boolean>(true);
-  const [showCopilot, setShowCopilot] = useState<boolean>(false);
   const [isSyncModalOpen, setIsSyncModalOpen] = useState<boolean>(false);
   const [mobileTab, setMobileTab] = useState<'editor' | 'preview' | 'plugins' | 'copilot'>('editor');
 
@@ -95,21 +93,6 @@ function LocalizedDeveloperContent() {
             ) : (
               <ChevronRight className="w-3 h-3" />
             )}
-          </button>
-
-          {/* Cyber Monkey Co-Pilot Toggle */}
-          <button
-            type="button"
-            onClick={() => setShowCopilot(prev => !prev)}
-            className={`hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono transition-colors shadow-sm ${
-              showCopilot
-                ? 'bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-500/50'
-                : 'bg-white dark:bg-neutral-800/60 border border-neutral-200 dark:border-transparent text-neutral-600 dark:text-neutral-400 hover:text-amber-600 dark:hover:text-amber-300'
-            }`}
-            title="Toggle Cyber Monkey Co-Pilot Assistant"
-          >
-            <span>🐵</span>
-            <span>Co-Pilot</span>
           </button>
         </div>
 
@@ -264,20 +247,6 @@ function LocalizedDeveloperContent() {
         >
           <Editor />
         </section>
-
-        {/* Optional Right Drawer: Cyber Monkey Co-Pilot */}
-        {showCopilot && (
-          <aside className="hidden lg:block w-72 shrink-0 h-full overflow-y-auto">
-            <CyberMonkeyCopilot />
-          </aside>
-        )}
-
-        {/* Mobile Co-Pilot Tab */}
-        {mobileTab === 'copilot' && (
-          <div className="block md:hidden w-full h-full overflow-y-auto">
-            <CyberMonkeyCopilot />
-          </div>
-        )}
 
         {/* Right: Live Markdown Preview */}
         <section

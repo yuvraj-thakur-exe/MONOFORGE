@@ -59,15 +59,15 @@ describe('TemplateGallery Component', () => {
     expect(screen.getByRole('dialog')).toBeDefined();
     expect(screen.getByText(/Visual Preview/i)).toBeDefined();
     expect(screen.getByText(/Markdown Output/i)).toBeDefined();
-    expect(screen.getByText(/AI Generator Prompt/i)).toBeDefined();
+    expect(screen.getByText(/Archetype Spec/i)).toBeDefined();
 
     // Switch to Markdown tab
     fireEvent.click(screen.getByText(/Markdown Output/i));
     expect(screen.getByText(/Generated Markdown Output/i)).toBeDefined();
 
     // Switch to Prompt tab
-    fireEvent.click(screen.getByText(/AI Generator Prompt/i));
-    expect(screen.getByText(/AI Prompt for LLMs/i)).toBeDefined();
+    fireEvent.click(screen.getByText(/Archetype Spec/i));
+    expect(screen.getByText(/Archetype Specification & Markdown/i)).toBeDefined();
   }, 15000);
 
   it('allows removing a plugin in the preview modal', () => {
@@ -90,7 +90,7 @@ describe('TemplateGallery Component', () => {
     expect(screen.getByText(/Restore All Plugins/i)).toBeDefined();
   }, 15000);
 
-  it('copies AI prompt when clicking copy prompt button', () => {
+  it('copies archetype spec when clicking copy button', () => {
     const writeTextMock = vi.fn().mockResolvedValue(undefined);
     Object.assign(navigator, {
       clipboard: {
@@ -100,7 +100,7 @@ describe('TemplateGallery Component', () => {
 
     render(<TemplateGallery />);
 
-    const copyPromptButtons = screen.getAllByTitle(/Copy AI Prompt/i);
+    const copyPromptButtons = screen.getAllByTitle(/Copy Archetype Spec/i);
     expect(copyPromptButtons.length).toBeGreaterThan(0);
 
     fireEvent.click(copyPromptButtons[0]);

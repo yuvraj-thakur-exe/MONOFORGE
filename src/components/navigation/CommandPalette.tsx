@@ -37,7 +37,6 @@ import { ReadmeImporterModal } from '#/components/importer/ReadmeImporterModal';
 import { ReadmeHealthScoreModal } from '#/components/studio/ReadmeHealthScoreModal';
 import { VersionHistoryModal } from '#/components/studio/VersionHistoryModal';
 import { AssetVaultModal } from '#/components/studio/AssetVaultModal';
-import { AiAssistantModal } from '#/components/ai/AiAssistantModal';
 import { DiagnosticsHUDModal } from '#/components/diagnostics/DiagnosticsHUDModal';
 import { ProfileIntelligenceModal } from '#/components/intelligence/ProfileIntelligenceModal';
 import { AssetMarketplaceModal } from '#/components/marketplace/AssetMarketplaceModal';
@@ -64,7 +63,6 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   const [isHealthOpen, setIsHealthOpen] = useState(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isVaultOpen, setIsVaultOpen] = useState(false);
-  const [isAiOpen, setIsAiOpen] = useState(false);
   const [isDiagnosticsOpen, setIsDiagnosticsOpen] = useState(false);
   const [isIntelligenceOpen, setIsIntelligenceOpen] = useState(false);
   const [isMarketplaceOpen, setIsMarketplaceOpen] = useState(false);
@@ -83,16 +81,11 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
     document.addEventListener('keydown', handleKeyDown);
     window.addEventListener('monoforge-open-command-palette', handleCustomOpen);
-    const handleOpenAi = () => setIsAiOpen(true);
-    const handleOpenDiag = () => setIsDiagnosticsOpen(true);
-    window.addEventListener('monoforge-open-ai', handleOpenAi);
-    window.addEventListener('monoforge-open-diagnostics', handleOpenDiag);
+    const handleOpenDiag = () => setIsDiagnosticsOpen(true);    window.addEventListener('monoforge-open-diagnostics', handleOpenDiag);
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('monoforge-open-command-palette', handleCustomOpen);
-      window.removeEventListener('monoforge-open-ai', handleOpenAi);
-      window.removeEventListener('monoforge-open-diagnostics', handleOpenDiag);
+      window.removeEventListener('monoforge-open-command-palette', handleCustomOpen);      window.removeEventListener('monoforge-open-diagnostics', handleOpenDiag);
     };
   }, []);
 
@@ -231,16 +224,6 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
             {/* Platform Modals & Tools */}
             <Command.Group heading="Tools &amp; Modals" className="text-neutral-500 font-bold px-2 py-1 uppercase text-[10px] tracking-wider">
-              <Command.Item
-                onSelect={() => {
-                  setOpen(false);
-                  setIsAiOpen(true);
-                }}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 cursor-pointer transition-colors"
-              >
-                <Sparkles className="w-4 h-4 text-[#00F0FF]" />
-                <span className="font-bold">AI Profile Architect (Model-Agnostic Generation)</span>
-              </Command.Item>
 
               <Command.Item
                 onSelect={() => {
@@ -484,7 +467,6 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       <ReadmeHealthScoreModal isOpen={isHealthOpen} onClose={() => setIsHealthOpen(false)} />
       <VersionHistoryModal isOpen={isHistoryOpen} onClose={() => setIsHistoryOpen(false)} />
       <AssetVaultModal isOpen={isVaultOpen} onClose={() => setIsVaultOpen(false)} />
-      <AiAssistantModal isOpen={isAiOpen} onClose={() => setIsAiOpen(false)} />
       <DiagnosticsHUDModal isOpen={isDiagnosticsOpen} onClose={() => setIsDiagnosticsOpen(false)} />
       <ProfileIntelligenceModal isOpen={isIntelligenceOpen} onClose={() => setIsIntelligenceOpen(false)} />
       <AssetMarketplaceModal isOpen={isMarketplaceOpen} onClose={() => setIsMarketplaceOpen(false)} />

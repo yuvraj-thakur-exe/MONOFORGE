@@ -113,11 +113,11 @@ export default function HomePage() {
                 <span>SVG ANIMATOR</span>
               </Link>
               <Link
-                href="/info"
+                href="/docs"
                 className="hover:text-neutral-950 transition-colors flex items-center gap-1.5"
               >
                 <BookOpen className="w-3.5 h-3.5 text-emerald-500" />
-                <span>GUIDE &amp; DOCS</span>
+                <span>DOCUMENTATION</span>
               </Link>
               <a
                 href="https://github.com/monoforge/MONOFORGE"

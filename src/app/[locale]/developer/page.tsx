@@ -9,14 +9,12 @@ import { LivePreview } from '#/components/developer/LivePreview';
 import { PluginPanel } from '#/components/developer/PluginPanel';
 import { ExportBar } from '#/components/developer/ExportBar';
 import { GitHubSyncModal } from '#/components/sync/GitHubSyncModal';
-import { CyberMonkeyCopilot } from '#/components/mascot/CyberMonkeyCopilot';
 import { MonoForgeMonkeyIcon } from '#/components/common/MonoForgeLogo';
 import { EditorSkeleton } from '#/components/developer/EditorSkeleton';
 import { ReadmeHealthScoreModal } from '#/components/studio/ReadmeHealthScoreModal';
 import { ReadmeImporterModal } from '#/components/importer/ReadmeImporterModal';
 import { VersionHistoryModal } from '#/components/studio/VersionHistoryModal';
 import { AssetVaultModal } from '#/components/studio/AssetVaultModal';
-import { AiAssistantModal } from '#/components/ai/AiAssistantModal';
 import { DiagnosticsHUDModal } from '#/components/diagnostics/DiagnosticsHUDModal';
 import { ProfileIntelligenceModal } from '#/components/intelligence/ProfileIntelligenceModal';
 import { AssetMarketplaceModal } from '#/components/marketplace/AssetMarketplaceModal';
@@ -128,13 +126,11 @@ function LocalizedDeveloperContent() {
 
   // Developer IDE View Controls
   const [showPluginPanel, setShowPluginPanel] = useState<boolean>(true);
-  const [showCopilot, setShowCopilot] = useState<boolean>(false);
   const [isSyncModalOpen, setIsSyncModalOpen] = useState<boolean>(false);
   const [isHealthModalOpen, setIsHealthModalOpen] = useState<boolean>(false);
   const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState<boolean>(false);
   const [isVaultModalOpen, setIsVaultModalOpen] = useState<boolean>(false);
-  const [isAiModalOpen, setIsAiModalOpen] = useState<boolean>(false);
   const [isDiagnosticsModalOpen, setIsDiagnosticsModalOpen] = useState<boolean>(false);
   const [isIntelligenceModalOpen, setIsIntelligenceModalOpen] = useState<boolean>(false);
   const [isMarketplaceModalOpen, setIsMarketplaceModalOpen] = useState<boolean>(false);
@@ -325,17 +321,6 @@ function LocalizedDeveloperContent() {
             <span>HISTORY</span>
           </button>
 
-          {/* AI Profile Architect */}
-          <button
-            type="button"
-            onClick={() => setIsAiModalOpen(true)}
-            className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border-2 border-neutral-900 bg-white hover:bg-[#ffe600] text-neutral-950 text-xs font-mono font-bold shadow-[2px_2px_0px_#18181b] btn-tactile cursor-pointer"
-            title="AI Profile Architect & Synthesizer"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
-            <span>AI FORGE</span>
-          </button>
-
           {/* Diagnostics HUD Action */}
           <button
             type="button"
@@ -513,21 +498,6 @@ function LocalizedDeveloperContent() {
                 {showPluginPanel ? <ChevronLeft className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
               </button>
 
-              {/* Cyber Monkey Co-Pilot Toggle */}
-              <button
-                type="button"
-                onClick={() => setShowCopilot(prev => !prev)}
-                className={`hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] cursor-pointer ${
-                  showCopilot
-                    ? 'bg-[#ffe600] text-neutral-950 font-black'
-                    : 'bg-white text-neutral-950 hover:bg-[#ffe600]'
-                }`}
-                title="Toggle Cyber Monkey Co-Pilot Assistant"
-              >
-                <span>🐵</span>
-                <span>Co-Pilot</span>
-              </button>
-
               {/* Design Tokens: Badge Style Switcher */}
               <div className="hidden xl:flex items-center gap-1 bg-[#f4f4f5] px-2 py-0.5 rounded-lg border border-neutral-300 text-xs">
                 <span className="text-[10px] font-mono text-neutral-600 font-bold uppercase mr-1">Badges:</span>
@@ -656,13 +626,6 @@ function LocalizedDeveloperContent() {
               <Editor />
             </section>
 
-            {/* Optional Right Drawer: Cyber Monkey Co-Pilot */}
-            {showCopilot && (
-              <aside className="hidden lg:block w-72 shrink-0 h-full overflow-y-auto">
-                <CyberMonkeyCopilot />
-              </aside>
-            )}
-
             {/* Right: Live Markdown Preview */}
             <section
               className={`h-full ${
@@ -724,10 +687,6 @@ function LocalizedDeveloperContent() {
       <AssetVaultModal
         isOpen={isVaultModalOpen}
         onClose={() => setIsVaultModalOpen(false)}
-      />
-      <AiAssistantModal
-        isOpen={isAiModalOpen}
-        onClose={() => setIsAiModalOpen(false)}
       />
       <DiagnosticsHUDModal
         isOpen={isDiagnosticsModalOpen}

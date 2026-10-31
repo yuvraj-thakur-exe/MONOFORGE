@@ -24,7 +24,7 @@ export function TopNav() {
   const pathname = usePathname();
   const isStudio = pathname?.includes('/developer') || pathname?.includes('/wizard') || pathname?.includes('/canvas');
   const isTemplates = pathname?.includes('/templates');
-  const isInfo = pathname?.includes('/info');
+    const isDocs = pathname?.includes('/docs');
 
   const [isMuted, setIsMuted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -132,18 +132,18 @@ export function TopNav() {
             <span>ANIMATOR</span>
           </Link>
 
-          {/* Guide Hub */}
+          {/* Documentation Platform */}
           <Link
-            href="/info"
-            data-cursor-label="GUIDE"
+            href="/docs"
+            data-cursor-label="DOCS"
             className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-bold rounded-lg border-2 transition-all btn-tactile ${
-              isInfo
+              isDocs
                 ? 'bg-[#ffe600] text-neutral-950 font-black border-neutral-900 shadow-[3px_3px_0px_#18181b]'
                 : 'border-neutral-900 bg-white text-neutral-800 hover:bg-[#ffe600] hover:text-neutral-950 shadow-[2px_2px_0px_#18181b]'
             }`}
           >
             <BookOpen className="w-3.5 h-3.5 text-emerald-600" />
-            <span>GUIDE</span>
+            <span>DOCS</span>
           </Link>
 
           <div className="h-4 w-px bg-neutral-300 mx-1" />
@@ -316,17 +316,17 @@ export function TopNav() {
           </Link>
 
           <Link
-            href="/info"
+            href="/docs"
             onClick={() => setMobileMenuOpen(false)}
             className={`flex items-center justify-between p-3 rounded-xl border-2 font-mono text-xs font-black transition-all ${
-              isInfo
+              isDocs
                 ? 'bg-[#ffe600] text-neutral-950 border-neutral-900 shadow-[2px_2px_0px_#18181b]'
                 : 'bg-white text-neutral-800 border-neutral-900 hover:bg-[#ffe600]'
             }`}
           >
             <span className="flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-emerald-600" />
-              <span>GUIDE &amp; DOCS</span>
+              <span>DOCUMENTATION</span>
             </span>
             <span className="text-[10px] text-neutral-500">DOCS</span>
           </Link>

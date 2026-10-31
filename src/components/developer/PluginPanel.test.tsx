@@ -75,7 +75,7 @@ describe('PluginPanel Developer Component', () => {
     expect(title).toBe('Minimalist Clean Profile');
   });
 
-  it('switches to AI & Schema tab and triggers copy prompt', () => {
+  it('switches to Schema & API tab and triggers copy json', () => {
     Object.assign(navigator, {
       clipboard: {
         writeText: vi.fn().mockResolvedValue(undefined),
@@ -84,11 +84,11 @@ describe('PluginPanel Developer Component', () => {
 
     render(<PluginPanel />);
 
-    const schemaTab = screen.getByRole('button', { name: /ai & schema/i });
+    const schemaTab = screen.getByRole('button', { name: /schema & api/i });
     fireEvent.click(schemaTab);
 
-    expect(screen.getByText(/ai agent pairing/i)).toBeDefined();
-    const copyPromptBtn = screen.getByRole('button', { name: /copy agent prompt/i });
+    expect(screen.getByText(/workspace schema json/i)).toBeDefined();
+    const copyPromptBtn = screen.getByRole('button', { name: /copy configuration json/i });
     fireEvent.click(copyPromptBtn);
 
     expect(navigator.clipboard.writeText).toHaveBeenCalled();

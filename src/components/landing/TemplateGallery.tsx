@@ -796,7 +796,7 @@ export const TemplateGallery: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => handleCopyPrompt(tmpl)}
-                  title="Copy AI Prompt"
+                  title="Copy Archetype Spec"
                   className={`flex items-center justify-center gap-1 px-2 py-2 rounded-xl text-[11px] font-mono font-black border-2 border-neutral-900 transition-all cursor-pointer ${
                     isCopied
                       ? 'bg-emerald-400 text-neutral-950 shadow-[1px_1px_0px_#18181b]'
@@ -811,7 +811,7 @@ export const TemplateGallery: React.FC = () => {
                   ) : (
                     <>
                       <Sparkles className="w-3 h-3" />
-                      <span>AI Prompt</span>
+                      <span>Copy Spec</span>
                     </>
                   )}
                 </button>
@@ -938,7 +938,7 @@ export const TemplateGallery: React.FC = () => {
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>AI Generator Prompt</span>
+                <span>Archetype Spec</span>
               </button>
 
               <button
@@ -1132,11 +1132,11 @@ export const TemplateGallery: React.FC = () => {
                       <div className="flex items-center gap-2">
                         <Sparkles className="w-4 h-4 text-amber-500" />
                         <span className="text-xs font-black uppercase text-neutral-950 font-mono">
-                          AI Prompt for LLMs
+                          Archetype Specification & Markdown
                         </span>
                       </div>
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 border border-neutral-900 font-bold">
-                        Claude &bull; ChatGPT &bull; Gemini &bull; DeepSeek
+                        Deterministic Camo-Compliant Markdown
                       </span>
                     </div>
 
@@ -1157,7 +1157,7 @@ export const TemplateGallery: React.FC = () => {
                       ) : (
                         <>
                           <Copy className="w-3.5 h-3.5" />
-                          <span>Copy Prompt for AI</span>
+                          <span>Copy Archetype Spec</span>
                         </>
                       )}
                     </button>
@@ -1246,7 +1246,7 @@ export const TemplateGallery: React.FC = () => {
                   className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border-2 border-neutral-900 bg-white hover:bg-neutral-100 text-neutral-950 shadow-2xs"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>Copy Prompt</span>
+                  <span>Copy Spec</span>
                 </button>
 
                 <button

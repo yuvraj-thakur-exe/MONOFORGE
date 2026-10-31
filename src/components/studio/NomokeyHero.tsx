@@ -12,6 +12,7 @@ import {
   ShieldCheck,
   Cpu,
   LayoutTemplate,
+  BookOpen,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import confetti from 'canvas-confetti';
@@ -30,7 +31,7 @@ type StudioMode = 'clean' | 'cyber' | 'lofi' | 'hyperspeed';
 const ROTATING_HIGHLIGHTS = [
   '60fps Camo Safe SVG vectors & animated characters',
   '47+ native telemetry engines with zero external tracking calls',
-  'Split-screen Monaco IDE with AST Zod validation & copilot',
+  'Split-screen Monaco IDE with AST Zod validation & live preview',
   'Tactile developer badges & stickers ready for GitHub CDN',
   '18+ signature design archetypes ready for 1-click apply',
 ];
@@ -228,7 +229,17 @@ export function NomokeyHero() {
                 className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-white hover:bg-neutral-100 text-neutral-950 font-mono text-xs font-bold border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-colors btn-tactile"
               >
                 <Code2 className="w-3.5 h-3.5 text-cyan-600" />
-                <span>DEVELOPER IDE</span>
+                <span>DEV IDE</span>
+              </Link>
+
+              {/* Documentation Website */}
+              <Link
+                href="/docs"
+                data-cursor-label="DOCS"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-white hover:bg-[#ffe600] text-neutral-950 font-mono text-xs font-bold border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-colors btn-tactile"
+              >
+                <BookOpen className="w-3.5 h-3.5 text-emerald-600" />
+                <span>DOCS</span>
               </Link>
             </div>
 

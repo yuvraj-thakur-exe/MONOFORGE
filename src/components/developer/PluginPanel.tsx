@@ -7,6 +7,7 @@ import { TEMPLATES, TemplateItem } from '#/components/landing/TemplateGallery';
 import { useReadmeStore } from '#/store/useReadmeStore';
 import {
   Search,
+  Code2,
   Plus,
   Sparkles,
   Check,
@@ -119,13 +120,9 @@ export const PluginPanel: React.FC<PluginPanelProps> = ({
     }, 2000);
   };
 
-  const handleCopyAiPrompt = async () => {
-    const prompt = `You are an expert GitHub profile README architect. Below is a MonoForge configuration JSON object conforming to the official schema. Modify or enrich it according to the user request. Output ONLY valid JSON with zero conversational filler or markdown code blocks:
-
-${JSON.stringify(config, null, 2)}`;
-
+  const handleCopyConfigJson = async () => {
     try {
-      await navigator.clipboard.writeText(prompt);
+      await navigator.clipboard.writeText(JSON.stringify(config, null, 2));
       setCopiedPrompt(true);
       setTimeout(() => setCopiedPrompt(false), 2000);
     } catch {
@@ -191,7 +188,7 @@ ${JSON.stringify(config, null, 2)}`;
           }`}
         >
           <Bot className="w-3.5 h-3.5" />
-          <span>AI &amp; Schema</span>
+          <span>Schema &amp; API</span>
         </button>
       </div>
 
@@ -601,27 +598,27 @@ ${JSON.stringify(config, null, 2)}`;
       {/* SCHEMA & AI TAB */}
       {panelTab === 'schema' && (
         <div className="flex-1 overflow-y-auto p-3 space-y-4 text-xs bg-[#fafafa]">
-          {/* AI Context Card */}
+          {/* Workspace Schema JSON */}
           <div className="p-3.5 bg-white border-2 border-neutral-900 rounded-xl shadow-[2px_2px_0px_#18181b] space-y-2.5">
             <div className="flex items-center gap-2 text-neutral-950 font-black">
-              <Bot className="w-4 h-4 text-amber-500" />
-              <span>AI Agent Pairing</span>
+              <Code2 className="w-4 h-4 text-emerald-600" />
+              <span>Workspace Schema JSON</span>
             </div>
             <p className="text-[11px] text-neutral-700 leading-relaxed font-mono">
-              Use this pre-engineered prompt with Claude Code, Cursor, ChatGPT, or Antigravity to generate custom sections or rewrite your profile safely.
+              Export the current profile state as JSON conforming to the official MonoForge schema.
             </p>
             <button
               type="button"
-              onClick={handleCopyAiPrompt}
+              onClick={handleCopyConfigJson}
               className="w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-all text-xs cursor-pointer"
             >
               {copiedPrompt ? (
                 <>
-                  <Check className="w-3.5 h-3.5 text-neutral-950" /> Prompt Copied to Clipboard!
+                  <Check className="w-3.5 h-3.5 text-neutral-950" /> Config Copied to Clipboard!
                 </>
               ) : (
                 <>
-                  <Copy className="w-3.5 h-3.5 text-neutral-950" /> Copy Agent Prompt with Config
+                  <Copy className="w-3.5 h-3.5 text-neutral-950" /> Copy Configuration JSON
                 </>
               )}
             </button>
