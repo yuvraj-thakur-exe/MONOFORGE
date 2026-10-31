@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 380" width="100%" height="380" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 380" width="100%" height="380" fill="none" preserveAspectRatio="xMidYMid meet">
   <defs>
     <!-- Background Gradient -->
     <linearGradient id="ideBg" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -35,6 +35,8 @@
   </defs>
 
   <style>
+    * { transform-box: fill-box; transform-origin: center; }
+
     <![CDATA[
     /* Blinking Caret and Typing Animation */
     @keyframes blinkCursor {
@@ -77,7 +79,11 @@
       animation: radarScan 4s infinite linear;
     }
     ]]>
-  </style>
+  
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+    }
+</style>
 
   <!-- Container Window Frame -->
   <rect width="920" height="380" rx="14" fill="url(#ideBg)" stroke="#334155" stroke-width="1.4" />

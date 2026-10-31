@@ -136,7 +136,7 @@ export function generateIsocalendarSvg(options: IsocalendarOptions = {}): string
     }
   }
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 370" width="800" height="370" fill="none">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 370" width="800" height="370" fill="none" preserveAspectRatio="xMidYMid meet">
   <defs>
     <linearGradient id="iso-card-bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ffffff" />
@@ -289,7 +289,7 @@ export function generateLanguagesDonutSvg(options: LanguagesOptions = {}): strin
     `;
   });
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="800" height="360" fill="none">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="800" height="360" fill="none" preserveAspectRatio="xMidYMid meet">
   <defs>
     <linearGradient id="lang-card-bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ffffff" />
@@ -407,7 +407,7 @@ export function generateHabitsRadarSvg(options: HabitsOptions = {}): string {
     `;
   });
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="800" height="360" fill="none">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="800" height="360" fill="none" preserveAspectRatio="xMidYMid meet">
   <defs>
     <linearGradient id="habits-card-bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ffffff" />
@@ -571,7 +571,7 @@ export function generateAchievementsRackSvg(options: AchievementsOptions = {}): 
     `;
   });
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="800" height="360" fill="none">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="800" height="360" fill="none" preserveAspectRatio="xMidYMid meet">
   <defs>
     <linearGradient id="ach-card-bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ffffff" />
@@ -631,7 +631,7 @@ export function generateTerminalHudSvg(options: TerminalOptions = {}): string {
   const velocity = esc(options.velocity || '94.2 commits / month');
   const uptime = esc(options.uptime || '99.8%');
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="800" height="360" fill="none">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="800" height="360" fill="none" preserveAspectRatio="xMidYMid meet">
   <defs>
     <linearGradient id="term-bg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#0a0e14" />
@@ -753,7 +753,7 @@ export function generatePageSpeedAuditSvg(options: PageSpeedOptions = {}): strin
     `;
   });
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" width="800" height="320" fill="none">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" width="800" height="320" fill="none" preserveAspectRatio="xMidYMid meet">
   <defs>
     <linearGradient id="speed-bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0d1117" />
@@ -817,7 +817,7 @@ export function generateMusicPlayerSvg(options: MusicOptions = {}): string {
     `;
   });
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 240" width="800" height="240" fill="none">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 240" width="800" height="240" fill="none" preserveAspectRatio="xMidYMid meet">
   <defs>
     <linearGradient id="music-bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0d1117" />
@@ -893,7 +893,7 @@ export function generateLeetCodeStatsSvg(options: LeetCodeOptions = {}): string 
   const circ = 2 * Math.PI * r;
   const solvedDash = ((solved / total) * circ).toFixed(1);
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" width="800" height="320" fill="none">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" width="800" height="320" fill="none" preserveAspectRatio="xMidYMid meet">
   <defs>
     <linearGradient id="leet-bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0d1117" />
