@@ -15,10 +15,6 @@ vi.mock('#/lib/sound/sound-effects', () => ({
   playTone: vi.fn(),
 }));
 
-vi.mock('#/components/common/InitialPageLoader', () => ({
-  replayWelcomeLoader: vi.fn(),
-}));
-
 describe('NomokeyHero', () => {
   it('renders hero with properly paired tagline text', () => {
     render(<NomokeyHero />);
@@ -27,9 +23,6 @@ describe('NomokeyHero', () => {
     expect(screen.getByText(/Forge a GitHub profile that gets noticed/i)).toBeDefined();
     expect(screen.getByText(/60fps Camo CDN vectors/i)).toBeDefined();
     expect(screen.getByText(/Zero external tracking/i)).toBeDefined();
-
-    // Check replay button
-    expect(screen.getByText(/REPLAY WELCOME FORGE/i)).toBeDefined();
 
     // Check headline and primary actions
     expect(screen.getByText(/YOUR GITHUB PROFILE/i)).toBeDefined();

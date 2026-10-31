@@ -12,7 +12,6 @@ import {
   Info,
   ChevronRight,
   Sparkles,
-  Play,
   LayoutTemplate,
   Code2,
 } from 'lucide-react';
@@ -21,7 +20,6 @@ import { MonoForgeMonkeyIcon } from '#/components/common/MonoForgeLogo';
 import { DocsSearchModal } from '#/components/docs/DocsSearchModal';
 import { GitHubStarButton } from '#/components/common/GitHubStarButton';
 import { SoundToggleButton } from '#/components/common/SoundToggleButton';
-import { replayWelcomeLoader } from '#/components/common/InitialPageLoader';
 import { playClickSound } from '#/lib/sound/sound-effects';
 
 export function TopNav() {
@@ -134,20 +132,6 @@ export function TopNav() {
             </Link>
 
             <div className="h-4 w-px bg-slate-200 dark:bg-slate-700 mx-1" />
-
-            {/* Replay Welcome Cinematic Trigger Button */}
-            <button
-              type="button"
-              onClick={() => {
-                playClickSound();
-                replayWelcomeLoader();
-              }}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-amber-400/40 bg-amber-400/10 text-amber-700 dark:text-amber-300 hover:bg-amber-400/20 transition-all font-bold text-[11px] cursor-pointer"
-              title="Re-run the welcome loading forge animation"
-            >
-              <Play className="w-3 h-3 fill-amber-500 text-amber-500" />
-              <span>REPLAY FORGE</span>
-            </button>
 
             {/* Sound Toggle */}
             <SoundToggleButton />

@@ -12,11 +12,9 @@ import {
   ShieldCheck,
   LayoutTemplate,
   BookOpen,
-  Play,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import confetti from 'canvas-confetti';
-import { replayWelcomeLoader } from '#/components/common/InitialPageLoader';
 import { playClickSound } from '#/lib/sound/sound-effects';
 
 const MONKEY_QUOTES = [
@@ -141,7 +139,7 @@ export function NomokeyHero() {
 
       <div className="relative max-w-7xl mx-auto">
         {/* Pre-header Studio Badge: Properly Paired Text */}
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
+        <div className="flex flex-wrap items-center justify-start gap-3 mb-8">
           <div className="inline-flex flex-wrap items-center gap-2 sm:gap-3 px-4 py-2 rounded-2xl border-2 border-neutral-900 bg-white shadow-[3px_3px_0px_#18181b] text-xs font-mono font-bold tracking-tight">
             <span className="flex items-center gap-1.5 text-neutral-950 font-black">
               <Sparkles className="w-4 h-4 text-amber-500 fill-amber-400" />
@@ -157,21 +155,6 @@ export function NomokeyHero() {
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
               <span>Zero external tracking</span>
             </span>
-          </div>
-
-          <div className="flex items-center gap-2.5">
-            <button
-              type="button"
-              onClick={() => {
-                playClickSound();
-                replayWelcomeLoader();
-              }}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border-2 border-neutral-900 bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-mono text-xs font-black shadow-[2px_2px_0px_#18181b] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer"
-              title="Re-run the cinematic welcome loader with 3D city and vector forging animations"
-            >
-              <Play className="w-3.5 h-3.5 fill-neutral-950 text-neutral-950" />
-              <span>REPLAY WELCOME FORGE</span>
-            </button>
           </div>
         </div>
 

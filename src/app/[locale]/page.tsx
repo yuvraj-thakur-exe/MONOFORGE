@@ -35,7 +35,7 @@ export default function HomePage() {
       {/* Floating Lo-Fi Audio Ambience Player */}
       <StudioAudioToggle />
 
-      {/* Flagship Top Navigation with Replay Forge & Sound Controls */}
+      {/* Flagship Top Navigation & Controls */}
       <TopNav />
 
       {/* High-Impact Top Kinetic Marquee */}
