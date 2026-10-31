@@ -18,6 +18,9 @@ import {
   Bot,
   Swords,
   Binary,
+  Rocket,
+  Palette,
+  Layers,
 } from 'lucide-react';
 import { getDocsNavigation } from '#/content/docs/docs-data';
 import { GitHubStarButton } from '#/components/common/GitHubStarButton';
@@ -26,6 +29,9 @@ import { KineticTypewriter, KineticGradientText } from '#/components/common/Kine
 import { ScrollReveal } from '#/components/motion/ScrollReveal';
 import { HomeBrandLogoEmblem } from '#/components/home/HomeBrandLogoEmblem';
 import { HomeCyberMonkeyHero } from '#/components/home/HomeCyberMonkeyHero';
+import { HomeCapabilitiesMatrix } from '#/components/home/HomeCapabilitiesMatrix';
+import { SoundToggleButton } from '#/components/common/SoundToggleButton';
+import { playClickSound, playTone } from '#/lib/sound/sound-effects';
 
 type ShowcaseTab = 'geometric' | 'cyberbot' | 'ninja' | 'matrix';
 
@@ -40,8 +46,19 @@ export function DocsHomePortal() {
 
   const handleCopy = (text: string, key: string) => {
     navigator.clipboard.writeText(text);
+    playClickSound();
     setCopiedCmd(key);
     setTimeout(() => setCopiedCmd(null), 2000);
+  };
+
+  const handleTabSwitch = (tab: 'pnpm' | 'npm' | 'git' | 'cli') => {
+    setActiveTab(tab);
+    playClickSound();
+  };
+
+  const handleShowcaseTab = (tab: ShowcaseTab) => {
+    setShowcaseTab(tab);
+    playClickSound();
   };
 
   const codeSnippets = {
@@ -60,22 +77,31 @@ export function DocsHomePortal() {
 
   const copyShowcaseMarkdown = () => {
     navigator.clipboard.writeText(showcaseSnippets[showcaseTab]);
+    playTone(1046.5, 'sine', 0.1, 0.05);
     setCopiedSnippet(true);
     setTimeout(() => setCopiedSnippet(false), 2000);
   };
 
   return (
     <div className="flex flex-col min-h-screen bg-[#fafbfc] dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 font-sans selection:bg-[#ffe600] selection:text-slate-950 transition-colors">
-      {/* Top Banner Notice */}
-      <div className="border-b border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur-xs py-2 px-4 text-center font-mono text-xs text-slate-600 dark:text-slate-400">
-        <span className="font-bold text-slate-900 dark:text-white">MonoForge V2</span> — Official Technical Documentation, Architecture Blueprint &amp; Open-Source Specification.
+      {/* Top Banner Notice with Sound Toggle */}
+      <div className="border-b border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur-xs py-2 px-4 flex items-center justify-between text-xs font-mono text-slate-600 dark:text-slate-400">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="font-bold text-slate-900 dark:text-white">MonoForge V2</span>
+          <span className="hidden sm:inline">— Official Technical Documentation &amp; Identity Studio.</span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <SoundToggleButton />
+        </div>
       </div>
 
       {/* Main Hero Section with Ambient Glow */}
-      <section className="relative border-b border-slate-200/80 dark:border-slate-800 py-12 sm:py-20 px-4 sm:px-6 overflow-hidden">
+      <section className="relative border-b border-slate-200/80 dark:border-slate-800 py-10 sm:py-16 px-4 sm:px-6 overflow-hidden">
         {/* Soft Radial Ambient Lighting */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[450px] bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(245,158,11,0.12),transparent_70%)] dark:bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(245,158,11,0.16),transparent_70%)] pointer-events-none" />
-        <div className="absolute top-1/3 right-10 w-[500px] h-[300px] bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,rgba(99,102,241,0.06),transparent_70%)] pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[450px] bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(245,158,11,0.14),transparent_70%)] dark:bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(245,158,11,0.18),transparent_70%)] pointer-events-none" />
+        <div className="absolute top-1/3 right-10 w-[500px] h-[300px] bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,rgba(99,102,241,0.08),transparent_70%)] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto space-y-10 relative z-10">
           {/* Top Brand Logo Showcase */}
@@ -88,9 +114,9 @@ export function DocsHomePortal() {
               {/* Eyebrow Badge */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-xs font-mono text-xs font-medium text-slate-800 dark:text-slate-200">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span>DOCUMENTATION &amp; SPECIFICATION PLATFORM</span>
+                <span>DEVELOPER IDENTITY ENGINE</span>
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 font-black">
-                  18 GUIDES
+                  18+ ARCHETYPES
                 </span>
               </div>
 
@@ -102,6 +128,7 @@ export function DocsHomePortal() {
                     GITHUB IDENTITY.
                   </KineticGradientText>
                 </h1>
+
                 <div className="flex items-center gap-2 font-mono text-xs sm:text-sm text-amber-600 dark:text-amber-400 justify-center sm:justify-start">
                   <span className="font-bold text-slate-400">&gt;</span>
                   <KineticTypewriter
@@ -115,39 +142,73 @@ export function DocsHomePortal() {
                     className="font-bold"
                   />
                 </div>
+
                 <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed font-sans font-normal">
-                  The definitive developer manual for MonoForge. Learn the single-store state architecture, explore the 47+ telemetry engines, review GitHub Camo sanitization rules, and integrate the standalone CLI.
+                  The definitive developer suite for MonoForge. Create iconic GitHub profile READMEs with animated vector avatars, 3D contribution skylines, and live telemetry cards, or dive into our 18 engineering manuals.
                 </p>
               </div>
 
-              {/* Action CTAs */}
-              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3.5 pt-2 font-mono text-xs">
+              {/* Mega Primary Launchpad Button */}
+              <div className="pt-2 flex flex-col sm:flex-row items-center sm:items-start gap-4">
                 <Link
-                  href="/docs"
-                  className="btn-shimmer inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-amber-400 text-slate-950 font-black border border-amber-500 shadow-md hover:bg-amber-300 hover:shadow-lg active:scale-95 transition-all text-sm cursor-pointer"
+                  href="/wizard"
+                  onClick={() => playClickSound()}
+                  className="btn-shimmer w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-sm sm:text-base border-2 border-amber-500 shadow-xl hover:shadow-2xl active:scale-95 transition-all cursor-pointer font-sans tracking-wide"
                 >
-                  <BookOpen className="w-4 h-4" />
-                  <span>EXPLORE DOCUMENTATION</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <Rocket className="w-5 h-5 text-slate-950 animate-bounce" />
+                  <span>START FORGING NOW</span>
+                  <ArrowRight className="w-5 h-5" />
                 </Link>
 
                 <Link
-                  href="/docs/getting-started/quickstart"
-                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-slate-700 shadow-xs hover:border-amber-500/50 hover:bg-slate-50 dark:hover:bg-slate-750 transition-all cursor-pointer"
+                  href="/developer"
+                  onClick={() => playClickSound()}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold text-sm border border-slate-200 dark:border-slate-700 shadow-sm hover:border-amber-400 hover:bg-slate-50 dark:hover:bg-slate-750 transition-all cursor-pointer font-mono"
                 >
-                  <Sparkles className="w-4 h-4 text-amber-500" />
-                  <span>60-SECOND QUICKSTART</span>
+                  <Code2 className="w-4 h-4 text-indigo-500" />
+                  <span>OPEN RAW IDE</span>
+                </Link>
+
+                <GitHubStarButton className="h-[52px] px-5 py-3 rounded-2xl border border-slate-800 shadow-md shrink-0" />
+              </div>
+
+              {/* Secondary Navigation Modes */}
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 font-mono text-xs pt-1">
+                <Link
+                  href="/animator"
+                  onClick={() => playClickSound()}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
+                >
+                  <Palette className="w-3.5 h-3.5 text-cyan-500" />
+                  <span>Vector Animator</span>
+                </Link>
+
+                <Link
+                  href="/templates"
+                  onClick={() => playClickSound()}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
+                >
+                  <Layers className="w-3.5 h-3.5 text-amber-500" />
+                  <span>18+ Archetypes</span>
                 </Link>
 
                 <Link
                   href="/info"
-                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-slate-700 shadow-xs hover:border-indigo-500/50 hover:bg-slate-50 dark:hover:bg-slate-750 transition-all cursor-pointer"
+                  onClick={() => playClickSound()}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
                 >
-                  <Terminal className="w-4 h-4 text-indigo-500" />
-                  <span>INFO HUB &amp; BADGES</span>
+                  <Terminal className="w-3.5 h-3.5 text-indigo-500" />
+                  <span>Info Hub</span>
                 </Link>
 
-                <GitHubStarButton className="h-[46px] px-5 py-3 rounded-xl border border-slate-800 shadow-md" />
+                <Link
+                  href="/docs"
+                  onClick={() => playClickSound()}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
+                >
+                  <BookOpen className="w-3.5 h-3.5 text-emerald-500" />
+                  <span>Docs Manual</span>
+                </Link>
               </div>
 
               {/* Quick Terminal Installation Box */}
@@ -163,7 +224,7 @@ export function DocsHomePortal() {
                           <button
                             key={tab}
                             type="button"
-                            onClick={() => setActiveTab(tab)}
+                            onClick={() => handleTabSwitch(tab)}
                             className={`px-2.5 py-1 rounded text-[11px] font-bold uppercase transition-colors cursor-pointer ${
                               activeTab === tab
                                 ? 'bg-amber-400/20 text-amber-600 dark:text-amber-400 border border-amber-400/30'
@@ -211,6 +272,9 @@ export function DocsHomePortal() {
         </div>
       </section>
 
+      {/* Flagship: What MonoForge Can Do & What It Has */}
+      <HomeCapabilitiesMatrix />
+
       {/* Interactive Live SVG & Animation Laboratory Showcase */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-slate-200/80 dark:border-slate-800 bg-white/50 dark:bg-slate-900/40">
         <div className="max-w-6xl mx-auto space-y-8">
@@ -251,155 +315,158 @@ export function DocsHomePortal() {
           {/* Interactive Playground Card */}
           <ScrollReveal direction="up" delay={0.1}>
             <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl overflow-hidden">
-            {/* Control Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 p-3 sm:px-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-850">
-              {/* Asset Mode Toggles */}
-              <div className="flex items-center gap-1.5 font-mono text-xs">
-                <button
-                  type="button"
-                  onClick={() => setShowcaseTab('geometric')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
-                    showcaseTab === 'geometric'
-                      ? 'bg-amber-400 text-slate-950 shadow-xs'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Geometric Loader</span>
-                </button>
+              {/* Control Bar */}
+              <div className="flex flex-wrap items-center justify-between gap-3 p-3 sm:px-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-850">
+                {/* Asset Mode Toggles */}
+                <div className="flex items-center gap-1.5 font-mono text-xs">
+                  <button
+                    type="button"
+                    onClick={() => handleShowcaseTab('geometric')}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
+                      showcaseTab === 'geometric'
+                        ? 'bg-amber-400 text-slate-950 shadow-xs'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>Geometric Loader</span>
+                  </button>
 
-                <button
-                  type="button"
-                  onClick={() => setShowcaseTab('cyberbot')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
-                    showcaseTab === 'cyberbot'
-                      ? 'bg-amber-400 text-slate-950 shadow-xs'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  <Bot className="w-3.5 h-3.5 text-cyan-500" />
-                  <span>Cyber Bot</span>
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => handleShowcaseTab('cyberbot')}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
+                      showcaseTab === 'cyberbot'
+                        ? 'bg-amber-400 text-slate-950 shadow-xs'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    <Bot className="w-3.5 h-3.5 text-cyan-500" />
+                    <span>Cyber Bot</span>
+                  </button>
 
-                <button
-                  type="button"
-                  onClick={() => setShowcaseTab('ninja')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
-                    showcaseTab === 'ninja'
-                      ? 'bg-amber-400 text-slate-950 shadow-xs'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  <Swords className="w-3.5 h-3.5 text-indigo-500" />
-                  <span>Ninja Coder</span>
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => handleShowcaseTab('ninja')}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
+                      showcaseTab === 'ninja'
+                        ? 'bg-amber-400 text-slate-950 shadow-xs'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    <Swords className="w-3.5 h-3.5 text-indigo-500" />
+                    <span>Ninja Coder</span>
+                  </button>
 
-                <button
-                  type="button"
-                  onClick={() => setShowcaseTab('matrix')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
-                    showcaseTab === 'matrix'
-                      ? 'bg-amber-400 text-slate-950 shadow-xs'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  <Binary className="w-3.5 h-3.5 text-emerald-500" />
-                  <span>Matrix Rain</span>
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => handleShowcaseTab('matrix')}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
+                      showcaseTab === 'matrix'
+                        ? 'bg-amber-400 text-slate-950 shadow-xs'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    <Binary className="w-3.5 h-3.5 text-emerald-500" />
+                    <span>Matrix Rain</span>
+                  </button>
+                </div>
+
+                {/* Color Dot Swatches (when geometric is active) */}
+                {showcaseTab === 'geometric' && (
+                  <div className="flex items-center gap-2 font-mono text-[11px] text-slate-500">
+                    <span className="hidden sm:inline">Dot Glow:</span>
+                    {(['#ffe600', '#6366f1', '#10b981', '#06b6d4', '#ec4899'] as const).map((color) => (
+                      <button
+                        key={color}
+                        type="button"
+                        onClick={() => {
+                          setLoaderColor(color);
+                          playTone(1200, 'sine', 0.05, 0.03);
+                        }}
+                        aria-label={`Select color ${color}`}
+                        className="w-4 h-4 rounded-full border border-white dark:border-slate-800 transition-transform hover:scale-125 cursor-pointer shadow-xs"
+                        style={{ backgroundColor: color }}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
 
-              {/* Color Dot Swatches (when geometric is active) */}
-              {showcaseTab === 'geometric' && (
-                <div className="flex items-center gap-2 font-mono text-[11px] text-slate-500">
-                  <span className="hidden sm:inline">Dot Glow:</span>
-                  {(['#ffe600', '#6366f1', '#10b981', '#06b6d4', '#ec4899'] as const).map((color) => (
-                    <button
-                      key={color}
-                      type="button"
-                      onClick={() => setLoaderColor(color)}
-                      aria-label={`Select color ${color}`}
-                      className="w-4 h-4 rounded-full border border-white dark:border-slate-800 transition-transform hover:scale-125 cursor-pointer shadow-xs"
-                      style={{ backgroundColor: color }}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Stage Preview Area */}
-            <div className="p-8 sm:p-12 min-h-[260px] flex items-center justify-center bg-radial from-slate-50 to-white dark:from-slate-900/90 dark:to-slate-950 relative overflow-hidden">
-              {showcaseTab === 'geometric' && (
-                <div className="flex flex-col items-center gap-4">
-                  <GeometricLoader mode="triple" size="lg" dotColor={loaderColor} />
-                  <span className="text-[11px] font-mono font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                    UIVERSE GEOMETRIC PATH &amp; DOT LOADER (TRIPLE ORBIT)
-                  </span>
-                </div>
-              )}
-
-              {showcaseTab === 'cyberbot' && (
-                <div className="flex flex-col items-center gap-4 text-center">
-                  <div className="relative p-6 rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl flex items-center justify-center">
-                    <svg viewBox="0 0 200 120" className="w-56 h-32">
-                      <rect x="50" y="30" width="100" height="70" rx="14" fill="#18181b" stroke="#38bdf8" strokeWidth="3" />
-                      <circle cx="75" cy="60" r="10" fill="#38bdf8" className="animate-pulse" />
-                      <circle cx="125" cy="60" r="10" fill="#38bdf8" className="animate-pulse" />
-                      <path d="M85 85 Q100 95 115 85" stroke="#38bdf8" strokeWidth="3" fill="none" />
-                      <line x1="100" y1="30" x2="100" y2="12" stroke="#38bdf8" strokeWidth="3" />
-                      <circle cx="100" cy="10" r="5" fill="#f59e0b" className="animate-ping" />
-                    </svg>
+              {/* Stage Preview Area */}
+              <div className="p-8 sm:p-12 min-h-[260px] flex items-center justify-center bg-radial from-slate-50 to-white dark:from-slate-900/90 dark:to-slate-950 relative overflow-hidden">
+                {showcaseTab === 'geometric' && (
+                  <div className="flex flex-col items-center gap-4">
+                    <GeometricLoader mode="triple" size="lg" dotColor={loaderColor} />
+                    <span className="text-[11px] font-mono font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                      UIVERSE GEOMETRIC PATH &amp; DOT LOADER (TRIPLE ORBIT)
+                    </span>
                   </div>
-                  <span className="text-[11px] font-mono font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                    CYBER BOT VECTOR WITH REAL-TIME ANTENNA BEACON
-                  </span>
-                </div>
-              )}
+                )}
 
-              {showcaseTab === 'ninja' && (
-                <div className="flex flex-col items-center gap-4 text-center">
-                  <div className="relative p-6 rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl flex items-center justify-center">
-                    <svg viewBox="0 0 200 120" className="w-56 h-32">
-                      <circle cx="100" cy="55" r="35" fill="#18181b" stroke="#f43f5e" strokeWidth="3" />
-                      <rect x="75" y="48" width="50" height="12" rx="3" fill="#f43f5e" />
-                      <circle cx="90" cy="54" r="3" fill="#ffffff" />
-                      <circle cx="110" cy="54" r="3" fill="#ffffff" />
-                      <line x1="130" y1="50" x2="160" y2="35" stroke="#f43f5e" strokeWidth="4" strokeLinecap="round" />
-                      <line x1="130" y1="55" x2="165" y2="45" stroke="#f43f5e" strokeWidth="3" strokeLinecap="round" />
-                    </svg>
+                {showcaseTab === 'cyberbot' && (
+                  <div className="flex flex-col items-center gap-4 text-center">
+                    <div className="relative p-6 rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl flex items-center justify-center">
+                      <svg viewBox="0 0 200 120" className="w-56 h-32">
+                        <rect x="50" y="30" width="100" height="70" rx="14" fill="#18181b" stroke="#38bdf8" strokeWidth="3" />
+                        <circle cx="75" cy="60" r="10" fill="#38bdf8" className="animate-pulse" />
+                        <circle cx="125" cy="60" r="10" fill="#38bdf8" className="animate-pulse" />
+                        <path d="M85 85 Q100 95 115 85" stroke="#38bdf8" strokeWidth="3" fill="none" />
+                        <line x1="100" y1="30" x2="100" y2="12" stroke="#38bdf8" strokeWidth="3" />
+                        <circle cx="100" cy="10" r="5" fill="#f59e0b" className="animate-ping" />
+                      </svg>
+                    </div>
+                    <span className="text-[11px] font-mono font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                      CYBER BOT VECTOR WITH REAL-TIME ANTENNA BEACON
+                    </span>
                   </div>
-                  <span className="text-[11px] font-mono font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                    NINJA CODER COMBAT STANCE WITH FLUTTERING HEADBAND
-                  </span>
-                </div>
-              )}
+                )}
 
-              {showcaseTab === 'matrix' && (
-                <div className="w-full max-w-lg p-5 rounded-2xl bg-slate-950 border border-emerald-500/30 text-emerald-400 font-mono text-xs shadow-2xl space-y-2">
-                  <div className="flex items-center justify-between border-b border-emerald-500/20 pb-2 text-[10px] text-emerald-500">
-                    <span>MATRIX_RAIN_ENGINE.SVG</span>
-                    <span className="animate-pulse">STREAM ACTIVE</span>
+                {showcaseTab === 'ninja' && (
+                  <div className="flex flex-col items-center gap-4 text-center">
+                    <div className="relative p-6 rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl flex items-center justify-center">
+                      <svg viewBox="0 0 200 120" className="w-56 h-32">
+                        <circle cx="100" cy="55" r="35" fill="#18181b" stroke="#f43f5e" strokeWidth="3" />
+                        <rect x="75" y="48" width="50" height="12" rx="3" fill="#f43f5e" />
+                        <circle cx="90" cy="54" r="3" fill="#ffffff" />
+                        <circle cx="110" cy="54" r="3" fill="#ffffff" />
+                        <line x1="130" y1="50" x2="160" y2="35" stroke="#f43f5e" strokeWidth="4" strokeLinecap="round" />
+                        <line x1="130" y1="55" x2="165" y2="45" stroke="#f43f5e" strokeWidth="3" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                    <span className="text-[11px] font-mono font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                      NINJA CODER COMBAT STANCE WITH FLUTTERING HEADBAND
+                    </span>
                   </div>
-                  <p className="tracking-widest font-bold opacity-90">01001101 01001111 01001110 01001111 01000110</p>
-                  <p className="tracking-widest font-bold text-emerald-300">01001111 01010010 01000111 01000101 00100000</p>
-                  <p className="tracking-widest font-bold opacity-75">10110010 11001101 01010110 00110010 11010101</p>
-                </div>
-              )}
-            </div>
+                )}
 
-            {/* Code Snippet Bar */}
-            <div className="p-4 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
-              <span className="text-slate-500 dark:text-slate-400 truncate">
-                {showcaseSnippets[showcaseTab].split('\n')[1]?.trim()}
-              </span>
-              <button
-                type="button"
-                onClick={copyShowcaseMarkdown}
-                className="text-amber-600 dark:text-amber-400 font-bold hover:underline self-end sm:self-auto cursor-pointer"
-              >
-                {copiedSnippet ? 'Copied to Clipboard!' : 'Copy snippet'}
-              </button>
+                {showcaseTab === 'matrix' && (
+                  <div className="w-full max-w-lg p-5 rounded-2xl bg-slate-950 border border-emerald-500/30 text-emerald-400 font-mono text-xs shadow-2xl space-y-2">
+                    <div className="flex items-center justify-between border-b border-emerald-500/20 pb-2 text-[10px] text-emerald-500">
+                      <span>MATRIX_RAIN_ENGINE.SVG</span>
+                      <span className="animate-pulse">STREAM ACTIVE</span>
+                    </div>
+                    <p className="tracking-widest font-bold opacity-90">01001101 01001111 01001110 01001111 01000110</p>
+                    <p className="tracking-widest font-bold text-emerald-300">01001111 01010010 01000111 01000101 00100000</p>
+                    <p className="tracking-widest font-bold opacity-75">10110010 11001101 01010110 00110010 11010101</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Code Snippet Bar */}
+              <div className="p-4 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
+                <span className="text-slate-500 dark:text-slate-400 truncate">
+                  {showcaseSnippets[showcaseTab].split('\n')[1]?.trim()}
+                </span>
+                <button
+                  type="button"
+                  onClick={copyShowcaseMarkdown}
+                  className="text-amber-600 dark:text-amber-400 font-bold hover:underline self-end sm:self-auto cursor-pointer"
+                >
+                  {copiedSnippet ? 'Copied to Clipboard!' : 'Copy snippet'}
+                </button>
+              </div>
             </div>
-          </div>
           </ScrollReveal>
         </div>
       </section>
@@ -421,54 +488,56 @@ export function DocsHomePortal() {
 
           <ScrollReveal direction="up" delay={0.15}>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {navigation.map((cat, idx) => (
-              <div
-                key={cat.name}
-                className="card-hover-lift flex flex-col p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-amber-500/40 dark:hover:border-amber-400/30 transition-all duration-200 space-y-4"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-bold uppercase px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                    Chapter 0{idx + 1}
-                  </span>
-                  <span className="text-xs font-mono text-slate-400">
-                    {cat.items.length} articles
-                  </span>
-                </div>
-
-                <h3 className="text-lg font-black tracking-tight text-slate-900 dark:text-white font-sans uppercase">
-                  {cat.name}
-                </h3>
-
-                <ul className="space-y-1.5 flex-1">
-                  {cat.items.map((item) => (
-                    <li key={item.slug}>
-                      <Link
-                        href={`/docs/${item.slug}`}
-                        className="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group font-sans text-xs font-medium text-slate-700 dark:text-slate-200"
-                      >
-                        <span className="group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors truncate">
-                          {item.title}
-                        </span>
-                        {item.badge && (
-                          <span className="text-[9px] font-mono uppercase px-2 py-0.2 rounded-full font-bold bg-amber-400 text-slate-950 shrink-0 ml-1">
-                            {item.badge}
-                          </span>
-                        )}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  href={`/docs/${cat.items[0]?.slug}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-slate-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-400 pt-3 border-t border-slate-100 dark:border-slate-800"
+              {navigation.map((cat, idx) => (
+                <div
+                  key={cat.name}
+                  className="card-hover-lift flex flex-col p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-amber-500/40 dark:hover:border-amber-400/30 transition-all duration-200 space-y-4"
                 >
-                  <span>Start Reading Chapter</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            ))}
-          </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono font-bold uppercase px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                      Chapter 0{idx + 1}
+                    </span>
+                    <span className="text-xs font-mono text-slate-400">
+                      {cat.items.length} articles
+                    </span>
+                  </div>
+
+                  <h3 className="text-lg font-black tracking-tight text-slate-900 dark:text-white font-sans uppercase">
+                    {cat.name}
+                  </h3>
+
+                  <ul className="space-y-1.5 flex-1">
+                    {cat.items.map((item) => (
+                      <li key={item.slug}>
+                        <Link
+                          href={`/docs/${item.slug}`}
+                          onClick={() => playClickSound()}
+                          className="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group font-sans text-xs font-medium text-slate-700 dark:text-slate-200"
+                        >
+                          <span className="group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors truncate">
+                            {item.title}
+                          </span>
+                          {item.badge && (
+                            <span className="text-[9px] font-mono uppercase px-2 py-0.2 rounded-full font-bold bg-amber-400 text-slate-950 shrink-0 ml-1">
+                              {item.badge}
+                            </span>
+                          )}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link
+                    href={`/docs/${cat.items[0]?.slug}`}
+                    onClick={() => playClickSound()}
+                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-slate-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-400 pt-3 border-t border-slate-100 dark:border-slate-800"
+                  >
+                    <span>Start Reading Chapter</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              ))}
+            </div>
           </ScrollReveal>
         </div>
       </section>
@@ -490,46 +559,46 @@ export function DocsHomePortal() {
 
           <ScrollReveal direction="up" delay={0.15}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="card-hover-lift p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
-              <div className="flex items-center gap-2 font-mono text-xs font-black text-slate-900 dark:text-white uppercase">
-                <Cpu className="w-4 h-4 text-emerald-500" />
-                <span>1. Single Source-of-Truth Store</span>
+              <div className="card-hover-lift p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+                <div className="flex items-center gap-2 font-mono text-xs font-black text-slate-900 dark:text-white uppercase">
+                  <Cpu className="w-4 h-4 text-emerald-500" />
+                  <span>1. Single Source-of-Truth Store</span>
+                </div>
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
+                  A single Zustand store (<code className="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-mono text-[11px]">src/store/useReadmeStore.ts</code>) maintains profile state across all views. There is zero parallel or disconnected state.
+                </p>
               </div>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
-                A single Zustand store (<code className="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-mono text-[11px]">src/store/useReadmeStore.ts</code>) maintains profile state across all views. There is zero parallel or disconnected state.
-              </p>
-            </div>
 
-            <div className="card-hover-lift p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
-              <div className="flex items-center gap-2 font-mono text-xs font-black text-slate-900 dark:text-white uppercase">
-                <Code2 className="w-4 h-4 text-indigo-500" />
-                <span>2. Pure Function Markdown Pipeline</span>
+              <div className="card-hover-lift p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+                <div className="flex items-center gap-2 font-mono text-xs font-black text-slate-900 dark:text-white uppercase">
+                  <Code2 className="w-4 h-4 text-indigo-500" />
+                  <span>2. Pure Function Markdown Pipeline</span>
+                </div>
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
+                  The function <code className="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-mono text-[11px]">buildMarkdown(config)</code> produces clean GitHub Flavored Markdown with zero React dependencies or side effects.
+                </p>
               </div>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
-                The function <code className="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-mono text-[11px]">buildMarkdown(config)</code> produces clean GitHub Flavored Markdown with zero React dependencies or side effects.
-              </p>
-            </div>
 
-            <div className="card-hover-lift p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
-              <div className="flex items-center gap-2 font-mono text-xs font-black text-slate-900 dark:text-white uppercase">
-                <Zap className="w-4 h-4 text-amber-500" />
-                <span>3. 60fps GitHub Camo Safe Vectors</span>
+              <div className="card-hover-lift p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+                <div className="flex items-center gap-2 font-mono text-xs font-black text-slate-900 dark:text-white uppercase">
+                  <Zap className="w-4 h-4 text-amber-500" />
+                  <span>3. 60fps GitHub Camo Safe Vectors</span>
+                </div>
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
+                  All SVGs pass strict GitHub Camo CDN proxy checks: zero <code className="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-mono text-[11px]">&lt;script&gt;</code>, zero <code className="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-mono text-[11px]">&lt;foreignObject&gt;</code>, using only pure CSS keyframe animations.
+                </p>
               </div>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
-                All SVGs pass strict GitHub Camo CDN proxy checks: zero <code className="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-mono text-[11px]">&lt;script&gt;</code>, zero <code className="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-mono text-[11px]">&lt;foreignObject&gt;</code>, using only pure CSS keyframe animations.
-              </p>
-            </div>
 
-            <div className="card-hover-lift p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
-              <div className="flex items-center gap-2 font-mono text-xs font-black text-slate-900 dark:text-white uppercase">
-                <Lock className="w-4 h-4 text-rose-500" />
-                <span>4. Confirmation-Gated Data &amp; Sync</span>
+              <div className="card-hover-lift p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+                <div className="flex items-center gap-2 font-mono text-xs font-black text-slate-900 dark:text-white uppercase">
+                  <Lock className="w-4 h-4 text-rose-500" />
+                  <span>4. Confirmation-Gated Data &amp; Sync</span>
+                </div>
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
+                  Nothing external writes to your store or pushes to your GitHub account without explicit, per-item user confirmation and line-by-line diff review.
+                </p>
               </div>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
-                Nothing external writes to your store or pushes to your GitHub account without explicit, per-item user confirmation and line-by-line diff review.
-              </p>
             </div>
-          </div>
           </ScrollReveal>
         </div>
       </section>
@@ -537,52 +606,53 @@ export function DocsHomePortal() {
       {/* CLI & MCP Integration Card */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-slate-200/80 dark:border-slate-800 bg-[#f8fafc] dark:bg-[#0c0f17]">
         <ScrollReveal direction="up" delay={0.15}>
-        <div className="max-w-6xl mx-auto rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 sm:p-12 shadow-sm space-y-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="space-y-1">
-              <span className="text-xs font-mono font-bold text-amber-600 dark:text-amber-400 uppercase">
-                AUTOMATION &amp; AGENT SUITE
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white uppercase font-sans">
-                STANDALONE CLI &amp; MODEL CONTEXT PROTOCOL (MCP)
-              </h3>
+          <div className="max-w-6xl mx-auto rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 sm:p-12 shadow-sm space-y-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <span className="text-xs font-mono font-bold text-amber-600 dark:text-amber-400 uppercase">
+                  AUTOMATION &amp; AGENT SUITE
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white uppercase font-sans">
+                  STANDALONE CLI &amp; MODEL CONTEXT PROTOCOL (MCP)
+                </h3>
+              </div>
+              <Link
+                href="/docs/reference/cli"
+                onClick={() => playClickSound()}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-bold font-mono text-xs hover:bg-amber-400 hover:text-slate-950 dark:hover:bg-amber-400 dark:hover:text-slate-950 transition-all shrink-0 cursor-pointer"
+              >
+                <span>READ CLI SPEC</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
-            <Link
-              href="/docs/reference/cli"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-bold font-mono text-xs hover:bg-amber-400 hover:text-slate-950 dark:hover:bg-amber-400 dark:hover:text-slate-950 transition-all shrink-0 cursor-pointer"
-            >
-              <span>READ CLI SPEC</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans max-w-3xl">
+              MonoForge includes a zero-dependency CLI located in <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">bin/monoforge.js</code> and a Model Context Protocol (MCP) server. Use it to generate profiles in CI/CD pipelines, integrate with Cursor or Claude Code, or validate profiles directly in your terminal.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 font-mono text-xs">
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2">
+                <span className="font-bold text-amber-600 dark:text-amber-400 text-[11px]">monoforge generate</span>
+                <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
+                  Generates a README.md file from archetypes with optional output path.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2">
+                <span className="font-bold text-emerald-600 dark:text-emerald-400 text-[11px]">monoforge doctor</span>
+                <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
+                  Audits an existing profile for Camo compliance, broken links, and bad contrast.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2">
+                <span className="font-bold text-indigo-600 dark:text-indigo-400 text-[11px]">monoforge mcp</span>
+                <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
+                  Starts the stdio Model Context Protocol (MCP) server for developer tools.
+                </p>
+              </div>
+            </div>
           </div>
-
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans max-w-3xl">
-            MonoForge includes a zero-dependency CLI located in <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">bin/monoforge.js</code> and a Model Context Protocol (MCP) server. Use it to generate profiles in CI/CD pipelines, integrate with Cursor or Claude Code, or validate profiles directly in your terminal.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 font-mono text-xs">
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2">
-              <span className="font-bold text-amber-600 dark:text-amber-400 text-[11px]">monoforge generate</span>
-              <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
-                Generates a README.md file from archetypes with optional output path.
-              </p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2">
-              <span className="font-bold text-emerald-600 dark:text-emerald-400 text-[11px]">monoforge doctor</span>
-              <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
-                Audits an existing profile for Camo compliance, broken links, and bad contrast.
-              </p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2">
-              <span className="font-bold text-indigo-600 dark:text-indigo-400 text-[11px]">monoforge mcp</span>
-              <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
-                Starts the stdio Model Context Protocol (MCP) server for developer tools.
-              </p>
-            </div>
-          </div>
-        </div>
         </ScrollReveal>
       </section>
 
@@ -600,16 +670,19 @@ export function DocsHomePortal() {
             </div>
 
             <div className="flex flex-wrap items-center gap-4 text-xs font-medium">
-              <Link href="/docs" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+              <Link href="/docs" onClick={() => playClickSound()} className="hover:text-slate-900 dark:hover:text-white transition-colors">
                 DOCUMENTATION
               </Link>
-              <Link href="/docs/getting-started/quickstart" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+              <Link href="/docs/getting-started/quickstart" onClick={() => playClickSound()} className="hover:text-slate-900 dark:hover:text-white transition-colors">
                 QUICKSTART
               </Link>
-              <Link href="/docs/reference/architecture" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+              <Link href="/templates" onClick={() => playClickSound()} className="hover:text-slate-900 dark:hover:text-white transition-colors">
+                ARCHETYPES
+              </Link>
+              <Link href="/docs/reference/architecture" onClick={() => playClickSound()} className="hover:text-slate-900 dark:hover:text-white transition-colors">
                 SPECS
               </Link>
-              <Link href="/info" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+              <Link href="/info" onClick={() => playClickSound()} className="hover:text-slate-900 dark:hover:text-white transition-colors">
                 INFO HUB
               </Link>
               <a
