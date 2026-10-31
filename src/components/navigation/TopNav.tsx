@@ -18,6 +18,7 @@ import { useState, useEffect } from 'react';
 import { ThemeToggle } from '#/components/theme/ThemeToggle';
 import { MonoForgeMonkeyIcon } from '#/components/common/MonoForgeLogo';
 import { GitHubSyncModal } from '#/components/sync/GitHubSyncModal';
+import { CommandPalette } from '#/components/navigation/CommandPalette';
 
 export function TopNav() {
   const pathname = usePathname();
@@ -147,6 +148,9 @@ export function TopNav() {
 
           <div className="h-4 w-px bg-neutral-300 mx-1" />
 
+          {/* Global Quick Command Palette (Cmd+K) */}
+          <CommandPalette />
+
           {/* Connect GitHub Button (Prominent on Desktop!) */}
           <button
             type="button"
@@ -234,6 +238,21 @@ export function TopNav() {
           >
             <Github className="w-4 h-4" />
             <span>CONNECT &amp; PUSH TO GITHUB</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              window.dispatchEvent(new CustomEvent('monoforge-open-command-palette'));
+            }}
+            className="w-full flex items-center justify-between p-3 rounded-xl border-2 border-neutral-900 bg-white text-neutral-950 font-mono text-xs font-bold hover:bg-[#ffe600] shadow-[2px_2px_0px_#18181b] cursor-pointer"
+          >
+            <span className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-amber-500" />
+              <span>COMMAND PALETTE</span>
+            </span>
+            <kbd className="px-1.5 py-0.5 rounded bg-neutral-950 text-[10px] text-white">⌘K</kbd>
           </button>
 
           <Link

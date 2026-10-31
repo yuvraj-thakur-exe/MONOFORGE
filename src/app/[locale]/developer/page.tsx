@@ -12,6 +12,11 @@ import { GitHubSyncModal } from '#/components/sync/GitHubSyncModal';
 import { CyberMonkeyCopilot } from '#/components/mascot/CyberMonkeyCopilot';
 import { MonoForgeMonkeyIcon } from '#/components/common/MonoForgeLogo';
 import { EditorSkeleton } from '#/components/developer/EditorSkeleton';
+import { ReadmeHealthScoreModal } from '#/components/studio/ReadmeHealthScoreModal';
+import { ReadmeImporterModal } from '#/components/importer/ReadmeImporterModal';
+import { VersionHistoryModal } from '#/components/studio/VersionHistoryModal';
+import { AssetVaultModal } from '#/components/studio/AssetVaultModal';
+import { calculateProfileQualityScore } from '#/lib/optimizer/quality-score';
 import { TEMPLATES } from '#/lib/templates/catalog';
 import { buildMarkdown } from '#/lib/buildMarkdown';
 import confetti from 'canvas-confetti';
@@ -32,6 +37,10 @@ import {
   LayoutDashboard,
   ListOrdered,
   LayoutTemplate,
+  TrendingUp,
+  FileUp,
+  History,
+  Package,
 } from 'lucide-react';
 
 // Dynamic lazy-loaded studio modes for high-speed initial bundle & zero lag
@@ -113,9 +122,15 @@ function LocalizedDeveloperContent() {
   const [showPluginPanel, setShowPluginPanel] = useState<boolean>(true);
   const [showCopilot, setShowCopilot] = useState<boolean>(false);
   const [isSyncModalOpen, setIsSyncModalOpen] = useState<boolean>(false);
+  const [isHealthModalOpen, setIsHealthModalOpen] = useState<boolean>(false);
+  const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
+  const [isHistoryModalOpen, setIsHistoryModalOpen] = useState<boolean>(false);
+  const [isVaultModalOpen, setIsVaultModalOpen] = useState<boolean>(false);
   const [mobileTab, setMobileTab] = useState<'editor' | 'preview' | 'plugins' | 'copilot'>('editor');
   const [desktopView, setDesktopView] = useState<'split' | 'editor' | 'preview'>('split');
   const [copiedMd, setCopiedMd] = useState<boolean>(false);
+
+  const qualityReport = calculateProfileQualityScore(config);
 
   // Update mode when URL param changes
   useEffect(() => {
@@ -263,6 +278,51 @@ function LocalizedDeveloperContent() {
 
         {/* Global Action Controls on Right */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          {/* README Health Score Pill */}
+          <button
+            type="button"
+            onClick={() => setIsHealthModalOpen(true)}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border-2 border-neutral-900 bg-white hover:bg-[#ffe600] text-xs font-mono font-bold shadow-[2px_2px_0px_#18181b] btn-tactile cursor-pointer"
+            title="README Health Score & Camo CDN Audit"
+          >
+            <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
+            <span className="hidden sm:inline">HEALTH:</span>
+            <span className="font-black px-1 rounded bg-neutral-950 text-[#ffe600] text-[11px]">{qualityReport.overallScore}%</span>
+          </button>
+
+          {/* Import README Action */}
+          <button
+            type="button"
+            onClick={() => setIsImportModalOpen(true)}
+            className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border-2 border-neutral-900 bg-white hover:bg-[#ffe600] text-neutral-950 text-xs font-mono font-bold shadow-[2px_2px_0px_#18181b] btn-tactile cursor-pointer"
+            title="Import existing README from GitHub or Markdown"
+          >
+            <FileUp className="w-3.5 h-3.5 text-blue-600" />
+            <span>IMPORT</span>
+          </button>
+
+          {/* Version History Action */}
+          <button
+            type="button"
+            onClick={() => setIsHistoryModalOpen(true)}
+            className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border-2 border-neutral-900 bg-white hover:bg-[#ffe600] text-neutral-950 text-xs font-mono font-bold shadow-[2px_2px_0px_#18181b] btn-tactile cursor-pointer"
+            title="Version History & Snapshots"
+          >
+            <History className="w-3.5 h-3.5 text-amber-600" />
+            <span>HISTORY</span>
+          </button>
+
+          {/* Curated Asset Vault Action */}
+          <button
+            type="button"
+            onClick={() => setIsVaultModalOpen(true)}
+            className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border-2 border-neutral-900 bg-white hover:bg-[#ffe600] text-neutral-950 text-xs font-mono font-bold shadow-[2px_2px_0px_#18181b] btn-tactile cursor-pointer"
+            title="Curated Camo Asset Vault & Dividers"
+          >
+            <Package className="w-3.5 h-3.5 text-indigo-600" />
+            <span>VAULT</span>
+          </button>
+
           {/* Templates Catalog Link */}
           <Link
             href="/templates"
@@ -578,6 +638,24 @@ function LocalizedDeveloperContent() {
       <GitHubSyncModal
         isOpen={isSyncModalOpen}
         onClose={() => setIsSyncModalOpen(false)}
+      />
+
+      {/* Platform Modals */}
+      <ReadmeHealthScoreModal
+        isOpen={isHealthModalOpen}
+        onClose={() => setIsHealthModalOpen(false)}
+      />
+      <ReadmeImporterModal
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+      />
+      <VersionHistoryModal
+        isOpen={isHistoryModalOpen}
+        onClose={() => setIsHistoryModalOpen(false)}
+      />
+      <AssetVaultModal
+        isOpen={isVaultModalOpen}
+        onClose={() => setIsVaultModalOpen(false)}
       />
     </div>
   );
