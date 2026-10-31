@@ -22,7 +22,7 @@ describe('HomeBrandLogoEmblem', () => {
 
     expect(screen.getByText(/MONO/i)).toBeDefined();
     expect(screen.getAllByText(/FORGE/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/v2.4.0 STABLE/i)).toBeDefined();
+    expect(screen.getByText(/OFFICIAL STUDIO/i)).toBeDefined();
     expect(screen.getByText(/100% CLIENT-SIDE/i)).toBeDefined();
   });
 });

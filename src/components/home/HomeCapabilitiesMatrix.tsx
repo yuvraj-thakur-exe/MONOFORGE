@@ -305,7 +305,7 @@ export function HomeCapabilitiesMatrix() {
                 {activeFeature.previewType === 'vector' && (
                   <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md space-y-3">
                     <div className="flex items-center justify-between text-xs font-mono">
-                      <span className="font-bold text-cyan-500">CYBER_BOT_V2.SVG</span>
+                      <span className="font-bold text-cyan-500">CYBER_BOT.SVG</span>
                       <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 font-bold">60FPS CSS</span>
                     </div>
                     <div className="h-32 rounded-xl bg-slate-950 p-4 flex items-center justify-center border border-slate-800">

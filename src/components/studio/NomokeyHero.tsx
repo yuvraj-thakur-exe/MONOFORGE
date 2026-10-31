@@ -405,7 +405,7 @@ export function NomokeyHero() {
                   <span className="w-3 h-3 rounded-full bg-[#ffe600] border border-neutral-900" />
                   <span className="w-3 h-3 rounded-full bg-emerald-500 border border-neutral-900" />
                   <span className="text-[11px] font-mono font-black text-neutral-950 ml-1">
-                    MONKEY_CORE.v2
+                    MONKEY_CORE
                   </span>
                 </div>
 

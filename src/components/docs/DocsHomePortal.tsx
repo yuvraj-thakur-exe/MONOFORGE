@@ -88,7 +88,7 @@ export function DocsHomePortal() {
       <div className="border-b border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur-xs py-2 px-4 flex items-center justify-between text-xs font-mono text-slate-600 dark:text-slate-400">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="font-bold text-slate-900 dark:text-white">MonoForge V2</span>
+          <span className="font-bold text-slate-900 dark:text-white">MonoForge</span>
           <span className="hidden sm:inline">— Official Technical Documentation &amp; Identity Studio.</span>
         </div>
 
