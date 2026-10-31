@@ -38,7 +38,7 @@ const DEMOS: ArchetypeDemo[] = [
 <br/>
 
 <div align="center">
-  <img src="/assets/telemetry-isocalendar-3d.svg" alt="3D City Contributions" width="100%" />
+  <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=isocalendar&user=octocat" alt="Dynamic 3D City Contributions" width="100%" />
 </div>`,
   },
   {

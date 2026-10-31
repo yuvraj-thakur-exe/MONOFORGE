@@ -1741,6 +1741,7 @@ async function main() {
       fs.writeFileSync(outputFile, md, 'utf8');
       console.log(`✨ Successfully forged GitHub Profile README (${archetype}) for @${username}!`);
       console.log(`📄 Saved to: ${path.resolve(outputFile)}`);
+      console.log(`⭐ If MonoForge elevated your GitHub profile, please give the repository a star on GitHub: https://github.com/yuvraj-thakur-exe/MONOFORGE`);
     }
     return;
   }
