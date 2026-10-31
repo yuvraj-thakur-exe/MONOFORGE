@@ -261,6 +261,19 @@ export const useReadmeStore = create<ReadmeStoreState>()(
         removeItem: () => {},
       })),
       partialize: state => ({ config: state.config }),
+      onRehydrateStorage: () => (state) => {
+        if (state?.config) {
+          try {
+            const validated = ReadmeConfigSchema.safeParse(state.config);
+            if (!validated.success) {
+              console.warn('Recovered corrupted profile config during rehydration. Resetting to default.');
+              state.config = DEFAULT_CONFIG;
+            }
+          } catch {
+            state.config = DEFAULT_CONFIG;
+          }
+        }
+      },
     }
   )
 );

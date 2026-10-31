@@ -87,8 +87,8 @@ export function NomokeyStickerBoard() {
   return (
     <section className="relative bg-white border-b-2 border-neutral-900 py-16 sm:py-24 px-4 sm:px-6 transition-colors duration-300">
       <div className="max-w-7xl mx-auto space-y-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-2 border-neutral-900 pb-6">
-          <div>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b-2 border-neutral-900 pb-6">
+          <div className="max-w-2xl">
             <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-neutral-950 mb-2">
               <span className="px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 font-black border border-neutral-900">
                 [ 05 // TACTILE STICKER DECK ]
@@ -99,7 +99,7 @@ export function NomokeyStickerBoard() {
               THE MONKEY STICKER VAULT.
             </h2>
           </div>
-          <p className="text-xs sm:text-sm font-mono text-neutral-900 font-medium max-w-md leading-relaxed">
+          <p className="text-sm font-sans text-neutral-800 font-medium max-w-xl lg:text-right leading-relaxed shrink-0">
             Collect, click, and drop these tactile developer stamps straight into your GitHub profile. 100% Camo CDN ready.
           </p>
         </div>

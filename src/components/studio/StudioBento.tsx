@@ -31,8 +31,8 @@ export function StudioBento() {
     <section className="relative bg-white border-b border-neutral-200 border-neutral-900 py-16 sm:py-24 px-4 sm:px-6 transition-colors duration-300">
       <div className="max-w-7xl mx-auto space-y-12">
         {/* Section Header: Editorial & Technical */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-neutral-900 pb-6">
-          <div className="space-y-2">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b-2 border-neutral-900 pb-6">
+          <div className="space-y-2 max-w-2xl">
             <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">
               <span>[ 02 // CRAFT ARCHITECTURE ]</span>
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
@@ -43,7 +43,7 @@ export function StudioBento() {
             </h2>
           </div>
 
-          <p className="text-xs sm:text-sm font-mono text-neutral-900 font-medium max-w-md leading-relaxed">
+          <p className="text-sm font-sans text-neutral-800 font-medium max-w-xl lg:text-right leading-relaxed shrink-0">
             Everything your profile needs to command respect: 47+ native telemetry engines, split Monaco IDE, and 60fps Camo SVGs with zero external tracking servers.
           </p>
         </div>

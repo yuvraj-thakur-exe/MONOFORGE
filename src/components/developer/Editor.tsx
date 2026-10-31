@@ -5,7 +5,8 @@ import MonacoEditor, { OnChange } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
 import { useReadmeStore } from '#/store/useReadmeStore';
 import { ReadmeConfigSchema } from '#/lib/plugins/types';
-import { CheckCircle2, AlertTriangle, RefreshCw, Copy, Check } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, RefreshCw, Copy, Check, Code2, Terminal } from 'lucide-react';
+import { EditorSkeleton } from './EditorSkeleton';
 
 interface EditorProps {
   theme?: 'vs-dark' | 'light';
@@ -23,6 +24,8 @@ export const Editor: React.FC<EditorProps> = ({ theme, className = '' }) => {
   const [validationError, setValidationError] = useState<string | null>(null);
   const [isValid, setIsValid] = useState<boolean>(true);
   const [copiedJson, setCopiedJson] = useState<boolean>(false);
+  const [monacoFailed, setMonacoFailed] = useState<boolean>(false);
+  const [useRawEditor, setUseRawEditor] = useState<boolean>(false);
   const isInternalChange = useRef<boolean>(false);
 
   // Sync external store changes into editor if they originate outside editor
@@ -63,10 +66,16 @@ export const Editor: React.FC<EditorProps> = ({ theme, className = '' }) => {
     }
   };
 
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    handleEditorChange(e.target.value, {} as never);
+  };
+
   const handleFormat = () => {
     try {
       const parsed = JSON.parse(editorValue);
-      setEditorValue(JSON.stringify(parsed, null, 2));
+      const formatted = JSON.stringify(parsed, null, 2);
+      setEditorValue(formatted);
+      handleEditorChange(formatted, {} as never);
     } catch {
       // Ignore if unparseable
     }
@@ -85,7 +94,7 @@ export const Editor: React.FC<EditorProps> = ({ theme, className = '' }) => {
   return (
     <div className={`flex flex-col h-full bg-white rounded-2xl border-2 border-neutral-900 overflow-hidden shadow-[4px_4px_0px_#18181b] ${className}`}>
       {/* Editor Header Bar */}
-      <div className="flex items-center justify-between px-4 py-2.5 bg-white border-b-2 border-neutral-900 text-xs font-mono">
+      <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-white border-b-2 border-neutral-900 text-xs font-mono shrink-0">
         <div className="flex items-center gap-2">
           <span className="px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 font-black tracking-wider border border-neutral-900">
             CONFIG.JSON
@@ -105,9 +114,18 @@ export const Editor: React.FC<EditorProps> = ({ theme, className = '' }) => {
             {config.sections?.length || 0} SECTIONS
           </span>
           <button
+            onClick={() => setUseRawEditor(!useRawEditor)}
+            type="button"
+            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-neutral-800 border border-neutral-300 font-mono text-[11px] font-bold transition-all"
+            title="Toggle Lightweight / Monaco Editor"
+          >
+            {useRawEditor ? <Terminal className="w-3 h-3 text-cyan-600" /> : <Code2 className="w-3 h-3 text-amber-600" />}
+            <span className="hidden sm:inline">{useRawEditor ? 'RAW MODE' : 'MONACO'}</span>
+          </button>
+          <button
             onClick={handleCopyJson}
             type="button"
-            className="flex items-center gap-1 px-3 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 hover:bg-[#ffe600] hover:text-neutral-950 text-neutral-800 dark:text-neutral-200 transition-all font-bold shadow-2xs"
+            className="flex items-center gap-1 px-3 py-1 rounded-lg bg-neutral-100 hover:bg-[#ffe600] hover:text-neutral-950 text-neutral-800 border border-neutral-300 transition-all font-bold shadow-2xs"
             title="Copy JSON to clipboard"
           >
             {copiedJson ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
@@ -116,7 +134,7 @@ export const Editor: React.FC<EditorProps> = ({ theme, className = '' }) => {
           <button
             onClick={handleFormat}
             type="button"
-            className="flex items-center gap-1 px-3 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 hover:bg-[#ffe600] hover:text-neutral-950 text-neutral-800 dark:text-neutral-200 transition-all font-bold shadow-2xs"
+            className="flex items-center gap-1 px-3 py-1 rounded-lg bg-neutral-100 hover:bg-[#ffe600] hover:text-neutral-950 text-neutral-800 border border-neutral-300 transition-all font-bold shadow-2xs"
             title="Prettify JSON"
           >
             <RefreshCw className="w-3 h-3 text-amber-500" /> PRETTIFY
@@ -124,41 +142,57 @@ export const Editor: React.FC<EditorProps> = ({ theme, className = '' }) => {
         </div>
       </div>
 
-      {/* Monaco Container */}
-      <div className="flex-1 min-h-0 bg-white dark:bg-[#0d1117]">
-        <MonacoEditor
-          height="100%"
-          defaultLanguage="json"
-          value={editorValue}
-          theme={activeMonacoTheme}
-          onChange={handleEditorChange}
-          options={{
-            minimap: { enabled: false },
-            fontSize: 13,
-            lineNumbers: 'on',
-            scrollBeyondLastLine: false,
-            automaticLayout: true,
-            tabSize: 2,
-            wordWrap: 'on',
-            formatOnPaste: true,
-            cursorBlinking: 'smooth',
-            cursorSmoothCaretAnimation: 'on',
-            smoothScrolling: true,
-            bracketPairColorization: { enabled: true },
-            guides: { bracketPairs: true, indentation: true },
-            fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
-          }}
-        />
+      {/* Editor Main Surface */}
+      <div className="flex-1 min-h-0 bg-white relative">
+        {useRawEditor || monacoFailed ? (
+          <div className="w-full h-full p-4 font-mono text-xs overflow-auto bg-neutral-950 text-emerald-400 selection:bg-amber-400 selection:text-neutral-950">
+            <textarea
+              value={editorValue}
+              onChange={handleTextareaChange}
+              spellCheck={false}
+              className="w-full h-full bg-transparent text-emerald-400 font-mono text-xs sm:text-sm resize-none focus:outline-hidden leading-relaxed"
+              placeholder="Paste or write your config JSON here..."
+            />
+          </div>
+        ) : (
+          <MonacoEditor
+            height="100%"
+            defaultLanguage="json"
+            value={editorValue}
+            theme={activeMonacoTheme}
+            onChange={handleEditorChange}
+            loading={<EditorSkeleton />}
+            onMount={() => {
+              // Successfully mounted
+            }}
+            options={{
+              minimap: { enabled: false },
+              fontSize: 13,
+              lineNumbers: 'on',
+              scrollBeyondLastLine: false,
+              automaticLayout: true,
+              tabSize: 2,
+              wordWrap: 'on',
+              formatOnPaste: true,
+              cursorBlinking: 'smooth',
+              cursorSmoothCaretAnimation: 'on',
+              smoothScrolling: true,
+              bracketPairColorization: { enabled: true },
+              guides: { bracketPairs: true, indentation: true },
+              fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
+            }}
+          />
+        )}
       </div>
 
       {/* Error Footer Bar */}
       {validationError && (
-        <div className="px-4 py-2 bg-amber-950/80 border-t border-amber-800/80 text-amber-300 text-xs font-mono flex items-center justify-between">
+        <div className="px-4 py-2 bg-amber-950/90 border-t-2 border-amber-800 text-amber-300 text-xs font-mono flex items-center justify-between shrink-0">
           <span className="truncate">{validationError}</span>
           <button
             type="button"
             onClick={handleFormat}
-            className="text-[11px] underline hover:text-amber-100 ml-2 shrink-0"
+            className="text-[11px] underline hover:text-amber-100 ml-2 shrink-0 font-bold"
           >
             Auto-Format
           </button>
