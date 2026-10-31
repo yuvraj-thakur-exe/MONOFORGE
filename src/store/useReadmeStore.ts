@@ -22,6 +22,9 @@ export interface ReadmeStoreState {
   removeSection: (id: string) => void;
   updateSection: (id: string, updater: Partial<SectionConfig['props']> | ((prev: SectionConfig['props']) => SectionConfig['props'])) => void;
   reorderSections: (newOrderedIds: string[]) => void;
+  toggleSectionVisibility: (id: string) => void;
+  duplicateSection: (id: string) => string | null;
+  moveSection: (id: string, direction: 'up' | 'down') => void;
   setActiveSection: (id: string | null) => void;
   setPreviewMode: (enabled: boolean) => void;
   setEntireConfig: (newConfig: ReadmeConfig | string) => boolean;
@@ -183,6 +186,80 @@ export const useReadmeStore = create<ReadmeStoreState>()(
             config: {
               ...state.config,
               sections: reordered,
+            },
+          };
+        });
+      },
+
+      toggleSectionVisibility: id => {
+        set(state => {
+          const index = state.config.sections.findIndex(s => s.id === id);
+          if (index === -1) return state;
+
+          const section = state.config.sections[index];
+          const currentVisible = section.visible !== false;
+          const nextSections = [...state.config.sections];
+          nextSections[index] = {
+            ...section,
+            visible: !currentVisible,
+          };
+
+          return {
+            ...pushHistory(state),
+            config: {
+              ...state.config,
+              sections: nextSections,
+            },
+          };
+        });
+      },
+
+      duplicateSection: id => {
+        const { config } = get();
+        const section = config.sections.find(s => s.id === id);
+        if (!section) return null;
+
+        const newId = uuidv4();
+        const cloned: SectionConfig = {
+          ...section,
+          id: newId,
+          title: section.title ? `${section.title} (Copy)` : undefined,
+          props: JSON.parse(JSON.stringify(section.props)),
+        };
+
+        const index = config.sections.findIndex(s => s.id === id);
+        const nextSections = [...config.sections];
+        nextSections.splice(index + 1, 0, cloned);
+
+        set(state => ({
+          ...pushHistory(state),
+          config: {
+            ...state.config,
+            sections: nextSections,
+          },
+          activeSectionId: newId,
+        }));
+
+        return newId;
+      },
+
+      moveSection: (id, direction) => {
+        set(state => {
+          const sections = [...state.config.sections];
+          const index = sections.findIndex(s => s.id === id);
+          if (index === -1) return state;
+
+          const targetIndex = direction === 'up' ? index - 1 : index + 1;
+          if (targetIndex < 0 || targetIndex >= sections.length) return state;
+
+          const [moved] = sections.splice(index, 1);
+          sections.splice(targetIndex, 0, moved);
+
+          return {
+            ...pushHistory(state),
+            config: {
+              ...state.config,
+              sections,
             },
           };
         });

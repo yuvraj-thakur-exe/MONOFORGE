@@ -73,6 +73,7 @@ export function buildMarkdownWithWorkflows(config: ReadmeConfig): BuildMarkdownR
   // Iterate over sections and render via plugins
   for (const section of sections) {
     if (!section || !section.type) continue;
+    if (section.visible === false || (section.props as { visible?: boolean })?.visible === false) continue;
     const plugin = getPluginById(section.type);
 
     if (plugin) {

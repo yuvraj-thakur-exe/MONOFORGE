@@ -224,5 +224,37 @@ console.log(greeting);
       const output = buildMarkdown(config);
       expect(output).toContain('MonoForge');
     });
+
+    it('skips sections that have visible set to false', () => {
+      const config: ReadmeConfig = {
+        version: '1.0.0',
+        title: 'Visibility Test',
+        settings: {
+          user: { github: 'dev' },
+          theme: 'dark',
+          accentColor: '#8b5cf6',
+          badgeStyle: 'for-the-badge',
+          align: 'left',
+        },
+        sections: [
+          {
+            id: 'sec-1',
+            type: 'projects-showcase',
+            props: { content: { sectionTitle: 'Hidden Project' }, styles: {} },
+            visible: false,
+          },
+          {
+            id: 'sec-2',
+            type: 'projects-showcase',
+            props: { content: { sectionTitle: 'Visible Project' }, styles: {} },
+            visible: true,
+          },
+        ],
+      };
+
+      const out = buildMarkdown(config);
+      expect(out).not.toContain('Hidden Project');
+      expect(out).toContain('Visible Project');
+    });
   });
 });

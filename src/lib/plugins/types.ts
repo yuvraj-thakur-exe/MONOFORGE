@@ -76,6 +76,7 @@ export const SectionPropsSchema = z.object({
   content: z.record(z.string(), z.unknown()).default({}),
   styles: z.record(z.string(), z.unknown()).default({}),
   state: z.string().optional(),
+  visible: z.boolean().optional(),
 });
 
 export type SectionProps = z.infer<typeof SectionPropsSchema>;
@@ -84,6 +85,8 @@ export const SectionConfigSchema = z.object({
   id: z.string(),
   type: z.string(),
   props: SectionPropsSchema,
+  visible: z.boolean().optional(),
+  title: z.string().optional(),
 });
 
 export type SectionConfig = z.infer<typeof SectionConfigSchema>;

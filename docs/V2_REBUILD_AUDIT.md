@@ -99,3 +99,4 @@ While the core functionality and foundational unit tests (141 test suites, 662 t
 2. **Pure Functional Markdown**: `buildMarkdown(config)` in `src/lib/buildMarkdown.ts` produces all markdown.
 3. **Zero Camo Violations**: Standalone SVGs must never contain `<script>` or `<foreignObject>`.
 4. **Mandatory Confirmation Gates**: Remote GitHub writes and external imports must require explicit user approval.
+

@@ -18,6 +18,7 @@ import { figmaDesignPlugin } from './wrappers/figma-design';
 import { socialsPlugin } from './wrappers/socials';
 import { telemetryEnginePlugin } from './wrappers/telemetry-engine';
 import { telemetryIsocalendarPlugin } from './wrappers/telemetry-isocalendar';
+import { projectsShowcasePlugin } from './wrappers/projects-showcase';
 
 export const pluginRegistry: Plugin[] = [
   socialsPlugin,
@@ -25,6 +26,7 @@ export const pluginRegistry: Plugin[] = [
   mascotBioPlugin,
   pinterestImagePlugin,
   figmaDesignPlugin,
+  projectsShowcasePlugin,
   telemetryEnginePlugin,
   telemetryIsocalendarPlugin,
   readmeTypingSvgPlugin,

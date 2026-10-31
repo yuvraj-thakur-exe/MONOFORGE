@@ -21,7 +21,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "paths": {
-      "#/*": ["./src/*"]
+      "#/*": ["./src/*"],
+      "@/*": ["./src/*"]
     },
     "incremental": true,
     "plugins": [

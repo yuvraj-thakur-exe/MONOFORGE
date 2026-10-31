@@ -97,4 +97,30 @@ describe('useReadmeStore', () => {
     const invalidSuccess = store.setEntireConfig('{ invalid json }');
     expect(invalidSuccess).toBe(false);
   });
+
+  it('toggles visibility, duplicates, and moves sections up/down', () => {
+    const store = useReadmeStore.getState();
+    const id1 = store.addSection('header', { content: { title: 'Header 1' } });
+    const id2 = store.addSection('projects-showcase', { content: { title: 'Projects' } });
+
+    // Toggle visibility
+    store.toggleSectionVisibility(id1);
+    expect(useReadmeStore.getState().config.sections[0].visible).toBe(false);
+
+    store.toggleSectionVisibility(id1);
+    expect(useReadmeStore.getState().config.sections[0].visible).toBe(true);
+
+    // Duplicate section
+    const dupId = store.duplicateSection(id2);
+    expect(dupId).toBeDefined();
+    expect(useReadmeStore.getState().config.sections).toHaveLength(3);
+
+    // Move section up
+    store.moveSection(id2, 'up');
+    expect(useReadmeStore.getState().config.sections[0].id).toBe(id2);
+
+    // Move section down
+    store.moveSection(id2, 'down');
+    expect(useReadmeStore.getState().config.sections[1].id).toBe(id2);
+  });
 });

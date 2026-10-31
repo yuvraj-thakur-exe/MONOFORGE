@@ -197,3 +197,4 @@ export function calculateProfileQualityScore(config: ReadmeConfig): ProfileQuali
     camoCompliant,
   };
 }
+

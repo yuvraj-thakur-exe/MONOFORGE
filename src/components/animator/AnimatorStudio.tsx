@@ -68,6 +68,7 @@ import {
   decodeConfigFromBase64,
   generateHostedDemoUrl,
 } from '#/lib/animator/export-utils';
+import { AnimationTimeline } from './AnimationTimeline';
 
 function renderPresetIcon(iconName: string) {
   switch (iconName) {
@@ -103,7 +104,7 @@ export function AnimatorStudio() {
   const [isMobileView, setIsMobileView] = useState(false);
   const [simulateError, setSimulateError] = useState(false);
   const [markdownTab, setMarkdownTab] = useState<'relative' | 'githubRaw' | 'dataUri' | 'hostedDemo'>('relative');
-  const [activeTab, setActiveTab] = useState<'layers' | 'presets' | 'uiMotion'>('layers');
+  const [activeTab, setActiveTab] = useState<'layers' | 'presets' | 'uiMotion' | 'timeline'>('layers');
   const [showEcosystem, setShowEcosystem] = useState(false);
   const [isPanelExpanded, setIsPanelExpanded] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(50);
@@ -486,6 +487,18 @@ export function AnimatorStudio() {
             >
               <Boxes className="w-3.5 h-3.5" />
               <span>UI Motion</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('timeline')}
+              className={`flex-1 py-1.5 rounded-lg font-semibold flex items-center justify-center gap-1.5 transition-all ${
+                activeTab === 'timeline'
+                  ? 'bg-amber-500 text-neutral-950 font-bold shadow-sm'
+                  : 'text-neutral-400 hover:text-white'
+              }`}
+            >
+              <Film className="w-3.5 h-3.5" />
+              <span>Timeline</span>
             </button>
           </div>
 
@@ -887,6 +900,12 @@ export function AnimatorStudio() {
           )}
 
           {/* TAB 3: UI Motion Showcase (Springs, Hover, Panels, Parallax) */}
+          {activeTab === 'timeline' && (
+            <div className="space-y-4">
+              <AnimationTimeline />
+            </div>
+          )}
+
           {activeTab === 'uiMotion' && (
             <div className="p-4 rounded-xl border border-palette-line bg-palette-soft/40 space-y-4 text-xs">
               <span className="text-xs font-bold uppercase tracking-wider text-palette-contrast/80 flex items-center gap-1.5">

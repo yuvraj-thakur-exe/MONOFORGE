@@ -16,6 +16,8 @@ import { ReadmeHealthScoreModal } from '#/components/studio/ReadmeHealthScoreMod
 import { ReadmeImporterModal } from '#/components/importer/ReadmeImporterModal';
 import { VersionHistoryModal } from '#/components/studio/VersionHistoryModal';
 import { AssetVaultModal } from '#/components/studio/AssetVaultModal';
+import { AiAssistantModal } from '#/components/ai/AiAssistantModal';
+import { DiagnosticsHUDModal } from '#/components/diagnostics/DiagnosticsHUDModal';
 import { calculateProfileQualityScore } from '#/lib/optimizer/quality-score';
 import { TEMPLATES } from '#/lib/templates/catalog';
 import { buildMarkdown } from '#/lib/buildMarkdown';
@@ -126,6 +128,8 @@ function LocalizedDeveloperContent() {
   const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState<boolean>(false);
   const [isVaultModalOpen, setIsVaultModalOpen] = useState<boolean>(false);
+  const [isAiModalOpen, setIsAiModalOpen] = useState<boolean>(false);
+  const [isDiagnosticsModalOpen, setIsDiagnosticsModalOpen] = useState<boolean>(false);
   const [mobileTab, setMobileTab] = useState<'editor' | 'preview' | 'plugins' | 'copilot'>('editor');
   const [desktopView, setDesktopView] = useState<'split' | 'editor' | 'preview'>('split');
   const [copiedMd, setCopiedMd] = useState<boolean>(false);
@@ -310,6 +314,28 @@ function LocalizedDeveloperContent() {
           >
             <History className="w-3.5 h-3.5 text-amber-600" />
             <span>HISTORY</span>
+          </button>
+
+          {/* AI Profile Architect */}
+          <button
+            type="button"
+            onClick={() => setIsAiModalOpen(true)}
+            className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border-2 border-neutral-900 bg-white hover:bg-[#ffe600] text-neutral-950 text-xs font-mono font-bold shadow-[2px_2px_0px_#18181b] btn-tactile cursor-pointer"
+            title="AI Profile Architect & Synthesizer"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
+            <span>AI FORGE</span>
+          </button>
+
+          {/* Diagnostics HUD Action */}
+          <button
+            type="button"
+            onClick={() => setIsDiagnosticsModalOpen(true)}
+            className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border-2 border-neutral-900 bg-white hover:bg-[#ffe600] text-neutral-950 text-xs font-mono font-bold shadow-[2px_2px_0px_#18181b] btn-tactile cursor-pointer"
+            title="Diagnostics HUD & Camo CDN Guard"
+          >
+            <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
+            <span>DIAGNOSTICS</span>
           </button>
 
           {/* Curated Asset Vault Action */}
@@ -656,6 +682,14 @@ function LocalizedDeveloperContent() {
       <AssetVaultModal
         isOpen={isVaultModalOpen}
         onClose={() => setIsVaultModalOpen(false)}
+      />
+      <AiAssistantModal
+        isOpen={isAiModalOpen}
+        onClose={() => setIsAiModalOpen(false)}
+      />
+      <DiagnosticsHUDModal
+        isOpen={isDiagnosticsModalOpen}
+        onClose={() => setIsDiagnosticsModalOpen(false)}
       />
     </div>
   );
