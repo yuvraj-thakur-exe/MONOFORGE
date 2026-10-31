@@ -73,10 +73,6 @@ export function LivePlaygroundBar() {
               TEST YOUR GITHUB HANDLE LIVE.
             </h2>
           </div>
-
-          <p className="text-xs font-mono text-neutral-700 max-w-sm">
-            Type any GitHub username to see real 60fps Camo SVGs generated on the fly with zero external servers.
-          </p>
         </div>
 
         {/* Input & Sample Controls */}

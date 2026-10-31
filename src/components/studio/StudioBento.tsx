@@ -42,10 +42,6 @@ export function StudioBento() {
               THE MONOFORGE ARSENAL.
             </h2>
           </div>
-
-          <p className="text-sm font-sans text-neutral-800 font-medium max-w-xl lg:text-right leading-relaxed shrink-0">
-            Everything your profile needs to command respect: 47+ native telemetry engines, split Monaco IDE, and 60fps Camo SVGs with zero external tracking servers.
-          </p>
         </div>
 
         {/* Bento Grid */}

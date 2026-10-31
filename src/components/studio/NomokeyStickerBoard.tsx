@@ -99,9 +99,6 @@ export function NomokeyStickerBoard() {
               THE MONKEY STICKER VAULT.
             </h2>
           </div>
-          <p className="text-sm font-sans text-neutral-800 font-medium max-w-xl lg:text-right leading-relaxed shrink-0">
-            Collect, click, and drop these tactile developer stamps straight into your GitHub profile. 100% Camo CDN ready.
-          </p>
         </div>
 
         {/* Sticker Cards Grid */}

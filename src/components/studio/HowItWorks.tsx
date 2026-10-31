@@ -85,10 +85,6 @@ export function HowItWorks() {
               HOW MONOFORGE WORKS.
             </h2>
           </div>
-
-          <p className="text-xs sm:text-sm font-mono text-neutral-700 max-w-md">
-            From an empty profile to a high-impact, Camo-safe developer showcase in under 60 seconds. Zero monkey business.
-          </p>
         </div>
 
         {/* 6-Step Grid */}
