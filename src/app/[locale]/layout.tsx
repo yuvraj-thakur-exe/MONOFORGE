@@ -32,7 +32,6 @@ import { Modal } from '#/components/molecules/modal';
 import { Features } from '#/features';
 import { routing } from '#/i18n/routing';
 import { ThemeProvider } from '#/components/theme/ThemeProvider';
-import { NomokeyCompanionWidget } from '#/components/studio/NomokeyCompanionWidget';
 import { RouteLoadingIndicator } from '#/components/common/RouteLoadingIndicator';
 import { StartupSplash } from '#/components/common/StartupSplash';
 import { ScrollProgressIndicator } from '#/components/common/ScrollProgressIndicator';
@@ -209,7 +208,6 @@ export default async function RootLayout({
             <ScrollToTopButton />
             <RouteLoadingIndicator />
             <StudioCursor />
-            <NomokeyCompanionWidget />
             <Handles />
 
             {children}
