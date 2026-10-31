@@ -50,3 +50,4 @@ export function SoundToggleButton({ className = '' }: { className?: string }) {
     </button>
   );
 }
+

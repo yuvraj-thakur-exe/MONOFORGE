@@ -10,12 +10,14 @@ import {
   Check,
   ArrowRight,
   ShieldCheck,
-  Cpu,
   LayoutTemplate,
   BookOpen,
+  Play,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import confetti from 'canvas-confetti';
+import { replayWelcomeLoader } from '#/components/common/InitialPageLoader';
+import { playClickSound } from '#/lib/sound/sound-effects';
 
 const MONKEY_QUOTES = [
   'Zero monkey business. Pure precision profile engineering.',
@@ -138,25 +140,38 @@ export function NomokeyHero() {
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#ffe600]/[0.10] dark:bg-[#ffe600]/[0.04] blur-[120px] rounded-full pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto">
-        {/* Pre-header Studio Badge */}
+        {/* Pre-header Studio Badge: Properly Paired Text */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border-2 border-neutral-900 bg-white shadow-[2px_2px_0px_#18181b]  text-xs font-mono font-bold tracking-wider uppercase">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>OPEN-SOURCE GITHUB PROFILE STUDIO</span>
-            <span className="text-[#ffe600] font-black">✦</span>
-            <span className="text-neutral-600 hidden sm:inline">ZERO MONKEY BUSINESS</span>
+          <div className="inline-flex flex-wrap items-center gap-2 sm:gap-3 px-4 py-2 rounded-2xl border-2 border-neutral-900 bg-white shadow-[3px_3px_0px_#18181b] text-xs font-mono font-bold tracking-tight">
+            <span className="flex items-center gap-1.5 text-neutral-950 font-black">
+              <Sparkles className="w-4 h-4 text-amber-500 fill-amber-400" />
+              <span>Forge a GitHub profile that gets noticed</span>
+            </span>
+            <span className="text-amber-500 font-black select-none">•</span>
+            <span className="flex items-center gap-1.5 text-cyan-600 font-bold">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              <span>60fps Camo CDN vectors</span>
+            </span>
+            <span className="text-amber-500 font-black select-none">•</span>
+            <span className="flex items-center gap-1.5 text-emerald-600 font-bold">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+              <span>Zero external tracking</span>
+            </span>
           </div>
 
-          <div className="flex items-center gap-3 text-xs font-mono text-neutral-600">
-            <span className="inline-flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-              <span>100% Camo Compliant</span>
-            </span>
-            <span className="text-neutral-300 dark:text-neutral-700">&bull;</span>
-            <span className="inline-flex items-center gap-1">
-              <Cpu className="w-3.5 h-3.5 text-cyan-500" />
-              <span>47+ Plugins</span>
-            </span>
+          <div className="flex items-center gap-2.5">
+            <button
+              type="button"
+              onClick={() => {
+                playClickSound();
+                replayWelcomeLoader();
+              }}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border-2 border-neutral-900 bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-mono text-xs font-black shadow-[2px_2px_0px_#18181b] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer"
+              title="Re-run the cinematic welcome loader with 3D city and vector forging animations"
+            >
+              <Play className="w-3.5 h-3.5 fill-neutral-950 text-neutral-950" />
+              <span>REPLAY WELCOME FORGE</span>
+            </button>
           </div>
         </div>
 
@@ -204,8 +219,9 @@ export function NomokeyHero() {
               {/* Primary Action */}
               <Link
                 href="/developer?mode=visual"
+                onClick={() => playClickSound()}
                 data-cursor-label="STUDIO"
-                className="group relative inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-black text-sm tracking-wide border-2 border-neutral-900 shadow-[4px_4px_0px_#18181b] hover:shadow-[2px_2px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all duration-150 btn-tactile"
+                className="group relative inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-black text-sm tracking-wide border-2 border-neutral-900 shadow-[4px_4px_0px_#18181b] hover:shadow-[2px_2px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all duration-150 btn-tactile cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-neutral-950 group-hover:rotate-12 transition-transform" />
                 <span>BUILD MY PROFILE</span>
@@ -215,8 +231,9 @@ export function NomokeyHero() {
               {/* Templates Vault */}
               <Link
                 href="/templates"
+                onClick={() => playClickSound()}
                 data-cursor-label="TEMPLATES"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white text-neutral-950 font-bold text-sm tracking-wide border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] hover:shadow-[1px_1px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all duration-150 btn-tactile hover:bg-[#ffe600]"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white text-neutral-950 font-bold text-sm tracking-wide border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] hover:shadow-[1px_1px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all duration-150 btn-tactile hover:bg-[#ffe600] cursor-pointer"
               >
                 <LayoutTemplate className="w-4 h-4 text-amber-500" />
                 <span>85+ TEMPLATES</span>
@@ -225,8 +242,9 @@ export function NomokeyHero() {
               {/* Raw Mode Monaco Action */}
               <Link
                 href="/developer?mode=editor"
+                onClick={() => playClickSound()}
                 data-cursor-label="DEV IDE"
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-white hover:bg-neutral-100 text-neutral-950 font-mono text-xs font-bold border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-colors btn-tactile"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-white hover:bg-neutral-100 text-neutral-950 font-mono text-xs font-bold border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-colors btn-tactile cursor-pointer"
               >
                 <Code2 className="w-3.5 h-3.5 text-cyan-600" />
                 <span>DEV IDE</span>
@@ -235,8 +253,9 @@ export function NomokeyHero() {
               {/* Documentation Website */}
               <Link
                 href="/docs"
+                onClick={() => playClickSound()}
                 data-cursor-label="DOCS"
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-white hover:bg-[#ffe600] text-neutral-950 font-mono text-xs font-bold border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-colors btn-tactile"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-white hover:bg-[#ffe600] text-neutral-950 font-mono text-xs font-bold border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-colors btn-tactile cursor-pointer"
               >
                 <BookOpen className="w-3.5 h-3.5 text-emerald-600" />
                 <span>DOCS</span>

@@ -12,11 +12,17 @@ import {
   Info,
   ChevronRight,
   Sparkles,
+  Play,
+  LayoutTemplate,
+  Code2,
 } from 'lucide-react';
 import { ThemeToggle } from '#/components/theme/ThemeToggle';
 import { MonoForgeMonkeyIcon } from '#/components/common/MonoForgeLogo';
 import { DocsSearchModal } from '#/components/docs/DocsSearchModal';
 import { GitHubStarButton } from '#/components/common/GitHubStarButton';
+import { SoundToggleButton } from '#/components/common/SoundToggleButton';
+import { replayWelcomeLoader } from '#/components/common/InitialPageLoader';
+import { playClickSound } from '#/lib/sound/sound-effects';
 
 export function TopNav() {
   const pathname = usePathname();
@@ -57,85 +63,106 @@ export function TopNav() {
               <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-900 animate-pulse" />
             </div>
             <div className="flex flex-col">
-              <span className="font-black text-sm tracking-tight text-slate-900 dark:text-white uppercase font-sans flex items-center gap-1">
-                <span>MONO</span>
-                <span className="text-amber-600 dark:text-amber-400 bg-amber-500/10 dark:bg-amber-400/10 px-1 py-0.2 rounded border border-amber-500/20 text-xs">
-                  DOCS
+              <span className="font-black text-sm tracking-tight text-slate-900 dark:text-white uppercase font-sans flex items-center gap-1.5">
+                <span>MONO<span className="text-amber-500">FORGE</span></span>
+                <span className="text-[10px] font-mono font-black bg-amber-400 text-slate-950 px-1.5 py-0.2 rounded shadow-2xs">
+                  v2.4
                 </span>
               </span>
               <span className="text-[9px] text-slate-500 dark:text-slate-400 font-mono font-medium hidden sm:inline uppercase">
-                ENGINEERING MANUAL &amp; SPECS
+                GITHUB PROFILE STUDIO &amp; ENGINES
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation Links */}
           <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-1.5 sm:gap-2 font-mono text-xs">
+            {/* Visual Studio */}
+            <Link
+              href="/developer?mode=visual"
+              onClick={() => playClickSound()}
+              className="flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg bg-amber-400 text-slate-950 hover:bg-amber-300 transition-all shadow-xs cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-slate-950" />
+              <span>STUDIO</span>
+            </Link>
+
+            {/* 85+ Templates */}
+            <Link
+              href="/templates"
+              onClick={() => playClickSound()}
+              className="flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer"
+            >
+              <LayoutTemplate className="w-3.5 h-3.5 text-amber-500" />
+              <span>TEMPLATES</span>
+            </Link>
+
+            {/* Monaco Dev IDE */}
+            <Link
+              href="/developer?mode=editor"
+              onClick={() => playClickSound()}
+              className="flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer"
+            >
+              <Code2 className="w-3.5 h-3.5 text-cyan-500" />
+              <span>IDE</span>
+            </Link>
+
             {/* Documentation Hub */}
             <Link
               href="/docs"
+              onClick={() => playClickSound()}
               data-cursor-label="DOCS"
-              className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
                 isDocs
-                  ? 'bg-amber-400 text-slate-950 font-black border-amber-500 shadow-sm'
-                  : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-950 dark:hover:text-white shadow-2xs'
+                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-black'
+                  : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
-              <BookOpen className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-              <span>DOCUMENTATION</span>
-            </Link>
-
-            {/* Quickstart Guide */}
-            <Link
-              href="/docs/getting-started/quickstart"
-              className="flex items-center gap-1.5 px-3 py-1.5 font-medium rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-700 dark:text-slate-200 hover:bg-amber-500/10 hover:text-amber-600 dark:hover:bg-amber-400/10 dark:hover:text-amber-300 transition-all shadow-2xs"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>QUICKSTART</span>
-            </Link>
-
-            {/* Architecture Specs */}
-            <Link
-              href="/docs/reference/architecture"
-              className="flex items-center gap-1.5 px-3 py-1.5 font-medium rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-700 dark:text-slate-200 hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:bg-indigo-400/10 dark:hover:text-indigo-300 transition-all shadow-2xs"
-            >
-              <Layers className="w-3.5 h-3.5 text-indigo-500" />
-              <span>SPECS</span>
-            </Link>
-
-            {/* CLI & MCP Tool */}
-            <Link
-              href="/docs/reference/cli"
-              className="flex items-center gap-1.5 px-3 py-1.5 font-medium rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-600 dark:hover:bg-cyan-400/10 dark:hover:text-cyan-300 transition-all shadow-2xs"
-            >
-              <Terminal className="w-3.5 h-3.5 text-cyan-500" />
-              <span>CLI &amp; MCP</span>
+              <BookOpen className="w-3.5 h-3.5 text-emerald-500" />
+              <span>DOCS</span>
             </Link>
 
             {/* Info Hub */}
             <Link
               href="/info"
-              className={`flex items-center gap-1.5 px-3 py-1.5 font-medium rounded-lg border transition-all ${
+              onClick={() => playClickSound()}
+              className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
                 isInfo
-                  ? 'bg-amber-400 text-slate-950 font-bold border-amber-500 shadow-sm'
-                  : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-950 dark:hover:text-white shadow-2xs'
+                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-black'
+                  : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
-              <Info className="w-3.5 h-3.5 text-purple-500" />
-              <span>INFO HUB</span>
+              <Info className="w-3.5 h-3.5 text-indigo-500" />
+              <span>INFO</span>
             </Link>
 
             <div className="h-4 w-px bg-slate-200 dark:bg-slate-700 mx-1" />
+
+            {/* Replay Welcome Cinematic Trigger Button */}
+            <button
+              type="button"
+              onClick={() => {
+                playClickSound();
+                replayWelcomeLoader();
+              }}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-amber-400/40 bg-amber-400/10 text-amber-700 dark:text-amber-300 hover:bg-amber-400/20 transition-all font-bold text-[11px] cursor-pointer"
+              title="Re-run the welcome loading forge animation"
+            >
+              <Play className="w-3 h-3 fill-amber-500 text-amber-500" />
+              <span>REPLAY FORGE</span>
+            </button>
+
+            {/* Sound Toggle */}
+            <SoundToggleButton />
 
             {/* Search Trigger Button */}
             <button
               type="button"
               onClick={() => setIsSearchOpen(true)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-600 dark:text-slate-300 transition-colors shadow-2xs cursor-pointer"
+              className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-600 dark:text-slate-300 transition-colors shadow-2xs cursor-pointer"
               title="Search documentation (⌘K)"
             >
               <Search className="w-3.5 h-3.5" />
-              <span className="text-[11px] font-medium">Search docs</span>
               <kbd className="px-1.5 py-0.2 rounded text-[10px] bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold">
                 ⌘K
               </kbd>

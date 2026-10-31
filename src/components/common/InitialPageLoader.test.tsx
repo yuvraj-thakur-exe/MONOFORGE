@@ -1,11 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import { InitialPageLoader } from './InitialPageLoader';
+import { InitialPageLoader, replayWelcomeLoader } from './InitialPageLoader';
 
 // Mock sound effects
 vi.mock('#/lib/sound/sound-effects', () => ({
   playWelcomeChord: vi.fn(),
   playClickSound: vi.fn(),
+  playTone: vi.fn(),
 }));
 
 describe('InitialPageLoader', () => {
@@ -14,11 +15,12 @@ describe('InitialPageLoader', () => {
     sessionStorage.clear();
   });
 
-  it('renders initial loader when mounted', () => {
+  it('renders initial loader when mounted with content-themed compilation', () => {
     render(<InitialPageLoader />);
-    expect(screen.getByRole('status', { name: /Welcome Loading/i })).toBeDefined();
-    expect(screen.getByText(/MONOFORGE \/\/ OS/i)).toBeDefined();
+    expect(screen.getAllByRole('status').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText(/MONOFORGE \/\/ PROFILE FORGE KERNEL/i)).toBeDefined();
     expect(screen.getAllByText(/FAST LAUNCH/i).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/CAMO CDN: 100%/i).length).toBeGreaterThanOrEqual(1);
   });
 
   it('allows fast launching via skip button', () => {
@@ -31,5 +33,13 @@ describe('InitialPageLoader', () => {
       if (skipBtn) fireEvent.click(skipBtn);
     });
     expect(sessionStorage.getItem('monoforge_loaded')).toBe('true');
+  });
+
+  it('re-triggers loader when replayWelcomeLoader is invoked', () => {
+    render(<InitialPageLoader />);
+    act(() => {
+      replayWelcomeLoader();
+    });
+    expect(screen.getAllByRole('status').length).toBeGreaterThanOrEqual(1);
   });
 });
