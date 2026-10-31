@@ -154,21 +154,21 @@ export function TelemetryArsenalGrid() {
           return (
             <div
               key={plugin.id}
-              className="p-4 rounded-xl border border-neutral-200/90 dark:border-neutral-800 bg-white dark:bg-neutral-950/70 hover:border-amber-400 dark:hover:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-900/40 transition-all flex flex-col justify-between space-y-3 shadow-sm"
+              className="p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 hover:border-amber-400 dark:hover:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-900/40 transition-all flex flex-col justify-between space-y-3 shadow-xs"
             >
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-xs text-neutral-100">{plugin.name}</span>
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-neutral-900 text-neutral-400 border border-neutral-800">
+                    <span className="font-bold text-xs text-neutral-900 dark:text-neutral-100">{plugin.name}</span>
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700">
                       {plugin.category}
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono text-amber-400/90 font-semibold">
+                  <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 font-semibold">
                     plugin_{plugin.id}
                   </span>
                 </div>
-                <p className="text-xs text-neutral-400 leading-relaxed">
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
                   {plugin.description}
                 </p>
 
@@ -181,19 +181,19 @@ export function TelemetryArsenalGrid() {
               </div>
 
               {/* Card Footer Actions */}
-              <div className="pt-2 border-t border-neutral-900 flex items-center justify-between text-xs">
+              <div className="pt-2 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between text-xs">
                 <button
                   type="button"
                   onClick={() => handleCopy(plugin.id, plugin.name)}
-                  className="flex items-center gap-1.5 text-neutral-400 hover:text-amber-300 font-mono transition-colors"
+                  className="flex items-center gap-1.5 text-neutral-600 dark:text-neutral-400 hover:text-amber-600 dark:hover:text-amber-300 font-mono transition-colors"
                 >
-                  {isCopied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                  {isCopied ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
                   <span>{isCopied ? 'Copied Key' : 'Copy Key'}</span>
                 </button>
 
                 <Link
                   href="/telemetry"
-                  className="flex items-center gap-1 text-[11px] text-neutral-500 hover:text-neutral-200 transition-colors font-mono"
+                  className="flex items-center gap-1 text-[11px] text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors font-mono"
                 >
                   <span>Studio</span>
                   <ExternalLink className="w-3 h-3" />

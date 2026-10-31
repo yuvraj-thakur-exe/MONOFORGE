@@ -143,10 +143,10 @@ export const LandingDetails: React.FC = () => {
               <Eye className="w-3.5 h-3.5 text-cyan-400" />
               <span>{t('preview.badge')}</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-neutral-100">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-neutral-900 dark:text-neutral-100">
               {t('preview.title')}
             </h2>
-            <p className="text-sm text-neutral-400">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
               {t('preview.subtitle')}
             </p>
           </div>
@@ -232,8 +232,8 @@ export const LandingDetails: React.FC = () => {
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold text-neutral-100 text-sm">Demo Developer</div>
-                        <div className="text-[11px] text-neutral-400">Global Open-Source</div>
+                        <div className="font-bold text-neutral-900 dark:text-neutral-100 text-sm">Demo Developer</div>
+                        <div className="text-[11px] text-neutral-600 dark:text-neutral-400">Global Open-Source</div>
                       </div>
                     </div>
 
@@ -473,10 +473,10 @@ export const LandingDetails: React.FC = () => {
               <Sparkles className="w-3.5 h-3.5" />
               <span>{t('features.badge')}</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-neutral-100">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-neutral-900 dark:text-neutral-100">
               {t('features.title')}
             </h2>
-            <p className="text-sm text-neutral-400">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
               {t('features.subtitle')}
             </p>
           </div>
@@ -485,20 +485,20 @@ export const LandingDetails: React.FC = () => {
         <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {featureCards.map((card, idx) => (
             <StaggerItem key={idx}>
-              <div className="h-full p-6 rounded-2xl bg-neutral-900/60 hover:bg-neutral-900 border border-neutral-800/80 hover:border-amber-500/40 transition-all flex flex-col justify-between group shadow-sm hover:shadow-xl">
+              <div className="h-full p-6 rounded-2xl bg-white dark:bg-neutral-900/60 hover:bg-neutral-50 dark:hover:bg-neutral-900 border border-slate-200 dark:border-neutral-800/80 hover:border-amber-500/40 transition-all flex flex-col justify-between group shadow-xs hover:shadow-xl">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <div className="p-2.5 rounded-xl bg-neutral-950 border border-neutral-800/80 group-hover:scale-110 transition-transform">
+                    <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-neutral-950 border border-slate-200 dark:border-neutral-800/80 group-hover:scale-110 transition-transform">
                       {card.icon}
                     </div>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-800 text-neutral-400">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-neutral-800 text-slate-700 dark:text-neutral-400 border border-slate-200 dark:border-neutral-700">
                       {card.badge}
                     </span>
                   </div>
-                  <h3 className="text-base font-bold text-neutral-100 group-hover:text-amber-600 dark:text-amber-300 transition-colors">
+                  <h3 className="text-base font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-amber-600 dark:text-amber-300 transition-colors">
                     {card.title}
                   </h3>
-                  <p className="text-xs text-neutral-400 leading-relaxed">
+                  <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
                     {card.description}
                   </p>
                 </div>
@@ -516,10 +516,10 @@ export const LandingDetails: React.FC = () => {
               <Code2 className="w-3.5 h-3.5 text-cyan-400" />
               <span>{t('workflow.badge')}</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-neutral-100">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-neutral-900 dark:text-neutral-100">
               {t('workflow.title')}
             </h2>
-            <p className="text-sm text-neutral-400">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
               {t('workflow.subtitle')}
             </p>
           </div>
@@ -528,19 +528,19 @@ export const LandingDetails: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {workflowSteps.map((step, idx) => (
             <FadeIn key={idx} delay={idx * 0.1} direction="up">
-              <div className="relative p-6 rounded-2xl bg-neutral-900/70 border border-neutral-800 space-y-4 h-full flex flex-col justify-between">
+              <div className="relative p-6 rounded-2xl bg-white dark:bg-neutral-900/70 border border-slate-200 dark:border-neutral-800 space-y-4 h-full flex flex-col justify-between shadow-xs">
                 <div className="space-y-3">
                   <span className="text-4xl font-extrabold font-mono bg-gradient-to-r from-amber-500 to-amber-400 bg-clip-text text-transparent">
                     {step.number}
                   </span>
-                  <h3 className="text-lg font-bold text-neutral-100">
+                  <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-100">
                     {step.title}
                   </h3>
-                  <p className="text-xs text-neutral-400 leading-relaxed">
+                  <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
                     {step.description}
                   </p>
                 </div>
-                <div className="pt-3 border-t border-neutral-800/80 text-[11px] font-mono text-neutral-500">
+                <div className="pt-3 border-t border-slate-200 dark:border-neutral-800/80 text-[11px] font-mono text-neutral-500">
                   {step.detail}
                 </div>
               </div>
@@ -550,17 +550,17 @@ export const LandingDetails: React.FC = () => {
       </section>
 
       {/* 4. Safeguards & Trust Invariants */}
-      <section className="p-8 sm:p-10 rounded-2xl bg-gradient-to-b from-neutral-900/80 to-neutral-950 border border-neutral-800 space-y-8">
+      <section className="p-8 sm:p-10 rounded-2xl bg-gradient-to-b from-slate-100 to-slate-200/80 dark:from-neutral-900/80 dark:to-neutral-950 border border-slate-300 dark:border-neutral-800 space-y-8">
         <FadeIn direction="up">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-800/80 text-emerald-300 text-xs font-semibold">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800/80 text-emerald-800 dark:text-emerald-300 text-xs font-semibold">
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>{t('safeguards.badge')}</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-100">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-neutral-100">
               {t('safeguards.title')}
             </h2>
-            <p className="text-sm text-neutral-400">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
               {t('safeguards.subtitle')}
             </p>
           </div>
@@ -570,15 +570,15 @@ export const LandingDetails: React.FC = () => {
           {safeguards.map((item, idx) => (
             <div
               key={idx}
-              className="p-4 rounded-xl bg-neutral-950/80 border border-neutral-800/80 space-y-2.5"
+              className="p-4 rounded-xl bg-white dark:bg-neutral-950/80 border border-slate-200 dark:border-neutral-800/80 space-y-2.5 shadow-2xs"
             >
-              <div className="p-2 rounded-lg bg-neutral-900 w-fit border border-neutral-800">
+              <div className="p-2 rounded-lg bg-slate-100 dark:bg-neutral-900 w-fit border border-slate-200 dark:border-neutral-800">
                 {item.icon}
               </div>
-              <h4 className="text-sm font-bold text-neutral-200">
+              <h4 className="text-sm font-bold text-neutral-900 dark:text-neutral-200">
                 {item.title}
               </h4>
-              <p className="text-xs text-neutral-400 leading-relaxed">
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 {item.description}
               </p>
             </div>
@@ -587,16 +587,16 @@ export const LandingDetails: React.FC = () => {
       </section>
 
       {/* 5. Profile Wizard Callout */}
-      <section className="relative overflow-hidden p-8 sm:p-10 rounded-2xl bg-gradient-to-r from-violet-950/50 via-neutral-900 to-cyan-950/40 border border-amber-500/20 flex flex-col md:flex-row items-center justify-between gap-6">
+      <section className="relative overflow-hidden p-8 sm:p-10 rounded-2xl bg-gradient-to-r from-amber-500/10 via-slate-100 to-cyan-500/10 dark:from-violet-950/50 dark:via-neutral-900 dark:to-cyan-950/40 border border-amber-500/30 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="space-y-3 max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-300 text-xs font-semibold">
             <Layers className="w-3.5 h-3.5 text-cyan-400" />
             <span>Interactive Profile Studio</span>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-neutral-100">
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-neutral-100">
             Ready to forge an unforgettable profile?
           </h3>
-          <p className="text-sm text-neutral-300 leading-relaxed">
+          <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
             Explore curated developer archetypes, dynamic shields badges, animated vector characters, and verified toolchain setups for your GitHub profile.
           </p>
         </div>
@@ -617,10 +617,10 @@ export const LandingDetails: React.FC = () => {
       <section className="space-y-6 max-w-4xl mx-auto">
         <FadeIn direction="up">
           <div className="text-center space-y-2">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-100">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-neutral-100">
               {t('faq.title')}
             </h2>
-            <p className="text-sm text-neutral-400">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
               {t('faq.subtitle')}
             </p>
           </div>
@@ -632,22 +632,22 @@ export const LandingDetails: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="rounded-xl border border-neutral-800 bg-neutral-900/60 overflow-hidden transition-all"
+                className="rounded-xl border border-slate-300 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 overflow-hidden transition-all shadow-xs"
               >
                 <button
                   type="button"
                   onClick={() => toggleFaq(idx)}
-                  className="w-full flex items-center justify-between p-4 text-left font-semibold text-sm text-neutral-200 hover:text-white transition-colors"
+                  className="w-full flex items-center justify-between p-4 text-left font-semibold text-sm text-neutral-800 dark:text-neutral-200 hover:text-amber-600 dark:hover:text-white transition-colors"
                 >
                   <span>{faq.q}</span>
                   <ChevronDown
-                    className={`w-4 h-4 text-neutral-400 transition-transform ${
+                    className={`w-4 h-4 text-neutral-500 dark:text-neutral-400 transition-transform ${
                       isOpen ? 'rotate-180 text-amber-500 dark:text-amber-400' : ''
                     }`}
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-4 pb-4 text-xs text-neutral-400 leading-relaxed border-t border-neutral-800/50 pt-3">
+                  <div className="px-4 pb-4 text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed border-t border-slate-200 dark:border-neutral-800/50 pt-3">
                     {faq.a}
                   </div>
                 )}
