@@ -5,13 +5,13 @@ import { Link } from '#/i18n/navigation';
 import {
   Sparkles,
   Code2,
-  BarChart3,
   Terminal,
   Copy,
   Check,
   ArrowRight,
   ShieldCheck,
   Cpu,
+  LayoutTemplate,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import confetti from 'canvas-confetti';
@@ -202,7 +202,7 @@ export function NomokeyHero() {
             <div className="flex flex-wrap items-center gap-3.5 pt-2">
               {/* Primary Action */}
               <Link
-                href="/wizard"
+                href="/developer?mode=visual"
                 data-cursor-label="STUDIO"
                 className="group relative inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-black text-sm tracking-wide border-2 border-neutral-900 shadow-[4px_4px_0px_#18181b] hover:shadow-[2px_2px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all duration-150 btn-tactile"
               >
@@ -211,38 +211,38 @@ export function NomokeyHero() {
                 <ArrowRight className="w-4 h-4 text-neutral-950 group-hover:translate-x-1 transition-transform" />
               </Link>
 
-              {/* Raw Mode Monaco Action */}
+              {/* Templates Vault */}
               <Link
-                href="/developer"
-                data-cursor-label="DEV IDE"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white text-neutral-950 font-bold text-sm tracking-wide border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] hover:shadow-[1px_1px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all duration-150 btn-tactile"
+                href="/templates"
+                data-cursor-label="TEMPLATES"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white text-neutral-950 font-bold text-sm tracking-wide border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] hover:shadow-[1px_1px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all duration-150 btn-tactile hover:bg-[#ffe600]"
               >
-                <Code2 className="w-4 h-4 text-neutral-950" />
-                <span>OPEN DEVELOPER IDE</span>
+                <LayoutTemplate className="w-4 h-4 text-amber-500" />
+                <span>85+ TEMPLATES</span>
               </Link>
 
-              {/* Telemetry Hub */}
+              {/* Raw Mode Monaco Action */}
               <Link
-                href="/telemetry"
-                data-cursor-label="STATS"
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-white hover:bg-[#ffe600] text-neutral-950 font-mono text-xs font-bold border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-colors btn-tactile"
+                href="/developer?mode=editor"
+                data-cursor-label="DEV IDE"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-white hover:bg-neutral-100 text-neutral-950 font-mono text-xs font-bold border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-colors btn-tactile"
               >
-                <BarChart3 className="w-3.5 h-3.5 text-amber-600" />
-                <span>EXPLORE 47+ TELEMETRY</span>
+                <Code2 className="w-3.5 h-3.5 text-cyan-600" />
+                <span>DEVELOPER IDE</span>
               </Link>
             </div>
 
             {/* Quick Terminal Copy Bar */}
             <div className="pt-2">
-              <div className="inline-flex items-center gap-2 p-1.5 pl-3 rounded-lg bg-neutral-100 bg-white border border-neutral-300 border-neutral-900 text-xs font-mono text-neutral-800 max-w-full overflow-hidden">
+              <div className="inline-flex items-center gap-2 p-1.5 pl-3 rounded-lg bg-neutral-900 border-2 border-neutral-900 text-xs font-mono text-white max-w-full overflow-hidden shadow-[2px_2px_0px_#18181b]">
                 <Terminal className="w-3.5 h-3.5 text-amber-500 shrink-0" />
                 <span className="text-neutral-400 select-none">$</span>
-                <span className="truncate font-semibold">npx monoforge generate --username &lt;you&gt;</span>
+                <span className="truncate font-semibold text-neutral-200">npx monoforge generate --username &lt;you&gt;</span>
                 <button
                   type="button"
                   onClick={copyCliCommand}
                   aria-label="Copy CLI command"
-                  className="p-1.5 ml-2 rounded bg-white dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 border border-neutral-300 border-neutral-900 text-neutral-800 text-neutral-900 transition-colors shrink-0"
+                  className="p-1.5 ml-2 rounded bg-neutral-800 hover:bg-[#ffe600] hover:text-neutral-950 text-neutral-200 border border-neutral-700 transition-colors shrink-0 cursor-pointer"
                 >
                   {copiedCli ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
                 </button>

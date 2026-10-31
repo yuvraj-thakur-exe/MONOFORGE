@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
+import Link from 'next/link';
 import { useReadmeStore } from '#/store/useReadmeStore';
 import { ReadmeConfig } from '#/lib/plugins/types';
 import { buildMarkdown } from '#/lib/buildMarkdown';
@@ -21,6 +22,7 @@ import {
   Layers,
   Share2,
   Download,
+  ArrowRight,
 } from 'lucide-react';
 
 export { TEMPLATES, type TemplateItem } from '#/lib/templates/catalog';
@@ -790,26 +792,26 @@ export const TemplateGallery: React.FC = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="grid grid-cols-2 gap-2 pt-2 border-t border-neutral-200">
+              <div className="grid grid-cols-3 gap-1.5 pt-2 border-t border-neutral-200">
                 <button
                   type="button"
                   onClick={() => handleCopyPrompt(tmpl)}
                   title="Copy AI Prompt"
-                  className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-black border-2 border-neutral-900 transition-all cursor-pointer ${
+                  className={`flex items-center justify-center gap-1 px-2 py-2 rounded-xl text-[11px] font-mono font-black border-2 border-neutral-900 transition-all cursor-pointer ${
                     isCopied
-                      ? 'bg-emerald-400 text-neutral-950 shadow-[2px_2px_0px_#18181b]'
+                      ? 'bg-emerald-400 text-neutral-950 shadow-[1px_1px_0px_#18181b]'
                       : 'bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 shadow-[2px_2px_0px_#18181b] active:translate-x-[1px] active:translate-y-[1px]'
                   }`}
                 >
                   {isCopied ? (
                     <>
-                      <CheckCheck className="w-3.5 h-3.5 text-neutral-950" />
+                      <CheckCheck className="w-3 h-3 text-neutral-950" />
                       <span>Copied!</span>
                     </>
                   ) : (
                     <>
-                      <Sparkles className="w-3.5 h-3.5" />
-                      <span>Copy AI Prompt</span>
+                      <Sparkles className="w-3 h-3" />
+                      <span>AI Prompt</span>
                     </>
                   )}
                 </button>
@@ -818,11 +820,20 @@ export const TemplateGallery: React.FC = () => {
                   type="button"
                   onClick={() => handleOpenPreview(tmpl)}
                   title="Preview Template"
-                  className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-bold bg-white hover:bg-neutral-100 border-2 border-neutral-900 text-neutral-950 shadow-[2px_2px_0px_#18181b] transition-all cursor-pointer"
+                  className="flex items-center justify-center gap-1 px-2 py-2 rounded-xl text-[11px] font-mono font-bold bg-white hover:bg-neutral-100 border-2 border-neutral-900 text-neutral-950 shadow-[2px_2px_0px_#18181b] transition-all cursor-pointer"
                 >
-                  <Eye className="w-3.5 h-3.5" />
+                  <Eye className="w-3 h-3" />
                   <span>Preview</span>
                 </button>
+
+                <Link
+                  href={`/developer?template=${tmpl.id}&mode=visual`}
+                  title="Open in All-in-One Studio"
+                  className="flex items-center justify-center gap-1 px-2 py-2 rounded-xl text-[11px] font-mono font-black bg-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 text-white border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-all cursor-pointer"
+                >
+                  <span>Studio</span>
+                  <ArrowRight className="w-3 h-3" />
+                </Link>
               </div>
             </div>
           );
@@ -1276,10 +1287,19 @@ export const TemplateGallery: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-2">
+                <Link
+                  href={`/developer?template=${previewTemplate.id}&mode=visual`}
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 text-white font-mono text-xs font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-all"
+                  title="Customize directly in All-in-One Studio"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-[#ffe600]" />
+                  <span>Open in Studio</span>
+                </Link>
+
                 <button
                   type="button"
                   onClick={handleMergeFromPreview}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-neutral-100 text-neutral-950 font-mono text-xs font-bold border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b]"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-neutral-100 text-neutral-950 font-mono text-xs font-bold border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] cursor-pointer"
                 >
                   <Layers className="w-3.5 h-3.5" />
                   <span>Add to My Profile</span>
@@ -1288,7 +1308,7 @@ export const TemplateGallery: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleApplyFromPreview}
-                  className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-mono text-xs font-black border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] active:translate-x-[1px] active:translate-y-[1px]"
+                  className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-mono text-xs font-black border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
                 >
                   <Check className="w-4 h-4" />
                   <span>Apply Template</span>

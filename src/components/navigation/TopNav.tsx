@@ -7,12 +7,12 @@ import {
   BookOpen,
   Sparkles,
   BarChart3,
-  Code2,
   Film,
   Volume2,
   VolumeX,
   Menu,
   X,
+  LayoutTemplate,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { ThemeToggle } from '#/components/theme/ThemeToggle';
@@ -21,11 +21,9 @@ import { GitHubSyncModal } from '#/components/sync/GitHubSyncModal';
 
 export function TopNav() {
   const pathname = usePathname();
-  const isWizard = pathname?.includes('/wizard') || pathname?.includes('/canvas');
-  const isDeveloper = pathname?.includes('/developer');
-  const isTelemetry = pathname?.includes('/telemetry');
+  const isStudio = pathname?.includes('/developer') || pathname?.includes('/wizard') || pathname?.includes('/canvas');
+  const isTemplates = pathname?.includes('/templates');
   const isInfo = pathname?.includes('/info');
-  const isAnimator = pathname?.includes('/animator');
 
   const [isMuted, setIsMuted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -85,63 +83,55 @@ export function TopNav() {
 
         {/* Desktop Navigation Links */}
         <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-1.5 sm:gap-2">
-          {/* Visual Studio */}
+          {/* Master All-in-One Studio */}
           <Link
-            href="/wizard"
+            href="/developer?mode=visual"
             data-cursor-label="STUDIO"
             className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-bold rounded-lg border-2 transition-all btn-tactile ${
-              isWizard
+              isStudio
                 ? 'bg-[#ffe600] text-neutral-950 font-black border-neutral-900 shadow-[3px_3px_0px_#18181b]'
                 : 'border-neutral-900 bg-white text-neutral-800 hover:bg-[#ffe600] hover:text-neutral-950 shadow-[2px_2px_0px_#18181b]'
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>VISUAL STUDIO</span>
+            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+            <span>ALL-IN-ONE STUDIO</span>
           </Link>
 
-          {/* Developer Raw Mode */}
+          {/* Templates Catalog */}
           <Link
-            href="/developer"
-            data-cursor-label="DEV IDE"
+            href="/templates"
+            data-cursor-label="TEMPLATES"
             className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-bold rounded-lg border-2 transition-all btn-tactile ${
-              isDeveloper
+              isTemplates
                 ? 'bg-[#ffe600] text-neutral-950 font-black border-neutral-900 shadow-[3px_3px_0px_#18181b]'
                 : 'border-neutral-900 bg-white text-neutral-800 hover:bg-[#ffe600] hover:text-neutral-950 shadow-[2px_2px_0px_#18181b]'
             }`}
           >
-            <Code2 className="w-3.5 h-3.5" />
-            <span>&lt;/&gt; DEVELOPER IDE</span>
+            <LayoutTemplate className="w-3.5 h-3.5 text-amber-500" />
+            <span>85+ TEMPLATES</span>
           </Link>
 
-          {/* Telemetry Studio */}
+          {/* Telemetry Direct */}
           <Link
-            href="/telemetry"
+            href="/developer?mode=telemetry"
             data-cursor-label="STATS"
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-bold rounded-lg border-2 transition-all btn-tactile ${
-              isTelemetry
-                ? 'bg-[#ffe600] text-neutral-950 font-black border-neutral-900 shadow-[3px_3px_0px_#18181b]'
-                : 'border-neutral-900 bg-white text-neutral-800 hover:bg-[#ffe600] hover:text-neutral-950 shadow-[2px_2px_0px_#18181b]'
-            }`}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-bold rounded-lg border-2 border-neutral-900 bg-white text-neutral-800 hover:bg-[#ffe600] hover:text-neutral-950 shadow-[2px_2px_0px_#18181b] transition-all btn-tactile"
           >
-            <BarChart3 className="w-3.5 h-3.5" />
-            <span>47+ TELEMETRY</span>
+            <BarChart3 className="w-3.5 h-3.5 text-emerald-600" />
+            <span>TELEMETRY</span>
           </Link>
 
-          {/* SVG Animator Studio */}
+          {/* SVG Animator Direct */}
           <Link
-            href="/animator"
+            href="/developer?mode=animator"
             data-cursor-label="ANIMATE"
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-bold rounded-lg border-2 transition-all btn-tactile ${
-              isAnimator
-                ? 'bg-[#ffe600] text-neutral-950 font-black border-neutral-900 shadow-[3px_3px_0px_#18181b]'
-                : 'border-neutral-900 bg-white text-neutral-800 hover:bg-[#ffe600] hover:text-neutral-950 shadow-[2px_2px_0px_#18181b]'
-            }`}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-bold rounded-lg border-2 border-neutral-900 bg-white text-neutral-800 hover:bg-[#ffe600] hover:text-neutral-950 shadow-[2px_2px_0px_#18181b] transition-all btn-tactile"
           >
-            <Film className="w-3.5 h-3.5" />
-            <span className="hidden xl:inline">SVG ANIMATOR</span>
-            <span className="xl:hidden">ANIMATE</span>
+            <Film className="w-3.5 h-3.5 text-purple-600" />
+            <span>ANIMATOR</span>
           </Link>
 
+          {/* Guide Hub */}
           <Link
             href="/info"
             data-cursor-label="GUIDE"
@@ -151,11 +141,23 @@ export function TopNav() {
                 : 'border-neutral-900 bg-white text-neutral-800 hover:bg-[#ffe600] hover:text-neutral-950 shadow-[2px_2px_0px_#18181b]'
             }`}
           >
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>GUIDE HUB</span>
+            <BookOpen className="w-3.5 h-3.5 text-emerald-600" />
+            <span>GUIDE</span>
           </Link>
 
           <div className="h-4 w-px bg-neutral-300 mx-1" />
+
+          {/* Connect GitHub Button (Prominent on Desktop!) */}
+          <button
+            type="button"
+            onClick={() => setIsSyncModalOpen(true)}
+            data-cursor-label="SYNC"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-black rounded-lg bg-[#ffe600] text-neutral-950 border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] hover:bg-[#ffdf00] transition-all btn-tactile cursor-pointer"
+            title="Connect GitHub Account to Push Profile"
+          >
+            <Github className="w-3.5 h-3.5" />
+            <span>CONNECT GITHUB</span>
+          </button>
 
           {/* Audio Synthesizer Toggle */}
           <button
@@ -183,12 +185,21 @@ export function TopNav() {
           </a>
         </nav>
 
-        {/* Mobile Right Controls: Mute + Hamburger Toggle */}
+        {/* Mobile Right Controls: Connect GitHub + Mute + Hamburger Toggle */}
         <div className="flex md:hidden items-center gap-1.5">
           <button
             type="button"
+            onClick={() => setIsSyncModalOpen(true)}
+            className="p-1.5 rounded-lg border-2 border-neutral-900 bg-[#ffe600] text-neutral-950 font-bold shadow-2xs btn-tactile cursor-pointer"
+            title="Connect GitHub"
+          >
+            <Github className="w-4 h-4" />
+          </button>
+
+          <button
+            type="button"
             onClick={toggleMute}
-            className="p-1.5 rounded-lg border-2 border-neutral-900 bg-white text-neutral-900 hover:bg-[#ffe600] transition-colors shadow-2xs btn-tactile"
+            className="p-1.5 rounded-lg border-2 border-neutral-900 bg-white text-neutral-900 hover:bg-[#ffe600] transition-colors shadow-2xs btn-tactile cursor-pointer"
             title={isMuted ? 'Unmute Audio' : 'Mute Audio'}
           >
             {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-amber-500" />}
@@ -224,66 +235,63 @@ export function TopNav() {
             <Github className="w-4 h-4" />
             <span>CONNECT &amp; PUSH TO GITHUB</span>
           </button>
+
           <Link
-            href="/wizard"
+            href="/developer?mode=visual"
             onClick={() => setMobileMenuOpen(false)}
             className={`flex items-center justify-between p-3 rounded-xl border-2 font-mono text-xs font-black transition-all ${
-              isWizard
+              isStudio
                 ? 'bg-[#ffe600] text-neutral-950 border-neutral-900 shadow-[2px_2px_0px_#18181b]'
                 : 'bg-white text-neutral-800 border-neutral-900 hover:bg-[#ffe600]'
             }`}
           >
             <span className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4" />
-              <span>VISUAL STUDIO</span>
+              <Sparkles className="w-4 h-4 text-amber-500" />
+              <span>ALL-IN-ONE STUDIO</span>
             </span>
-            <span className="text-[10px] text-neutral-500">WIZARD</span>
+            <span className="text-[10px] text-neutral-600 bg-neutral-100 px-1.5 py-0.5 rounded border border-neutral-300">
+              VISUAL &amp; IDE
+            </span>
           </Link>
 
           <Link
-            href="/developer"
+            href="/templates"
             onClick={() => setMobileMenuOpen(false)}
             className={`flex items-center justify-between p-3 rounded-xl border-2 font-mono text-xs font-black transition-all ${
-              isDeveloper
+              isTemplates
                 ? 'bg-[#ffe600] text-neutral-950 border-neutral-900 shadow-[2px_2px_0px_#18181b]'
                 : 'bg-white text-neutral-800 border-neutral-900 hover:bg-[#ffe600]'
             }`}
           >
             <span className="flex items-center gap-2">
-              <Code2 className="w-4 h-4" />
-              <span>&lt;/&gt; DEVELOPER IDE</span>
+              <LayoutTemplate className="w-4 h-4 text-amber-500" />
+              <span>85+ TEMPLATES CATALOG</span>
             </span>
-            <span className="text-[10px] text-neutral-500">RAW MODE</span>
+            <span className="text-[10px] text-neutral-600 bg-neutral-100 px-1.5 py-0.5 rounded border border-neutral-300">
+              ARCHETYPES
+            </span>
           </Link>
 
           <Link
-            href="/telemetry"
+            href="/developer?mode=telemetry"
             onClick={() => setMobileMenuOpen(false)}
-            className={`flex items-center justify-between p-3 rounded-xl border-2 font-mono text-xs font-black transition-all ${
-              isTelemetry
-                ? 'bg-[#ffe600] text-neutral-950 border-neutral-900 shadow-[2px_2px_0px_#18181b]'
-                : 'bg-white text-neutral-800 border-neutral-900 hover:bg-[#ffe600]'
-            }`}
+            className="flex items-center justify-between p-3 rounded-xl border-2 border-neutral-900 bg-white text-neutral-800 hover:bg-[#ffe600] font-mono text-xs font-black transition-all"
           >
             <span className="flex items-center gap-2">
-              <BarChart3 className="w-4 h-4" />
-              <span>47+ TELEMETRY</span>
+              <BarChart3 className="w-4 h-4 text-emerald-600" />
+              <span>47+ TELEMETRY ARSENAL</span>
             </span>
             <span className="text-[10px] text-neutral-500">METRICS</span>
           </Link>
 
           <Link
-            href="/animator"
+            href="/developer?mode=animator"
             onClick={() => setMobileMenuOpen(false)}
-            className={`flex items-center justify-between p-3 rounded-xl border-2 font-mono text-xs font-black transition-all ${
-              isAnimator
-                ? 'bg-[#ffe600] text-neutral-950 border-neutral-900 shadow-[2px_2px_0px_#18181b]'
-                : 'bg-white text-neutral-800 border-neutral-900 hover:bg-[#ffe600]'
-            }`}
+            className="flex items-center justify-between p-3 rounded-xl border-2 border-neutral-900 bg-white text-neutral-800 hover:bg-[#ffe600] font-mono text-xs font-black transition-all"
           >
             <span className="flex items-center gap-2">
-              <Film className="w-4 h-4" />
-              <span>SVG ANIMATOR</span>
+              <Film className="w-4 h-4 text-purple-600" />
+              <span>SVG ANIMATOR STUDIO</span>
             </span>
             <span className="text-[10px] text-neutral-500">60FPS</span>
           </Link>
@@ -298,8 +306,8 @@ export function TopNav() {
             }`}
           >
             <span className="flex items-center gap-2">
-              <BookOpen className="w-4 h-4" />
-              <span>GUIDE HUB</span>
+              <BookOpen className="w-4 h-4 text-emerald-600" />
+              <span>GUIDE &amp; DOCS</span>
             </span>
             <span className="text-[10px] text-neutral-500">DOCS</span>
           </Link>

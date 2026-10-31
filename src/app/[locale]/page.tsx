@@ -14,7 +14,7 @@ import { NomokeyManifesto } from '#/components/studio/NomokeyManifesto';
 import { FinalCta } from '#/components/studio/FinalCta';
 import { MonoForgeMonkeyIcon } from '#/components/common/MonoForgeLogo';
 import { Link } from '#/i18n/navigation';
-import { Github, BarChart3, Code2, Sparkles, BookOpen, Film } from 'lucide-react';
+import { Github, BarChart3, Code2, Sparkles, BookOpen, Film, LayoutTemplate } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -78,28 +78,35 @@ export default function HomePage() {
 
             <div className="flex flex-wrap items-center gap-4 text-xs font-mono font-bold">
               <Link
-                href="/wizard"
+                href="/developer?mode=visual"
                 className="hover:text-amber-600 transition-colors flex items-center gap-1.5"
               >
                 <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                <span>VISUAL STUDIO</span>
+                <span>ALL-IN-ONE STUDIO</span>
               </Link>
               <Link
-                href="/developer"
+                href="/templates"
+                className="hover:text-amber-600 transition-colors flex items-center gap-1.5"
+              >
+                <LayoutTemplate className="w-3.5 h-3.5 text-amber-500" />
+                <span>85+ TEMPLATES</span>
+              </Link>
+              <Link
+                href="/developer?mode=editor"
                 className="hover:text-cyan-600 transition-colors flex items-center gap-1.5"
               >
                 <Code2 className="w-3.5 h-3.5 text-cyan-500" />
-                <span>/DEVELOPER IDE</span>
+                <span>DEVELOPER IDE</span>
               </Link>
               <Link
-                href="/telemetry"
-                className="hover:text-amber-600 transition-colors flex items-center gap-1.5"
+                href="/developer?mode=telemetry"
+                className="hover:text-emerald-600 transition-colors flex items-center gap-1.5"
               >
-                <BarChart3 className="w-3.5 h-3.5 text-amber-500" />
+                <BarChart3 className="w-3.5 h-3.5 text-emerald-500" />
                 <span>47+ TELEMETRY</span>
               </Link>
               <Link
-                href="/animator"
+                href="/developer?mode=animator"
                 className="hover:text-purple-600 transition-colors flex items-center gap-1.5"
               >
                 <Film className="w-3.5 h-3.5 text-purple-500" />
@@ -107,10 +114,10 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/info"
-                className="hover:text-emerald-600 transition-colors flex items-center gap-1.5"
+                className="hover:text-neutral-950 transition-colors flex items-center gap-1.5"
               >
                 <BookOpen className="w-3.5 h-3.5 text-emerald-500" />
-                <span>GUIDE HUB</span>
+                <span>GUIDE &amp; DOCS</span>
               </Link>
               <a
                 href="https://github.com/monoforge/MONOFORGE"

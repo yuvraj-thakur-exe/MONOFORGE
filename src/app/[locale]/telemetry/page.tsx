@@ -322,7 +322,7 @@ export default function TelemetryStudioPage() {
                 <button
                   type="button"
                   onClick={() => setUsername('octocat')}
-                  className="absolute right-2 top-1.5 px-2 py-1 text-[11px] rounded bg-neutral-800 text-neutral-600 hover:text-neutral-900 transition-colors"
+                  className="absolute right-2 top-1.5 px-2.5 py-1 text-[11px] rounded bg-neutral-900 text-neutral-200 hover:bg-[#ffe600] hover:text-neutral-950 font-mono font-bold transition-colors cursor-pointer"
                 >
                   Reset
                 </button>
@@ -705,7 +705,7 @@ export default function TelemetryStudioPage() {
                       <button
                         type="button"
                         onClick={() => handleCopy(activeSvgUrl, 'url', 'Embed URL')}
-                        className="px-3 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-900 text-xs font-medium flex items-center gap-1"
+                        className="px-3 py-2 rounded-lg bg-neutral-900 hover:bg-[#ffe600] hover:text-neutral-950 text-white text-xs font-mono font-bold flex items-center gap-1 transition-all cursor-pointer"
                       >
                         {copiedKey === 'url' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                         <span>Copy</span>

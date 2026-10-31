@@ -8,9 +8,7 @@ export function StudioCursor() {
   const isDeveloperPage = pathname?.includes('/developer');
 
   const [isVisible, setIsVisible] = useState(false);
-  const [isInteractive, setIsInteractive] = useState(false);
   const [isTextInput, setIsTextInput] = useState(false);
-  const [isClicking, setIsClicking] = useState(false);
 
   const dotRef = useRef<HTMLDivElement | null>(null);
   const ringRef = useRef<HTMLDivElement | null>(null);
@@ -42,34 +40,24 @@ export function StudioCursor() {
           target.closest('.monaco-editor, .monaco-mouse-cursor-text, input, textarea, [contenteditable="true"], pre, code')
         );
         setIsTextInput(isText);
-
-        // Subtle interactive hover state (buttons, links, controls) without text popups
-        const isClickable = Boolean(
-          target.closest('button, a, [role="button"], .btn-tactile, .tab-pill, [data-draggable]')
-        );
-        setIsInteractive(isClickable);
       }
     };
 
-    const onMouseDown = () => setIsClicking(true);
-    const onMouseUp = () => setIsClicking(false);
     const onMouseLeave = () => setIsVisible(false);
     const onMouseEnter = () => setIsVisible(true);
 
     window.addEventListener('mousemove', onMouseMove, { passive: true });
-    window.addEventListener('mousedown', onMouseDown);
-    window.addEventListener('mouseup', onMouseUp);
     document.addEventListener('mouseleave', onMouseLeave);
     document.addEventListener('mouseenter', onMouseEnter);
 
-    // Smooth physics lerp loop for the trailing ring
+    // Smooth physics lerp loop for the trailing ring without jarring click or scale distortions
     let lastTime = performance.now();
     const render = (time: number) => {
       const dt = Math.min((time - lastTime) / 16.67, 2.0);
       lastTime = time;
 
-      // Spring trailing physics: 0.20 lerp factor
-      const lerpFactor = 0.20 * dt;
+      // Spring trailing physics: 0.22 lerp factor for smooth glide
+      const lerpFactor = 0.22 * dt;
       ringPos.current.x += (mousePos.current.x - ringPos.current.x) * lerpFactor;
       ringPos.current.y += (mousePos.current.y - ringPos.current.y) * lerpFactor;
 
@@ -84,8 +72,6 @@ export function StudioCursor() {
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mousedown', onMouseDown);
-      window.removeEventListener('mouseup', onMouseUp);
       document.removeEventListener('mouseleave', onMouseLeave);
       document.removeEventListener('mouseenter', onMouseEnter);
       if (animFrameId.current) {
@@ -94,7 +80,7 @@ export function StudioCursor() {
     };
   }, [isVisible]);
 
-  // Don't render on developer page or when invisible or inside code/text editor
+  // Don't render on developer studio page, when invisible, or inside code/text editor
   if (!isVisible || isDeveloperPage || isTextInput) return null;
 
   return (
@@ -106,31 +92,17 @@ export function StudioCursor() {
         className="fixed top-0 left-0 pointer-events-none z-[10000] will-change-transform hidden md:block"
         style={{ transform: `translate3d(${mousePos.current.x}px, ${mousePos.current.y}px, 0)` }}
       >
-        <div
-          className={`-translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-150 ${
-            isInteractive
-              ? 'w-1.5 h-1.5 bg-[#ffe600] ring-1 ring-neutral-900 shadow-2xs'
-              : 'w-1.5 h-1.5 bg-neutral-950'
-          }`}
-        />
+        <div className="-translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-neutral-950 dark:bg-[#ffe600]" />
       </div>
 
-      {/* 2. Fluid Trailing Circle Follower (Clean, Subtle, No Text Bubbles) */}
+      {/* 2. Fluid Trailing Circle Follower (Constant, Elegant, Zero Jarring Click Jumps) */}
       <div
         ref={ringRef}
         aria-hidden="true"
         className="fixed top-0 left-0 pointer-events-none z-[9999] will-change-transform hidden md:block"
         style={{ transform: `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0)` }}
       >
-        <div
-          className={`-translate-x-1/2 -translate-y-1/2 rounded-full border-2 transition-all duration-200 ease-out ${
-            isInteractive
-              ? 'w-9 h-9 border-[#ffe600] bg-[#ffe600]/15 shadow-sm scale-110'
-              : isClicking
-              ? 'w-5 h-5 border-neutral-950 bg-neutral-950/20 scale-90'
-              : 'w-7 h-7 border-neutral-900/50 bg-transparent scale-100 shadow-2xs'
-          }`}
-        />
+        <div className="-translate-x-1/2 -translate-y-1/2 w-7 h-7 rounded-full border-2 border-neutral-900/40 dark:border-neutral-200/50 bg-neutral-900/5 dark:bg-white/5 shadow-2xs" />
       </div>
     </>
   );

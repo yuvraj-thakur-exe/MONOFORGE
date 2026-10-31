@@ -69,7 +69,7 @@ export function StudioBento() {
                 </div>
 
                 <Link
-                  href="/telemetry"
+                  href="/developer?mode=telemetry"
                   className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#ffe600] text-neutral-950 border-2 border-neutral-900 text-xs font-mono font-black shadow-[2px_2px_0px_#18181b] hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
                 >
                   <span>Explore All 47</span>
@@ -264,7 +264,7 @@ export function StudioBento() {
 
             <div className="pt-6">
               <Link
-                href="/developer"
+                href="/developer?mode=editor"
                 className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-black text-xs font-mono tracking-wider uppercase border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] hover:shadow-[1px_1px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all"
               >
                 <span>Launch /developer Raw Mode</span>
@@ -288,7 +288,7 @@ export function StudioBento() {
             </div>
 
             <Link
-              href="/animator"
+              href="/developer?mode=animator"
               className="mt-6 inline-flex items-center justify-between text-xs font-mono font-black text-neutral-950 hover:text-amber-500 transition-colors pt-3 border-t border-neutral-200 border-neutral-900"
             >
               <span>Open Vector Animator</span>

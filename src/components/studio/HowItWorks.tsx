@@ -14,21 +14,21 @@ import {
 const STEPS = [
   {
     step: '01',
-    title: 'Open MonoForge Studio',
+    title: 'Open All-in-One Studio',
     description: 'Launch the interactive visual builder or jump straight into the Monaco /developer raw editor.',
     icon: Sparkles,
     badge: 'START',
-    link: '/wizard',
+    link: '/developer?mode=visual',
     ctaText: 'Open Studio',
   },
   {
     step: '02',
-    title: 'Customize Your Profile',
-    description: 'Choose from 18+ visual archetypes, configure section headers, badges, and cyber monkey companions.',
+    title: 'Choose an Archetype',
+    description: 'Choose from 85+ visual archetypes, configure section headers, badges, and cyber monkey companions.',
     icon: SlidersHorizontal,
     badge: 'DESIGN',
-    link: '/wizard',
-    ctaText: 'Pick Archetype',
+    link: '/templates',
+    ctaText: 'Browse Templates',
   },
   {
     step: '03',
@@ -36,7 +36,7 @@ const STEPS = [
     description: 'Select from 47+ live plugins: 3D isocalendars, commit radars, streak trackers, LeetCode, and WakaTime.',
     icon: BarChart3,
     badge: 'METRICS',
-    link: '/telemetry',
+    link: '/developer?mode=telemetry',
     ctaText: 'Browse 47+ Plugins',
   },
   {
@@ -45,7 +45,7 @@ const STEPS = [
     description: 'Inspect live Markdown and 60fps Camo SVGs side-by-side with zero latency before publishing.',
     icon: Eye,
     badge: 'LIVE VIEW',
-    link: '/developer',
+    link: '/developer?mode=editor',
     ctaText: 'View Split Preview',
   },
   {
@@ -54,7 +54,7 @@ const STEPS = [
     description: 'Review color-coded git diffs and approve changes through a safe, confirmation-gated OAuth commit flow.',
     icon: GitPullRequest,
     badge: 'DIFF SAFE',
-    link: '/developer',
+    link: '/developer?mode=editor',
     ctaText: 'Review Diff Flow',
   },
   {
@@ -63,7 +63,7 @@ const STEPS = [
     description: 'Your forged, high-impact profile is live on GitHub—commanding attention from recruiters and peers.',
     icon: CheckCircle2,
     badge: 'DEPLOYED',
-    link: '/wizard',
+    link: '/developer?mode=visual',
     ctaText: 'Forge Now',
   },
 ];

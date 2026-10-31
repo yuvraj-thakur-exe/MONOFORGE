@@ -69,10 +69,10 @@ export function CuratedArchetypes() {
           </div>
 
           <Link
-            href="/wizard"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white text-neutral-950 text-xs font-mono font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b]  hover:bg-[#ffe600] hover:text-neutral-950 transition-all"
+            href="/templates"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white text-neutral-950 text-xs font-mono font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] hover:bg-[#ffe600] hover:text-neutral-950 transition-all"
           >
-            <span>View All 18+ Archetypes in Wizard</span>
+            <span>Browse All 85+ Archetypes &amp; Templates</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -119,7 +119,7 @@ export function CuratedArchetypes() {
 
               <div className="pt-6 mt-6 border-t-2 border-neutral-900 flex items-center justify-between">
                 <Link
-                  href={`/wizard?template=${arch.id}`}
+                  href={`/developer?template=${arch.id}&mode=visual`}
                   className="px-3.5 py-2 rounded-xl bg-[#ffe600] text-neutral-950 text-xs font-mono font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] hover:bg-[#ffdf00] inline-flex items-center gap-1.5 transition-all btn-tactile"
                 >
                   <span>Use Template</span>
@@ -127,7 +127,7 @@ export function CuratedArchetypes() {
                 </Link>
 
                 <Link
-                  href={`/developer?template=${arch.id}`}
+                  href={`/developer?template=${arch.id}&mode=editor`}
                   className="p-2 rounded-xl bg-white hover:bg-neutral-100 text-neutral-950 border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-all"
                   title="Edit in Monaco Raw Mode"
                 >
