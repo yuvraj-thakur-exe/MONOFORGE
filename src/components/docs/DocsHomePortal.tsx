@@ -24,6 +24,8 @@ import { GitHubStarButton } from '#/components/common/GitHubStarButton';
 import { GeometricLoader } from '#/components/common/GeometricLoader';
 import { KineticTypewriter, KineticGradientText } from '#/components/common/KineticText';
 import { ScrollReveal } from '#/components/motion/ScrollReveal';
+import { HomeBrandLogoEmblem } from '#/components/home/HomeBrandLogoEmblem';
+import { HomeCyberMonkeyHero } from '#/components/home/HomeCyberMonkeyHero';
 
 type ShowcaseTab = 'geometric' | 'cyberbot' | 'ninja' | 'matrix';
 
@@ -70,126 +72,140 @@ export function DocsHomePortal() {
       </div>
 
       {/* Main Hero Section with Ambient Glow */}
-      <section className="relative border-b border-slate-200/80 dark:border-slate-800 py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
+      <section className="relative border-b border-slate-200/80 dark:border-slate-800 py-12 sm:py-20 px-4 sm:px-6 overflow-hidden">
         {/* Soft Radial Ambient Lighting */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(245,158,11,0.12),transparent_70%)] dark:bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(245,158,11,0.15),transparent_70%)] pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[450px] bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(245,158,11,0.12),transparent_70%)] dark:bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(245,158,11,0.16),transparent_70%)] pointer-events-none" />
         <div className="absolute top-1/3 right-10 w-[500px] h-[300px] bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,rgba(99,102,241,0.06),transparent_70%)] pointer-events-none" />
 
-        <div className="max-w-6xl mx-auto space-y-8 relative z-10 text-center sm:text-left">
-          {/* Eyebrow Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-xs font-mono text-xs font-medium text-slate-800 dark:text-slate-200">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>DOCUMENTATION &amp; SPECIFICATION PLATFORM</span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 font-black">
-              18 GUIDES
-            </span>
-          </div>
+        <div className="max-w-7xl mx-auto space-y-10 relative z-10">
+          {/* Top Brand Logo Showcase */}
+          <HomeBrandLogoEmblem />
 
-          {/* Headline with Kinetic Text Animation */}
-          <div className="space-y-4 max-w-4xl">
-            <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-slate-900 dark:text-white uppercase font-sans leading-[1.08]">
-              FORGE AN ICONIC{' '}
-              <KineticGradientText className="relative inline-block my-1">
-                GITHUB IDENTITY.
-              </KineticGradientText>
-            </h1>
-            <div className="flex items-center gap-2 font-mono text-xs sm:text-sm text-amber-600 dark:text-amber-400">
-              <span className="font-bold text-slate-400">&gt;</span>
-              <KineticTypewriter
-                words={[
-                  '100% Camo CDN Safe with Zero Broken Links',
-                  '60fps CSS Keyframe Vector Characters & Banners',
-                  '47+ Modular Scraped Telemetry Engines',
-                  'Single Zustand Source-of-Truth Store Architecture',
-                  'Zero Silent Push with Line-by-Line Diff Review',
-                ]}
-                className="font-bold"
-              />
-            </div>
-            <p className="text-base sm:text-xl text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed font-sans font-normal">
-              The definitive developer manual for MonoForge. Learn the single-store state architecture, explore the 47+ telemetry engines, review GitHub Camo sanitization rules, and integrate the standalone CLI.
-            </p>
-          </div>
+          {/* Main Hero 2-Column Grid: Copy & Actions (Left) + Living Cyber Monkey (Right) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Left Column (7 cols): Headline, Typewriter, CTAs & Terminal */}
+            <div className="lg:col-span-7 space-y-6 text-center sm:text-left">
+              {/* Eyebrow Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-xs font-mono text-xs font-medium text-slate-800 dark:text-slate-200">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span>DOCUMENTATION &amp; SPECIFICATION PLATFORM</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 font-black">
+                  18 GUIDES
+                </span>
+              </div>
 
-          {/* Action CTAs */}
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3.5 pt-2 font-mono text-xs">
-            <Link
-              href="/docs"
-              className="btn-shimmer inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-amber-400 text-slate-950 font-black border border-amber-500 shadow-md hover:bg-amber-300 hover:shadow-lg active:scale-95 transition-all text-sm cursor-pointer"
-            >
-              <BookOpen className="w-4 h-4" />
-              <span>EXPLORE DOCUMENTATION</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+              {/* Headline with Kinetic Text Animation */}
+              <div className="space-y-4 max-w-4xl">
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white uppercase font-sans leading-[1.08]">
+                  FORGE AN ICONIC{' '}
+                  <KineticGradientText className="relative inline-block my-1">
+                    GITHUB IDENTITY.
+                  </KineticGradientText>
+                </h1>
+                <div className="flex items-center gap-2 font-mono text-xs sm:text-sm text-amber-600 dark:text-amber-400 justify-center sm:justify-start">
+                  <span className="font-bold text-slate-400">&gt;</span>
+                  <KineticTypewriter
+                    words={[
+                      '100% Camo CDN Safe with Zero Broken Links',
+                      '60fps CSS Keyframe Vector Characters & Banners',
+                      '47+ Modular Scraped Telemetry Engines',
+                      'Single Zustand Source-of-Truth Store Architecture',
+                      'Zero Silent Push with Line-by-Line Diff Review',
+                    ]}
+                    className="font-bold"
+                  />
+                </div>
+                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed font-sans font-normal">
+                  The definitive developer manual for MonoForge. Learn the single-store state architecture, explore the 47+ telemetry engines, review GitHub Camo sanitization rules, and integrate the standalone CLI.
+                </p>
+              </div>
 
-            <Link
-              href="/docs/getting-started/quickstart"
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-slate-700 shadow-xs hover:border-amber-500/50 hover:bg-slate-50 dark:hover:bg-slate-750 transition-all cursor-pointer"
-            >
-              <Sparkles className="w-4 h-4 text-amber-500" />
-              <span>60-SECOND QUICKSTART</span>
-            </Link>
+              {/* Action CTAs */}
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3.5 pt-2 font-mono text-xs">
+                <Link
+                  href="/docs"
+                  className="btn-shimmer inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-amber-400 text-slate-950 font-black border border-amber-500 shadow-md hover:bg-amber-300 hover:shadow-lg active:scale-95 transition-all text-sm cursor-pointer"
+                >
+                  <BookOpen className="w-4 h-4" />
+                  <span>EXPLORE DOCUMENTATION</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
 
-            <Link
-              href="/info"
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-slate-700 shadow-xs hover:border-indigo-500/50 hover:bg-slate-50 dark:hover:bg-slate-750 transition-all cursor-pointer"
-            >
-              <Terminal className="w-4 h-4 text-indigo-500" />
-              <span>INFO HUB &amp; BADGES</span>
-            </Link>
+                <Link
+                  href="/docs/getting-started/quickstart"
+                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-slate-700 shadow-xs hover:border-amber-500/50 hover:bg-slate-50 dark:hover:bg-slate-750 transition-all cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                  <span>60-SECOND QUICKSTART</span>
+                </Link>
 
-            <GitHubStarButton className="h-[46px] px-5 py-3 rounded-xl border border-slate-800 shadow-md" />
-          </div>
+                <Link
+                  href="/info"
+                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-slate-700 shadow-xs hover:border-indigo-500/50 hover:bg-slate-50 dark:hover:bg-slate-750 transition-all cursor-pointer"
+                >
+                  <Terminal className="w-4 h-4 text-indigo-500" />
+                  <span>INFO HUB &amp; BADGES</span>
+                </Link>
 
-          {/* Quick Terminal Installation Box */}
-          <div className="pt-4 max-w-3xl">
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c0d12] overflow-hidden shadow-lg">
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200 dark:border-slate-800/80 bg-slate-50 dark:bg-slate-900/60 text-xs font-mono">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-red-400/80 inline-block" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80 inline-block" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80 inline-block" />
-                  <div className="ml-2 flex items-center gap-1">
-                    {(['pnpm', 'npm', 'git', 'cli'] as const).map((tab) => (
-                      <button
-                        key={tab}
-                        type="button"
-                        onClick={() => setActiveTab(tab)}
-                        className={`px-2.5 py-1 rounded text-[11px] font-bold uppercase transition-colors cursor-pointer ${
-                          activeTab === tab
-                            ? 'bg-amber-400/20 text-amber-600 dark:text-amber-400 border border-amber-400/30'
-                            : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
-                        }`}
-                      >
-                        {tab}
-                      </button>
-                    ))}
+                <GitHubStarButton className="h-[46px] px-5 py-3 rounded-xl border border-slate-800 shadow-md" />
+              </div>
+
+              {/* Quick Terminal Installation Box */}
+              <div className="pt-2 max-w-2xl">
+                <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c0d12] overflow-hidden shadow-lg">
+                  <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200 dark:border-slate-800/80 bg-slate-50 dark:bg-slate-900/60 text-xs font-mono">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-red-400/80 inline-block" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80 inline-block" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80 inline-block" />
+                      <div className="ml-2 flex items-center gap-1">
+                        {(['pnpm', 'npm', 'git', 'cli'] as const).map((tab) => (
+                          <button
+                            key={tab}
+                            type="button"
+                            onClick={() => setActiveTab(tab)}
+                            className={`px-2.5 py-1 rounded text-[11px] font-bold uppercase transition-colors cursor-pointer ${
+                              activeTab === tab
+                                ? 'bg-amber-400/20 text-amber-600 dark:text-amber-400 border border-amber-400/30'
+                                : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+                            }`}
+                          >
+                            {tab}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(codeSnippets[activeTab], activeTab)}
+                      className="flex items-center gap-1.5 px-2.5 py-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-slate-800 transition-colors text-[11px] cursor-pointer"
+                    >
+                      {copiedCmd === activeTab ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-emerald-500" />
+                          <span className="text-emerald-500 font-bold">Copied</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" />
+                          <span>Copy snippet</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  <div className="p-4 overflow-x-auto text-xs font-mono leading-relaxed bg-slate-900 text-emerald-400 selection:bg-emerald-500/20">
+                    <pre className="m-0 p-0">
+                      <code>{codeSnippets[activeTab]}</code>
+                    </pre>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => handleCopy(codeSnippets[activeTab], activeTab)}
-                  className="flex items-center gap-1.5 px-2.5 py-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-slate-800 transition-colors text-[11px] cursor-pointer"
-                >
-                  {copiedCmd === activeTab ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-500" />
-                      <span className="text-emerald-500 font-bold">Copied</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>Copy snippet</span>
-                    </>
-                  )}
-                </button>
               </div>
+            </div>
 
-              <div className="p-4 overflow-x-auto text-xs font-mono leading-relaxed bg-slate-900 text-emerald-400 selection:bg-emerald-500/20">
-                <pre className="m-0 p-0">
-                  <code>{codeSnippets[activeTab]}</code>
-                </pre>
-              </div>
+            {/* Right Column (5 cols): Living Cyber Monkey Companion */}
+            <div className="lg:col-span-5">
+              <HomeCyberMonkeyHero />
             </div>
           </div>
         </div>
