@@ -23,6 +23,7 @@ import { getDocsNavigation } from '#/content/docs/docs-data';
 import { GitHubStarButton } from '#/components/common/GitHubStarButton';
 import { GeometricLoader } from '#/components/common/GeometricLoader';
 import { KineticTypewriter, KineticGradientText } from '#/components/common/KineticText';
+import { ScrollReveal } from '#/components/motion/ScrollReveal';
 
 type ShowcaseTab = 'geometric' | 'cyberbot' | 'ninja' | 'matrix';
 
@@ -114,7 +115,7 @@ export function DocsHomePortal() {
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3.5 pt-2 font-mono text-xs">
             <Link
               href="/docs"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-amber-400 text-slate-950 font-black border border-amber-500 shadow-md hover:bg-amber-300 hover:shadow-lg transition-all text-sm cursor-pointer"
+              className="btn-shimmer inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-amber-400 text-slate-950 font-black border border-amber-500 shadow-md hover:bg-amber-300 hover:shadow-lg active:scale-95 transition-all text-sm cursor-pointer"
             >
               <BookOpen className="w-4 h-4" />
               <span>EXPLORE DOCUMENTATION</span>
@@ -215,7 +216,7 @@ export function DocsHomePortal() {
             <button
               type="button"
               onClick={copyShowcaseMarkdown}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-950 text-xs font-mono font-bold shadow-md hover:bg-amber-400 hover:text-slate-950 dark:hover:bg-amber-400 dark:hover:text-slate-950 transition-all cursor-pointer"
+              className="btn-shimmer inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-950 text-xs font-mono font-bold shadow-md hover:bg-amber-400 hover:text-slate-950 dark:hover:bg-amber-400 dark:hover:text-slate-950 active:scale-95 transition-all cursor-pointer"
             >
               {copiedSnippet ? (
                 <>
@@ -232,7 +233,8 @@ export function DocsHomePortal() {
           </div>
 
           {/* Interactive Playground Card */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl overflow-hidden">
+          <ScrollReveal direction="up" delay={0.1}>
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl overflow-hidden">
             {/* Control Bar */}
             <div className="flex flex-wrap items-center justify-between gap-3 p-3 sm:px-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-850">
               {/* Asset Mode Toggles */}
@@ -382,6 +384,7 @@ export function DocsHomePortal() {
               </button>
             </div>
           </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -400,11 +403,12 @@ export function DocsHomePortal() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ScrollReveal direction="up" delay={0.15}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {navigation.map((cat, idx) => (
               <div
                 key={cat.name}
-                className="flex flex-col p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-amber-500/40 dark:hover:border-amber-400/30 transition-all duration-200 space-y-4"
+                className="card-hover-lift flex flex-col p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-amber-500/40 dark:hover:border-amber-400/30 transition-all duration-200 space-y-4"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-mono font-bold uppercase px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
@@ -449,6 +453,7 @@ export function DocsHomePortal() {
               </div>
             ))}
           </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -467,8 +472,9 @@ export function DocsHomePortal() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+          <ScrollReveal direction="up" delay={0.15}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="card-hover-lift p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
               <div className="flex items-center gap-2 font-mono text-xs font-black text-slate-900 dark:text-white uppercase">
                 <Cpu className="w-4 h-4 text-emerald-500" />
                 <span>1. Single Source-of-Truth Store</span>
@@ -478,7 +484,7 @@ export function DocsHomePortal() {
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+            <div className="card-hover-lift p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
               <div className="flex items-center gap-2 font-mono text-xs font-black text-slate-900 dark:text-white uppercase">
                 <Code2 className="w-4 h-4 text-indigo-500" />
                 <span>2. Pure Function Markdown Pipeline</span>
@@ -488,7 +494,7 @@ export function DocsHomePortal() {
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+            <div className="card-hover-lift p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
               <div className="flex items-center gap-2 font-mono text-xs font-black text-slate-900 dark:text-white uppercase">
                 <Zap className="w-4 h-4 text-amber-500" />
                 <span>3. 60fps GitHub Camo Safe Vectors</span>
@@ -498,7 +504,7 @@ export function DocsHomePortal() {
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+            <div className="card-hover-lift p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
               <div className="flex items-center gap-2 font-mono text-xs font-black text-slate-900 dark:text-white uppercase">
                 <Lock className="w-4 h-4 text-rose-500" />
                 <span>4. Confirmation-Gated Data &amp; Sync</span>
@@ -508,11 +514,13 @@ export function DocsHomePortal() {
               </p>
             </div>
           </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* CLI & MCP Integration Card */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-slate-200/80 dark:border-slate-800 bg-[#f8fafc] dark:bg-[#0c0f17]">
+        <ScrollReveal direction="up" delay={0.15}>
         <div className="max-w-6xl mx-auto rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 sm:p-12 shadow-sm space-y-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="space-y-1">
@@ -559,6 +567,7 @@ export function DocsHomePortal() {
             </div>
           </div>
         </div>
+        </ScrollReveal>
       </section>
 
       {/* Footer */}

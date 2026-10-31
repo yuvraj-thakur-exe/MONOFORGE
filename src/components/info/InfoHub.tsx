@@ -378,7 +378,7 @@ export function InfoHub() {
                 <button
                   type="button"
                   onClick={() => setActiveTab('templates')}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 dark:text-white font-black text-xs border border-slate-200 dark:border-slate-800 shadow-xs hover:border-amber-500/40 dark:hover:border-amber-400/30 transition-all btn-tactile"
+                  className="btn-shimmer flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs border border-slate-200 dark:border-slate-800 shadow-xs hover:border-amber-500/40 dark:hover:border-amber-400/30 active:scale-95 transition-all"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-amber-700 font-bold" />
                   <span>Explore Archetypes &amp; Badges</span>

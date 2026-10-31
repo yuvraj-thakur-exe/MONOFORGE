@@ -35,6 +35,8 @@ import { ThemeProvider } from '#/components/theme/ThemeProvider';
 import { NomokeyCompanionWidget } from '#/components/studio/NomokeyCompanionWidget';
 import { RouteLoadingIndicator } from '#/components/common/RouteLoadingIndicator';
 import { InitialPageLoader } from '#/components/common/InitialPageLoader';
+import { ScrollProgressIndicator } from '#/components/common/ScrollProgressIndicator';
+import { ScrollToTopButton } from '#/components/common/ScrollToTopButton';
 import { StudioCursor } from '#/components/studio/StudioCursor';
 
 type LocaleLayoutProps = {
@@ -203,6 +205,8 @@ export default async function RootLayout({
         <ThemeProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <InitialPageLoader />
+            <ScrollProgressIndicator />
+            <ScrollToTopButton />
             <RouteLoadingIndicator />
             <StudioCursor />
             <NomokeyCompanionWidget />
