@@ -48,7 +48,7 @@ const FAQS: FaqItem[] = [
 ];
 
 export function NomokeyManifesto() {
-  const [openIdx, setOpenIdx] = useState<number | null>(0);
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   const toggleIdx = (idx: number) => {
     playClickSound();
@@ -95,44 +95,42 @@ export function NomokeyManifesto() {
 
         {/* Technical FAQ Accordion */}
         <div className="space-y-4">
-          <div className="border-b-2 border-slate-300 dark:border-slate-700 pb-4 mb-6 flex items-center justify-between">
+          <div className="border-b-2 border-neutral-900 dark:border-slate-700 pb-4 mb-6 flex items-center justify-between">
             <div>
-              <div className="flex items-center gap-2 font-mono text-xs font-bold text-slate-600 dark:text-slate-400 uppercase mb-1">
+              <div className="flex items-center gap-2 font-mono text-xs font-bold text-neutral-600 dark:text-slate-400 uppercase mb-1.5">
                 <HelpCircle className="w-3.5 h-3.5 text-amber-500" />
                 <span>FREQUENTLY ASKED QUESTIONS</span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-black uppercase text-slate-900 dark:text-white font-sans">
+              <h3 className="text-2xl sm:text-3xl font-black uppercase text-neutral-950 dark:text-white font-sans tracking-tight">
                 EVERYTHING YOU NEED TO KNOW
               </h3>
             </div>
-            <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400 hidden sm:inline">
+            <span className="text-xs font-mono font-bold text-neutral-600 dark:text-slate-400 hidden sm:inline uppercase">
               7 QUESTIONS ANSWERED
             </span>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-3.5">
             {FAQS.map((faq, idx) => {
               const isOpen = openIdx === idx;
               return (
                 <div
                   key={idx}
-                  className={`rounded-2xl border-2 transition-all ${
-                    isOpen
-                      ? 'border-amber-400 dark:border-amber-400/80 bg-[#fffdf0] dark:bg-slate-800/90 shadow-[4px_4px_0px_#f59e0b]'
-                      : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-[#1e293b] shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#475569] hover:border-slate-400'
-                  }`}
+                  className="rounded-2xl border-2 border-neutral-900 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-[3px_3px_0px_#18181b] dark:shadow-[3px_3px_0px_#334155] hover:shadow-[2px_2px_0px_#18181b] hover:translate-x-[1px] hover:translate-y-[1px] transition-all overflow-hidden"
                 >
                   <button
                     type="button"
                     onClick={() => toggleIdx(idx)}
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${idx}`}
-                    className="w-full p-5 text-left font-bold text-sm sm:text-base flex items-center justify-between text-slate-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-300 transition-colors cursor-pointer"
+                    className="w-full px-5 sm:px-6 py-4.5 sm:py-5 text-left font-bold text-sm sm:text-base flex items-center justify-between text-neutral-950 dark:text-white transition-colors cursor-pointer group"
                   >
-                    <span className="font-sans font-black pr-4 text-inherit">{faq.question}</span>
-                    <div className="p-1 rounded-lg border border-slate-400 dark:border-slate-600 bg-[#ffe600] shrink-0 text-slate-950 shadow-2xs">
+                    <span className="font-sans font-black pr-4 text-neutral-950 dark:text-white text-sm sm:text-base tracking-tight">
+                      {faq.question}
+                    </span>
+                    <div className="w-8 h-8 rounded-lg border-2 border-neutral-900 bg-[#ffe600] shrink-0 flex items-center justify-center shadow-2xs group-hover:scale-105 transition-transform">
                       <ChevronDown
-                        className={`w-4 h-4 text-slate-950 transition-transform duration-200 ${
+                        className={`w-4 h-4 text-neutral-950 stroke-[2.5] transition-transform duration-200 ${
                           isOpen ? 'rotate-180' : ''
                         }`}
                       />
@@ -142,7 +140,7 @@ export function NomokeyManifesto() {
                   {isOpen && (
                     <div
                       id={`faq-answer-${idx}`}
-                      className="px-5 pb-5 text-xs sm:text-sm font-sans text-slate-700 dark:text-slate-300 leading-relaxed border-t border-amber-200/60 dark:border-slate-700/80 pt-3 animate-in fade-in duration-150"
+                      className="px-5 sm:px-6 pb-5 pt-1 text-xs sm:text-sm font-sans text-neutral-700 dark:text-slate-300 leading-relaxed border-t-2 border-neutral-900/10 dark:border-slate-800 animate-in fade-in duration-150"
                     >
                       {faq.answer}
                     </div>
