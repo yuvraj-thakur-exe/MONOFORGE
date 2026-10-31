@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Link } from '#/i18n/navigation';
 import {
   Sparkles,
@@ -176,9 +177,63 @@ export function NomokeyHero() {
               </h1>
             </div>
 
-            <p className="text-base sm:text-lg text-neutral-900 max-w-2xl font-medium leading-relaxed">
-              Create a professional GitHub profile README with a visual editor, live previews, developer statistics, animated SVGs, and customizable templates. Build your developer identity without manually wrestling with Markdown.
-            </p>
+            {/* Animated Kinetic Capability Description */}
+            <motion.p
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.022,
+                    delayChildren: 0.15,
+                  },
+                },
+              }}
+              className="text-base sm:text-lg text-neutral-900 max-w-2xl font-medium leading-relaxed"
+            >
+              {'Create a professional GitHub profile README with a visual editor, live previews, developer statistics, animated SVGs, and customizable templates. Build your developer identity without manually wrestling with Markdown.'
+                .split(' ')
+                .map((word, idx) => {
+                  const cleanWord = word.replace(/[^a-zA-Z]/g, '').toLowerCase();
+                  const isEmphasized = [
+                    'visual',
+                    'editor',
+                    'live',
+                    'previews',
+                    'developer',
+                    'statistics',
+                    'animated',
+                    'svgs',
+                    'customizable',
+                    'templates',
+                    'identity',
+                  ].includes(cleanWord);
+
+                  return (
+                    <motion.span
+                      key={idx}
+                      variants={{
+                        hidden: { opacity: 0, y: 8, filter: 'blur(3px)' },
+                        visible: {
+                          opacity: 1,
+                          y: 0,
+                          filter: 'blur(0px)',
+                          transition: { duration: 0.38, ease: [0.22, 1, 0.36, 1] },
+                        },
+                      }}
+                      className={`inline-block mr-1.5 ${
+                        isEmphasized
+                          ? 'font-bold text-neutral-950 decoration-[#ffe600] underline decoration-2 underline-offset-4'
+                          : ''
+                      }`}
+                    >
+                      {word}
+                    </motion.span>
+                  );
+                })}
+            </motion.p>
 
             {/* Kinetic Typewriter / Dynamic Engine Status Banner */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-neutral-50 border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] text-xs font-mono font-bold text-neutral-950 overflow-hidden max-w-full">

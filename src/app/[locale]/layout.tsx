@@ -34,7 +34,7 @@ import { routing } from '#/i18n/routing';
 import { ThemeProvider } from '#/components/theme/ThemeProvider';
 import { NomokeyCompanionWidget } from '#/components/studio/NomokeyCompanionWidget';
 import { RouteLoadingIndicator } from '#/components/common/RouteLoadingIndicator';
-import { InitialPageLoader } from '#/components/common/InitialPageLoader';
+import { StartupSplash } from '#/components/common/StartupSplash';
 import { ScrollProgressIndicator } from '#/components/common/ScrollProgressIndicator';
 import { ScrollToTopButton } from '#/components/common/ScrollToTopButton';
 import { StudioCursor } from '#/components/studio/StudioCursor';
@@ -204,7 +204,7 @@ export default async function RootLayout({
       <body className="palette-surface min-h-screen bg-[#fafbfc] dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 font-sans selection:bg-[#ffe600] selection:text-slate-950 transition-colors duration-200">
         <ThemeProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <InitialPageLoader />
+            <StartupSplash />
             <ScrollProgressIndicator />
             <ScrollToTopButton />
             <RouteLoadingIndicator />
