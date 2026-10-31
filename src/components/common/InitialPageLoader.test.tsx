@@ -15,10 +15,8 @@ describe('InitialPageLoader', () => {
   it('renders signature branded loading experience', () => {
     render(<InitialPageLoader />);
     expect(screen.getByRole('status')).toBeDefined();
-    expect(screen.getByText('Mono')).toBeDefined();
-    expect(screen.getAllByText(/Forge/i).length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByText(/FORGE YOUR DEVELOPER IDENTITY/i)).toBeDefined();
-    expect(screen.getByText(/PREPARING YOUR WORKSPACE/i)).toBeDefined();
+    expect(screen.getByText('Forge a GitHub profile that gets noticed.')).toBeDefined();
+    expect(screen.getByText(/Initializing MonoForge/i)).toBeDefined();
   });
 
   it('allows fast launching via Escape key press', () => {
