@@ -24,7 +24,6 @@ export const Editor: React.FC<EditorProps> = ({ theme, className = '' }) => {
   const [validationError, setValidationError] = useState<string | null>(null);
   const [isValid, setIsValid] = useState<boolean>(true);
   const [copiedJson, setCopiedJson] = useState<boolean>(false);
-  const [monacoFailed, setMonacoFailed] = useState<boolean>(false);
   const [useRawEditor, setUseRawEditor] = useState<boolean>(false);
   const isInternalChange = useRef<boolean>(false);
 
@@ -144,7 +143,7 @@ export const Editor: React.FC<EditorProps> = ({ theme, className = '' }) => {
 
       {/* Editor Main Surface */}
       <div className="flex-1 min-h-0 bg-white relative">
-        {useRawEditor || monacoFailed ? (
+        {useRawEditor ? (
           <div className="w-full h-full p-4 font-mono text-xs overflow-auto bg-neutral-950 text-emerald-400 selection:bg-amber-400 selection:text-neutral-950">
             <textarea
               value={editorValue}
