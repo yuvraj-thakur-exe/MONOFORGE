@@ -71,16 +71,6 @@ function WizardContent() {
         </div>
       </div>
 
-        <div className="text-xs font-mono font-bold text-neutral-700 hidden sm:flex items-center gap-1.5">
-          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-          <span>
-            {studioMode === 'canvas'
-              ? 'Click or drag telemetry sections to visually customize your layout'
-              : 'Guided questions with automated archetype generation'}
-          </span>
-        </div>
-      </div>
-
       <main className="flex-1 overflow-hidden bg-white">
         {studioMode === 'canvas' ? <CanvasTemplate /> : <WizardContainer />}
       </main>
