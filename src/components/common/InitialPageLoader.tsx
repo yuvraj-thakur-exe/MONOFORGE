@@ -285,7 +285,7 @@ export function InitialPageLoader() {
       aria-hidden={!visible}
       role="status"
       aria-label="MonoForge Interactive Studio Loader"
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-between p-4 sm:p-6 md:p-8 bg-slate-50/95 dark:bg-[#0a0b10]/95 backdrop-blur-2xl transition-all duration-500 ease-out select-none ${
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-between p-4 sm:p-6 md:p-8 bg-[#faf9f6]/95 backdrop-blur-2xl transition-all duration-500 ease-out select-none ${
         visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
       }`}
     >
@@ -341,7 +341,7 @@ export function InitialPageLoader() {
 
       {/* 2. Main Center Card: Luminous, Clean, Interactive Studio Loader */}
       <main className="w-full max-w-3xl my-auto py-4">
-        <div className="w-full p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900/90 border-2 border-neutral-900 shadow-[8px_8px_0px_#18181b] flex flex-col items-center gap-6 relative overflow-hidden transition-all duration-300">
+        <div className="w-full p-6 sm:p-8 rounded-3xl bg-white border-2 border-neutral-900 shadow-[8px_8px_0px_#18181b] flex flex-col items-center gap-6 relative overflow-hidden transition-all duration-300">
           {/* Subtle luminous background glow tuned to activeTheme */}
           <div
             className="absolute -top-24 -left-24 w-72 h-72 rounded-full blur-[100px] pointer-events-none transition-all duration-700"

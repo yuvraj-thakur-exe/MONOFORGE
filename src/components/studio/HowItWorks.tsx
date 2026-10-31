@@ -10,6 +10,7 @@ import {
   CheckCircle2,
   ArrowRight,
 } from 'lucide-react';
+import { playClickSound } from '#/lib/sound/sound-effects';
 
 const STEPS = [
   {
@@ -70,16 +71,16 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section className="relative bg-white border-b-2 border-neutral-900 py-16 sm:py-24 px-4 sm:px-6 transition-colors">
+    <section className="relative bg-[#faf9f6] border-b-2 border-neutral-900 py-16 sm:py-24 px-4 sm:px-6 transition-colors">
       <div className="max-w-7xl mx-auto space-y-12">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-neutral-900 pb-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-neutral-950">
-              <span className="px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs">
+              <span className="px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b]">
                 [ 04 // HOW IT WORKS ]
               </span>
-              <span>SIX PRECISION STEPS</span>
+              <span className="font-bold text-neutral-800">SIX PRECISION STEPS</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-neutral-950 uppercase font-sans">
               HOW MONOFORGE WORKS.
@@ -94,7 +95,7 @@ export function HowItWorks() {
             return (
               <div
                 key={step.step}
-                className="group p-6 sm:p-7 rounded-2xl border-2 border-neutral-900 bg-white hover:bg-[#fffde6] shadow-[4px_4px_0px_#18181b] hover:shadow-[2px_2px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col justify-between"
+                className="group p-6 sm:p-7 rounded-2xl border-2 border-neutral-900 bg-white hover:bg-[#fffde6] shadow-[5px_5px_0px_#18181b] hover:shadow-[2px_2px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col justify-between"
               >
                 <div className="space-y-4">
                   {/* Step Top Bar */}
@@ -103,12 +104,12 @@ export function HowItWorks() {
                       <span className="w-8 h-8 rounded-xl bg-[#ffe600] text-neutral-950 font-mono text-sm font-black flex items-center justify-center border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b]">
                         {step.step}
                       </span>
-                      <span className="px-2 py-0.5 rounded bg-white text-neutral-950 text-[10px] font-mono font-black border border-neutral-900 shadow-2xs">
+                      <span className="px-2 py-0.5 rounded bg-slate-100 text-neutral-950 text-[10px] font-mono font-black border border-neutral-900 shadow-2xs">
                         {step.badge}
                       </span>
                     </div>
 
-                    <div className="p-2 rounded-lg bg-neutral-100 border border-neutral-900 group-hover:bg-[#ffe600] transition-colors">
+                    <div className="p-2 rounded-lg bg-neutral-100 border-2 border-neutral-900 group-hover:bg-[#ffe600] transition-colors">
                       <Icon className="w-4 h-4 text-neutral-950" />
                     </div>
                   </div>
@@ -117,16 +118,17 @@ export function HowItWorks() {
                     {step.title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm font-mono text-neutral-700 leading-relaxed">
+                  <p className="text-xs sm:text-sm font-mono text-neutral-800 leading-relaxed font-medium">
                     {step.description}
                   </p>
                 </div>
 
                 {/* Card Bottom CTA Link */}
-                <div className="pt-5 mt-4 border-t border-neutral-200">
+                <div className="pt-5 mt-4 border-t-2 border-neutral-900/10">
                   <Link
                     href={step.link}
-                    className="inline-flex items-center gap-1.5 text-xs font-mono font-black text-neutral-950 group-hover:text-amber-700 transition-colors"
+                    onClick={() => playClickSound()}
+                    className="inline-flex items-center gap-1.5 text-xs font-mono font-black text-neutral-950 group-hover:text-amber-700 transition-colors btn-tactile"
                   >
                     <span>{step.ctaText}</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -140,4 +142,3 @@ export function HowItWorks() {
     </section>
   );
 }
-

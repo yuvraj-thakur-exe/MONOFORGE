@@ -31,7 +31,7 @@ import { playClickSound } from '#/lib/sound/sound-effects';
 
 export default function HomePage() {
   return (
-    <div className="relative flex flex-col min-h-screen bg-white dark:bg-[#0c0d0e] text-neutral-900 dark:text-neutral-100 selection:bg-[#ffe600] selection:text-neutral-950 overflow-x-hidden font-sans transition-colors duration-200">
+    <div className="relative flex flex-col min-h-screen bg-[#faf9f6] text-neutral-950 selection:bg-[#ffe600] selection:text-neutral-950 overflow-x-hidden font-sans transition-colors duration-200">
       {/* Floating Lo-Fi Audio Ambience Player */}
       <StudioAudioToggle />
 
@@ -45,7 +45,7 @@ export default function HomePage() {
       <NomokeyHero />
 
       {/* Brand Logo Showcase & Live Telemetry Strip */}
-      <section className="py-6 px-4 sm:px-6 border-b border-neutral-200 dark:border-neutral-800 bg-[#fafbfc] dark:bg-[#0f172a]">
+      <section className="py-6 px-4 sm:px-6 border-b-2 border-neutral-900 bg-white">
         <div className="max-w-7xl mx-auto">
           <HomeBrandLogoEmblem />
         </div>
@@ -82,24 +82,24 @@ export default function HomePage() {
       <NomokeyMarquee reverse={true} theme="amber" speed="normal" />
 
       {/* High-Fashion Studio Editorial Footer */}
-      <footer className="relative z-10 border-t-2 border-neutral-900 bg-white dark:bg-[#090a0f] py-12 px-4 sm:px-6 text-xs text-neutral-700 dark:text-neutral-300">
+      <footer className="relative z-10 border-t-2 border-neutral-900 bg-white py-12 px-4 sm:px-6 text-xs text-neutral-800">
         <div className="max-w-7xl mx-auto space-y-8">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-neutral-200 dark:border-neutral-800">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b-2 border-neutral-900/15">
             <div className="flex items-center gap-3">
               <div className="p-1 rounded-xl bg-white border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] overflow-hidden">
                 <MonoForgeMonkeyIcon className="w-8 h-8" />
               </div>
               <div>
-                <span className="font-black text-lg tracking-tight text-neutral-950 dark:text-white uppercase font-sans">
+                <span className="font-black text-lg tracking-tight text-neutral-950 uppercase font-sans">
                   MONO<span className="text-amber-500">FORGE</span>
                 </span>
-                <p className="text-[11px] font-mono text-neutral-600 dark:text-neutral-400">
+                <p className="text-[11px] font-mono text-neutral-700 font-bold">
                   Zero Monkey Business. Pure Precision Profile Engineering.
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 text-xs font-mono font-bold">
+            <div className="flex flex-wrap items-center gap-4 text-xs font-mono font-black text-neutral-950">
               <Link
                 href="/developer?mode=visual"
                 onClick={() => playClickSound()}
@@ -143,7 +143,7 @@ export default function HomePage() {
               <Link
                 href="/docs"
                 onClick={() => playClickSound()}
-                className="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5"
+                className="hover:text-neutral-950 transition-colors flex items-center gap-1.5"
               >
                 <BookOpen className="w-3.5 h-3.5 text-emerald-500" />
                 <span>DOCUMENTATION</span>
@@ -152,7 +152,7 @@ export default function HomePage() {
                 href="https://github.com/monoforge/MONOFORGE"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-neutral-950 dark:hover:text-white transition-colors flex items-center gap-1.5"
+                className="hover:text-neutral-950 transition-colors flex items-center gap-1.5"
               >
                 <Github className="w-3.5 h-3.5" />
                 <span>GITHUB</span>
@@ -160,7 +160,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-neutral-500 dark:text-neutral-400">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-neutral-700 font-bold">
             <span className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-emerald-500" />
               <span>100% Camo CDN Safe &bull; Zero JavaScript Inside Generated SVGs &bull; Open Source MIT</span>

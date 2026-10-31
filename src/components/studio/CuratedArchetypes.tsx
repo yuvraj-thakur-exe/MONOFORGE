@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Link } from '#/i18n/navigation';
 import { Code2, ArrowRight } from 'lucide-react';
 import { TemplateGallery } from '#/components/landing/TemplateGallery';
+import { playClickSound } from '#/lib/sound/sound-effects';
 
 interface ArchetypeItem {
   id: string;
@@ -51,17 +52,23 @@ const ARCHETYPES: ArchetypeItem[] = [
 
 export function CuratedArchetypes() {
   const [showAllTemplates, setShowAllTemplates] = useState(false);
+
+  const toggleTemplates = () => {
+    playClickSound();
+    setShowAllTemplates(!showAllTemplates);
+  };
+
   return (
-    <section className="relative bg-white border-b-2 border-neutral-900 py-16 sm:py-24 px-4 sm:px-6 transition-colors duration-300">
+    <section className="relative bg-white border-b-2 border-neutral-900 py-16 sm:py-24 px-4 sm:px-6 transition-colors duration-200">
       <div className="max-w-7xl mx-auto space-y-12">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-2 border-neutral-900 pb-6">
           <div>
             <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-neutral-950 mb-2">
-              <span className="px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 font-black border border-neutral-900">
+              <span className="px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b]">
                 [ 06 // SIGNATURE ARCHETYPES ]
               </span>
-              <span>MARCO MADONNA &amp; POULO INSPIRED</span>
+              <span className="font-bold text-neutral-800">MARCO MADONNA &amp; POULO INSPIRED</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-neutral-950 uppercase font-sans">
               CURATED PROFILE STARTERS.
@@ -70,7 +77,8 @@ export function CuratedArchetypes() {
 
           <Link
             href="/templates"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white text-neutral-950 text-xs font-mono font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] hover:bg-[#ffe600] hover:text-neutral-950 transition-all"
+            onClick={() => playClickSound()}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white text-neutral-950 text-xs font-mono font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] hover:bg-[#ffe600] transition-all btn-tactile cursor-pointer"
           >
             <span>Browse All 85+ Archetypes &amp; Templates</span>
             <ArrowRight className="w-4 h-4" />
@@ -82,24 +90,24 @@ export function CuratedArchetypes() {
           {ARCHETYPES.map((arch) => (
             <div
               key={arch.id}
-              className="rounded-2xl border-2 border-neutral-900 bg-white p-6 flex flex-col justify-between shadow-[4px_4px_0px_#18181b]  hover:shadow-[2px_2px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] transition-all group"
+              className="rounded-2xl border-2 border-neutral-900 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 flex flex-col justify-between shadow-[4px_4px_0px_#18181b] dark:shadow-[4px_4px_0px_#334155] hover:shadow-[2px_2px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] transition-all group"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span
-                    className="w-3.5 h-3.5 rounded-full border border-neutral-900"
+                    className="w-3.5 h-3.5 rounded-full border border-neutral-900 dark:border-white"
                     style={{ backgroundColor: arch.accentColor }}
                   />
-                  <span className="text-[10px] font-mono font-black text-neutral-600 uppercase tracking-wider">
+                  <span className="text-[10px] font-mono font-black text-neutral-600 dark:text-slate-400 uppercase tracking-wider">
                     {arch.role}
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="font-extrabold text-xl text-neutral-950 group-hover:text-amber-500 transition-colors">
+                  <h3 className="font-extrabold text-xl text-neutral-950 dark:text-white group-hover:text-amber-500 transition-colors">
                     {arch.name}
                   </h3>
-                  <p className="text-xs text-neutral-800 font-mono mt-2 leading-relaxed">
+                  <p className="text-xs text-neutral-800 dark:text-slate-300 font-mono mt-2 leading-relaxed">
                     {arch.description}
                   </p>
                 </div>
@@ -109,7 +117,7 @@ export function CuratedArchetypes() {
                   {arch.tags.map((tag, idx) => (
                     <span
                       key={idx}
-                      className="px-2.5 py-1 rounded-lg text-[11px] font-mono font-black bg-neutral-50 text-neutral-950 border-2 border-neutral-900 shadow-[1px_1px_0px_#18181b]"
+                      className="px-2.5 py-1 rounded-lg text-[11px] font-mono font-black bg-neutral-50 dark:bg-slate-800 text-neutral-950 dark:text-slate-200 border-2 border-neutral-900 dark:border-slate-700 shadow-[1px_1px_0px_#18181b]"
                     >
                       {tag}
                     </span>
@@ -117,9 +125,10 @@ export function CuratedArchetypes() {
                 </div>
               </div>
 
-              <div className="pt-6 mt-6 border-t-2 border-neutral-900 flex items-center justify-between">
+              <div className="pt-6 mt-6 border-t-2 border-neutral-900 dark:border-slate-800 flex items-center justify-between">
                 <Link
                   href={`/developer?template=${arch.id}&mode=visual`}
+                  onClick={() => playClickSound()}
                   className="px-3.5 py-2 rounded-xl bg-[#ffe600] text-neutral-950 text-xs font-mono font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] hover:bg-[#ffdf00] inline-flex items-center gap-1.5 transition-all btn-tactile"
                 >
                   <span>Use Template</span>
@@ -128,7 +137,8 @@ export function CuratedArchetypes() {
 
                 <Link
                   href={`/developer?template=${arch.id}&mode=editor`}
-                  className="p-2 rounded-xl bg-white hover:bg-neutral-100 text-neutral-950 border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-all"
+                  onClick={() => playClickSound()}
+                  className="p-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-neutral-100 dark:hover:bg-slate-700 text-neutral-950 dark:text-white border-2 border-neutral-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b] transition-all btn-tactile"
                   title="Edit in Monaco Raw Mode"
                 >
                   <Code2 className="w-4 h-4" />
@@ -142,8 +152,8 @@ export function CuratedArchetypes() {
         <div className="pt-4 text-center">
           <button
             type="button"
-            onClick={() => setShowAllTemplates(!showAllTemplates)}
-            className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-white hover:bg-[#ffe600] text-neutral-950 font-mono text-xs sm:text-sm font-black border-2 border-neutral-900 shadow-[4px_4px_0px_#18181b] hover:shadow-[2px_2px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer btn-tactile"
+            onClick={toggleTemplates}
+            className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-800 hover:bg-[#ffe600] dark:hover:bg-[#ffe600] text-neutral-950 dark:text-white dark:hover:text-neutral-950 font-mono text-xs sm:text-sm font-black border-2 border-neutral-900 dark:border-slate-700 shadow-[4px_4px_0px_#18181b] hover:shadow-[2px_2px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer btn-tactile"
           >
             <span>{showAllTemplates ? '▲ COLLAPSE ARCHETYPE VAULT' : '▼ EXPLORE ALL 85+ ARCHETYPES WITH LIVE SEARCH & PREVIEW'}</span>
           </button>
@@ -151,7 +161,7 @@ export function CuratedArchetypes() {
 
         {/* Embedded Full Template Gallery */}
         {showAllTemplates && (
-          <div className="pt-10 border-t-2 border-neutral-900 animate-in fade-in duration-300">
+          <div className="pt-10 border-t-2 border-neutral-900 dark:border-slate-800 animate-in fade-in duration-300">
             <TemplateGallery />
           </div>
         )}

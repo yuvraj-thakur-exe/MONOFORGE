@@ -137,10 +137,14 @@ textarea {
 }
 
 body,
-button,
 input,
 textarea {
   @apply font-sans text-sm text-palette-contrast font-normal;
+}
+
+button {
+  @apply font-sans text-sm font-normal;
+  color: inherit;
 }
 
 h1,
@@ -444,10 +448,11 @@ a:hover {
   text-shadow: none !important;
 }
 
-/* Tactile Click Physics */
+/* Tactile Click Physics & Bouncy Active Animations */
 .btn-tactile {
-  transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.12s ease, background-color 0.15s ease;
+  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.1s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease;
   user-select: none;
+  cursor: pointer;
 }
 
 .btn-tactile:hover {
@@ -455,8 +460,24 @@ a:hover {
 }
 
 .btn-tactile:active {
-  transform: translate(2px, 2px) !important;
-  box-shadow: 0px 0px 0px #18181b !important;
+  transform: translate(2px, 2px) scale(0.97) !important;
+  box-shadow: 0px 0px 0px transparent !important;
+}
+
+/* Scroll Animations */
+@keyframes scrollFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-fade-up {
+  animation: scrollFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* Rubber Elasticity for Interactive Cards & Elements */

@@ -79,23 +79,23 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
     setTimeout(() => setCopied(false), 2200);
   };
 
-  // Base style variants
+  // Base style variants with robust light & dark mode contrast
   const variantStyles = {
     primary: copied
       ? 'bg-gradient-to-r from-emerald-600 to-teal-500 border-emerald-400 text-white shadow-[0_0_25px_rgba(52,211,153,0.55)]'
-      : 'bg-amber-500 hover:bg-amber-400 border-amber-500/60 text-neutral-950 font-bold shadow-md shadow-amber-950/20 hover:shadow-amber-500/30',
+      : 'bg-amber-400 hover:bg-amber-300 dark:bg-amber-500 dark:hover:bg-amber-400 border-neutral-900 text-neutral-950 font-black shadow-xs',
     secondary: copied
       ? 'bg-emerald-950/90 border-emerald-400/80 text-emerald-200 shadow-[0_0_20px_rgba(52,211,153,0.4)]'
-      : 'bg-neutral-900/90 hover:bg-neutral-800 border-neutral-700/70 hover:border-neutral-600 text-neutral-200 hover:text-white shadow-sm',
+      : 'bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-neutral-100 font-bold shadow-xs',
     ghost: copied
-      ? 'bg-emerald-950/60 border-emerald-500/50 text-emerald-300 shadow-[0_0_15px_rgba(52,211,153,0.3)]'
-      : 'bg-transparent hover:bg-neutral-800/60 border-transparent text-neutral-400 hover:text-neutral-200',
+      ? 'bg-emerald-100 dark:bg-emerald-950/60 border-emerald-500/50 text-emerald-700 dark:text-emerald-300 shadow-[0_0_15px_rgba(52,211,153,0.3)]'
+      : 'bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800/60 border-transparent text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white',
     pill: copied
-      ? 'bg-emerald-950/80 border-emerald-400/80 text-emerald-200 shadow-[0_0_15px_rgba(52,211,153,0.35)]'
-      : 'bg-neutral-900/80 hover:bg-neutral-800/90 border-neutral-800 hover:border-amber-500/50 text-neutral-300 hover:text-white',
+      ? 'bg-emerald-100 dark:bg-emerald-950/80 border-emerald-400/80 text-emerald-800 dark:text-emerald-200 shadow-[0_0_15px_rgba(52,211,153,0.35)]'
+      : 'bg-neutral-100 dark:bg-neutral-900/80 hover:bg-neutral-200 dark:hover:bg-neutral-800 border-neutral-300 dark:border-neutral-800 text-neutral-900 dark:text-neutral-200 font-bold',
     badge: copied
-      ? 'bg-emerald-950/95 border-emerald-400 text-emerald-200 shadow-[0_0_18px_rgba(52,211,153,0.4)]'
-      : 'bg-neutral-950/80 hover:bg-neutral-900 border-neutral-800 hover:border-neutral-700 text-neutral-300 hover:text-white',
+      ? 'bg-emerald-100 dark:bg-emerald-950/95 border-emerald-400 text-emerald-800 dark:text-emerald-200 shadow-[0_0_18px_rgba(52,211,153,0.4)]'
+      : 'bg-neutral-100 dark:bg-neutral-950/80 hover:bg-neutral-200 dark:hover:bg-neutral-900 border-neutral-300 dark:border-neutral-800 text-neutral-900 dark:text-neutral-200 font-bold',
   };
 
   const sizeStyles = {

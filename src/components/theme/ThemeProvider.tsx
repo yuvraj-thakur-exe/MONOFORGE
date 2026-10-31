@@ -45,7 +45,7 @@ export function ThemeProvider({
     <NextThemesProvider
       attribute="class"
       defaultTheme="light"
-      enableSystem={true}
+      enableSystem={false}
       {...props}
     >
       {children}

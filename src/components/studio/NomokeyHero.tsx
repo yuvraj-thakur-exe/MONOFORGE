@@ -278,10 +278,10 @@ export function NomokeyHero() {
               <button
                 type="button"
                 onClick={() => setCardView('monkey')}
-                className={`px-3 py-1.5 rounded-lg font-mono text-xs font-black border-2 border-neutral-900 transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-lg font-mono text-xs font-black border-2 border-neutral-900 dark:border-slate-700 transition-all cursor-pointer btn-tactile ${
                   cardView === 'monkey'
                     ? 'bg-[#ffe600] text-neutral-950 shadow-[2px_2px_0px_#18181b]'
-                    : 'bg-white text-neutral-700 hover:bg-neutral-100'
+                    : 'bg-white dark:bg-slate-800 text-neutral-900 dark:text-slate-100 hover:bg-[#ffe600] hover:text-neutral-950 dark:hover:bg-[#ffe600] dark:hover:text-neutral-950'
                 }`}
               >
                 🐵 MONKEY CORE
@@ -289,26 +289,26 @@ export function NomokeyHero() {
               <button
                 type="button"
                 onClick={() => setCardView('preview')}
-                className={`px-3 py-1.5 rounded-lg font-mono text-xs font-black border-2 border-neutral-900 transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-lg font-mono text-xs font-black border-2 border-neutral-900 dark:border-slate-700 transition-all cursor-pointer btn-tactile ${
                   cardView === 'preview'
                     ? 'bg-[#ffe600] text-neutral-950 shadow-[2px_2px_0px_#18181b]'
-                    : 'bg-white text-neutral-700 hover:bg-neutral-100'
+                    : 'bg-white dark:bg-slate-800 text-neutral-900 dark:text-slate-100 hover:bg-[#ffe600] hover:text-neutral-950 dark:hover:bg-[#ffe600] dark:hover:text-neutral-950'
                 }`}
               >
                 ⚡ GENERATED PROFILE
               </button>
             </div>
 
-            <div className="relative rounded-2xl border-2 border-neutral-900 bg-white p-6 sm:p-7 shadow-[6px_6px_0px_#18181b] overflow-hidden transition-all duration-200">
+            <div className="relative rounded-2xl border-2 border-neutral-900 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 sm:p-7 shadow-[6px_6px_0px_#18181b] dark:shadow-[6px_6px_0px_#334155] overflow-hidden transition-all duration-200">
               {cardView === 'preview' ? (
                 /* Generated Profile Preview Mode (Mac Window Style) */
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between pb-3 border-b-2 border-neutral-900">
+                  <div className="flex items-center justify-between pb-3 border-b-2 border-neutral-900 dark:border-slate-800">
                     <div className="flex items-center gap-2">
                       <span className="w-3 h-3 rounded-full bg-red-500 border border-neutral-900" />
                       <span className="w-3 h-3 rounded-full bg-[#ffe600] border border-neutral-900" />
                       <span className="w-3 h-3 rounded-full bg-emerald-500 border border-neutral-900" />
-                      <span className="text-[11px] font-mono font-bold text-neutral-600 ml-1">
+                      <span className="text-[11px] font-mono font-bold text-neutral-600 dark:text-slate-400 ml-1">
                         github.com/developer/developer/README.md
                       </span>
                     </div>
@@ -318,17 +318,17 @@ export function NomokeyHero() {
                   </div>
 
                   {/* Profile Header Card */}
-                  <div className="p-4 sm:p-5 rounded-xl border-2 border-neutral-900 bg-white text-neutral-950 relative overflow-hidden shadow-[3px_3px_0px_#18181b]">
+                  <div className="p-4 sm:p-5 rounded-xl border-2 border-neutral-900 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-neutral-950 dark:text-white relative overflow-hidden shadow-[3px_3px_0px_#18181b]">
                     <div className="flex items-start justify-between gap-3">
                       <div className="space-y-2">
                         <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#ffe600] text-neutral-950 font-mono text-[10px] font-black border border-neutral-900">
                           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                           <span>FULL-STACK ARCHITECT // SYSTEMS</span>
                         </div>
-                        <h3 className="text-xl sm:text-2xl font-black font-sans tracking-tight text-neutral-950 uppercase">
+                        <h3 className="text-xl sm:text-2xl font-black font-sans tracking-tight text-neutral-950 dark:text-white uppercase">
                           ALEXANDER FORGE
                         </h3>
-                        <p className="text-xs font-mono text-neutral-700 leading-relaxed max-w-sm">
+                        <p className="text-xs font-mono text-neutral-700 dark:text-slate-300 leading-relaxed max-w-sm">
                           Architecting distributed systems, zero-dependency CLIs, and 60fps GPU web applications.
                         </p>
                       </div>
@@ -342,37 +342,37 @@ export function NomokeyHero() {
 
                   {/* Voxel & Telemetry Strip */}
                   <div className="grid grid-cols-3 gap-2">
-                    <div className="p-2.5 rounded-lg border-2 border-neutral-900 bg-neutral-50 text-center font-mono">
-                      <span className="text-[9px] text-neutral-500 uppercase block font-bold">COMMITS</span>
-                      <span className="text-base font-black text-neutral-950">2,847</span>
+                    <div className="p-2.5 rounded-lg border-2 border-neutral-900 dark:border-slate-700 bg-neutral-50 dark:bg-slate-800 text-center font-mono">
+                      <span className="text-[9px] text-neutral-500 dark:text-slate-400 uppercase block font-bold">COMMITS</span>
+                      <span className="text-base font-black text-neutral-950 dark:text-white">2,847</span>
                     </div>
-                    <div className="p-2.5 rounded-lg border-2 border-neutral-900 bg-neutral-50 text-center font-mono">
-                      <span className="text-[9px] text-neutral-500 uppercase block font-bold">STREAK</span>
-                      <span className="text-base font-black text-amber-600">42 days 🔥</span>
+                    <div className="p-2.5 rounded-lg border-2 border-neutral-900 dark:border-slate-700 bg-neutral-50 dark:bg-slate-800 text-center font-mono">
+                      <span className="text-[9px] text-neutral-500 dark:text-slate-400 uppercase block font-bold">STREAK</span>
+                      <span className="text-base font-black text-amber-600 dark:text-amber-400">42 days 🔥</span>
                     </div>
-                    <div className="p-2.5 rounded-lg border-2 border-neutral-900 bg-neutral-50 text-center font-mono">
-                      <span className="text-[9px] text-neutral-500 uppercase block font-bold">PERCENTILE</span>
-                      <span className="text-base font-black text-emerald-600">TOP 2%</span>
+                    <div className="p-2.5 rounded-lg border-2 border-neutral-900 dark:border-slate-700 bg-neutral-50 dark:bg-slate-800 text-center font-mono">
+                      <span className="text-[9px] text-neutral-500 dark:text-slate-400 uppercase block font-bold">PERCENTILE</span>
+                      <span className="text-base font-black text-emerald-600 dark:text-emerald-400">TOP 2%</span>
                     </div>
                   </div>
 
                   {/* Stack Badges */}
-                  <div className="p-3 rounded-lg border-2 border-neutral-900 bg-white space-y-1.5 font-mono">
-                    <span className="text-[10px] font-bold text-neutral-500 uppercase block">CORE TECH STACK</span>
+                  <div className="p-3 rounded-lg border-2 border-neutral-900 dark:border-slate-700 bg-white dark:bg-slate-800 space-y-1.5 font-mono">
+                    <span className="text-[10px] font-bold text-neutral-500 dark:text-slate-400 uppercase block">CORE TECH STACK</span>
                     <div className="flex flex-wrap gap-1">
                       {['TypeScript', 'Rust', 'Go', 'Next.js', 'Docker', 'GraphQL'].map((tech) => (
-                        <span key={tech} className="px-2 py-0.5 rounded bg-white text-neutral-950 text-[10px] font-bold border border-neutral-900 shadow-2xs">
+                        <span key={tech} className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-900 text-neutral-950 dark:text-white text-[10px] font-bold border border-neutral-900 dark:border-slate-700 shadow-2xs">
                           {tech}
                         </span>
                       ))}
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between pt-2 border-t-2 border-neutral-900 text-[11px] font-mono">
-                    <span className="text-neutral-500 font-bold">100% CAMO CDN SAFE</span>
+                  <div className="flex items-center justify-between pt-2 border-t-2 border-neutral-900 dark:border-slate-800 text-[11px] font-mono">
+                    <span className="text-neutral-500 dark:text-slate-400 font-bold">100% CAMO CDN SAFE</span>
                     <Link
                       href="/wizard"
-                      className="inline-flex items-center gap-1 font-black text-amber-700 hover:text-amber-600 underline"
+                      className="inline-flex items-center gap-1 font-black text-amber-700 dark:text-amber-400 hover:text-amber-600 underline"
                     >
                       <span>CUSTOMIZE THIS &rarr;</span>
                     </Link>
@@ -382,23 +382,23 @@ export function NomokeyHero() {
                 /* Interactive Cyber Monkey Workstation View */
                 <>
               {/* Studio Card Header: Mode Switcher */}
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-neutral-200 border-neutral-900">
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-neutral-200 dark:border-slate-800">
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-red-500 border border-neutral-900" />
                   <span className="w-3 h-3 rounded-full bg-[#ffe600] border border-neutral-900" />
                   <span className="w-3 h-3 rounded-full bg-emerald-500 border border-neutral-900" />
-                  <span className="text-[11px] font-mono font-black text-neutral-950 ml-1">
+                  <span className="text-[11px] font-mono font-black text-neutral-950 dark:text-white ml-1">
                     MONKEY_CORE
                   </span>
                 </div>
 
                 {/* Mode Selector Pills */}
-                <div className="flex items-center gap-1 bg-white p-1 rounded-lg border-2 border-neutral-900 text-[10px] font-mono font-bold shadow-2xs">
+                <div className="flex items-center gap-1 bg-neutral-100 dark:bg-slate-800 p-1 rounded-lg border-2 border-neutral-900 dark:border-slate-700 text-[10px] font-mono font-bold shadow-2xs">
                   <button
                     type="button"
                     onClick={() => setActiveMode('clean')}
-                    className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
-                      activeMode === 'clean' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-white text-neutral-700 hover:bg-neutral-100'
+                    className={`px-2.5 py-1 rounded transition-all cursor-pointer btn-tactile ${
+                      activeMode === 'clean' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-transparent text-neutral-800 dark:text-slate-200 font-bold hover:bg-neutral-200 dark:hover:bg-slate-700'
                     }`}
                   >
                     CLEAN
@@ -406,8 +406,8 @@ export function NomokeyHero() {
                   <button
                     type="button"
                     onClick={() => setActiveMode('cyber')}
-                    className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
-                      activeMode === 'cyber' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-white text-neutral-700 hover:bg-neutral-100'
+                    className={`px-2.5 py-1 rounded transition-all cursor-pointer btn-tactile ${
+                      activeMode === 'cyber' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-transparent text-neutral-800 dark:text-slate-200 font-bold hover:bg-neutral-200 dark:hover:bg-slate-700'
                     }`}
                   >
                     CYBER
@@ -415,8 +415,8 @@ export function NomokeyHero() {
                   <button
                     type="button"
                     onClick={() => setActiveMode('lofi')}
-                    className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
-                      activeMode === 'lofi' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-white text-neutral-700 hover:bg-neutral-100'
+                    className={`px-2.5 py-1 rounded transition-all cursor-pointer btn-tactile ${
+                      activeMode === 'lofi' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-transparent text-neutral-800 dark:text-slate-200 font-bold hover:bg-neutral-200 dark:hover:bg-slate-700'
                     }`}
                   >
                     LO-FI
@@ -424,8 +424,8 @@ export function NomokeyHero() {
                   <button
                     type="button"
                     onClick={() => setActiveMode('hyperspeed')}
-                    className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
-                      activeMode === 'hyperspeed' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-white text-neutral-700 hover:bg-neutral-100'
+                    className={`px-2.5 py-1 rounded transition-all cursor-pointer btn-tactile ${
+                      activeMode === 'hyperspeed' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-transparent text-neutral-800 dark:text-slate-200 font-bold hover:bg-neutral-200 dark:hover:bg-slate-700'
                     }`}
                   >
                     WARP
@@ -436,23 +436,23 @@ export function NomokeyHero() {
               {/* Interactive Banana Battery (Click to Feed & Celebrate!) */}
               <div
                 onClick={clickBanana}
-                className="cursor-pointer flex items-center justify-between p-2.5 rounded-xl bg-white border-2 border-neutral-900 text-xs font-mono font-bold hover:border-[#ffe600] transition-all mb-4 group select-none shadow-[2px_2px_0px_#18181b]"
+                className="cursor-pointer flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border-2 border-neutral-900 dark:border-slate-700 text-xs font-mono font-bold hover:border-[#ffe600] transition-all mb-4 group select-none shadow-[2px_2px_0px_#18181b] active:scale-[0.98]"
                 title="Click to feed monkey & recharge battery!"
               >
                 <div className="flex items-center gap-2">
                   <span className="text-lg group-hover:scale-125 transition-transform">🍌</span>
-                  <span className="text-[11px] font-black uppercase text-neutral-950">
+                  <span className="text-[11px] font-black uppercase text-neutral-950 dark:text-white">
                     BANANA BATTERY
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <div className="w-20 h-2.5 rounded-full bg-neutral-100 overflow-hidden border-2 border-neutral-900">
+                  <div className="w-20 h-2.5 rounded-full bg-neutral-100 dark:bg-slate-900 overflow-hidden border-2 border-neutral-900 dark:border-slate-700">
                     <div
                       className="h-full bg-[#ffe600] transition-all duration-300"
                       style={{ width: `${bananaFuel}%` }}
                     />
                   </div>
-                  <span className="text-[10px] font-black text-amber-600">
+                  <span className="text-[10px] font-black text-amber-600 dark:text-amber-400">
                     {bananaFuel}%
                   </span>
                   <span className="text-[9px] px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs group-hover:scale-105 transition-transform">
@@ -482,7 +482,7 @@ export function NomokeyHero() {
 
               {/* The Monkey Companion Canvas */}
               <div
-                className="relative mx-auto flex items-center justify-center p-6 rounded-xl bg-[#faf9f6] bg-white border-2 border-neutral-900/10 border-neutral-900 select-none overflow-hidden"
+                className="relative mx-auto flex items-center justify-center p-6 rounded-xl bg-slate-50 dark:bg-slate-950 border-2 border-neutral-900 dark:border-slate-700 select-none overflow-hidden cursor-pointer"
                 style={{ minHeight: '280px' }}
                 onClick={triggerQuote}
               >

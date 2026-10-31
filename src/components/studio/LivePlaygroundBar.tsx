@@ -11,6 +11,7 @@ import {
   Loader2,
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { playClickSound, playTone } from '#/lib/sound/sound-effects';
 
 const SAMPLE_USERS = ['octocat', 'shadcn', 'torvalds', 'alexdev', 'antigravity'];
 const GITHUB_USERNAME_REGEX = /^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$/;
@@ -47,14 +48,17 @@ export function LivePlaygroundBar() {
   const handleCopy = () => {
     navigator.clipboard.writeText(markdownSnippet);
     setCopied(true);
+    playClickSound();
+    playTone(880, 'sine', 0.1, 0.04);
     toast.success(`Copied Camo SVG Markdown for @${effectiveUsername}!`);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const handleRetry = () => {
+    playClickSound();
     setHasError(false);
     setLoading(true);
-    setRetryKey(prev => prev + 1);
+    setRetryKey((prev) => prev + 1);
   };
 
   return (
@@ -64,10 +68,10 @@ export function LivePlaygroundBar() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-2 border-neutral-900 pb-5">
           <div>
             <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-neutral-950 mb-1.5">
-              <span className="px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 font-black border border-neutral-900">
+              <span className="px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b]">
                 LIVE SANDBOX
               </span>
-              <span>INSTANT TELEMETRY PREVIEW</span>
+              <span className="font-bold text-neutral-800">INSTANT TELEMETRY PREVIEW</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-neutral-950 uppercase font-sans">
               TEST YOUR GITHUB HANDLE LIVE.
@@ -79,7 +83,7 @@ export function LivePlaygroundBar() {
         <div className="space-y-2">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <div className="relative flex-1">
-              <span className="absolute left-3.5 top-3 text-sm font-mono text-neutral-400 select-none">@</span>
+              <span className="absolute left-3.5 top-3 text-sm font-mono text-neutral-600 font-bold select-none">@</span>
               <input
                 type="text"
                 value={inputVal}
@@ -99,21 +103,22 @@ export function LivePlaygroundBar() {
 
             {/* Sample Handle Pills */}
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
-              <span className="text-[11px] font-mono text-neutral-500 font-bold hidden md:inline">TRY:</span>
+              <span className="text-[11px] font-mono text-neutral-800 font-black hidden md:inline">TRY:</span>
               {SAMPLE_USERS.map((user) => (
                 <button
                   key={user}
                   type="button"
                   onClick={() => {
+                    playClickSound();
                     setInputVal(user);
                     setDebouncedUsername(user);
                     setLoading(true);
                     setHasError(false);
                   }}
-                  className={`px-2.5 py-2 rounded-lg font-mono text-xs font-bold border-2 transition-all cursor-pointer shrink-0 ${
+                  className={`px-2.5 py-2 rounded-lg font-mono text-xs font-bold border-2 transition-all cursor-pointer shrink-0 btn-tactile ${
                     effectiveUsername === user
-                      ? 'bg-[#ffe600] text-neutral-950 border-neutral-950 shadow-[2px_2px_0px_#18181b]'
-                      : 'bg-white text-neutral-800 border-neutral-900 hover:bg-[#ffe600] hover:text-neutral-950'
+                      ? 'bg-[#ffe600] text-neutral-950 border-neutral-950 shadow-[2px_2px_0px_#18181b] font-black'
+                      : 'bg-white text-neutral-900 border-neutral-900 hover:bg-[#ffe600] hover:text-neutral-950'
                   }`}
                 >
                   @{user}
@@ -141,14 +146,15 @@ export function LivePlaygroundBar() {
               key={tab.id}
               type="button"
               onClick={() => {
+                playClickSound();
                 setActivePlugin(tab.id as typeof activePlugin);
                 setLoading(true);
                 setHasError(false);
               }}
-              className={`px-3 py-1.5 rounded-lg font-mono text-xs font-black transition-all border-2 border-neutral-900 cursor-pointer shrink-0 ${
+              className={`px-3 py-1.5 rounded-lg font-mono text-xs font-black transition-all border-2 border-neutral-900 cursor-pointer shrink-0 btn-tactile ${
                 activePlugin === tab.id
                   ? 'bg-[#ffe600] text-neutral-950 shadow-[2px_2px_0px_#18181b]'
-                  : 'bg-white text-neutral-800 hover:bg-neutral-100'
+                  : 'bg-white text-neutral-900 hover:bg-[#ffe600] hover:text-neutral-950'
               }`}
             >
               {tab.label}
@@ -161,34 +167,34 @@ export function LivePlaygroundBar() {
           <div className="flex items-center justify-between pb-3 border-b-2 border-neutral-900 text-xs font-mono">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="font-bold text-neutral-950">
+              <span className="font-black text-neutral-950">
                 LIVE OUTPUT FOR @{effectiveUsername}
               </span>
             </div>
-            <span className="text-[11px] text-neutral-600 font-bold hidden sm:inline">
+            <span className="text-[11px] text-neutral-800 font-black hidden sm:inline">
               100% GITHUB CAMO CDN SAFE // NO BROKEN IMAGES
             </span>
           </div>
 
           {/* SVG Frame with Skeleton & Error Handling */}
-          <div className="relative p-4 rounded-xl bg-white border-2 border-neutral-900 flex items-center justify-center min-h-[180px] overflow-x-auto">
+          <div className="relative p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border-2 border-neutral-900 dark:border-slate-800 flex items-center justify-center min-h-[180px] overflow-x-auto">
             {loading && !hasError && (
-              <div className="absolute inset-0 bg-white/90 flex flex-col items-center justify-center gap-2 z-10">
+              <div className="absolute inset-0 bg-white/90 dark:bg-slate-900/90 flex flex-col items-center justify-center gap-2 z-10">
                 <Loader2 className="w-6 h-6 animate-spin text-amber-500" />
-                <span className="text-xs font-mono font-bold text-neutral-700">Forging Camo SVG...</span>
+                <span className="text-xs font-mono font-bold text-neutral-700 dark:text-slate-300">Forging Camo SVG...</span>
               </div>
             )}
 
             {hasError ? (
               <div className="flex flex-col items-center justify-center gap-3 py-6 text-center">
                 <AlertCircle className="w-8 h-8 text-amber-500" />
-                <p className="text-xs font-mono text-neutral-700">
+                <p className="text-xs font-mono text-neutral-700 dark:text-slate-300">
                   Could not load preview for @{effectiveUsername}.
                 </p>
                 <button
                   type="button"
                   onClick={handleRetry}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#ffe600] text-neutral-950 font-mono text-xs font-black border-2 border-neutral-900 shadow-2xs hover:bg-[#ffdf00]"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#ffe600] text-neutral-950 font-mono text-xs font-black border-2 border-neutral-900 shadow-2xs hover:bg-[#ffdf00] btn-tactile"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
                   <span>Retry Preview</span>
@@ -214,7 +220,7 @@ export function LivePlaygroundBar() {
 
           {/* Copy Snippet Actions */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
-            <span className="text-xs font-mono text-neutral-600 truncate max-w-md">
+            <span className="text-xs font-mono text-neutral-600 dark:text-slate-400 truncate max-w-md">
               {embedUrl}
             </span>
 
@@ -230,7 +236,7 @@ export function LivePlaygroundBar() {
 
               <Link
                 href="/developer"
-                className="flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-white text-neutral-950 font-mono text-xs font-bold border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] hover:bg-[#ffe600] transition-all cursor-pointer btn-tactile"
+                className="flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 text-neutral-950 dark:text-white font-mono text-xs font-bold border-2 border-neutral-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b] hover:bg-[#ffe600] dark:hover:bg-[#ffe600] dark:hover:text-neutral-950 transition-all cursor-pointer btn-tactile"
               >
                 <Code2 className="w-3.5 h-3.5" />
                 <span>OPEN IN /DEVELOPER</span>
