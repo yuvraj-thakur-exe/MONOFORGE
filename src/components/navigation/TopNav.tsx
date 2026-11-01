@@ -84,11 +84,13 @@ export function TopNav() {
               className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
                 isHome
                   ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white font-black shadow-xs'
-                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-950 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
               <Home className="w-3.5 h-3.5 text-amber-500" />
-              <span>HOME</span>
+              <span className={isHome ? 'text-white dark:text-slate-950' : 'text-slate-900 dark:text-white'}>
+                HOME
+              </span>
             </Link>
 
             {/* 75+ Templates */}
@@ -99,11 +101,13 @@ export function TopNav() {
               className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
                 isTemplates
                   ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white font-black shadow-xs'
-                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-950 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
               <LayoutTemplate className="w-3.5 h-3.5 text-amber-500" />
-              <span>TEMPLATES</span>
+              <span className={isTemplates ? 'text-white dark:text-slate-950' : 'text-slate-900 dark:text-white'}>
+                TEMPLATES
+              </span>
             </Link>
 
             {/* Documentation Hub */}
@@ -114,11 +118,13 @@ export function TopNav() {
               className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
                 isDocs
                   ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white font-black shadow-xs'
-                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-950 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
               <BookOpen className="w-3.5 h-3.5 text-emerald-500" />
-              <span>DOCS</span>
+              <span className={isDocs ? 'text-white dark:text-slate-950' : 'text-slate-900 dark:text-white'}>
+                DOCS
+              </span>
             </Link>
 
             {/* Info Hub */}
@@ -129,11 +135,13 @@ export function TopNav() {
               className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
                 isInfo
                   ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white font-black shadow-xs'
-                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-950 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
               <Info className="w-3.5 h-3.5 text-indigo-500" />
-              <span>INFO</span>
+              <span className={isInfo ? 'text-white dark:text-slate-950' : 'text-slate-900 dark:text-white'}>
+                INFO
+              </span>
             </Link>
 
             <div className="h-4 w-px bg-slate-200 dark:bg-slate-700 mx-1" />
@@ -189,12 +197,14 @@ export function TopNav() {
               className={`flex items-center justify-between p-3 rounded-xl border font-black transition-all ${
                 isHome
                   ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white shadow-xs'
-                  : 'bg-white dark:bg-slate-800 text-slate-950 dark:text-white border-slate-200 dark:border-slate-700'
+                  : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white border-slate-200 dark:border-slate-700'
               }`}
             >
               <span className="flex items-center gap-2">
                 <Home className="w-4 h-4 text-amber-500" />
-                <span>HOME</span>
+                <span className={isHome ? 'text-white dark:text-slate-950' : 'text-slate-900 dark:text-white'}>
+                  HOME
+                </span>
               </span>
               <ChevronRight className="w-4 h-4 text-slate-400" />
             </Link>
@@ -205,12 +215,14 @@ export function TopNav() {
               className={`flex items-center justify-between p-3 rounded-xl border font-black transition-all ${
                 isTemplates
                   ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white shadow-xs'
-                  : 'bg-white dark:bg-slate-800 text-slate-950 dark:text-white border-slate-200 dark:border-slate-700'
+                  : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white border-slate-200 dark:border-slate-700'
               }`}
             >
               <span className="flex items-center gap-2">
                 <LayoutTemplate className="w-4 h-4 text-amber-500" />
-                <span>TEMPLATES (75+)</span>
+                <span className={isTemplates ? 'text-white dark:text-slate-950' : 'text-slate-900 dark:text-white'}>
+                  TEMPLATES (75+)
+                </span>
               </span>
               <ChevronRight className="w-4 h-4 text-slate-400" />
             </Link>
@@ -221,12 +233,14 @@ export function TopNav() {
               className={`flex items-center justify-between p-3 rounded-xl border font-black transition-all ${
                 isDocs
                   ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white shadow-xs'
-                  : 'bg-white dark:bg-slate-800 text-slate-950 dark:text-white border-slate-200 dark:border-slate-700'
+                  : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white border-slate-200 dark:border-slate-700'
               }`}
             >
               <span className="flex items-center gap-2">
                 <BookOpen className="w-4 h-4 text-emerald-500" />
-                <span>DOCUMENTATION</span>
+                <span className={isDocs ? 'text-white dark:text-slate-950' : 'text-slate-900 dark:text-white'}>
+                  DOCUMENTATION
+                </span>
               </span>
               <ChevronRight className="w-4 h-4 text-slate-400" />
             </Link>
@@ -234,11 +248,11 @@ export function TopNav() {
             <Link
               href="/docs/getting-started/quickstart"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-950 dark:text-white hover:bg-amber-500/10 font-medium"
+              className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-amber-500/10 font-medium"
             >
               <span className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-amber-500" />
-                <span>QUICKSTART GUIDE</span>
+                <span className="text-slate-900 dark:text-white">QUICKSTART GUIDE</span>
               </span>
               <ChevronRight className="w-4 h-4 text-slate-400" />
             </Link>
@@ -246,11 +260,11 @@ export function TopNav() {
             <Link
               href="/docs/reference/architecture"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-950 dark:text-white hover:bg-indigo-500/10 font-medium"
+              className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-indigo-500/10 font-medium"
             >
               <span className="flex items-center gap-2">
                 <Layers className="w-4 h-4 text-indigo-500" />
-                <span>SPECS &amp; ARCHITECTURE</span>
+                <span className="text-slate-900 dark:text-white">SPECS &amp; ARCHITECTURE</span>
               </span>
               <ChevronRight className="w-4 h-4 text-slate-400" />
             </Link>
@@ -258,11 +272,11 @@ export function TopNav() {
             <Link
               href="/docs/reference/cli"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-950 dark:text-white hover:bg-cyan-500/10 font-medium"
+              className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-cyan-500/10 font-medium"
             >
               <span className="flex items-center gap-2">
                 <Terminal className="w-4 h-4 text-cyan-500" />
-                <span>CLI &amp; MCP REFERENCE</span>
+                <span className="text-slate-900 dark:text-white">CLI &amp; MCP REFERENCE</span>
               </span>
               <ChevronRight className="w-4 h-4 text-slate-400" />
             </Link>
@@ -273,12 +287,14 @@ export function TopNav() {
               className={`flex items-center justify-between p-3 rounded-xl border font-black transition-all ${
                 isInfo
                   ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white shadow-xs'
-                  : 'bg-white dark:bg-slate-800 text-slate-950 dark:text-white border-slate-200 dark:border-slate-700'
+                  : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white border-slate-200 dark:border-slate-700'
               }`}
             >
               <span className="flex items-center gap-2">
                 <Info className="w-4 h-4 text-purple-500" />
-                <span>INFO &amp; MANUAL HUB</span>
+                <span className={isInfo ? 'text-white dark:text-slate-950' : 'text-slate-900 dark:text-white'}>
+                  INFO &amp; MANUAL HUB
+                </span>
               </span>
               <ChevronRight className="w-4 h-4 text-slate-400" />
             </Link>
