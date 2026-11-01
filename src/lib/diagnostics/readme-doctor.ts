@@ -226,3 +226,4 @@ export function autoFixReadmeContent(markdown: string): string {
 
   return fixed;
 }
+

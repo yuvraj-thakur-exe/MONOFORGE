@@ -57,3 +57,4 @@ describe('MonoForge 3.0 Signature Visualization SVG Generators', () => {
     });
   });
 });
+

@@ -121,3 +121,4 @@ export interface VisualizationManifest {
   supportsSvg: boolean;
   exportFormats: Array<'svg' | 'png' | 'markdown' | 'embed'>;
 }
+

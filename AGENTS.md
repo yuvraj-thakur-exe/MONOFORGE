@@ -88,7 +88,7 @@ pnpm format      # biome format
   - Output copy-pasteable Markdown snippets (`<p align="center"><img src="..." width="100%" /></p>`) for instant user integration.
 
 ## Full feature/build spec
-See `docs/ai/PROMPTS.md` and `docs/PROJECT.md` for the complete build plan (branding, libraries, plugin list, wizard question set, resume/enrichment spec, GitHub sync spec, execution order). AGENTS.md is the standing reference for ongoing work; `docs/ai/PROMPTS.md` contains the centralized prompt library and slash commands.
+AGENTS.md is the standing reference for ongoing work; all architecture invariants, telemetry endpoints, and slash commands are canonically defined in this document and the `.agents/skills/` manifests.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

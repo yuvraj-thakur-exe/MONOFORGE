@@ -866,3 +866,4 @@ export function generateSkillConstellationSvg(
 </svg>
   `.trim();
 }
+

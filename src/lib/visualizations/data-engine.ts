@@ -237,3 +237,4 @@ export async function fetchNormalizedDeveloperIdentity(username: string): Promis
     return fallback;
   }
 }
+

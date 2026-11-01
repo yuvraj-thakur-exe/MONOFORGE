@@ -121,3 +121,4 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
 };
 
 export const ALL_VISUALIZATION_IDS = Object.keys(VISUALIZATION_REGISTRY) as VisualizationId[];
+

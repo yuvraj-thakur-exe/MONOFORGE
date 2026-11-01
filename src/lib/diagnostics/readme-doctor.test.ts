@@ -71,3 +71,4 @@ echo "open fence"
     expect(fences.length % 2).toBe(0);
   });
 });
+

@@ -39,3 +39,4 @@ The **Visual Asset Builder** powers the graphics, vector motion, and Canvas rend
 - **`repository-galaxy`**: Orbital planetary cosmos where repos orbit as planets based on GitHub stars and languages.
 - **`developer-dna`**: Rotating 3D double-helix strand with base pairs mapped to verified language ratios.
 - **`skill-constellation`**: Celestial star graph connecting technologies backed by repository dependencies.
+

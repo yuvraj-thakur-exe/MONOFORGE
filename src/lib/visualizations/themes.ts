@@ -93,3 +93,4 @@ export const VISUALIZATION_THEMES: Record<VisualizationTheme, ThemeColors> = {
     levels: ['#082138', '#075985', '#0284c7', '#0ea5e9', '#38bdf8'],
   },
 };
+

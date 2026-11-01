@@ -241,7 +241,7 @@ export const AssetMarketplaceModal: React.FC<AssetMarketplaceModalProps> = ({
         {/* Footer */}
         <div className="flex items-center justify-between px-5 py-3 bg-white border-t-2 border-neutral-900 text-xs font-mono">
           <span className="text-neutral-500 text-[11px]">
-            Want to submit an asset? See <code>docs/COMMUNITY_ASSETS.md</code>
+            Want to submit an asset? See <code>CONTRIBUTING.md</code>
           </span>
           <button
             type="button"
