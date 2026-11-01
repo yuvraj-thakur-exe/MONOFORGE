@@ -323,10 +323,17 @@ Follow this step-by-step workflow to engineer your GitHub profile README:
 
 ```mermaid
 flowchart LR
-    A["Choose Mode\n(/wizard or /developer)"] --> B["Select Archetype\nor Customize Blocks"]
-    B --> C["Hydrate Live Telemetry\n& Animated Vectors"]
-    C --> D["Preview in Live Viewport\n(Desktop, CRT, Mobile)"]
-    D --> E["Export Markdown\nor Sync Directly to GitHub"]
+    Step1[1. Choose Mode] --> Step2[2. Pick Archetype]
+    Step2 --> Step3[3. Add Telemetry]
+    Step3 --> Step4[4. Live Preview]
+    Step4 --> Step5[5. Export or Sync]
+```
+
+```text
+┌──────────────────┐     ┌───────────────────┐     ┌───────────────────┐     ┌───────────────────┐     ┌──────────────────┐
+│ 1. Choose Mode   │ ──> │ 2. Pick Template  │ ──> │ 3. Add Telemetry  │ ──> │ 4. Live Preview   │ ──> │ 5. Export / Sync │
+│ Wizard or Monaco │     │ 75+ Curated Views │     │ 47+ SVG Engines   │     │ Desktop & Mobile  │     │ Markdown or Push │
+└──────────────────┘     └───────────────────┘     └───────────────────┘     └───────────────────┘     └──────────────────┘
 ```
 
 1. **Select an Archetype or Start from Scratch**:
@@ -418,39 +425,60 @@ MonoForge is governed by four strict architectural rules:
 
 ```mermaid
 flowchart TD
-    subgraph UI ["User Interfaces"]
-        Wizard["Visual Wizard (/wizard)"]
-        Monaco["Monaco IDE (/developer)"]
-        CLI["CLI Tool (bin/monoforge.js)"]
+    subgraph UI[User Interfaces]
+        W[Visual Wizard]
+        M[Monaco IDE]
+        C[CLI and MCP Tool]
     end
 
-    subgraph State ["State & Validation"]
-        Store["Zustand Store (useReadmeStore)"]
-        Schema["Zod AST Schema (docs/config-schema.md)"]
+    subgraph State[State and Schema]
+        S[Zustand Store]
+        Z[Zod Schema]
     end
 
-    subgraph Core ["Compiler & Telemetry"]
-        Builder["Pure Compiler (buildMarkdown.ts)"]
-        Telemetry["Telemetry Engine (/api/telemetry/svg)"]
-        Animator["60fps Camo Vector Engine"]
+    subgraph Core[Compiler and Engines]
+        B[buildMarkdown Compiler]
+        T[Telemetry Engine]
+        V[Vector Animator]
     end
 
-    subgraph Output ["Distribution & Sync"]
-        Clipboard["Markdown / Clipboard"]
-        Diff["Diff Preview Modal (Confirmation Gate)"]
-        Sync["GitHub REST API (syncToGitHub)"]
+    subgraph Output[Export and Sync]
+        MD[Markdown Output]
+        DP[Diff Preview Modal]
+        GH[GitHub REST API]
     end
 
-    Wizard <--> Store
-    Monaco <--> Store
-    CLI --> Builder
-    Store --> Schema
-    Store --> Builder
-    Telemetry --> Builder
-    Animator --> Builder
-    Builder --> Clipboard
-    Builder --> Diff
-    Diff --> Sync
+    W --> S
+    S --> W
+    M --> S
+    S --> M
+    C --> B
+    S --> Z
+    S --> B
+    T --> B
+    V --> B
+    B --> MD
+    B --> DP
+    DP --> GH
+```
+
+```text
+┌─────────────────────────────────┐
+│     User Interfaces (UI)        │
+│  [Visual Wizard]  [Monaco IDE]  │
+└────────────────┬────────────────┘
+                 │ (Bidirectional Sync)
+┌────────────────▼────────────────┐
+│   Single Zustand Store (State)  │ <───> [Zod Schema Validation]
+└────────────────┬────────────────┘
+                 │
+┌────────────────▼────────────────┐
+│     buildMarkdown Compiler      │ <─── [Telemetry & 60fps Vector Engines]
+└────────────────┬────────────────┘
+                 │
+       ┌─────────┴─────────┐
+       ▼                   ▼
+[Markdown Clipboard]   [Diff Preview Modal] ──> [GitHub REST Commit API]
 ```
 
 ### Directory Map
