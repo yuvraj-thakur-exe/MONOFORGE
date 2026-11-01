@@ -11,7 +11,20 @@ import {
   generateMusicPlayerSvg,
   generateLeetCodeStatsSvg,
 } from '#/lib/forge-telemetry/svg-generators';
+import {
+  generateCommitCitySvg,
+  generateCommitRiverSvg,
+  generateYearClockSvg,
+  generateCodingPulseSvg,
+  generateDeveloperTerminalSvg,
+  generateContributionSnakeSvg,
+  generateRepositoryGalaxySvg,
+  generateDeveloperDnaSvg,
+  generateSkillConstellationSvg,
+} from '#/lib/visualizations/svg-generators';
+import { buildSyntheticDeveloperIdentity } from '#/lib/visualizations/data-engine';
 import { fetchUserContributions } from '#/lib/github/contributions';
+import { VisualizationTheme } from '#/lib/visualizations/types';
 
 export const runtime = 'nodejs';
 
@@ -137,6 +150,88 @@ export async function GET(request: NextRequest) {
     case 'algorithms': {
       const solved = searchParams.get('solved') ? parseInt(searchParams.get('solved')!, 10) : undefined;
       svgContent = generateLeetCodeStatsSvg({ username: user, solved });
+      break;
+    }
+
+    // --- MonoForge 3.0 Signature Visualizations ---
+    case 'commitcity':
+    case 'city':
+    case 'skyline': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'emerald') as VisualizationTheme;
+      svgContent = generateCommitCitySvg(identity, { theme });
+      break;
+    }
+
+    case 'river':
+    case 'commitriver':
+    case 'stream': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'ocean') as VisualizationTheme;
+      svgContent = generateCommitRiverSvg(identity, { theme });
+      break;
+    }
+
+    case 'yearclock':
+    case 'clock':
+    case 'radar': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'amber') as VisualizationTheme;
+      svgContent = generateYearClockSvg(identity, { theme });
+      break;
+    }
+
+    case 'pulse':
+    case 'codingpulse':
+    case 'ekg': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'matrix') as VisualizationTheme;
+      svgContent = generateCodingPulseSvg(identity, { theme });
+      break;
+    }
+
+    case 'developerterminal':
+    case 'devterminal':
+    case 'crtshell': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'matrix') as VisualizationTheme;
+      svgContent = generateDeveloperTerminalSvg(identity, { theme });
+      break;
+    }
+
+    case 'snake':
+    case 'contributionsnake':
+    case 'arcadesnake': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'amber') as VisualizationTheme;
+      svgContent = generateContributionSnakeSvg(identity, { theme });
+      break;
+    }
+
+    case 'galaxy':
+    case 'repogalaxy':
+    case 'planets': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'cyberpunk') as VisualizationTheme;
+      svgContent = generateRepositoryGalaxySvg(identity, { theme });
+      break;
+    }
+
+    case 'dna':
+    case 'developerdna':
+    case 'helix': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'cyberpunk') as VisualizationTheme;
+      svgContent = generateDeveloperDnaSvg(identity, { theme });
+      break;
+    }
+
+    case 'constellation':
+    case 'skillconstellation':
+    case 'starmap': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'tokyonight') as VisualizationTheme;
+      svgContent = generateSkillConstellationSvg(identity, { theme });
       break;
     }
 

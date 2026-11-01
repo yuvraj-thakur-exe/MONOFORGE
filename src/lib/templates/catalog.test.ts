@@ -71,6 +71,25 @@ describe('MonoForge Comprehensive Template Library (120+ Presets)', () => {
     expect(editorial).toBeDefined();
     expect(editorial?.name).toBe('Editorial Community Lead');
     expect(editorial?.config.settings.user.name).not.toContain('Monica');
+
+    // 6. Developer Telemetry Dashboard (Simon Lecoq / lowlighter metrics)
+    const telemetry = TEMPLATES.find(t => t.id === 'forge-telemetry-dashboard');
+    expect(telemetry).toBeDefined();
+    expect(telemetry?.config.settings.user.name).not.toContain('Simon');
+    expect(telemetry?.config.settings.user.name).not.toContain('Lecoq');
+    expect(telemetry?.config.sections.some(s => s.id === 'telemetry-pagespeed')).toBe(true);
+
+    // 7. Synthwave 80s Cyber Hacker (Ravi Damor retro synthwave)
+    const synthwave = TEMPLATES.find(t => t.id === 'synthwave-outrun-coder');
+    expect(synthwave).toBeDefined();
+    expect(synthwave?.config.settings.user.name).not.toContain('Ravi');
+    expect(synthwave?.config.settings.user.name).not.toContain('Damor');
+
+    // 8. Linux Workstation & Terminal Operator (Andrew Grant ASCII neofetch)
+    const terminal = TEMPLATES.find(t => t.id === 'term-02');
+    expect(terminal).toBeDefined();
+    expect(terminal?.config.settings.user.name).not.toContain('Andrew');
+    expect(terminal?.config.settings.user.name).not.toContain('Grant');
   });
 
   it('validates configuration integrity of every template preset', () => {
@@ -89,3 +108,4 @@ describe('MonoForge Comprehensive Template Library (120+ Presets)', () => {
     }
   });
 });
+

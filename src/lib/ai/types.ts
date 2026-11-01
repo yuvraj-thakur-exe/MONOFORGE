@@ -9,7 +9,19 @@ export type AiActionType =
   | 'suggest-sections'
   | 'generate-template'
   | 'explain-telemetry'
-  | 'recommend-design';
+  | 'recommend-design'
+  | 'create'
+  | 'visual'
+  | 'animate'
+  | 'chart'
+  | 'diagram'
+  | 'banner'
+  | 'component'
+  | 'import'
+  | 'redesign'
+  | 'optimize'
+  | 'doctor'
+  | 'export';
 
 export interface AiModelOption {
   id: string;
@@ -58,6 +70,18 @@ export const AiRequestSchema = z.object({
     'generate-template',
     'explain-telemetry',
     'recommend-design',
+    'create',
+    'visual',
+    'animate',
+    'chart',
+    'diagram',
+    'banner',
+    'component',
+    'import',
+    'redesign',
+    'optimize',
+    'doctor',
+    'export',
   ]),
   prompt: z.string().min(1).max(12000),
   model: z.string().optional().default('google/gemini-2.0-flash-exp:free'),

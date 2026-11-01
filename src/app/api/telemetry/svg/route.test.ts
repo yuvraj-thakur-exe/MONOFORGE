@@ -53,5 +53,30 @@ describe('API Route: /api/telemetry/svg', () => {
     expect(text).toContain('Contributor Velocity &amp; Momentum Radar');
     expect(text).toContain('@torvalds');
   }, 15000);
+
+  it('returns valid SVG for commitcity signature visualization', async () => {
+    const req = new NextRequest('http://localhost:3000/api/telemetry/svg?plugin=commitcity&user=octocat&theme=emerald');
+    const res = await GET(req);
+
+    expect(res.status).toBe(200);
+    expect(res.headers.get('content-type')).toContain('image/svg+xml');
+    const text = await res.text();
+    expect(text).toContain('COMMIT CITY // 3D ISOMETRIC DISTRICTS');
+    expect(text).toContain('octocat');
+  });
+
+  it('returns valid SVG for river, pulse, and galaxy signature visualizations', async () => {
+    const reqRiver = new NextRequest('http://localhost:3000/api/telemetry/svg?plugin=river&user=octocat');
+    const resRiver = await GET(reqRiver);
+    expect(await resRiver.text()).toContain('COMMIT RIVER');
+
+    const reqPulse = new NextRequest('http://localhost:3000/api/telemetry/svg?plugin=pulse&user=octocat');
+    const resPulse = await GET(reqPulse);
+    expect(await resPulse.text()).toContain('CODING PULSE');
+
+    const reqGalaxy = new NextRequest('http://localhost:3000/api/telemetry/svg?plugin=galaxy&user=octocat');
+    const resGalaxy = await GET(reqGalaxy);
+    expect(await resGalaxy.text()).toContain('REPOSITORY GALAXY');
+  });
 });
 

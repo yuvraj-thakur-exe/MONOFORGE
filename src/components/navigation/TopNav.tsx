@@ -25,6 +25,7 @@ export function TopNav() {
   const pathname = usePathname();
   const isHome = pathname === '/' || pathname === '' || pathname === '/en';
   const isTemplates = Boolean(pathname?.includes('/templates'));
+  const isVisualizer = Boolean(pathname?.includes('/visualizer'));
   const isDocs = Boolean(pathname?.includes('/docs'));
   const isInfo = Boolean(pathname?.includes('/info'));
 
@@ -107,6 +108,23 @@ export function TopNav() {
               <LayoutTemplate className="w-3.5 h-3.5 text-amber-500" />
               <span className={isTemplates ? 'text-white dark:text-slate-950' : 'text-slate-800 dark:text-slate-200'}>
                 TEMPLATES
+              </span>
+            </Link>
+
+            {/* Visualizer Studio */}
+            <Link
+              href="/visualizer"
+              onClick={() => playClickSound()}
+              data-cursor-label="VISUALIZER"
+              className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
+                isVisualizer
+                  ? 'bg-slate-950 text-white dark:bg-white dark:text-slate-950 border-slate-950 dark:border-white font-black shadow-xs'
+                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <span className={isVisualizer ? 'text-white dark:text-slate-950' : 'text-slate-800 dark:text-slate-200'}>
+                VISUALIZER
               </span>
             </Link>
 
@@ -221,7 +239,25 @@ export function TopNav() {
               <span className="flex items-center gap-2">
                 <LayoutTemplate className="w-4 h-4 text-amber-500" />
                 <span className={isTemplates ? 'text-white dark:text-slate-950' : 'text-slate-800 dark:text-slate-200'}>
-                  TEMPLATES (75+)
+                  TEMPLATES (200+)
+                </span>
+              </span>
+              <ChevronRight className="w-4 h-4 text-slate-400" />
+            </Link>
+
+            <Link
+              href="/visualizer"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`flex items-center justify-between p-3 rounded-xl border font-black transition-all ${
+                isVisualizer
+                  ? 'bg-slate-950 text-white dark:bg-white dark:text-slate-950 border-slate-950 dark:border-white shadow-xs'
+                  : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700'
+              }`}
+            >
+              <span className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-amber-500" />
+                <span className={isVisualizer ? 'text-white dark:text-slate-950' : 'text-slate-800 dark:text-slate-200'}>
+                  VISUALIZER STUDIO
                 </span>
               </span>
               <ChevronRight className="w-4 h-4 text-slate-400" />
