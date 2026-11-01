@@ -1,10 +1,11 @@
-'use client';
-
+import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { TopNav } from '#/components/navigation/TopNav';
 import { TemplateGallery } from '#/components/landing/TemplateGallery';
 import { Link } from '#/i18n/navigation';
 import { MonoForgeMonkeyIcon } from '#/components/common/MonoForgeLogo';
+import { config } from '#/config';
+import { routing } from '#/i18n/routing';
 import {
   BookOpen,
   ArrowRight,
@@ -12,9 +13,98 @@ import {
   Cpu,
 } from 'lucide-react';
 
-export default function TemplatesPage() {
+type TemplatesPageProps = {
+  params: Promise<{ locale: string }>;
+};
+
+export async function generateMetadata({ params }: TemplatesPageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = config.general.urls.app;
+
+  const languages: Record<string, string> = {
+    'x-default': `${baseUrl}/en/templates`,
+  };
+  for (const loc of routing.locales) {
+    languages[loc] = `${baseUrl}/${loc}/templates`;
+  }
+
+  const title = '75+ GitHub Profile README Templates & Curated Archetypes | MonoForge';
+  const description =
+    'Browse 75+ production-ready developer profile README templates. 100% GitHub Camo-safe, zero JavaScript, pure CSS 60fps animations, 3D isometric commit skylines, bento grids, and live telemetry widgets.';
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${baseUrl}/${locale}/templates`,
+      languages,
+    },
+    openGraph: {
+      type: 'website',
+      title,
+      description,
+      url: `${baseUrl}/${locale}/templates`,
+      siteName: 'MONOFORGE',
+      images: [
+        {
+          url: `${baseUrl}/api/og?title=75%2B%20Curated%20GitHub%20Profile%20Templates`,
+          width: 1200,
+          height: 630,
+          alt: 'MonoForge 75+ Curated Profile Archetypes',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`${baseUrl}/api/og?title=75%2B%20Curated%20GitHub%20Profile%20Templates`],
+      creator: '@yuvrajthakur',
+      site: '@monoforge',
+    },
+    other: {
+      'ai:ready': 'true',
+      'ai:model-context': `${baseUrl}/llms.txt`,
+      'ai:agent-skill': `${baseUrl}/.agents/skills/monoforge/SKILL.md`,
+      'ai:capability': 'github-profile-templates, camo-safe-svg, 60fps-animation, telemetry-bento, dynamic-isometric-skyline',
+    },
+  };
+}
+
+export default async function TemplatesPage({ params }: TemplatesPageProps) {
+  const { locale } = await params;
+  const baseUrl = config.general.urls.app;
+
   return (
     <div className="min-h-screen bg-[#fafbfc] dark:bg-[#1e293b]/40 text-slate-900 dark:text-slate-100 font-sans selection:bg-[#ffe600] selection:text-slate-950 flex flex-col transition-colors duration-200">
+      {/* Schema.org CollectionPage & ItemList Structured Data for AI & Search Console */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            '@id': `${baseUrl}/${locale}/templates#webpage`,
+            url: `${baseUrl}/${locale}/templates`,
+            name: 'Curated GitHub Profile README Templates & Archetypes',
+            description:
+              'Browse 75+ production-ready developer profile README templates. 100% GitHub Camo-safe, zero JavaScript, pure CSS 60fps animations, 3D isometric commit skylines, bento grids, and live telemetry widgets.',
+            isPartOf: {
+              '@type': 'WebSite',
+              '@id': `${baseUrl}/#website`,
+              name: 'MonoForge',
+              url: baseUrl,
+            },
+            about: {
+              '@type': 'SoftwareApplication',
+              name: 'MonoForge Template Catalog',
+              applicationCategory: 'DeveloperApplication',
+              operatingSystem: 'All',
+            },
+          }),
+        }}
+      />
+
       <TopNav />
 
       {/* Hero Showcase Section */}
@@ -44,7 +134,7 @@ export default function TemplatesPage() {
                 href="/docs"
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-950 dark:text-white font-bold border-2 border-slate-300 dark:border-slate-600 shadow-[2px_2px_0px_#334155] btn-tactile transition-all"
               >
-                <BookOpen className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <BookOpen className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
                 <span>DOCUMENTATION</span>
               </Link>
 
@@ -61,19 +151,19 @@ export default function TemplatesPage() {
           {/* Feature Badges Strip */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 font-mono text-xs font-bold text-slate-800 dark:text-slate-200">
             <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border-2 border-slate-300 dark:border-slate-700 flex items-center gap-2.5 shadow-2xs">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <ShieldCheck className="w-4 h-4 text-emerald-700 dark:text-emerald-400 shrink-0" />
               <span>100% Camo Safe (0 &lt;script&gt;)</span>
             </div>
             <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border-2 border-slate-300 dark:border-slate-700 flex items-center gap-2.5 shadow-2xs">
-              <Cpu className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+              <Cpu className="w-4 h-4 text-blue-700 dark:text-blue-400 shrink-0" />
               <span>Pure CSS @keyframes</span>
             </div>
             <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border-2 border-slate-300 dark:border-slate-700 flex items-center gap-2.5 shadow-2xs">
-              <span className="text-amber-500 font-black">#</span>
+              <span className="text-amber-700 dark:text-amber-400 font-black">#</span>
               <span>75+ Tested Archetypes</span>
             </div>
             <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border-2 border-slate-300 dark:border-slate-700 flex items-center gap-2.5 shadow-2xs">
-              <span className="text-emerald-500 font-black">●</span>
+              <span className="text-emerald-700 dark:text-emerald-400 font-black">●</span>
               <span>Zero Tracking Harvesters</span>
             </div>
           </div>

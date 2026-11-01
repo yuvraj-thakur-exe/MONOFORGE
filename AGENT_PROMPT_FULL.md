@@ -1,17 +1,17 @@
-# ReadmeForge Implementation Plan & Rebranding Execution
+# MonoForge Implementation Plan & Rebranding Execution
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build and ship **ReadmeForge** ("Forge a GitHub profile that gets noticed.") — a product-grade developer platform targeting 3k+ GitHub stars with an anvil/flame violet→cyan aesthetic, unified Zustand store, pure markdown engine, typed plugin registry wrapping top OSS profile tools, dynamic landing page, `/developer` Monaco IDE route, confirmation-gated resume/web enrichment, and direct GitHub sync.
+**Goal:** Build and ship **MonoForge** ("Forge a GitHub profile that gets noticed.") — a product-grade developer platform targeting 3k+ GitHub stars with an anvil/flame violet→cyan aesthetic, unified Zustand store, pure markdown engine, typed plugin registry wrapping top OSS profile tools, dynamic landing page, `/developer` Monaco IDE route, confirmation-gated resume/web enrichment, and direct GitHub sync.
 
 **Architecture:** A single source of truth Zustand store (`src/store/useReadmeStore.ts`) synchronizes both the interactive visual wizard and the raw Monaco-based `/developer` workspace. Markdown generation is isolated into a pure, deterministic `src/lib/buildMarkdown.ts` pipeline validated by strict Zod schemas and Effect-TS typed failure boundaries. Top external open-source profile tools (`github-readme-stats`, `snk`, `readme-typing-svg`, `waka-readme-stats`, `github-profile-trophy`, `markdown-badges`, `portfolio-contributions`, `visitor-counter`) are wrapped as modular, typed plugins within `src/lib/plugins/registry.ts`. Vector artwork and motion graphics leverage curated design patterns from Simple Icons (3,200+ brand SVGs), thesvg (generative wave dividers, cyber grids, glassmorphism), and awesome-web-animation (60fps GPU compositor acceleration and vestibular a11y). All resume/web-enrichment data passes through an explicit confirmation gate (`ConfirmGate.tsx`), and all GitHub repository writes require a diff preview (`DiffPreview.tsx`).
 
 **Tech Stack:** Next.js 16 (Turbopack, App Router), TypeScript 5.8, Tailwind CSS v4, Lucide React, Zustand, Zod, Monaco Editor, Shiki, React Hook Form, Framer Motion, @formkit/auto-animate, react-tsparticles, tsparticles-slim, react-rough-notation, react-type-animation, react-scroll-parallax, canvas-confetti, vaul, cmdk, next-themes, next-intl, html-to-image, pdf-parse, mammoth, octokit, next-auth, diff, react-diff-viewer-continued, Biome, Vitest, Playwright. Integrated with Simple Icons, thesvg, awesome-web-animation, and Effect-TS paradigms.
 
-**Spec:** In-chat PROJECT: ReadmeForge Brief, `AGENTS.md`, and `REBRAND_CHECKLIST.md`.
+**Spec:** In-chat PROJECT: MonoForge Brief, `AGENTS.md`, and `REBRAND_CHECKLIST.md`.
 
 ## Global Constraints
-- **Branding Consistency**: Use "ReadmeForge" across `package.json`, page `<title>`, OG images, headers, favicon, landing hero, and repo README. Tagline: *"Forge a GitHub profile that gets noticed."* Visual mark: Flame/Hammer with gradient violet→cyan (`from-violet-500 to-cyan-400`).
+- **Branding Consistency**: Use "MonoForge" across `package.json`, page `<title>`, OG images, headers, favicon, landing hero, and repo README. Tagline: *"Forge a GitHub profile that gets noticed."* Visual mark: Flame/Hammer with gradient violet→cyan (`from-violet-500 to-cyan-400`).
 - **Complete Rebranding Sweep**: Strip all legacy strings (`maurodesouza`, `profile-readme-generator`, `Mauro de Souza`, old domain `profile-readme-generator.com`) from metadata, templates, footer, and config per `REBRAND_CHECKLIST.md`.
 - **Single Source of Truth**: State is maintained exclusively in `useReadmeStore`; never duplicate or de-sync state between visual wizard and `/developer`.
 - **Pure Markdown Engine**: `buildMarkdown(config)` must remain 100% pure without React or DOM dependencies, verified via unit tests.
@@ -34,8 +34,8 @@
 **Reference Checklist:** `REBRAND_CHECKLIST.md` in repository root.
 
 **Completed Files:**
-- `package.json` (name: `readmeforge`, license, author, URLs)
-- `LICENSE.md` (fresh MIT license, 2026 ReadmeForge Contributors)
+- `package.json` (name: `MonoForge`, license, author, URLs)
+- `LICENSE.md` (fresh MIT license, 2026 MonoForge Contributors)
 - `THIRD_PARTY_LICENSES.md` (upstream MIT attributions)
 - `.env.example`
 - `CHANGELOG.md` (v0.1.0)
@@ -48,17 +48,17 @@
 - `src/components/molecules/page-footer/index.tsx`
 
 **Residual Rebrand Cleanup Steps:**
-- [x] **Step 1: Replace `LICENSE.md` with fresh MIT license for ReadmeForge (Current Year & ReadmeForge Authors)**
+- [x] **Step 1: Replace `LICENSE.md` with fresh MIT license for MonoForge (Current Year & MonoForge Authors)**
 - [x] **Step 2: Create `THIRD_PARTY_LICENSES.md` documenting open-source references and upstream notice**
-- [x] **Step 3: Update `package.json` fields (repository, bugs, homepage, author) to ReadmeForge**
-- [x] **Step 4: Update metadata, title, and openGraph in `src/app/[locale]/layout.tsx` to ReadmeForge**
-- [x] **Step 5: Clean `PageFooter` and `ResultTemplate` to reference ReadmeForge repositories and branding**
+- [x] **Step 3: Update `package.json` fields (repository, bugs, homepage, author) to MonoForge**
+- [x] **Step 4: Update metadata, title, and openGraph in `src/app/[locale]/layout.tsx` to MonoForge**
+- [x] **Step 5: Clean `PageFooter` and `ResultTemplate` to reference MonoForge repositories and branding**
 - [x] **Step 6: Create `.github/` issue templates, PR template, Code of Conduct, and Contributing guide**
 - [x] **Step 7: Create `.env.example` and `CHANGELOG.md` starting at `v0.1.0`**
-- [x] **Step 8: Generate ReadmeForge brand SVG assets (`logo.svg`)**
+- [x] **Step 8: Generate MonoForge brand SVG assets (`logo.svg`)**
 - [ ] **Step 9: Generate `public/favicon.ico` and `public/og-image.png` assets**
 - [ ] **Step 10: Clean residual legacy strings in `public/manifest.json`, `public/ads.txt`, `src/translations/en.json`, `src/translations/pt-BR.json`, `src/config/general/index.ts`, `src/resources/templates.ts`, and local asset paths in `snake` and `pacman` sections**
-- [ ] **Step 11: Replace root `README.md` with ReadmeForge high-traction README (shields.io badges, anvil/spark logo, feature matrix, plugin showcase)**
+- [ ] **Step 11: Replace root `README.md` with MonoForge high-traction README (shields.io badges, anvil/spark logo, feature matrix, plugin showcase)**
 - [ ] **Step 12: Run final grep verification to ensure all legacy strings are eliminated**
 
 ---
@@ -168,7 +168,7 @@
 
 ---
 
-### Task 8: ReadmeForge Landing Page & Curated Template Gallery (§7 Step 7)
+### Task 8: MonoForge Landing Page & Curated Template Gallery (§7 Step 7)
 **Files:**
 - Create: `src/components/landing/HeroSection.tsx`
 - Create: `src/components/landing/ParticleBackground.tsx`
@@ -182,13 +182,13 @@
 - Produces: High-converting landing page with animated hero, particle effect, parallax showcase, and 10+ starter templates with 1-click apply.
 
 - [ ] **Step 1: Build `ParticleBackground.tsx` using `react-tsparticles` and `tsparticles-slim`**
-- [ ] **Step 2: Build `HeroSection.tsx` with ReadmeForge flame mark, typewriter headline, and call to action**
+- [ ] **Step 2: Build `HeroSection.tsx` with MonoForge flame mark, typewriter headline, and call to action**
 - [ ] **Step 3: Build `TemplateGallery.tsx` displaying 10+ categorized templates (minimalist, terminal, gamer, academic, data dashboard) with 1-click apply**
 - [ ] **Step 4: Implement dynamic Open Graph image generation in `src/app/api/og/route.tsx`**
 - [ ] **Step 5: Commit landing page**
   ```bash
   git add src/components/landing/ src/app/api/og/
-  git commit -m "feat(landing): build ReadmeForge landing page with particles, typewriter hero, and template gallery"
+  git commit -m "feat(landing): build MonoForge landing page with particles, typewriter hero, and template gallery"
   ```
 
 ---
@@ -275,15 +275,15 @@
 
 **Interfaces:**
 - Consumes: `next-intl`
-- Produces: Complete bilingual dictionary for ReadmeForge wizard, `/developer`, landing page, template gallery, and sync modals.
+- Produces: Complete bilingual dictionary for MonoForge wizard, `/developer`, landing page, template gallery, and sync modals.
 
 - [ ] **Step 1: Audit all newly introduced UI strings across wizard, developer, landing, and sync**
-- [ ] **Step 2: Add matching translation keys to `en.json` and `pt.json` with ReadmeForge branding**
+- [ ] **Step 2: Add matching translation keys to `en.json` and `pt.json` with MonoForge branding**
 - [ ] **Step 3: Verify locale routing across `/en` and `/pt`**
 - [ ] **Step 4: Commit i18n pass**
   ```bash
   git add src/translations/ src/i18n/
-  git commit -m "feat(i18n): complete EN and PT localization dictionary for ReadmeForge"
+  git commit -m "feat(i18n): complete EN and PT localization dictionary for MonoForge"
   ```
 
 ---
@@ -320,7 +320,7 @@
 **Interfaces:**
 - Produces: 3k-star caliber documentation: badge suite, demo GIF placeholder, architecture overview, plugin authoring tutorial, 1-click Vercel deploy button, working Docker build.
 
-- [ ] **Step 1: Craft high-traction `README.md` titled "ReadmeForge"**
+- [ ] **Step 1: Craft high-traction `README.md` titled "MonoForge"**
   Include flame/anvil branding, dynamic badges, feature highlights, comparison table, quick start, plugin showcase, and Vercel one-click deploy button.
 - [ ] **Step 2: Write `docs/PLUGIN_GUIDE.md` with step-by-step instructions for contributors to create new badge/widget plugins**
 - [ ] **Step 3: Verify Dockerfile builds cleanly**
@@ -329,5 +329,5 @@
 - [ ] **Step 5: Commit final documentation and deployment assets**
   ```bash
   git add README.md docs/ Dockerfile
-  git commit -m "docs: finalize ReadmeForge 3k-star readme, plugin guide, contributing guide, and deploy configs"
+  git commit -m "docs: finalize MonoForge 3k-star readme, plugin guide, contributing guide, and deploy configs"
   ```

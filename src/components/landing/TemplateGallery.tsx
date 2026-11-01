@@ -91,6 +91,81 @@ const TEMPLATE_PREVIEWS: Record<string, string> = {
   'isometric-polyglot': '/assets/isometric-terminal.svg',
 };
 
+function renderProceduralPreview(tmpl: TemplateItem) {
+  const accent = tmpl.accent || '#ffe600';
+  const gh = tmpl.config.settings.user.github || 'developer';
+  const role = tmpl.config.settings.user.role || 'Software Craftsman';
+  const initial = (tmpl.config.settings.user.name?.[0] || gh?.[0] || 'D').toUpperCase();
+
+  return (
+    <div
+      className="w-full h-40 p-3 rounded-lg border-2 border-slate-900 dark:border-slate-700 flex flex-col justify-between overflow-hidden relative shadow-inner select-none transition-transform group-hover/preview:scale-[1.01]"
+      style={{
+        background: `radial-gradient(circle at 85% 15%, ${accent}30, transparent 65%), #0f172a`,
+      }}
+    >
+      {/* Top Bar with Mini Mascot / Avatar & User */}
+      <div className="flex items-center justify-between pb-1.5 border-b border-slate-700/60">
+        <div className="flex items-center gap-2">
+          <div
+            className="w-7 h-7 rounded-lg flex items-center justify-center font-black text-xs text-slate-950 border border-slate-900 shadow-2xs"
+            style={{ backgroundColor: accent }}
+          >
+            {initial}
+          </div>
+          <div className="leading-tight">
+            <span className="text-xs font-mono font-black text-white block truncate max-w-[150px]">
+              @{gh}
+            </span>
+            <span className="text-[10px] font-mono font-bold text-slate-300 block truncate max-w-[150px]">
+              {role}
+            </span>
+          </div>
+        </div>
+
+        <span
+          className="text-[9px] font-mono font-black px-2 py-0.5 rounded-md border border-slate-900 shadow-2xs"
+          style={{ backgroundColor: accent, color: '#0f172a' }}
+        >
+          {tmpl.category}
+        </span>
+      </div>
+
+      {/* Simulated Bento / Metric Badges */}
+      <div className="grid grid-cols-3 gap-1.5 py-1">
+        <div className="p-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 text-center">
+          <span className="text-[8px] font-mono text-slate-400 uppercase block font-bold">COMMITS</span>
+          <span className="text-xs font-mono font-black text-emerald-400">2,840+</span>
+        </div>
+        <div className="p-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 text-center">
+          <span className="text-[8px] font-mono text-slate-400 uppercase block font-bold">STREAK</span>
+          <span className="text-xs font-mono font-black flex items-center justify-center gap-0.5" style={{ color: accent }}>
+            🔥 42d
+          </span>
+        </div>
+        <div className="p-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 text-center">
+          <span className="text-[8px] font-mono text-slate-400 uppercase block font-bold">GLOBAL</span>
+          <span className="text-xs font-mono font-black text-cyan-400">Top 1%</span>
+        </div>
+      </div>
+
+      {/* Activity Wave Line Strip */}
+      <div className="flex items-end gap-1 h-5 px-1.5 pt-1 bg-slate-950/90 rounded-md border border-slate-800">
+        {[25, 45, 80, 40, 100, 65, 30, 90, 75, 50, 85, 95, 60, 70, 85, 100].map((h, i) => (
+          <div
+            key={i}
+            className="flex-1 rounded-t-xs"
+            style={{
+              height: `${h}%`,
+              backgroundColor: i % 2 === 0 ? accent : '#10b981',
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function renderModuleVisual(
   sec: { id: string; type: string; props?: Record<string, any> },
   isCentered: boolean = false,
@@ -101,28 +176,28 @@ function renderModuleVisual(
     case 'snk':
       return (
         <div
-          className={`p-4 sm:p-5 rounded-2xl bg-white border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] space-y-3 ${
+          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${
             isCentered ? 'text-center' : 'text-left'
           }`}
         >
           <div
-            className={`flex items-center justify-between text-xs font-mono font-bold text-neutral-950 ${
+            className={`flex items-center justify-between text-xs font-mono font-bold text-slate-900 dark:text-white ${
               isCentered ? 'flex-col sm:flex-row gap-2' : ''
             }`}
           >
             <span className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="font-mono text-xs font-black uppercase tracking-wider text-neutral-950">
+              <span className="font-mono text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white">
                 github contribution grid snake animation
               </span>
             </span>
-            <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-emerald-400 text-neutral-950 border border-neutral-900 font-black shadow-2xs">
+            <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-emerald-400 text-slate-950 border border-slate-900 font-black shadow-2xs">
               ● 60FPS CAMO SAFE
             </span>
           </div>
 
           {/* Snake Grid Graphic */}
-          <div className="rounded-xl bg-neutral-950 p-3 sm:p-4 border-2 border-neutral-900 overflow-x-auto shadow-inner">
+          <div className="rounded-xl bg-slate-950 p-3 sm:p-4 border-2 border-slate-800 overflow-x-auto shadow-inner">
             <div className={`flex items-center justify-between gap-4 min-w-[320px] ${isCentered ? 'mx-auto' : ''}`}>
               <div className="flex gap-1.5">
                 {[...Array(18)].map((_, col) => (
@@ -169,7 +244,7 @@ function renderModuleVisual(
                           title={`Col ${col}, Row ${row}`}
                         >
                           {isSnakeHead && (
-                            <span className="absolute inset-0 flex items-center justify-center text-[7px] text-neutral-950 font-black">
+                            <span className="absolute inset-0 flex items-center justify-center text-[7px] text-slate-950 font-black">
                               ••
                             </span>
                           )}
@@ -183,7 +258,7 @@ function renderModuleVisual(
                 <span className="text-xs font-mono font-black text-[#ffe600] block">
                   🐍 eating commits
                 </span>
-                <span className="text-[10px] font-mono text-neutral-400 block">
+                <span className="text-[10px] font-mono text-slate-400 block">
                   60fps Camo CDN Loop
                 </span>
               </div>
@@ -195,20 +270,20 @@ function renderModuleVisual(
     case 'pie-chart':
       return (
         <div
-          className={`p-4 sm:p-5 rounded-2xl bg-white border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] space-y-3 ${
+          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${
             isCentered ? 'text-center' : 'text-left'
           }`}
         >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-1 border-b border-neutral-200">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-1 border-b border-slate-200 dark:border-slate-700">
             <div>
-              <h5 className="font-mono text-xs font-black uppercase tracking-wider text-neutral-950">
+              <h5 className="font-mono text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white">
                 Top Languages Breakdown
               </h5>
-              <p className="text-[11px] font-mono text-neutral-600 font-bold">
+              <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400 font-bold">
                 {username}&apos;s Language Donut Chart
               </p>
             </div>
-            <span className="self-start sm:self-auto text-[10px] px-2.5 py-0.5 rounded-lg bg-cyan-100 text-cyan-950 border border-neutral-900 font-black shadow-2xs">
+            <span className="self-start sm:self-auto text-[10px] px-2.5 py-0.5 rounded-lg bg-cyan-100 dark:bg-cyan-950/60 text-cyan-950 dark:text-cyan-300 border border-slate-900 dark:border-cyan-700 font-black shadow-2xs">
               DONUT CHART
             </span>
           </div>
@@ -217,7 +292,7 @@ function renderModuleVisual(
             {/* Donut SVG */}
             <div className="relative w-16 h-16 shrink-0">
               <svg viewBox="0 0 36 36" className="w-16 h-16 transform -rotate-90">
-                <circle cx="18" cy="18" r="14" fill="none" stroke="#f4f4f5" strokeWidth="4.5" />
+                <circle cx="18" cy="18" r="14" fill="none" stroke="#e2e8f0" strokeWidth="4.5" />
                 <circle
                   cx="18"
                   cy="18"
@@ -249,24 +324,24 @@ function renderModuleVisual(
                   strokeDashoffset="-72"
                 />
               </svg>
-              <div className="absolute inset-0 flex items-center justify-center font-mono text-[10px] font-black text-neutral-950">
+              <div className="absolute inset-0 flex items-center justify-center font-mono text-[10px] font-black text-slate-900 dark:text-white">
                 100%
               </div>
             </div>
 
             {/* Language Breakdown Pills */}
             <div className="flex flex-wrap gap-2 text-xs font-mono">
-              <span className="px-2.5 py-1 rounded-xl bg-white border-2 border-neutral-900 shadow-2xs font-bold text-neutral-950 flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#3178c6] border border-neutral-900" />
-                TypeScript <b className="text-neutral-950 font-black">58.4%</b>
+              <span className="px-2.5 py-1 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 shadow-2xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#3178c6] border border-slate-900" />
+                TypeScript <b className="text-slate-950 dark:text-white font-black">58.4%</b>
               </span>
-              <span className="px-2.5 py-1 rounded-xl bg-white border-2 border-neutral-900 shadow-2xs font-bold text-neutral-950 flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#dea584] border border-neutral-900" />
-                Rust <b className="text-neutral-950 font-black">23.6%</b>
+              <span className="px-2.5 py-1 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 shadow-2xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#dea584] border border-slate-900" />
+                Rust <b className="text-slate-950 dark:text-white font-black">23.6%</b>
               </span>
-              <span className="px-2.5 py-1 rounded-xl bg-white border-2 border-neutral-900 shadow-2xs font-bold text-neutral-950 flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#ec4899] border border-neutral-900" />
-                WebGL / GLSL <b className="text-neutral-950 font-black">18.0%</b>
+              <span className="px-2.5 py-1 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 shadow-2xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#ec4899] border border-slate-900" />
+                WebGL / GLSL <b className="text-slate-950 dark:text-white font-black">18.0%</b>
               </span>
             </div>
           </div>
@@ -276,35 +351,35 @@ function renderModuleVisual(
     case 'activity-graph':
       return (
         <div
-          className={`p-4 sm:p-5 rounded-2xl bg-white border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] space-y-3 ${
+          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${
             isCentered ? 'text-center' : 'text-left'
           }`}
         >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-1 border-b border-neutral-200">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-1 border-b border-slate-200 dark:border-slate-700">
             <div>
-              <h5 className="font-mono text-xs font-black uppercase tracking-wider text-neutral-950">
+              <h5 className="font-mono text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white">
                 Annual Contribution Activity
               </h5>
-              <p className="text-[11px] font-mono text-neutral-600 font-bold">
+              <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400 font-bold">
                 {username}&apos;s Contribution Activity Graph
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-[#ffe600] text-neutral-950 border border-neutral-900 font-black shadow-2xs">
+              <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-[#ffe600] text-slate-950 border border-slate-900 font-black shadow-2xs">
                 🔥 42 DAYS STREAK
               </span>
-              <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-emerald-100 text-emerald-950 border border-neutral-900 font-bold">
+              <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-emerald-100 dark:bg-emerald-950/60 text-emerald-950 dark:text-emerald-300 border border-slate-900 dark:border-emerald-700 font-bold">
                 2,847 COMMITS
               </span>
             </div>
           </div>
 
           {/* Activity Graph Wave Bars */}
-          <div className="h-16 flex items-end gap-1.5 pt-2 px-1 rounded-xl bg-neutral-50 border border-neutral-200">
+          <div className="h-16 flex items-end gap-1.5 pt-2 px-1 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
             {[35, 60, 25, 80, 95, 55, 40, 75, 100, 68, 88, 48, 72, 85, 92, 64].map((h, i) => (
               <div
                 key={i}
-                className="flex-1 rounded-t-xs border border-neutral-900 transition-all hover:opacity-80"
+                className="flex-1 rounded-t-xs border border-slate-900 dark:border-slate-700 transition-all hover:opacity-80"
                 style={{
                   height: `${h}%`,
                   backgroundColor: i % 3 === 0 ? (accentColor || '#ec4899') : '#ffe600',
@@ -319,15 +394,15 @@ function renderModuleVisual(
     case 'github-profile-trophy':
       return (
         <div
-          className={`p-4 sm:p-5 rounded-2xl bg-white border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] space-y-3 ${
+          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${
             isCentered ? 'text-center' : 'text-left'
           }`}
         >
-          <div className="flex items-center justify-between text-xs font-mono font-bold text-neutral-950">
+          <div className="flex items-center justify-between text-xs font-mono font-bold text-slate-900 dark:text-white">
             <span className="font-mono text-xs font-black uppercase tracking-wider">
               🏆 GitHub Achievements &amp; Trophies
             </span>
-            <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-amber-100 text-amber-950 border border-neutral-900 font-black">
+            <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-amber-100 dark:bg-amber-950/60 text-amber-950 dark:text-amber-300 border border-slate-900 dark:border-amber-700 font-black">
               RANK AAA
             </span>
           </div>
@@ -340,11 +415,11 @@ function renderModuleVisual(
             ].map((trophy, i) => (
               <span
                 key={i}
-                className="px-3 py-1.5 rounded-xl bg-neutral-50 border-2 border-neutral-900 text-xs font-mono font-black text-neutral-950 shadow-2xs whitespace-nowrap flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 text-xs font-mono font-black text-slate-900 dark:text-white shadow-2xs whitespace-nowrap flex items-center gap-1.5"
               >
                 <span>{trophy.icon}</span>
                 <span>{trophy.label}</span>
-                <span className="text-[9px] px-1 rounded bg-[#ffe600] text-neutral-950 ml-1">
+                <span className="text-[9px] px-1 rounded bg-[#ffe600] text-slate-950 ml-1">
                   {trophy.rank}
                 </span>
               </span>
@@ -356,46 +431,46 @@ function renderModuleVisual(
     case 'github-readme-stats':
       return (
         <div
-          className={`p-4 sm:p-5 rounded-2xl bg-white border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] space-y-3 ${
+          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${
             isCentered ? 'text-center' : 'text-left'
           }`}
         >
-          <div className="flex items-center justify-between text-xs font-mono font-bold text-neutral-950">
+          <div className="flex items-center justify-between text-xs font-mono font-bold text-slate-900 dark:text-white">
             <span className="font-mono text-xs font-black uppercase tracking-wider">
               📊 Verified GitHub Statistics
             </span>
-            <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-[#ffe600] text-neutral-950 border border-neutral-900 font-black">
+            <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-[#ffe600] text-slate-950 border border-slate-900 font-black">
               LIVE TELEMETRY
             </span>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1 font-mono text-xs">
-            <div className="p-2 rounded-xl bg-white border-2 border-neutral-900 shadow-2xs text-center">
-              <span className="text-[10px] text-neutral-600 block font-bold">TOTAL COMMITS</span>
-              <span className="font-black text-lg text-neutral-950">2,847</span>
+            <div className="p-2 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 shadow-2xs text-center">
+              <span className="text-[10px] text-slate-600 dark:text-slate-400 block font-bold">TOTAL COMMITS</span>
+              <span className="font-black text-lg text-slate-900 dark:text-white">2,847</span>
             </div>
-            <div className="p-2 rounded-xl bg-white border-2 border-neutral-900 shadow-2xs text-center">
-              <span className="text-[10px] text-neutral-600 block font-bold">PULL REQUESTS</span>
-              <span className="font-black text-lg text-amber-600">142</span>
+            <div className="p-2 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 shadow-2xs text-center">
+              <span className="text-[10px] text-slate-600 dark:text-slate-400 block font-bold">PULL REQUESTS</span>
+              <span className="font-black text-lg text-amber-600 dark:text-amber-400">142</span>
             </div>
-            <div className="p-2 rounded-xl bg-white border-2 border-neutral-900 shadow-2xs text-center">
-              <span className="text-[10px] text-neutral-600 block font-bold">STARS EARNED</span>
-              <span className="font-black text-lg text-emerald-600">890</span>
+            <div className="p-2 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 shadow-2xs text-center">
+              <span className="text-[10px] text-slate-600 dark:text-slate-400 block font-bold">STARS EARNED</span>
+              <span className="font-black text-lg text-emerald-600 dark:text-emerald-400">890</span>
             </div>
-            <div className="p-2 rounded-xl bg-white border-2 border-neutral-900 shadow-2xs text-center">
-              <span className="text-[10px] text-neutral-600 block font-bold">REPOSITORIES</span>
-              <span className="font-black text-lg text-cyan-600">38</span>
+            <div className="p-2 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 shadow-2xs text-center">
+              <span className="text-[10px] text-slate-600 dark:text-slate-400 block font-bold">REPOSITORIES</span>
+              <span className="font-black text-lg text-cyan-600 dark:text-cyan-400">38</span>
             </div>
           </div>
         </div>
       );
     default:
       return (
-        <div className="p-4 rounded-xl bg-white border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[2px_2px_0px_#334155] flex items-center justify-between">
           <div className="space-y-0.5">
-            <span className="font-mono text-xs font-black text-neutral-950 uppercase">{sec.type}</span>
-            <p className="text-[10px] text-neutral-600 font-mono">Module ID: {sec.id}</p>
+            <span className="font-mono text-xs font-black text-slate-900 dark:text-white uppercase">{sec.type}</span>
+            <p className="text-[10px] text-slate-600 dark:text-slate-400 font-mono">Module ID: {sec.id}</p>
           </div>
-          <span className="text-[10px] px-2 py-0.5 rounded bg-neutral-100 text-neutral-800 border border-neutral-300 font-mono font-bold">
+          <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 font-mono font-bold">
             Configured
           </span>
         </div>
@@ -453,6 +528,8 @@ export const TemplateGallery: React.FC = () => {
     return ['all', ...Array.from(set)];
   }, []);
 
+  const [visibleCount, setVisibleCount] = useState<number>(36);
+
   const filtered = useMemo(() => {
     return TEMPLATES.filter(tmpl => {
       const matchesCat = activeCategory === 'all' || tmpl.category === activeCategory;
@@ -469,14 +546,24 @@ export const TemplateGallery: React.FC = () => {
     });
   }, [activeCategory, searchQuery]);
 
+  // Reset pagination when category or search changes
+  useEffect(() => {
+    setVisibleCount(36);
+  }, [activeCategory, searchQuery]);
+
+  const displayedTemplates = useMemo(() => {
+    return filtered.slice(0, visibleCount);
+  }, [filtered, visibleCount]);
+
   // Copy AI prompt to clipboard with tactile confetti
-  const handleCopyPrompt = (template: TemplateItem) => {
+  const handleCopyPrompt = async (template: TemplateItem) => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
       navigator.clipboard.writeText(template.prompt);
       setCopiedPromptId(template.id);
       showToast(`AI prompt for "${template.name}" copied to clipboard!`);
 
       try {
+        const { default: confetti } = await import('canvas-confetti');
         confetti({
           particleCount: 22,
           spread: 55,
@@ -649,12 +736,14 @@ export const TemplateGallery: React.FC = () => {
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Search by archetype, stack, or keyword..."
+              aria-label="Search archetypes by name, category, or tech stack"
               className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-slate-950 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-hidden focus:border-[#ffe600] shadow-[2px_2px_0px_#334155] transition-all"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
+                aria-label="Clear search query"
                 className="absolute right-3 text-slate-500 hover:text-slate-900 dark:hover:text-white p-1"
               >
                 <X className="w-3.5 h-3.5" />
@@ -696,131 +785,188 @@ export const TemplateGallery: React.FC = () => {
         })}
       </div>
 
+      {/* Archetypes Count & Active Filter Indicator */}
+      <div className="flex items-center justify-between text-xs font-mono text-slate-600 dark:text-slate-400 px-1 pt-1">
+        <span>
+          Showing <b className="text-slate-900 dark:text-white">{displayedTemplates.length}</b> of{' '}
+          <b className="text-slate-900 dark:text-white">{filtered.length}</b> Signature Archetypes
+        </span>
+        {visibleCount < filtered.length ? (
+          <button
+            type="button"
+            onClick={() => setVisibleCount(filtered.length)}
+            className="text-amber-700 dark:text-amber-400 font-bold hover:underline cursor-pointer"
+          >
+            Show All ({filtered.length})
+          </button>
+        ) : (
+          <span className="text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-1">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" /> All Loaded
+          </span>
+        )}
+      </div>
+
       {/* Grid of Templates */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
-        {filtered.map(tmpl => {
+        {displayedTemplates.map((tmpl) => {
           const isCopied = copiedPromptId === tmpl.id;
 
           return (
             <div
               key={tmpl.id}
-              className="p-6 rounded-2xl bg-white dark:bg-slate-800/90 border-2 border-slate-300 dark:border-slate-700 shadow-[4px_4px_0px_#334155] dark:shadow-[4px_4px_0px_#475569] hover:shadow-[2px_2px_0px_#334155] hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col justify-between group"
+              className="rounded-2xl bg-white dark:bg-slate-800/90 border-2 border-slate-300 dark:border-slate-700 shadow-[4px_4px_0px_#334155] dark:shadow-[4px_4px_0px_#0f172a] hover:shadow-[2px_2px_0px_#334155] hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col justify-between overflow-hidden group"
+              style={{
+                boxShadow: `0 0 0 1px ${tmpl.accent}30, 4px 4px 0px #334155`,
+              }}
             >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700 font-bold">
-                    {tmpl.category}
-                  </span>
-                  <div className="flex items-center gap-1.5">
+              {/* Top Accent Strip */}
+              <div className="h-2 w-full shrink-0" style={{ backgroundColor: tmpl.accent }} />
+
+              <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-3">
                     <span
-                      className="w-2.5 h-2.5 rounded-full border border-slate-900 dark:border-slate-600"
-                      style={{ backgroundColor: tmpl.accent }}
-                    />
-                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">{tmpl.accent}</span>
-                  </div>
-                </div>
-
-                <h3 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors uppercase font-sans">
-                  {tmpl.name}
-                </h3>
-
-                <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 line-clamp-2 leading-relaxed font-mono">
-                  {tmpl.description}
-                </p>
-
-                {/* Visual Preview Window Box */}
-                <div
-                  onClick={() => handleOpenPreview(tmpl)}
-                  className="my-4 rounded-xl border-2 border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 p-3 hover:bg-[#fffde6] dark:hover:bg-slate-900 cursor-pointer transition-all group/preview relative overflow-hidden shadow-2xs"
-                >
-                  <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-200 dark:border-slate-700">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-red-400 border border-slate-900" />
-                      <span className="w-2 h-2 rounded-full bg-[#ffe600] border border-slate-900" />
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 border border-slate-900" />
-                      <span className="ml-1 text-[10px] font-mono text-slate-600 dark:text-slate-400 font-bold">
-                        {tmpl.config.settings.user.github || 'developer'} / README.md
+                      className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-lg font-black border shadow-2xs"
+                      style={{
+                        backgroundColor: `${tmpl.accent}18`,
+                        color: tmpl.accent,
+                        borderColor: `${tmpl.accent}60`,
+                      }}
+                    >
+                      {tmpl.category}
+                    </span>
+                    <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700">
+                      <span
+                        className="w-2.5 h-2.5 rounded-full shadow-xs"
+                        style={{ backgroundColor: tmpl.accent }}
+                      />
+                      <span className="text-[10px] font-mono font-black text-slate-800 dark:text-slate-200 uppercase">
+                        {tmpl.accent}
                       </span>
                     </div>
-                    <span className="text-[10px] font-mono text-slate-950 font-black flex items-center gap-1 bg-[#ffe600] px-1.5 py-0.5 rounded border border-slate-900 shadow-2xs">
-                      <Eye className="w-3 h-3" /> Preview
-                    </span>
                   </div>
 
-                  {TEMPLATE_PREVIEWS[tmpl.id] ? (
-                    <div className="relative rounded-lg overflow-hidden border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 max-h-48 group-hover/preview:scale-[1.01] transition-transform">
-                      <img
-                        src={TEMPLATE_PREVIEWS[tmpl.id]}
-                        alt={`${tmpl.name} Visual Preview`}
-                        className="w-full h-40 object-cover object-top"
-                        loading="lazy"
-                      />
-                    </div>
-                  ) : (
-                    <div className="space-y-2 p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 font-mono">
-                      <div className="flex items-center gap-2">
-                        <div
-                          className="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs border border-slate-900 shadow-2xs"
-                          style={{
-                            backgroundColor: tmpl.accent,
-                            color: '#ffffff',
-                          }}
-                        >
-                          {tmpl.config.settings.user.name?.[0] || 'D'}
-                        </div>
-                        <div className="overflow-hidden flex-1">
-                          <p className="text-xs font-bold text-slate-900 dark:text-white truncate">
-                            {tmpl.config.settings.user.name || 'Developer'}
-                          </p>
-                          <p className="text-[10px] text-slate-600 dark:text-slate-400 truncate">
-                            {tmpl.config.settings.user.role || 'Software Engineer'}
-                          </p>
-                        </div>
+                  <h3 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors uppercase font-sans">
+                    {tmpl.name}
+                  </h3>
+
+                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 line-clamp-2 leading-relaxed font-mono">
+                    {tmpl.description}
+                  </p>
+
+                  {/* Visual Preview Window Box */}
+                  <div
+                    onClick={() => handleOpenPreview(tmpl)}
+                    className="my-4 rounded-xl border-2 border-slate-300 dark:border-slate-700 p-3 hover:translate-y-[-2px] cursor-pointer transition-all group/preview relative overflow-hidden shadow-2xs"
+                    style={{
+                      background: `linear-gradient(180deg, ${tmpl.accent}12 0%, rgba(255,255,255,0.02) 100%)`,
+                      borderColor: `${tmpl.accent}40`,
+                    }}
+                  >
+                    <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-200 dark:border-slate-700">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full bg-red-400 border border-slate-900" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#ffe600] border border-slate-900" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 border border-slate-900" />
+                        <span className="ml-1 text-[10px] font-mono text-slate-700 dark:text-slate-300 font-bold truncate max-w-[130px]">
+                          {tmpl.config.settings.user.github || 'developer'} / README.md
+                        </span>
                       </div>
+                      <span
+                        className="text-[10px] font-mono font-black flex items-center gap-1 px-2 py-0.5 rounded border border-slate-900 shadow-2xs transition-transform group-hover/preview:scale-105"
+                        style={{ backgroundColor: tmpl.accent, color: '#0f172a' }}
+                      >
+                        <Eye className="w-3 h-3" /> Preview
+                      </span>
                     </div>
-                  )}
+
+                    {TEMPLATE_PREVIEWS[tmpl.id] ? (
+                      <div
+                        className="relative rounded-lg overflow-hidden border border-slate-300 dark:border-slate-700 max-h-48 group-hover/preview:scale-[1.01] transition-transform"
+                        style={{ backgroundColor: `${tmpl.accent}10` }}
+                      >
+                        <img
+                          src={TEMPLATE_PREVIEWS[tmpl.id]}
+                          alt={`${tmpl.name} Visual Preview`}
+                          width={400}
+                          height={160}
+                          decoding="async"
+                          className="w-full h-40 object-cover object-top"
+                          style={{ aspectRatio: '400 / 160' }}
+                        />
+                      </div>
+                    ) : (
+                      renderProceduralPreview(tmpl)
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              {/* Action Buttons */}
-              <div className="grid grid-cols-3 gap-1.5 pt-2 border-t border-slate-200 dark:border-slate-700">
-                <button
-                  type="button"
-                  onClick={() => handleCopyPrompt(tmpl)}
-                  title="Copy Archetype Spec"
-                  className={`flex items-center justify-center gap-1 px-2 py-2 rounded-xl text-[11px] font-mono font-black border-2 border-slate-900 transition-all cursor-pointer ${
-                    isCopied
-                      ? 'bg-emerald-400 text-slate-950 shadow-[1px_1px_0px_#334155]'
-                      : 'bg-[#ffe600] hover:bg-[#ffdf00] text-slate-950 shadow-[2px_2px_0px_#334155] active:translate-x-[1px] active:translate-y-[1px]'
-                  }`}
-                >
-                  {isCopied ? (
-                    <>
-                      <CheckCheck className="w-3 h-3 text-slate-950" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="w-3 h-3" />
-                      <span>Copy Spec</span>
-                    </>
-                  )}
-                </button>
+                {/* Action Buttons */}
+                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
+                  <button
+                    type="button"
+                    onClick={() => handleCopyPrompt(tmpl)}
+                    title="Copy Archetype Spec"
+                    aria-label={`Copy archetype specification for ${tmpl.name}`}
+                    className={`flex items-center justify-center gap-1 px-2 py-2 rounded-xl text-[11px] font-mono font-black border-2 border-slate-900 transition-all cursor-pointer ${
+                      isCopied
+                        ? 'bg-emerald-400 text-slate-950 shadow-[1px_1px_0px_#334155]'
+                        : 'bg-[#ffe600] hover:bg-[#ffdf00] text-slate-950 shadow-[2px_2px_0px_#334155] active:translate-x-[1px] active:translate-y-[1px]'
+                    }`}
+                  >
+                    {isCopied ? (
+                      <>
+                        <CheckCheck className="w-3 h-3 text-slate-950" />
+                        <span>Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-3 h-3" />
+                        <span>Copy Spec</span>
+                      </>
+                    )}
+                  </button>
 
-                <button
-                  type="button"
-                  onClick={() => handleOpenPreview(tmpl)}
-                  title="Preview Template & Markdown"
-                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-black bg-slate-900 dark:bg-slate-950 hover:bg-[#ffe600] dark:hover:bg-[#ffe600] text-white hover:text-slate-950 dark:hover:text-slate-950 border-2 border-slate-900 dark:border-slate-700 shadow-[2px_2px_0px_#334155] transition-all cursor-pointer btn-tactile"
-                >
-                  <Eye className="w-3.5 h-3.5" />
-                  <span>Preview</span>
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => handleOpenPreview(tmpl)}
+                    title="Preview Template & Markdown"
+                    aria-label={`Preview archetype ${tmpl.name}`}
+                    style={{ borderColor: tmpl.accent }}
+                    className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-black bg-slate-900 dark:bg-slate-950 hover:bg-[#ffe600] dark:hover:bg-[#ffe600] text-white hover:text-slate-950 dark:hover:text-slate-950 border-2 shadow-[2px_2px_0px_#334155] transition-all cursor-pointer btn-tactile"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>Preview</span>
+                  </button>
+                </div>
               </div>
             </div>
           );
         })}
       </div>
+
+      {/* Pagination / Load More Bar */}
+      {visibleCount < filtered.length && (
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-6 pb-2">
+          <button
+            type="button"
+            onClick={() => setVisibleCount(prev => Math.min(prev + 24, filtered.length))}
+            className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-mono text-xs font-bold border-2 border-slate-900 dark:border-slate-700 shadow-[3px_3px_0px_#18181b] hover:bg-[#ffe600] hover:text-slate-950 transition-all cursor-pointer btn-tactile"
+            aria-label={`Load 24 more archetypes. ${filtered.length - visibleCount} remaining`}
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+            <span>Load More Archetypes (+24) &bull; {filtered.length - visibleCount} remaining</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setVisibleCount(filtered.length)}
+            className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#ffe600] text-slate-950 font-mono text-xs font-black border-2 border-slate-900 shadow-[3px_3px_0px_#18181b] hover:bg-[#ffdf00] transition-all cursor-pointer btn-tactile"
+            aria-label={`Show all ${filtered.length} archetypes`}
+          >
+            <span>Show All {filtered.length} Archetypes</span>
+          </button>
+        </div>
+      )}
 
       {filtered.length === 0 && (
         <div className="text-center py-12 space-y-3 bg-white dark:bg-slate-800/90 border-2 border-slate-300 dark:border-slate-700 rounded-2xl p-8 shadow-xs">
@@ -845,26 +991,41 @@ export const TemplateGallery: React.FC = () => {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/70 backdrop-blur-md animate-in fade-in duration-200"
         >
-          <div className="relative w-full max-w-4xl max-h-[90vh] bg-white border-2 border-neutral-900 rounded-3xl shadow-[8px_8px_0px_#18181b] flex flex-col overflow-hidden text-neutral-950">
+          <div
+            className="relative w-full max-w-4xl max-h-[90vh] bg-white dark:bg-[#1e293b] border-2 border-slate-900 dark:border-slate-700 rounded-3xl flex flex-col overflow-hidden text-slate-900 dark:text-slate-100"
+            style={{
+              boxShadow: `0 0 0 1px ${previewTemplate.accent || '#ffe600'}40, 8px 8px 0px #18181b`,
+            }}
+          >
+            {/* Top Accent Strip */}
+            <div className="h-2.5 w-full shrink-0" style={{ backgroundColor: previewTemplate.accent || '#ffe600' }} />
+
             {/* Modal Header */}
-            <div className="flex items-center justify-between px-6 py-4 bg-white border-b-2 border-neutral-900">
+            <div className="flex items-center justify-between px-6 py-4 bg-slate-50 dark:bg-slate-900/90 border-b-2 border-slate-300 dark:border-slate-700">
               <div className="flex items-center gap-3">
                 <span
-                  className="w-3.5 h-3.5 rounded-full border border-neutral-900"
+                  className="w-4 h-4 rounded-full border border-slate-900 shadow-xs shrink-0"
                   style={{ backgroundColor: previewTemplate.accent }}
                 />
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-base font-black text-neutral-950 uppercase font-sans">
+                    <h3 className="text-base font-black text-slate-900 dark:text-white uppercase font-sans">
                       {previewTemplate.name}
                     </h3>
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs">
+                    <span
+                      className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded font-black border shadow-2xs"
+                      style={{
+                        backgroundColor: `${previewTemplate.accent}20`,
+                        color: previewTemplate.accent,
+                        borderColor: `${previewTemplate.accent}60`,
+                      }}
+                    >
                       {previewTemplate.category}
                     </span>
                   </div>
-                  <p className="text-xs text-neutral-600 font-mono line-clamp-1">{previewTemplate.description}</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 font-mono line-clamp-1">{previewTemplate.description}</p>
                 </div>
               </div>
 
@@ -875,22 +1036,24 @@ export const TemplateGallery: React.FC = () => {
                   setPreviewTemplate(null);
                   setPreviewConfig(null);
                 }}
-                className="p-1.5 rounded-xl border-2 border-neutral-900 bg-white hover:bg-[#ffe600] text-neutral-950 transition-colors shadow-2xs cursor-pointer"
+                className="p-1.5 rounded-xl border-2 border-slate-900 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-[#ffe600] dark:hover:bg-[#ffe600] text-slate-900 dark:text-slate-100 dark:hover:text-slate-950 transition-colors shadow-2xs cursor-pointer"
                 title="Close preview"
+                aria-label="Close template preview modal"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Modal Tabs Bar */}
-            <div className="flex items-center gap-2 px-6 py-2.5 bg-neutral-50 border-b-2 border-neutral-900 text-xs font-mono font-bold overflow-x-auto">
+            <div className="flex items-center gap-2 px-6 py-2.5 bg-slate-100/90 dark:bg-slate-900/80 border-b-2 border-slate-300 dark:border-slate-700 text-xs font-mono font-bold overflow-x-auto">
               <button
                 type="button"
                 onClick={() => setPreviewTab('visual')}
+                style={previewTab === 'visual' ? { backgroundColor: previewTemplate.accent || '#ffe600', color: '#0f172a' } : undefined}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 transition-all cursor-pointer ${
                   previewTab === 'visual'
-                    ? 'bg-[#ffe600] text-neutral-950 border-neutral-900 shadow-[2px_2px_0px_#18181b] font-black'
-                    : 'bg-white text-neutral-700 border-neutral-300 hover:border-neutral-900'
+                    ? 'border-slate-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b] font-black'
+                    : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-400'
                 }`}
               >
                 <Eye className="w-3.5 h-3.5" />
@@ -900,10 +1063,11 @@ export const TemplateGallery: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setPreviewTab('markdown')}
+                style={previewTab === 'markdown' ? { backgroundColor: previewTemplate.accent || '#ffe600', color: '#0f172a' } : undefined}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 transition-all cursor-pointer ${
                   previewTab === 'markdown'
-                    ? 'bg-[#ffe600] text-neutral-950 border-neutral-900 shadow-[2px_2px_0px_#18181b] font-black'
-                    : 'bg-white text-neutral-700 border-neutral-300 hover:border-neutral-900'
+                    ? 'border-slate-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b] font-black'
+                    : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-400'
                 }`}
               >
                 <Code className="w-3.5 h-3.5" />
@@ -913,10 +1077,11 @@ export const TemplateGallery: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setPreviewTab('prompt')}
+                style={previewTab === 'prompt' ? { backgroundColor: previewTemplate.accent || '#ffe600', color: '#0f172a' } : undefined}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 transition-all cursor-pointer ${
                   previewTab === 'prompt'
-                    ? 'bg-[#ffe600] text-neutral-950 border-neutral-900 shadow-[2px_2px_0px_#18181b] font-black'
-                    : 'bg-white text-neutral-700 border-neutral-300 hover:border-neutral-900'
+                    ? 'border-slate-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b] font-black'
+                    : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-400'
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5" />
@@ -926,10 +1091,11 @@ export const TemplateGallery: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setPreviewTab('plugins')}
+                style={previewTab === 'plugins' ? { backgroundColor: previewTemplate.accent || '#ffe600', color: '#0f172a' } : undefined}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 transition-all cursor-pointer ${
                   previewTab === 'plugins'
-                    ? 'bg-[#ffe600] text-neutral-950 border-neutral-900 shadow-[2px_2px_0px_#18181b] font-black'
-                    : 'bg-white text-neutral-700 border-neutral-300 hover:border-neutral-900'
+                    ? 'border-slate-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b] font-black'
+                    : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-400'
                 }`}
               >
                 <Layers className="w-3.5 h-3.5" />
@@ -938,18 +1104,18 @@ export const TemplateGallery: React.FC = () => {
             </div>
 
             {/* Modal Content Scroll Area */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-5 bg-[#fafafa]">
+            <div className="flex-1 overflow-y-auto p-6 space-y-5 bg-slate-100/70 dark:bg-[#0b1324] text-slate-900 dark:text-slate-100">
               {/* TAB 1: Visual Simulated GitHub Profile */}
               {previewTab === 'visual' && (
                 <div className="space-y-4">
-                  {/* High-Fidelity Asset Banner if available */}
-                  {TEMPLATE_PREVIEWS[previewTemplate.id] && (
-                    <div className="rounded-2xl overflow-hidden border-2 border-neutral-900 bg-white p-3 shadow-[3px_3px_0px_#18181b] space-y-2">
-                      <div className="flex items-center justify-between px-2 pt-1 pb-2 border-b border-neutral-200">
-                        <span className="text-xs font-mono text-neutral-950 font-black flex items-center gap-1.5">
+                  {/* High-Fidelity Asset Banner or Procedural Fallback */}
+                  {TEMPLATE_PREVIEWS[previewTemplate.id] ? (
+                    <div className="rounded-2xl overflow-hidden border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/90 p-3 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-2">
+                      <div className="flex items-center justify-between px-2 pt-1 pb-2 border-b border-slate-200 dark:border-slate-700">
+                        <span className="text-xs font-mono text-slate-900 dark:text-white font-black flex items-center gap-1.5">
                           <Eye className="w-3.5 h-3.5 text-amber-500" /> High-Fidelity Showcase
                         </span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-100 text-emerald-950 border border-neutral-900 font-bold">
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/60 text-emerald-950 dark:text-emerald-300 border border-slate-900 dark:border-slate-700 font-bold">
                           100% Camo Compliant
                         </span>
                       </div>
@@ -959,6 +1125,18 @@ export const TemplateGallery: React.FC = () => {
                         className="w-full h-auto object-contain rounded-lg max-h-[380px] mx-auto"
                       />
                     </div>
+                  ) : (
+                    <div className="rounded-2xl overflow-hidden border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/90 p-3 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-2">
+                      <div className="flex items-center justify-between px-2 pt-1 pb-2 border-b border-slate-200 dark:border-slate-700">
+                        <span className="text-xs font-mono text-slate-900 dark:text-white font-black flex items-center gap-1.5">
+                          <Eye className="w-3.5 h-3.5 text-amber-500" /> Dynamic Vector Archetype Showcase
+                        </span>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/60 text-emerald-950 dark:text-emerald-300 border border-slate-900 dark:border-slate-700 font-bold">
+                          Live Procedural Preview
+                        </span>
+                      </div>
+                      {renderProceduralPreview(previewTemplate)}
+                    </div>
                   )}
 
                   {/* macOS Profile Header Box */}
@@ -966,41 +1144,41 @@ export const TemplateGallery: React.FC = () => {
                     const isCentered = previewConfig.settings.align === 'center';
                     return (
                       <div
-                        className={`rounded-2xl border-2 border-neutral-900 bg-white p-6 sm:p-8 space-y-5 shadow-[4px_4px_0px_#18181b] ${
+                        className={`rounded-2xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-[#1e293b] p-6 sm:p-8 space-y-5 shadow-[4px_4px_0px_#334155] dark:shadow-[4px_4px_0px_#0f172a] ${
                           isCentered ? 'text-center' : 'text-left'
                         }`}
                       >
                         {/* macOS Window Controls Header */}
-                        <div className="flex items-center justify-between pb-3 border-b-2 border-neutral-900">
+                        <div className="flex items-center justify-between pb-3 border-b-2 border-slate-200 dark:border-slate-700">
                           <div className="flex items-center gap-2">
-                            <span className="w-3 h-3 rounded-full bg-[#ef4444] border-1.5 border-neutral-900" />
-                            <span className="w-3 h-3 rounded-full bg-[#eab308] border-1.5 border-neutral-900" />
-                            <span className="w-3 h-3 rounded-full bg-[#22c55e] border-1.5 border-neutral-900" />
-                            <span className="ml-2 font-mono text-xs font-black text-neutral-950 px-2.5 py-0.5 rounded bg-neutral-100 border border-neutral-900 shadow-2xs">
+                            <span className="w-3 h-3 rounded-full bg-[#ef4444] border border-slate-900 dark:border-slate-700" />
+                            <span className="w-3 h-3 rounded-full bg-[#eab308] border border-slate-900 dark:border-slate-700" />
+                            <span className="w-3 h-3 rounded-full bg-[#22c55e] border border-slate-900 dark:border-slate-700" />
+                            <span className="ml-2 font-mono text-xs font-black text-slate-900 dark:text-white px-2.5 py-0.5 rounded bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 shadow-2xs">
                               README.md
                             </span>
                           </div>
-                          <span className="text-[10px] font-mono font-black px-2.5 py-1 rounded-lg bg-emerald-400 text-neutral-950 border border-neutral-900 shadow-[2px_2px_0px_#18181b] flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-neutral-950 animate-pulse" />
+                          <span className="text-[10px] font-mono font-black px-2.5 py-1 rounded-lg bg-emerald-400 text-slate-950 border border-slate-900 shadow-[2px_2px_0px_#18181b] flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-slate-950 animate-pulse" />
                             <span>● 60FPS CAMO SAFE</span>
                           </span>
                         </div>
 
                         {/* Developer Heading, Role & Bio */}
                         <div className="space-y-3">
-                          <h4 className="text-3xl sm:text-4xl font-black text-neutral-950 font-sans tracking-tight">
+                          <h4 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-sans tracking-tight">
                             Hi there, I&apos;m {previewConfig.settings.user.name} 👋
                           </h4>
                           <div className={isCentered ? 'flex justify-center' : 'flex justify-start'}>
                             <span
-                              className="inline-block px-3.5 py-1.5 rounded-xl text-neutral-950 font-mono text-xs sm:text-sm font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b]"
+                              className="inline-block px-3.5 py-1.5 rounded-xl text-slate-950 font-mono text-xs sm:text-sm font-black border-2 border-slate-900 shadow-[2px_2px_0px_#18181b]"
                               style={{ backgroundColor: previewTemplate.accent || '#ffe600' }}
                             >
                               {previewConfig.settings.user.role}
                             </span>
                           </div>
                           <p
-                            className={`text-sm sm:text-base text-neutral-900 font-mono pt-1 leading-relaxed max-w-2xl ${
+                            className={`text-sm sm:text-base text-slate-700 dark:text-slate-300 font-mono pt-1 leading-relaxed max-w-2xl ${
                               isCentered ? 'mx-auto' : ''
                             }`}
                           >
@@ -1015,17 +1193,17 @@ export const TemplateGallery: React.FC = () => {
                           }`}
                         >
                           {previewConfig.settings.user.location && (
-                            <span className="px-3 py-1.5 rounded-xl bg-white text-neutral-950 border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b]">
+                            <span className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white border-2 border-slate-300 dark:border-slate-700 shadow-[2px_2px_0px_#334155] dark:shadow-[2px_2px_0px_#0f172a]">
                               📍 Based in <b>{previewConfig.settings.user.location}</b>
                             </span>
                           )}
                           {previewConfig.settings.user.status && (
-                            <span className="px-3 py-1.5 rounded-xl bg-white text-neutral-950 border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b]">
+                            <span className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white border-2 border-slate-300 dark:border-slate-700 shadow-[2px_2px_0px_#334155] dark:shadow-[2px_2px_0px_#0f172a]">
                               🔭 Currently: <b>{previewConfig.settings.user.status}</b>
                             </span>
                           )}
                           {previewConfig.settings.user.pronouns && (
-                            <span className="px-3 py-1.5 rounded-xl bg-white text-neutral-950 border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b]">
+                            <span className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white border-2 border-slate-300 dark:border-slate-700 shadow-[2px_2px_0px_#334155] dark:shadow-[2px_2px_0px_#0f172a]">
                               💬 Pronouns: <b>{previewConfig.settings.user.pronouns}</b>
                             </span>
                           )}
@@ -1036,12 +1214,12 @@ export const TemplateGallery: React.FC = () => {
 
                   {/* Plugins Simulated Cards */}
                   <div className="space-y-3">
-                    <h5 className="text-xs font-mono uppercase tracking-wider text-neutral-950 font-black">
+                    <h5 className="text-xs font-mono uppercase tracking-wider text-slate-900 dark:text-white font-black">
                       Active Telemetry Modules &amp; SVGs ({previewConfig.sections.length})
                     </h5>
 
                     {previewConfig.sections.length === 0 ? (
-                      <div className="p-6 rounded-2xl border-2 border-dashed border-neutral-900 text-center text-xs font-mono text-neutral-600 bg-white">
+                      <div className="p-6 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 text-center text-xs font-mono text-slate-600 dark:text-slate-400 bg-white dark:bg-slate-800/50">
                         This archetype is ultra-minimalist and relies purely on clean bio, markdown lists, and typography.
                       </div>
                     ) : (
@@ -1052,7 +1230,7 @@ export const TemplateGallery: React.FC = () => {
                             <button
                               type="button"
                               onClick={() => handleRemovePluginFromPreview(sec.id)}
-                              className="absolute top-3 right-3 p-1 rounded-lg bg-red-100 hover:bg-red-500 hover:text-white text-red-700 border border-neutral-900 text-xs font-mono transition-colors shadow-2xs"
+                              className="absolute top-3 right-3 p-1 rounded-lg bg-red-100 dark:bg-red-950/60 hover:bg-red-500 hover:text-white text-red-700 dark:text-red-300 border border-slate-900 dark:border-slate-700 text-xs font-mono transition-colors shadow-2xs"
                               title="Remove plugin from this preview"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
@@ -1069,7 +1247,7 @@ export const TemplateGallery: React.FC = () => {
               {previewTab === 'markdown' && (
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-neutral-700">Generated Markdown Output</span>
+                    <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300">Generated Markdown Output</span>
                     <button
                       type="button"
                       onClick={() => {
@@ -1077,15 +1255,10 @@ export const TemplateGallery: React.FC = () => {
                           navigator.clipboard.writeText(previewMarkdown);
                           setCopiedMarkdown(true);
                           showToast('Markdown copied to clipboard!');
-                          try {
-                            confetti({ particleCount: 25, spread: 50, origin: { y: 0.8 }, colors: ['#ffe600', '#10b981'] });
-                          } catch {
-                            // Ignored
-                          }
                           setTimeout(() => setCopiedMarkdown(false), 2200);
                         }
                       }}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 border-neutral-900 bg-[#ffe600] text-neutral-950 font-mono text-xs font-black shadow-2xs hover:bg-[#ffdf00]"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 border-slate-900 bg-[#ffe600] text-slate-950 font-mono text-xs font-black shadow-2xs hover:bg-[#ffdf00] cursor-pointer"
                     >
                       {copiedMarkdown ? (
                         <>
@@ -1100,7 +1273,7 @@ export const TemplateGallery: React.FC = () => {
                       )}
                     </button>
                   </div>
-                  <pre className="p-5 rounded-2xl bg-white border-2 border-neutral-900 text-xs text-neutral-900 font-mono overflow-x-auto whitespace-pre-wrap max-h-96 select-all leading-relaxed shadow-[3px_3px_0px_#18181b]">
+                  <pre className="p-5 rounded-2xl bg-[#0a0f1d] border-2 border-slate-800 text-xs text-slate-100 font-mono overflow-x-auto whitespace-pre-wrap max-h-96 select-all leading-relaxed shadow-[3px_3px_0px_#18181b] dark:shadow-[3px_3px_0px_#0f172a]">
                     {previewMarkdown}
                   </pre>
                 </div>
@@ -1109,27 +1282,27 @@ export const TemplateGallery: React.FC = () => {
               {/* TAB 3: AI Prompt */}
               {previewTab === 'prompt' && (
                 <div className="space-y-4">
-                  <div className="p-6 rounded-2xl bg-white border-2 border-neutral-900 shadow-[4px_4px_0px_#18181b] space-y-3">
+                  <div className="p-6 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[4px_4px_0px_#334155] dark:shadow-[4px_4px_0px_#0f172a] space-y-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Sparkles className="w-4 h-4 text-amber-500" />
-                        <span className="text-xs font-black uppercase text-neutral-950 font-mono">
-                          Archetype Specification & Markdown
+                        <span className="text-xs font-black uppercase text-slate-900 dark:text-white font-mono">
+                          Archetype Specification &amp; Markdown
                         </span>
                       </div>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 border border-neutral-900 font-bold">
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#ffe600] text-slate-950 border border-slate-900 font-bold">
                         Deterministic Camo-Compliant Markdown
                       </span>
                     </div>
 
-                    <p className="text-xs text-neutral-800 leading-relaxed font-mono bg-neutral-50 p-4 rounded-xl border border-neutral-300 select-all">
+                    <p className="text-xs text-slate-800 dark:text-slate-200 leading-relaxed font-mono bg-slate-50 dark:bg-[#0a0f1d] p-4 rounded-xl border border-slate-300 dark:border-slate-800 select-all">
                       {previewTemplate.prompt}
                     </p>
 
                     <button
                       type="button"
                       onClick={() => handleCopyPrompt(previewTemplate)}
-                      className="flex items-center gap-1.5 px-4 py-2 rounded-xl font-mono font-black text-xs bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] active:translate-x-[1px] active:translate-y-[1px]"
+                      className="flex items-center gap-1.5 px-4 py-2 rounded-xl font-mono font-black text-xs bg-[#ffe600] hover:bg-[#ffdf00] text-slate-950 border-2 border-slate-900 shadow-[2px_2px_0px_#18181b] active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
                     >
                       {copiedPromptId === previewTemplate.id ? (
                         <>
@@ -1152,10 +1325,10 @@ export const TemplateGallery: React.FC = () => {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="text-xs font-mono font-black text-neutral-950 uppercase">
+                      <h4 className="text-xs font-mono font-black text-slate-900 dark:text-white uppercase">
                         Active Plugins in this Archetype ({previewConfig.sections.length})
                       </h4>
-                      <p className="text-[11px] font-mono text-neutral-600">
+                      <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400">
                         Remove plugins to customize before applying to your profile.
                       </p>
                     </div>
@@ -1163,7 +1336,7 @@ export const TemplateGallery: React.FC = () => {
                       <button
                         type="button"
                         onClick={handleResetPreviewPlugins}
-                        className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#ffe600] text-neutral-950 font-mono text-xs font-black border border-neutral-900 shadow-2xs hover:bg-[#ffdf00]"
+                        className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#ffe600] text-slate-950 font-mono text-xs font-black border border-slate-900 shadow-2xs hover:bg-[#ffdf00] cursor-pointer"
                       >
                         <RefreshCw className="w-3 h-3" />
                         <span>Restore All Plugins</span>
@@ -1172,12 +1345,12 @@ export const TemplateGallery: React.FC = () => {
                   </div>
 
                   {previewConfig.sections.length === 0 ? (
-                    <div className="p-8 rounded-2xl border-2 border-dashed border-neutral-900 text-center space-y-3 bg-white">
-                      <p className="text-xs font-mono text-neutral-600">All plugins have been removed from this preview.</p>
+                    <div className="p-8 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 text-center space-y-3 bg-white dark:bg-slate-800/50">
+                      <p className="text-xs font-mono text-slate-600 dark:text-slate-400">All plugins have been removed from this preview.</p>
                       <button
                         type="button"
                         onClick={handleResetPreviewPlugins}
-                        className="px-4 py-2 rounded-xl bg-[#ffe600] text-neutral-950 font-mono text-xs font-black border-2 border-neutral-900 shadow-2xs hover:bg-[#ffdf00]"
+                        className="px-4 py-2 rounded-xl bg-[#ffe600] text-slate-950 font-mono text-xs font-black border-2 border-slate-900 shadow-2xs hover:bg-[#ffdf00] cursor-pointer"
                       >
                         Restore Plugins
                       </button>
@@ -1187,17 +1360,17 @@ export const TemplateGallery: React.FC = () => {
                       {previewConfig.sections.map((sec, idx) => (
                         <div
                           key={sec.id}
-                          className="flex items-center justify-between p-3.5 rounded-xl bg-white border-2 border-neutral-900 shadow-2xs"
+                          className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 shadow-2xs"
                         >
                           <div className="flex items-center gap-3">
-                            <span className="w-6 h-6 rounded-lg bg-neutral-100 border border-neutral-900 flex items-center justify-center font-mono text-[11px] text-neutral-950 font-black">
+                            <span className="w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-mono text-[11px] text-slate-950 dark:text-slate-100 font-black">
                               {idx + 1}
                             </span>
                             <div>
-                              <span className="text-xs font-black text-neutral-950 font-mono uppercase">
+                              <span className="text-xs font-black text-slate-900 dark:text-white font-mono uppercase">
                                 {sec.type}
                               </span>
-                              <p className="text-[10px] text-neutral-500 font-mono">
+                              <p className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
                                 ID: {sec.id}
                               </p>
                             </div>
@@ -1206,7 +1379,7 @@ export const TemplateGallery: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => handleRemovePluginFromPreview(sec.id)}
-                            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-red-100 hover:bg-red-500 hover:text-white text-red-700 border border-neutral-900 text-xs font-mono transition-colors shadow-2xs"
+                            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-red-100 dark:bg-red-950/60 hover:bg-red-500 hover:text-white text-red-700 dark:text-red-300 border border-slate-900 dark:border-slate-700 text-xs font-mono transition-colors shadow-2xs cursor-pointer"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                             <span>Remove</span>
@@ -1220,14 +1393,14 @@ export const TemplateGallery: React.FC = () => {
             </div>
 
             {/* Modal Footer Actions */}
-            <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 bg-white border-t-2 border-neutral-900">
+            <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 bg-slate-50 dark:bg-slate-900/90 border-t-2 border-slate-300 dark:border-slate-700">
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => handleCopyPrompt(previewTemplate)}
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border-2 border-neutral-900 bg-white hover:bg-neutral-100 text-neutral-950 shadow-2xs"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border-2 border-slate-900 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-2xs cursor-pointer"
                 >
-                  <Sparkles className="w-3.5 h-3.5" />
+                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                   <span>Copy Spec</span>
                 </button>
 
@@ -1241,7 +1414,7 @@ export const TemplateGallery: React.FC = () => {
                       setTimeout(() => setCopiedMarkdown(false), 2000);
                     }
                   }}
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border-2 border-neutral-900 bg-white hover:bg-neutral-100 text-neutral-950 shadow-2xs cursor-pointer"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border-2 border-slate-900 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-2xs cursor-pointer"
                 >
                   <Copy className="w-3.5 h-3.5" />
                   <span>Copy Markdown</span>
@@ -1250,17 +1423,17 @@ export const TemplateGallery: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => handleDownloadMarkdown(previewTemplate.name, previewMarkdown)}
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border-2 border-neutral-900 bg-white hover:bg-neutral-100 text-neutral-950 shadow-2xs cursor-pointer"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border-2 border-slate-900 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-2xs cursor-pointer"
                   title="Download README.md"
                 >
-                  <Download className="w-3.5 h-3.5 text-cyan-600" />
+                  <Download className="w-3.5 h-3.5 text-cyan-500" />
                   <span>Download .md</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => handleShareTemplate(previewTemplate)}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-bold border-2 border-neutral-900 bg-white hover:bg-neutral-100 text-neutral-950 shadow-2xs cursor-pointer"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border-2 border-slate-900 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-2xs cursor-pointer"
                   title="Share direct link to this archetype"
                 >
                   <Share2 className="w-3.5 h-3.5 text-amber-500" />
@@ -1272,7 +1445,7 @@ export const TemplateGallery: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleMergeFromPreview}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-neutral-100 text-neutral-950 font-mono text-xs font-bold border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] cursor-pointer"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 font-mono text-xs font-bold border-2 border-slate-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b] dark:shadow-[2px_2px_0px_#0f172a] cursor-pointer"
                 >
                   <Layers className="w-3.5 h-3.5" />
                   <span>Add to My Profile</span>
@@ -1281,7 +1454,7 @@ export const TemplateGallery: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleApplyFromPreview}
-                  className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-mono text-xs font-black border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
+                  className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-[#ffe600] hover:bg-[#ffdf00] text-slate-950 font-mono text-xs font-black border-2 border-slate-900 shadow-[3px_3px_0px_#18181b] active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
                 >
                   <Check className="w-4 h-4" />
                   <span>Apply Template</span>
