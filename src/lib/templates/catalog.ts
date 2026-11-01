@@ -277,46 +277,6 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
     },
   },
   {
-    id: 'ai-ml',
-    name: 'AI & Data Scientist',
-    description: 'Showcase deep learning research, Python stacks, Hugging Face models, and paper citations.',
-    category: 'AI / ML',
-    accent: '#10b981',
-    prompt:
-      'Write a scientific, research-focused AI & Data Scientist GitHub profile README. Highlight transformer architectures, PyTorch and Hugging Face repositories, arXiv research citations, dataset contributions, and clean training velocity charts.',
-    config: {
-      version: '1.0.0',
-      title: 'AI Researcher Profile',
-      settings: {
-        user: {
-          github: 'octocat',
-          name: 'Dr. Evelyn Zhang',
-          role: 'AI Researcher & ML Engineer',
-          bio: 'Investigating transformer architectures, multi-modal reasoning, and efficient fine-tuning.',
-          location: 'Toronto, Canada',
-          pronouns: 'she/her',
-          status: 'Training diffusion and LLM agent models',
-        },
-        theme: 'dark',
-        accentColor: '#10b981',
-        badgeStyle: 'flat',
-        align: 'left',
-      },
-      sections: [
-        {
-          id: 'pie-aiml',
-          type: 'pie-chart',
-          props: { content: { chartMode: 'top-langs-pie', theme: 'tokyonight', title: 'Languages & Research Distribution' }, styles: {}, state: 'default' },
-        },
-        {
-          id: 'activity-aiml',
-          type: 'activity-graph',
-          props: { content: { color: '10B981', title: 'Model Training & Commit Velocity' }, styles: {}, state: 'default' },
-        },
-      ],
-    },
-  },
-  {
     id: 'oss-maintainer',
     name: 'Open-Source Maintainer',
     description: 'Equipped with visitor counter, contribution chart, WakaTime metrics, and sponsorship links.',
@@ -392,58 +352,6 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
     },
   },
   {
-    id: 'security-researcher',
-    name: 'Cybersecurity & DevSecOps',
-    description: 'Tailored for penetration testers, security researchers, and DevSecOps practitioners.',
-    category: 'Security',
-    accent: '#ef4444',
-    prompt:
-      'Generate a Cybersecurity & DevSecOps Engineer GitHub profile README featuring an ethical hacking bug bounty showcase, CVE discovery tracker, security auditing methodology, and hardened CI/CD pipeline automation metrics.',
-    config: {
-      version: '1.0.0',
-      title: 'Security Researcher Profile',
-      settings: {
-        user: {
-          github: 'octocat',
-          name: 'Cipher Nova',
-          role: 'Offensive Security & DevSecOps Lead',
-          bio: 'Auditing cryptographic primitives, discovering CVEs, and engineering zero-trust pipelines.',
-          location: 'Stockholm, Sweden',
-          pronouns: 'they/them',
-          status: 'Hunting bug bounties & hardening clusters',
-        },
-        theme: 'dark',
-        accentColor: '#ef4444',
-        badgeStyle: 'for-the-badge',
-        align: 'left',
-      },
-      sections: [
-        {
-          id: 'typing-security',
-          type: 'readme-typing-svg',
-          props: {
-            content: {
-              lines: ['Offensive Security Researcher', 'DevSecOps Specialist', 'Bug Bounty Hunter'],
-              color: 'ef4444',
-            },
-            styles: {},
-            state: 'default',
-          },
-        },
-        {
-          id: 'activity-security',
-          type: 'activity-graph',
-          props: { content: { color: 'EF4444', title: 'Exploit Research & Patch Velocity' }, styles: {}, state: 'default' },
-        },
-        {
-          id: 'trophy-security',
-          type: 'github-profile-trophy',
-          props: { content: { username: 'octocat', theme: 'radical' }, styles: {}, state: 'default' },
-        },
-      ],
-    },
-  },
-  {
     id: 'creative-frontend',
     name: 'Creative Frontend & UI/UX',
     description: 'Vibrant showcase for WebGL, 3D Canvas, design system creators, and creative coders.',
@@ -497,51 +405,6 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             styles: {},
             state: 'default',
           },
-        },
-      ],
-    },
-  },
-  {
-    id: 'cs-student',
-    name: 'CS Student & Competitive Coder',
-    description: 'Designed for university students and coding bootcamp graduates highlighting algorithms.',
-    category: 'Student',
-    accent: '#3b82f6',
-    prompt:
-      'Write a standout Computer Science Student & Competitive Coder GitHub profile README. Highlight LeetCode problem-solving milestone trophies, core algorithms, data structures coursework, open-source pull requests, and summer software internship objectives.',
-    config: {
-      version: '1.0.0',
-      title: 'CS Student & Aspiring Software Engineer',
-      settings: {
-        user: {
-          github: 'octocat',
-          name: 'Lucas Kim',
-          role: 'Computer Science Student & LeetCode Enthusiast',
-          bio: 'Passionate about algorithms, low-latency systems, and building open-source developer tooling.',
-          location: 'Seoul / California',
-          pronouns: 'he/him',
-          status: 'Seeking Summer 2027 Software Engineering Internships',
-        },
-        theme: 'dark',
-        accentColor: '#3b82f6',
-        badgeStyle: 'for-the-badge',
-        align: 'left',
-      },
-      sections: [
-        {
-          id: 'trophy-student',
-          type: 'github-profile-trophy',
-          props: { content: { username: 'octocat', theme: 'tokyonight' }, styles: {}, state: 'default' },
-        },
-        {
-          id: 'activity-student',
-          type: 'activity-graph',
-          props: { content: { color: '3B82F6', title: 'Daily Problem Solving & Commit Velocity' }, styles: {}, state: 'default' },
-        },
-        {
-          id: 'stats-student',
-          type: 'github-readme-stats',
-          props: { content: { username: 'octocat', theme: 'tokyonight', showIcons: true }, styles: {}, state: 'default' },
         },
       ],
     },
@@ -1322,91 +1185,6 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
         },
         {
           id: 'stats-game-dev-3d-graphics',
-          type: 'github-readme-stats',
-          props: {
-            content: {
-              showIcons: true,
-              theme: 'tokyonight',
-              includeAllCommits: true,
-            },
-            styles: {},
-            state: 'default',
-          },
-        },
-      ],
-    },
-  },
-  {
-    id: 'web3-solidity-defi',
-    name: 'Web3 & DeFi Smart Contract Architect',
-    description: 'Gas-optimized EVM bytecode, formal smart contract verification, Foundry test suites, and decentralized finance.',
-    category: 'Mobile & Web3',
-    accent: '#8b5cf6',
-    prompt: 'Create a high-security Web3 protocol engineer GitHub README showcasing audited smart contracts, zero-knowledge circuits, and DeFi protocols.',
-    config: {
-      version: '1.0.0',
-      title: 'Web3 & DeFi Smart Contract Architect',
-      settings: {
-        user: {
-          github: 'octocat',
-          name: 'Developer Craftsman',
-          role: 'Smart Contract & Protocol Security Architect',
-          bio: 'Designing trustless economic mechanisms, gas-optimized Solidity primitives, and mathematically verified zk-SNARK protocols.',
-          location: 'San Francisco / Remote',
-          pronouns: 'they/them',
-          status: 'Actively building & contributing to open source',
-        },
-        theme: 'dark',
-        accentColor: '#8b5cf6',
-        badgeStyle: 'for-the-badge',
-        align: 'left',
-      },
-      sections: [
-        {
-          id: 'banner-web3-solidity-defi',
-          type: 'capsule-banner',
-          props: {
-            content: {
-              type: 'waving',
-              height: 170,
-              text: 'Trustless Decentralized Protocols',
-              desc: 'Formal verification, sub-21k gas execution, and cryptographic security',
-              color: '0:0f172a,100:8b5cf6',
-              textColor: 'ffffff',
-              descColor: '8b5cf6',
-            },
-            styles: {},
-            state: 'default',
-          },
-        },
-        {
-          id: 'skills-web3-solidity-defi',
-          type: 'skill-icons',
-          props: {
-            content: {
-              icons: 'solidity,rust,ethereum,ts,ipfs,git,linux,bash',
-              theme: 'dark',
-              perline: 10,
-            },
-            styles: {},
-            state: 'default',
-          },
-        },
-        {
-          id: 'activity-web3-solidity-defi',
-          type: 'activity-graph',
-          props: {
-            content: {
-              theme: 'tokyonight',
-              color: '8b5cf6',
-              pointColor: 'ffffff',
-            },
-            styles: {},
-            state: 'default',
-          },
-        },
-        {
-          id: 'stats-web3-solidity-defi',
           type: 'github-readme-stats',
           props: {
             content: {
@@ -4300,61 +4078,6 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
     }
   },
   {
-    "id": "computational-biology-crispr",
-    "name": "Computational CRISPR & Genomic Data Scientist",
-    "description": "Off-target cleavage neural networks, Nextflow NGS pipelines, structural biology alphafold docking, and bio-graphs.",
-    "category": "AI & Data",
-    "accent": "#14b8a6",
-    "config": {
-      "version": "1.0.0",
-      "title": "Computational CRISPR & Genomic Data Scientist",
-      "settings": {
-        "user": {
-          "github": "octocat",
-          "name": "Bioinformatics Hacker",
-          "role": "Genome Engineering & Deep Bio-Informatics Lead",
-          "bio": "Designing high-fidelity CRISPR guide RNAs with machine learning. Petabyte-scale Nextflow genomic pipelines.",
-          "location": "Cambridge, MA",
-          "pronouns": "she/her",
-          "status": "Analyzing single-cell multi-omic RNA chromatin graphs"
-        },
-        "theme": "dark",
-        "accentColor": "#14b8a6",
-        "badgeStyle": "for-the-badge",
-        "align": "left"
-      },
-      "sections": [
-        {
-          "id": "sec-bio-capsule",
-          "type": "capsule-banner",
-          "props": {
-            "content": {
-              "text": "COMPUTATIONAL BIOLOGY // CRISPR GENOMICS",
-              "color": "14b8a6",
-              "style": "geometric",
-              "animation": "fadeIn"
-            },
-            "styles": {},
-            "state": "default"
-          }
-        },
-        {
-          "id": "sec-bio-stats",
-          "type": "github-readme-stats",
-          "props": {
-            "content": {
-              showIcons: true,
-              "theme": "nord",
-              includeAllCommits: true
-            },
-            "styles": {},
-            "state": "default"
-          }
-        }
-      ]
-    }
-  },
-  {
     "id": "cloud-native-finops-engineer",
     "name": "Cloud Native FinOps & Cost Optimizer",
     "description": "Multi-cloud kubernetes spot orchestration, cost allocation tags, Kubecost tuning, and automated rightsizing.",
@@ -4797,61 +4520,6 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
     }
   },
   {
-    "id": "green-software-carbon-engineer",
-    "name": "Green Software & Sustainable Computing Engineer",
-    "description": "SCI carbon intensity algorithms, eco-friendly server scheduler, JoularJX energy profiler, and carbon-aware execution.",
-    "category": "Security & Cloud",
-    "accent": "#16a34a",
-    "config": {
-      "version": "1.0.0",
-      "title": "Green Software & Sustainable Computing Engineer",
-      "settings": {
-        "user": {
-          "github": "octocat",
-          "name": "Carbon Optimizer",
-          "role": "Green Software Architect & Sustainable Compute Lead",
-          "bio": "Measuring and reducing computing carbon footprints. Carbon-aware cron batching, Joules/op metrics, and energy budgets.",
-          "location": "Stockholm, Sweden",
-          "pronouns": "they/them",
-          "status": "Scheduling background compute to match peak wind energy"
-        },
-        "theme": "light",
-        "accentColor": "#16a34a",
-        "badgeStyle": "for-the-badge",
-        "align": "left"
-      },
-      "sections": [
-        {
-          "id": "sec-green-capsule",
-          "type": "capsule-banner",
-          "props": {
-            "content": {
-              "text": "GREEN SOFTWARE // CARBON-AWARE COMPUTE",
-              "color": "16a34a",
-              "style": "waving",
-              "animation": "fadeIn"
-            },
-            "styles": {},
-            "state": "default"
-          }
-        },
-        {
-          "id": "sec-green-stats",
-          "type": "github-readme-stats",
-          "props": {
-            "content": {
-              showIcons: true,
-              "theme": "gruvbox",
-              includeAllCommits: true
-            },
-            "styles": {},
-            "state": "default"
-          }
-        }
-      ]
-    }
-  },
-  {
     "id": "decentralized-storage-ipfs-core",
     "name": "Decentralized Storage & P2P Protocols Engineer",
     "description": "IPFS unixfs, libp2p Kademlia DHT routing, Filecoin proof-of-spacetime, and peer-to-peer data distribution.",
@@ -4954,61 +4622,6 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             "content": {
               showIcons: true,
               "theme": "tokyonight",
-              includeAllCommits: true
-            },
-            "styles": {},
-            "state": "default"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "id": "3d-procedural-shader-artist",
-    "name": "GLSL Shader & Generative Math Artist",
-    "description": "Raymarching signed distance fields (SDF), fractals, Voronoi noise, WebGL compute post-processing, and demoscene coding.",
-    "category": "Creative & Design",
-    "accent": "#e11d48",
-    "config": {
-      "version": "1.0.0",
-      "title": "GLSL Shader & Generative Math Artist",
-      "settings": {
-        "user": {
-          "github": "octocat",
-          "name": "Shader Alchemist",
-          "role": "Creative Coder & Real-Time GLSL Shader Artist",
-          "bio": "Carving light out of mathematical equations. Raymarching SDFs, procedural textures, and WebGL post-processing shaders.",
-          "location": "Paris, France",
-          "pronouns": "they/them",
-          "status": "Writing a Mandelbulb fractal raymarcher in 4KB"
-        },
-        "theme": "dark",
-        "accentColor": "#e11d48",
-        "badgeStyle": "for-the-badge",
-        "align": "center"
-      },
-      "sections": [
-        {
-          "id": "sec-shader-capsule",
-          "type": "capsule-banner",
-          "props": {
-            "content": {
-              "text": "GENERATIVE GLSL // PROCEDURAL RAYMARCHING",
-              "color": "e11d48",
-              "style": "waving",
-              "animation": "fadeIn"
-            },
-            "styles": {},
-            "state": "default"
-          }
-        },
-        {
-          "id": "sec-shader-stats",
-          "type": "github-readme-stats",
-          "props": {
-            "content": {
-              showIcons: true,
-              "theme": "radical",
               includeAllCommits: true
             },
             "styles": {},
@@ -5404,64 +5017,6 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
     }
   },
   {
-    "id": "ninja-shadow-katana-coder",
-    "name": "Ninja Shadow & Katana Glint Blade",
-    "description": "Stealthy ninja in combat stance, fluttering crimson headband, and gleaming katana with subtle lighting reflections.",
-    "category": "Security & Cloud",
-    "accent": "#ef4444",
-    "config": {
-      "version": "1.0.0",
-      "title": "Ninja Shadow & Katana Glint Blade",
-      "settings": {
-        "user": {
-          "github": "octocat",
-          "name": "Shadow Striker",
-          "role": "Red Team Lead & Exploit Defense Ninja",
-          "bio": "Striking vulnerabilities in silence. Zero-day discovery, kernel exploitation, and automated defensive counter-measures.",
-          "location": "Shadow Realm",
-          "pronouns": "he/him",
-          "status": "Polishing precision zero-day detection blade"
-        },
-        "theme": "dark",
-        "accentColor": "#ef4444",
-        "badgeStyle": "for-the-badge",
-        "align": "left"
-      },
-      "sections": [
-        {
-          "id": "sec-ninja-typing",
-          "type": "readme-typing-svg",
-          "props": {
-            "content": {
-              "lines": [
-                "Vanishing into memory space without a trace...",
-                "Slicing through memory corruptions with katana precision...",
-                "Target acquired. System secured."
-              ],
-              "color": "ef4444",
-              "font": "Fira Code"
-            },
-            "styles": {},
-            "state": "default"
-          }
-        },
-        {
-          "id": "sec-ninja-stats",
-          "type": "github-readme-stats",
-          "props": {
-            "content": {
-              showIcons: true,
-              "theme": "blood",
-              includeAllCommits: true
-            },
-            "styles": {},
-            "state": "default"
-          }
-        }
-      ]
-    }
-  },
-  {
     "id": "builder-craftsman-smith",
     "name": "Tech Blocks Crafter & Anvil Forge",
     "description": "Animated builder hero swinging a heavy hammer onto an anvil with bouncing sparks and stacking glowing tech blocks.",
@@ -5507,61 +5062,6 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             "content": {
               "theme": "tokyonight",
               hideBorder: false
-            },
-            "styles": {},
-            "state": "default"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "id": "wizard-arcane-runic-mage",
-    "name": "Arcane Spellcaster & Floating Orb Mage",
-    "description": "Mythical wizard with pulsating crystal staff, rotating runic rings, floating orbs, and flowing mystical robe hem.",
-    "category": "Creative & Design",
-    "accent": "#8b5cf6",
-    "config": {
-      "version": "1.0.0",
-      "title": "Arcane Spellcaster & Floating Orb Mage",
-      "settings": {
-        "user": {
-          "github": "octocat",
-          "name": "Arcane Conjurer",
-          "role": "Algorithm Wizard & Spellbinding Software Mage",
-          "bio": "Transforming abstract mathematical formulas into reality with code spells, runic logic, and glowing algorithms.",
-          "location": "Tower of High Sorcery",
-          "pronouns": "they/them",
-          "status": "Incanting ancient compiler optimization runes"
-        },
-        "theme": "dark",
-        "accentColor": "#8b5cf6",
-        "badgeStyle": "for-the-badge",
-        "align": "center"
-      },
-      "sections": [
-        {
-          "id": "sec-wizard-capsule",
-          "type": "capsule-banner",
-          "props": {
-            "content": {
-              "text": "ARCANE MAGE // ALGORITHMIC SORCERY",
-              "color": "8b5cf6",
-              "style": "waving",
-              "animation": "fadeIn"
-            },
-            "styles": {},
-            "state": "default"
-          }
-        },
-        {
-          "id": "sec-wizard-trophy",
-          "type": "github-profile-trophy",
-          "props": {
-            "content": {
-              "theme": "matrix",
-              "column": 6,
-              "row": 1
             },
             "styles": {},
             "state": "default"
@@ -5849,21 +5349,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
   }
 ];
 
-export const EXCLUDED_BAD_TEMPLATE_IDS = new Set([
-  'ai-ml',
-  'security-researcher',
-  'cs-student',
-  'web3-solidity-defi',
-  'computational-biology-crispr',
-  'green-software-carbon-engineer',
-  '3d-procedural-shader-artist',
-  'ninja-shadow-katana-coder',
-  'wizard-arcane-runic-mage',
-]);
-
-export const TEMPLATES: TemplateItem[] = RAW_TEMPLATES
-  .filter(t => !EXCLUDED_BAD_TEMPLATE_IDS.has(t.id))
-  .map(t => ({
-    ...t,
-    prompt: buildRichPrompt(t),
-  }));
+export const TEMPLATES: TemplateItem[] = RAW_TEMPLATES.map(t => ({
+  ...t,
+  prompt: buildRichPrompt(t),
+}));

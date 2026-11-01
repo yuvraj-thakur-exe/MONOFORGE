@@ -27,7 +27,7 @@ describe('NomokeyHero', () => {
     // Check headline and primary actions
     expect(screen.getByText(/YOUR GITHUB PROFILE/i)).toBeDefined();
     expect(screen.getByText(/BUILD MY PROFILE/i)).toBeDefined();
-    expect(screen.getByText(/85\+ TEMPLATES/i)).toBeDefined();
+    expect(screen.getByText(/75\+ TEMPLATES/i)).toBeDefined();
   });
 
   it('switches between monkey core and generated preview views', () => {

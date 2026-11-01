@@ -25,7 +25,7 @@ const STEPS = [
   {
     step: '02',
     title: 'Choose an Archetype',
-    description: 'Choose from 85+ visual archetypes, configure section headers, badges, and cyber monkey companions.',
+    description: 'Choose from 75+ visual archetypes, configure section headers, badges, and cyber monkey companions.',
     icon: SlidersHorizontal,
     badge: 'DESIGN',
     link: '/templates',

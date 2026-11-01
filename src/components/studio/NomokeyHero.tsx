@@ -273,7 +273,7 @@ export function NomokeyHero() {
                 className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white text-neutral-950 font-bold text-sm tracking-wide border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] hover:shadow-[1px_1px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all duration-150 btn-tactile hover:bg-[#ffe600] cursor-pointer"
               >
                 <LayoutTemplate className="w-4 h-4 text-amber-500" />
-                <span>85+ TEMPLATES</span>
+                <span>75+ TEMPLATES</span>
               </Link>
 
               {/* Documentation Website */}

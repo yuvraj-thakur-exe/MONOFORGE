@@ -342,7 +342,7 @@ function LocalizedDeveloperContent() {
             <span>WORKSPACES</span>
           </button>
 
-          {/* 85+ Curated Archetypes Link */}
+          {/* Curated Archetypes Link */}
           <Link
             href="/templates"
             className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border-2 border-neutral-900 bg-white hover:bg-[#ffe600] text-neutral-950 text-xs font-mono font-bold shadow-[2px_2px_0px_#18181b] btn-tactile"

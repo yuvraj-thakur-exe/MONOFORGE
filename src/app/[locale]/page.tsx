@@ -113,7 +113,7 @@ export default function HomePage() {
                 className="hover:text-amber-600 transition-colors flex items-center gap-1.5"
               >
                 <LayoutTemplate className="w-3.5 h-3.5 text-amber-500" />
-                <span>85+ TEMPLATES</span>
+                <span>75+ TEMPLATES</span>
               </Link>
               <Link
                 href="/developer?mode=telemetry"

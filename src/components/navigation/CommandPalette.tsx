@@ -357,7 +357,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                 }}
                 className="flex items-center gap-2 px-3 py-2 rounded-lg text-neutral-700 hover:bg-[#ffe600] hover:text-neutral-950 cursor-pointer transition-colors font-bold"
               >
-                <span>&rarr; View all 85+ Archetypes &amp; Templates</span>
+                <span>&rarr; View all 75+ Archetypes &amp; Templates</span>
               </Command.Item>
             </Command.Group>
 
@@ -403,7 +403,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                 className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 cursor-pointer transition-colors"
               >
                 <LayoutTemplate className="w-4 h-4 text-amber-500" />
-                <span className="font-bold">85+ Templates Marketplace</span>
+                <span className="font-bold">75+ Templates Marketplace</span>
               </Command.Item>
               <Command.Item
                 onSelect={() => {
