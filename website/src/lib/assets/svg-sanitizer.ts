@@ -91,3 +91,4 @@ export function sanitizeSvg(svgContent: string): string {
 
   return clean.trim();
 }
+

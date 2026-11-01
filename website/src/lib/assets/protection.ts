@@ -45,3 +45,4 @@ export function validateAssetDeletion(assetPath: string): { allowed: boolean; re
   }
   return { allowed: true };
 }
+

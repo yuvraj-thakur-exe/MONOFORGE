@@ -37,3 +37,4 @@ Customize live in your browser with real GitHub data, streak telemetry, and Camo
 
 ⭐ **Love these templates? Support the open-source project by starring the repository:**
 `https://github.com/yuvraj-thakur-exe/MONOFORGE`
+
