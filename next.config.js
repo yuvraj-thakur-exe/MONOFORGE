@@ -12,6 +12,22 @@ const nextConfig = {
   // Use standalone output for container builds (Docker), but native serverless on Vercel
   ...(process.env.VERCEL ? {} : { output: 'standalone' }),
   allowedDevOrigins: ['127.0.0.1', 'localhost'],
+  async rewrites() {
+    return [
+      {
+        source: '/sitemap',
+        destination: '/sitemap.xml',
+      },
+      {
+        source: '/:locale/sitemap',
+        destination: '/sitemap.xml',
+      },
+      {
+        source: '/:locale/sitemap.xml',
+        destination: '/sitemap.xml',
+      },
+    ];
+  },
 };
 
 export default withBundleAnalyzer(withNextIntl(nextConfig));

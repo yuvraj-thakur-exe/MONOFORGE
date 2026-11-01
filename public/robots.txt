@@ -54,6 +54,7 @@ Allow: /
 
 # Sitemaps
 Sitemap: https://monoforge-studio.vercel.app/sitemap.xml
+Sitemap: https://monoforge-studio.vercel.app/sitemap
 
 # AI Agent Context & API Schemas
 # llms.txt: https://monoforge-studio.vercel.app/llms.txt
