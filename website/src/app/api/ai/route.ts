@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { AiRequestSchema } from '#/lib/ai/types';
 import { synthesizeFallbackAiResponse } from '#/lib/ai/ai-service';
+import { buildMonoForgeSystemPrompt } from '#/lib/ai/system-prompt';
 
 export async function POST(req: NextRequest) {
   try {
@@ -23,7 +24,12 @@ export async function POST(req: NextRequest) {
     // If an OpenRouter API key is provided, query the model
     if (effectiveKey) {
       try {
-        const systemPrompt = `You are the MonoForge AI Profile Architect. You generate high-impact, professional GitHub Profile READMEs, bio summaries, tech stack badges, and project highlights for software engineers. Output clean markdown and JSON formats without unnecessary banter. Action: ${action}.`;
+        const systemPrompt = buildMonoForgeSystemPrompt({
+          action,
+          username: context?.username || 'developer',
+          role: context?.role || 'Full-Stack Software Architect',
+          theme: context?.theme || 'emerald',
+        });
 
         const openRouterResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
           method: 'POST',

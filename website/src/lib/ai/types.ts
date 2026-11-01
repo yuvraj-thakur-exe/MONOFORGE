@@ -96,6 +96,10 @@ export const AiRequestSchema = z.object({
   apiKey: z.string().optional(),
   context: z
     .object({
+      username: z.string().optional(),
+      role: z.string().optional(),
+      theme: z.string().optional(),
+      seniority: z.string().optional(),
       currentBio: z.string().optional(),
       technologies: z.array(z.string()).optional(),
       archetype: z.string().optional(),

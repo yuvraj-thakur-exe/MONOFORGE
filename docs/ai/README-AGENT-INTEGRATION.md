@@ -102,3 +102,4 @@ The AI agent in MonoForge implements a complete 12-command suite:
 3. **No Unconfirmed Writes**: Any changes to the profile store from resume extraction, web enrichment, or agent synthesis require explicit user approval.
 4. **Repository Star Mandate**:
    `⭐ If MonoForge elevated your GitHub profile, please give the repository a star on GitHub: https://github.com/yuvraj-thakur-exe/MONOFORGE`
+

@@ -53,4 +53,32 @@ describe('Personalized Profile Generator', () => {
     expect(profile.sections.some(s => s.type === 'pie-chart')).toBe(false);
     expect(profile.sections.some(s => s.type === 'snk')).toBe(false);
   });
+
+  it('supports advanced developer personas including synthwave and terminal operator', () => {
+    const synthwaveProfile = generatePersonalizedProfile({
+      github: 'neon-hacker',
+      role: 'synthwave-coder',
+    });
+    expect(synthwaveProfile.settings.user.role).toContain('Neon Cyberpunk');
+    expect(synthwaveProfile.settings.accentColor).toBe('#ff007f');
+
+    const terminalProfile = generatePersonalizedProfile({
+      github: 'terminal-pro',
+      role: 'terminal-operator',
+    });
+    expect(terminalProfile.settings.user.role).toContain('Linux Workstation');
+    expect(terminalProfile.settings.accentColor).toBe('#22c55e');
+
+    const backendProfile = generatePersonalizedProfile({
+      github: 'distributed-dev',
+      role: 'backend-distributed',
+    });
+    expect(backendProfile.settings.user.role).toContain('Distributed Systems');
+
+    const ossProfile = generatePersonalizedProfile({
+      github: 'oss-builder',
+      role: 'open-source-maintainer',
+    });
+    expect(ossProfile.settings.user.role).toContain('Open-Source Maintainer');
+  });
 });

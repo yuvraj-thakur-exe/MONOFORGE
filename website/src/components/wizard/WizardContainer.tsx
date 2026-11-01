@@ -212,8 +212,14 @@ export function WizardContainer() {
                       { id: 'fullstack' as DeveloperPersonaRole, label: 'Full-Stack Polyglot' },
                       { id: 'ai-ml' as DeveloperPersonaRole, label: 'AI & Machine Learning' },
                       { id: 'cloud-devops' as DeveloperPersonaRole, label: 'Cloud & DevOps SRE' },
+                      { id: 'backend-distributed' as DeveloperPersonaRole, label: 'Distributed Backend' },
+                      { id: 'data-engineer' as DeveloperPersonaRole, label: 'Data Platform & MLOps' },
+                      { id: 'open-source-maintainer' as DeveloperPersonaRole, label: 'Open-Source Maintainer' },
                       { id: 'frontend-creative' as DeveloperPersonaRole, label: 'Creative & Motion' },
                       { id: 'systems-embedded' as DeveloperPersonaRole, label: 'Systems & Embedded' },
+                      { id: 'synthwave-coder' as DeveloperPersonaRole, label: 'Neon Outrun Coder' },
+                      { id: 'terminal-operator' as DeveloperPersonaRole, label: 'Linux Fastfetch CLI' },
+                      { id: 'student-learner' as DeveloperPersonaRole, label: 'CS Student & Learner' },
                     ].map(persona => (
                       <button
                         key={persona.id}
@@ -229,7 +235,7 @@ export function WizardContainer() {
                           });
                           setEntireConfig(personalized);
                         }}
-                        className="px-2.5 py-1 text-xs rounded-lg border border-amber-500/40 bg-palette-base/80 hover:bg-amber-500/15 hover:border-amber-400 text-palette-contrast transition-all"
+                        className="px-2.5 py-1 text-xs rounded-lg border border-amber-500/40 bg-palette-base/80 hover:bg-amber-500/15 hover:border-amber-400 text-palette-contrast transition-all cursor-pointer"
                       >
                         {persona.label}
                       </button>
