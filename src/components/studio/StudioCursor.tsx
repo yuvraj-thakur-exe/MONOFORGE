@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 export function StudioCursor() {
+  const [mounted, setMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isTextInput, setIsTextInput] = useState(false);
 
@@ -14,6 +15,7 @@ export function StudioCursor() {
   const animFrameId = useRef<number | null>(null);
 
   useEffect(() => {
+    setMounted(true);
     // Only enable on desktop devices with fine pointer (mouse)
     if (typeof window === 'undefined' || !window.matchMedia('(pointer: fine)').matches) {
       return;
@@ -76,8 +78,8 @@ export function StudioCursor() {
     };
   }, [isVisible]);
 
-  // Don't render when invisible, or inside code/text editor
-  if (!isVisible || isTextInput) return null;
+  // Don't render during SSR, when invisible, or inside code/text editor
+  if (!mounted || !isVisible || isTextInput) return null;
 
   return (
     <>

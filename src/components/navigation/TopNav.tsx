@@ -62,7 +62,10 @@ export function TopNav() {
               <span className="font-black text-sm tracking-tight text-slate-900 dark:text-white uppercase font-sans">
                 MONO<span className="text-amber-500">FORGE</span>
               </span>
-              <span className="text-[9px] text-slate-500 dark:text-slate-400 font-mono font-medium hidden sm:inline uppercase">
+              <span
+                suppressHydrationWarning
+                className="text-[9px] text-slate-500 dark:text-slate-400 font-mono font-medium hidden sm:inline uppercase"
+              >
                 GITHUB PROFILE BUILDER &amp; ENGINES
               </span>
             </div>
