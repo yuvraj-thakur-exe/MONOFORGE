@@ -1,4 +1,5 @@
 import { ReadmeConfig } from '#/lib/plugins/types';
+import { ARCHETYPE_LIBRARY_100 } from './archetypes-library-100';
 
 export interface TemplateItem {
   id: string;
@@ -5349,7 +5350,10 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
   }
 ];
 
-export const TEMPLATES: TemplateItem[] = RAW_TEMPLATES.map(t => ({
-  ...t,
-  prompt: buildRichPrompt(t),
-}));
+export const TEMPLATES: TemplateItem[] = [
+  ...RAW_TEMPLATES.map(t => ({
+    ...t,
+    prompt: t.prompt && t.prompt.length > 200 ? t.prompt : buildRichPrompt(t),
+  })),
+  ...ARCHETYPE_LIBRARY_100,
+];

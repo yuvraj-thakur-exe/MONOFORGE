@@ -28,9 +28,9 @@ export async function generateMetadata({ params }: TemplatesPageProps): Promise<
     languages[loc] = `${baseUrl}/${loc}/templates`;
   }
 
-  const title = '75+ GitHub Profile README Templates & Curated Archetypes | MonoForge';
+  const title = '100+ GitHub Profile README Templates & Curated Archetypes | MonoForge';
   const description =
-    'Browse 75+ production-ready developer profile README templates. 100% GitHub Camo-safe, zero JavaScript, pure CSS 60fps animations, 3D isometric commit skylines, bento grids, and live telemetry widgets.';
+    'Browse 100+ production-ready developer profile README templates. 100% GitHub Camo-safe, zero JavaScript, pure CSS 60fps animations, 3D isometric commit skylines, bento grids, and live telemetry widgets.';
 
   return {
     title,
@@ -114,7 +114,7 @@ export default async function TemplatesPage({ params }: TemplatesPageProps) {
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white">
                 <span className="px-2.5 py-0.5 rounded-lg bg-[#ffe600] text-slate-950 font-black border border-slate-900 shadow-2xs">
-                  [ 75+ SIGNATURE ARCHETYPES ]
+                  [ 100+ CURATED ARCHETYPES ]
                 </span>
                 <span className="text-slate-600 dark:text-slate-400 hidden sm:inline">
                   &bull; 100% GITHUB CAMO SAFE &bull; ZERO JS &bull; 60FPS CSS

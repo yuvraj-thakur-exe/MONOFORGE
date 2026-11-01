@@ -22,6 +22,7 @@ import {
   Share2,
   Download,
 } from 'lucide-react';
+import { playClickSound, playTone } from '#/lib/sound/sound-effects';
 
 export { TEMPLATES, type TemplateItem } from '#/lib/templates/catalog';
 import { TEMPLATES, type TemplateItem } from '#/lib/templates/catalog';
@@ -89,6 +90,326 @@ const TEMPLATE_PREVIEWS: Record<string, string> = {
   'pixel-craftsman': '/assets/developer-desk.svg',
   'swiss-minimalist': '/assets/text-effects.svg',
   'isometric-polyglot': '/assets/isometric-terminal.svg',
+};
+
+const MODULE_DESCRIPTIONS: Record<string, { label: string; desc: string }> = {
+  'capsule-banner': { label: 'Capsule Banner', desc: '60fps Camo CDN-safe animated waving header banner.' },
+  'readme-typing-svg': { label: 'Kinetic Typewriter', desc: 'Dynamic typewriter terminal highlighting specializations.' },
+  'mascot-bio': { label: 'Vector Kinematics Mascot', desc: 'Animated companion avatar with idle hovering & thruster glow.' },
+  'telemetry-isocalendar': { label: '3D Isometric Skyline', desc: 'Live 3D isometric GitHub contribution city calendar.' },
+  'portfolio-contributions': { label: 'Contribution Grid', desc: 'Real 52-week contributor activity matrix.' },
+  'pie-chart': { label: 'Language Donut', desc: 'Interactive language distribution donut chart with percentages.' },
+  'github-readme-stats': { label: 'Verified Stats', desc: 'Real verified commits, pull requests, and stars telemetry.' },
+  'skill-icons': { label: 'Skill Icons', desc: 'High-contrast responsive tech stack badge matrix.' },
+  'socials': { label: 'Social & Sponsors', desc: 'Verified developer social pills and sponsor badges.' },
+  'projects-showcase': { label: 'Project Showcase', desc: 'Curated repository cards with live star telemetry.' },
+  'activity-graph': { label: 'Activity Wave', desc: 'Annual commit activity wave radar with streak counter.' },
+  'waka-readme-stats': { label: 'WakaTime Metrics', desc: 'Verified editor metrics and coding time distribution.' },
+  'github-profile-trophy': { label: 'Achievement Trophies', desc: 'Gamified trophies celebrating stars, PRs, and streaks.' },
+  'github-achievements': { label: 'GitHub Achievements', desc: 'Official GitHub badges (Quickdraw, Pull Shark, Pair Extraordinaire).' },
+  'snk': { label: 'Arcade Snake Game', desc: 'Retro arcade snake eating contribution commits in a 60fps loop.' },
+  'figma-design': { label: 'Figma Showcase', desc: 'Interactive Figma design system cards and prototype links.' },
+  'pinterest-image': { label: 'Visual Moodboard', desc: 'Aesthetic visual moodboard grid integration.' },
+  'footer': { label: 'Camo Footer', desc: 'Camo-compliant footer emblem and visitor counter.' },
+  'markdown-badges': { label: 'Markdown Badges', desc: 'Shields.io vector badges for tools and frameworks.' },
+  'custom-html': { label: 'Sanitized HTML', desc: 'Safe Camo-compliant custom HTML block.' },
+};
+
+export const InteractiveArchetypeCardPreview: React.FC<{
+  tmpl: TemplateItem;
+  staticImage?: string;
+  onOpenModal: () => void;
+}> = ({ tmpl, staticImage, onOpenModal }) => {
+  const [activeTab, setActiveTab] = useState<'visual' | 'stack' | 'telemetry'>('visual');
+  const [showStatic, setShowStatic] = useState<boolean>(false);
+  const [hoveredBar, setHoveredBar] = useState<number | null>(null);
+  const [selectedModule, setSelectedModule] = useState<string | null>(null);
+
+  const accent = tmpl.accent || '#ffe600';
+  const gh = tmpl.config.settings.user.github || 'octocat';
+  const role = tmpl.config.settings.user.role || 'Software Craftsman';
+  const initial = (tmpl.config.settings.user.name?.[0] || gh?.[0] || 'D').toUpperCase();
+
+  const uniqueModules = useMemo(() => {
+    return Array.from(new Set(tmpl.config.sections.map(s => s.type)));
+  }, [tmpl.config.sections]);
+
+  const activeModuleInfo = selectedModule ? MODULE_DESCRIPTIONS[selectedModule] : null;
+
+  return (
+    <div className="my-3.5 rounded-xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-[#0f172a] shadow-xs hover:border-slate-900 dark:hover:border-slate-500 transition-all overflow-hidden">
+      {/* Top Interactive Sub-Header */}
+      <div className="flex items-center justify-between px-3 py-1.5 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 text-[11px] font-mono">
+        {/* Sub-tab pills */}
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setActiveTab('visual');
+              setShowStatic(false);
+              playClickSound();
+            }}
+            className={`px-2 py-0.5 rounded-md font-bold transition-all cursor-pointer ${
+              activeTab === 'visual' && !showStatic
+                ? 'bg-[#ffe600] text-slate-950 border border-slate-900 shadow-2xs font-black'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+            }`}
+          >
+            Live Vector
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setActiveTab('stack');
+              playClickSound();
+            }}
+            className={`px-2 py-0.5 rounded-md font-bold transition-all cursor-pointer ${
+              activeTab === 'stack'
+                ? 'bg-[#ffe600] text-slate-950 border border-slate-900 shadow-2xs font-black'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+            }`}
+          >
+            Modules ({uniqueModules.length})
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setActiveTab('telemetry');
+              playClickSound();
+            }}
+            className={`px-2 py-0.5 rounded-md font-bold transition-all cursor-pointer ${
+              activeTab === 'telemetry'
+                ? 'bg-[#ffe600] text-slate-950 border border-slate-900 shadow-2xs font-black'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+            }`}
+          >
+            Telemetry
+          </button>
+
+          {staticImage && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowStatic(prev => !prev);
+                playClickSound();
+              }}
+              title="Toggle between Interactive Canvas and Static Artwork"
+              className={`ml-1 px-1.5 py-0.5 rounded border text-[10px] font-bold cursor-pointer transition-colors ${
+                showStatic
+                  ? 'bg-emerald-500 text-slate-950 border-emerald-600 font-black'
+                  : 'bg-white dark:bg-slate-800 text-slate-500 border-slate-300 dark:border-slate-700'
+              }`}
+            >
+              Art
+            </button>
+          )}
+        </div>
+
+        {/* Action badge to inspect in full modal */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onOpenModal();
+          }}
+          className="text-[10px] font-black flex items-center gap-1 px-2 py-0.5 rounded bg-[#ffe600] text-slate-950 border border-slate-900 shadow-2xs hover:bg-[#fde047] active:scale-95 transition-transform cursor-pointer"
+          title="Inspect full archetype and specification"
+          aria-label={`Inspect archetype ${tmpl.name}`}
+        >
+          <Eye className="w-3 h-3 text-slate-950" />
+          <span>Inspect</span>
+        </button>
+      </div>
+
+      {/* Main Interactive Stage */}
+      <div
+        onClick={onOpenModal}
+        className="p-3 cursor-pointer relative select-none transition-colors group/preview"
+      >
+        {/* If user toggled static art and an image exists, show the artwork */}
+        {showStatic && staticImage ? (
+          <div className="relative rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 max-h-48 group-hover/preview:scale-[1.01] transition-transform bg-white dark:bg-[#060913]">
+            <img
+              src={staticImage}
+              alt={`${tmpl.name} Visual Preview`}
+              width={400}
+              height={160}
+              decoding="async"
+              className="w-full h-40 object-cover object-top"
+              style={{ aspectRatio: '400 / 160' }}
+            />
+          </div>
+        ) : activeTab === 'stack' ? (
+          /* TAB: Modules Arsenal */
+          <div className="w-full h-40 p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex flex-col justify-between overflow-hidden font-mono">
+            <div className="flex items-center justify-between pb-1 border-b border-slate-800 text-[10px]">
+              <span className="text-slate-400 font-bold uppercase tracking-wider">
+                Active Modules &amp; Plugins ({uniqueModules.length})
+              </span>
+              <span className="text-emerald-400 font-black">● 100% CAMO SAFE</span>
+            </div>
+
+            <div className="flex flex-wrap gap-1.5 py-1.5 overflow-y-auto max-h-24 scrollbar">
+              {uniqueModules.map((mod) => {
+                const info = MODULE_DESCRIPTIONS[mod] || { label: mod, desc: mod };
+                const isSelected = selectedModule === mod;
+                return (
+                  <button
+                    key={mod}
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedModule(isSelected ? null : mod);
+                      playTone(1200, 'sine', 0.04, 0.02);
+                    }}
+                    className={`px-2 py-0.5 rounded-md text-[10px] font-bold border transition-all cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#ffe600] text-slate-950 border-slate-950 font-black scale-105 shadow-2xs'
+                        : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-700 hover:border-slate-500'
+                    }`}
+                  >
+                    {info.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Micro description ticker */}
+            <div className="pt-1 border-t border-slate-800 text-[9px] text-slate-400 truncate">
+              {activeModuleInfo ? (
+                <span className="text-amber-400 font-bold">
+                  {activeModuleInfo.label}: {activeModuleInfo.desc}
+                </span>
+              ) : (
+                <span>Hover or click a module chip to inspect capability.</span>
+              )}
+            </div>
+          </div>
+        ) : activeTab === 'telemetry' ? (
+          /* TAB: Telemetry Radar & Activity */
+          <div className="w-full h-40 p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex flex-col justify-between overflow-hidden font-mono text-white">
+            <div className="flex items-center justify-between pb-1 border-b border-slate-800 text-[10px]">
+              <span className="text-slate-400 font-bold uppercase">Dynamic Telemetry Engine</span>
+              <span className="text-amber-400 font-black">LIVE GITHUB FETCH</span>
+            </div>
+
+            <div className="grid grid-cols-3 gap-2 py-1">
+              <div className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 text-center">
+                <span className="text-[8px] text-slate-400 uppercase font-bold block">VERIFIED COMMITS</span>
+                <span className="text-sm font-black text-emerald-400">2,847</span>
+              </div>
+              <div className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 text-center">
+                <span className="text-[8px] text-slate-400 uppercase font-bold block">ACTIVE STREAK</span>
+                <span className="text-sm font-black" style={{ color: accent }}>🔥 42 Days</span>
+              </div>
+              <div className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 text-center">
+                <span className="text-[8px] text-slate-400 uppercase font-bold block">GLOBAL RANK</span>
+                <span className="text-sm font-black text-cyan-400">Top 1%</span>
+              </div>
+            </div>
+
+            {/* Language distribution bar */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-[8px] text-slate-400 font-bold">
+                <span>LANGUAGES (DONUT BREAKDOWN)</span>
+                <span className="text-slate-300">TS 58% · Rust 24% · Python 18%</span>
+              </div>
+              <div className="h-2 w-full rounded-full overflow-hidden flex bg-slate-800">
+                <div style={{ width: '58%', backgroundColor: accent }} />
+                <div style={{ width: '24%', backgroundColor: '#10b981' }} />
+                <div style={{ width: '18%', backgroundColor: '#06b6d4' }} />
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* TAB: Interactive Live Vector Canvas */
+          <div
+            className="w-full h-40 p-3 rounded-lg border border-slate-800 flex flex-col justify-between overflow-hidden relative shadow-inner select-none transition-transform group-hover/preview:scale-[1.01]"
+            style={{
+              background: `radial-gradient(circle at 85% 15%, ${accent}25, transparent 65%), #0f172a`,
+            }}
+          >
+            {/* Top Bar with Mini Mascot / Avatar & User */}
+            <div className="flex items-center justify-between pb-1.5 border-b border-slate-700/60">
+              <div className="flex items-center gap-2">
+                <div
+                  className="w-7 h-7 rounded-lg flex items-center justify-center font-black text-xs text-slate-950 border border-slate-900 shadow-2xs transition-transform group-hover/preview:rotate-6"
+                  style={{ backgroundColor: accent }}
+                >
+                  {initial}
+                </div>
+                <div className="leading-tight">
+                  <span className="text-xs font-mono font-black text-white block truncate max-w-[140px]">
+                    @{gh}
+                  </span>
+                  <span className="text-[10px] font-mono font-bold text-slate-300 block truncate max-w-[140px]">
+                    {role}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1.5">
+                <span
+                  className="text-[9px] font-mono font-black px-2 py-0.5 rounded-md border border-slate-900 shadow-2xs uppercase"
+                  style={{ backgroundColor: accent, color: '#0f172a' }}
+                >
+                  {tmpl.category}
+                </span>
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" title="60fps Camo Safe" />
+              </div>
+            </div>
+
+            {/* Simulated Bento / Metric Badges */}
+            <div className="grid grid-cols-3 gap-1.5 py-1">
+              <div className="p-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 text-center hover:bg-slate-850 transition-colors">
+                <span className="text-[8px] font-mono text-slate-400 uppercase block font-bold">COMMITS</span>
+                <span className="text-xs font-mono font-black text-emerald-400">2,840+</span>
+              </div>
+              <div className="p-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 text-center hover:bg-slate-850 transition-colors">
+                <span className="text-[8px] font-mono text-slate-400 uppercase block font-bold">STREAK</span>
+                <span className="text-xs font-mono font-black flex items-center justify-center gap-0.5" style={{ color: accent }}>
+                  🔥 42d
+                </span>
+              </div>
+              <div className="p-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 text-center hover:bg-slate-850 transition-colors">
+                <span className="text-[8px] font-mono text-slate-400 uppercase block font-bold">GLOBAL</span>
+                <span className="text-xs font-mono font-black text-cyan-400">Top 1%</span>
+              </div>
+            </div>
+
+            {/* Interactive Velocity Wave Line Strip with Hover Feedback */}
+            <div className="relative">
+              {hoveredBar !== null && (
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-[9px] font-mono text-amber-400 shadow-md pointer-events-none whitespace-nowrap z-10">
+                  Week {hoveredBar + 1}: {Math.round(hoveredBar * 14 + 22)} actions
+                </div>
+              )}
+              <div className="flex items-end gap-1 h-5 px-1.5 pt-1 bg-slate-950/90 rounded-md border border-slate-800">
+                {[25, 45, 80, 40, 100, 65, 30, 90, 75, 50, 85, 95, 60, 70, 85, 100].map((h, i) => (
+                  <div
+                    key={i}
+                    onMouseEnter={() => setHoveredBar(i)}
+                    onMouseLeave={() => setHoveredBar(null)}
+                    className="flex-1 rounded-t-xs transition-all hover:scale-y-125 hover:brightness-125 cursor-pointer"
+                    style={{
+                      height: `${h}%`,
+                      backgroundColor: hoveredBar === i ? '#ffe600' : (i % 2 === 0 ? accent : '#10b981'),
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 function renderProceduralPreview(tmpl: TemplateItem) {
@@ -837,43 +1158,12 @@ export const TemplateGallery: React.FC = () => {
                     {tmpl.description}
                   </p>
 
-                  {/* Visual Preview Window Box */}
-                  <div
-                    onClick={() => handleOpenPreview(tmpl)}
-                    className="my-4 rounded-xl border border-slate-200 dark:border-slate-700 p-3 bg-slate-50 dark:bg-[#0f172a] hover:bg-slate-100/80 dark:hover:bg-slate-800 cursor-pointer transition-all duration-200 group/preview relative overflow-hidden shadow-inner"
-                  >
-                    <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-200 dark:border-slate-700">
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]" />
-                        <span className="ml-1 text-[10px] font-mono text-slate-600 dark:text-slate-400 font-bold truncate max-w-[130px]">
-                          {tmpl.config.settings.user.github || 'developer'} / README.md
-                        </span>
-                      </div>
-                      <span className="text-[10px] font-mono font-black flex items-center gap-1 px-2 py-0.5 rounded bg-[#ffe600] text-slate-950 border border-slate-900 shadow-2xs transition-transform group-hover/preview:scale-105">
-                        <Eye className="w-3 h-3 text-slate-950" /> Preview
-                      </span>
-                    </div>
-
-                    {TEMPLATE_PREVIEWS[tmpl.id] ? (
-                      <div
-                        className="relative rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 max-h-48 group-hover/preview:scale-[1.01] transition-transform bg-white dark:bg-[#060913]"
-                      >
-                        <img
-                          src={TEMPLATE_PREVIEWS[tmpl.id]}
-                          alt={`${tmpl.name} Visual Preview`}
-                          width={400}
-                          height={160}
-                          decoding="async"
-                          className="w-full h-40 object-cover object-top"
-                          style={{ aspectRatio: '400 / 160' }}
-                        />
-                      </div>
-                    ) : (
-                      renderProceduralPreview(tmpl)
-                    )}
-                  </div>
+                  {/* Interactive Visual Preview Window Box */}
+                  <InteractiveArchetypeCardPreview
+                    tmpl={tmpl}
+                    staticImage={TEMPLATE_PREVIEWS[tmpl.id]}
+                    onOpenModal={() => handleOpenPreview(tmpl)}
+                  />
                 </div>
 
                 {/* Action Buttons */}
@@ -1011,13 +1301,13 @@ export const TemplateGallery: React.FC = () => {
             </div>
 
             {/* Modal Tabs Bar */}
-            <div className="flex items-center gap-2 px-6 py-2.5 bg-[#F4F6FB] dark:bg-[#0F172A] border-b border-[#DCE3EF] dark:border-slate-800 text-xs font-mono font-bold overflow-x-auto">
+            <div className="flex items-center gap-2 px-6 py-2.5 bg-slate-100 dark:bg-slate-900 border-b-2 border-slate-300 dark:border-slate-800 text-xs font-mono font-bold overflow-x-auto">
               <button
                 type="button"
                 onClick={() => setPreviewTab('visual')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'visual'
-                    ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent shadow-xs font-black'
-                    : 'bg-white dark:bg-slate-800 text-[#64748B] dark:text-slate-300 border-[#DCE3EF] dark:border-slate-700 hover:text-[#172033] hover:border-[#6366F1]'
+                    ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-2xs font-black'
+                    : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:text-slate-900 hover:border-slate-900'
                   }`}
               >
                 <Eye className="w-3.5 h-3.5" />
