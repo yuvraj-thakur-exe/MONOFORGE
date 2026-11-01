@@ -47,6 +47,14 @@ const HomeCapabilitiesMatrix = dynamic(
 export default function HomePage() {
   return (
     <div className="relative flex flex-col min-h-screen bg-[#faf9f6] text-neutral-950 selection:bg-[#ffe600] selection:text-neutral-950 overflow-x-hidden font-sans transition-colors duration-200">
+      {/* Accessible Skip Link for Keyboard & Screen Readers */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#ffe600] focus:text-neutral-950 focus:font-black focus:border-2 focus:border-neutral-900 focus:rounded-xl focus:shadow-[2px_2px_0px_#18181b]"
+      >
+        Skip to main content
+      </a>
+
       {/* Floating Lo-Fi Audio Ambience Player */}
       <StudioAudioToggle />
 
@@ -56,42 +64,45 @@ export default function HomePage() {
       {/* High-Impact Top Kinetic Marquee */}
       <NomokeyMarquee speed="fast" />
 
-      {/* Flagship Centerpiece: Nomokey Hero with Paired Text & Geometric Monkey Companion */}
-      <NomokeyHero />
+      {/* Primary Page Landmark for Screen Readers & SEO */}
+      <main id="main-content" role="main" tabIndex={-1} className="flex-1 focus:outline-none">
+        {/* Flagship Centerpiece: Nomokey Hero with Paired Text & Geometric Monkey Companion */}
+        <NomokeyHero />
 
-      {/* Brand Logo Showcase & Live Telemetry Strip */}
-      <section className="py-6 px-4 sm:px-6 border-b-2 border-neutral-900 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <HomeBrandLogoEmblem />
-        </div>
-      </section>
+        {/* Brand Logo Showcase & Live Telemetry Strip */}
+        <section className="py-6 px-4 sm:px-6 border-b-2 border-neutral-900 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <HomeBrandLogoEmblem />
+          </div>
+        </section>
 
-      {/* Interactive Handle Live Sandbox */}
-      <LivePlaygroundBar />
+        {/* Interactive Handle Live Sandbox */}
+        <LivePlaygroundBar />
 
-      {/* 6-Step How It Works Guide */}
-      <HowItWorks />
+        {/* 6-Step How It Works Guide */}
+        <HowItWorks />
 
-      {/* Studio Bento Grid: Telemetry, Monaco IDE, Vector Camo Engines */}
-      <StudioBento />
+        {/* Studio Bento Grid: Telemetry, Monaco IDE, Vector Camo Engines */}
+        <StudioBento />
 
-      {/* Flagship What MonoForge Can Do & What It Has: Full Capability Matrix */}
-      <HomeCapabilitiesMatrix />
+        {/* Flagship What MonoForge Can Do & What It Has: Full Capability Matrix */}
+        <HomeCapabilitiesMatrix />
 
-      {/* Transformation Showcase: Night & Day Before/After */}
-      <TransformationShowcase />
+        {/* Transformation Showcase: Night & Day Before/After */}
+        <TransformationShowcase />
 
-      {/* Tactile Sticker Deck */}
-      <NomokeyStickerBoard />
+        {/* Tactile Sticker Deck */}
+        <NomokeyStickerBoard />
 
-      {/* Curated Signature Profile Starters */}
-      <CuratedArchetypes />
+        {/* Curated Signature Profile Starters */}
+        <CuratedArchetypes />
 
-      {/* The MonoForge Manifesto & Technical FAQ */}
-      <NomokeyManifesto />
+        {/* The MonoForge Manifesto & Technical FAQ */}
+        <NomokeyManifesto />
 
-      {/* Final Conversion CTA: Build a profile worth exploring */}
-      <FinalCta />
+        {/* Final Conversion CTA: Build a profile worth exploring */}
+        <FinalCta />
+      </main>
 
       {/* Reverse Amber Marquee Footer Strip */}
       <NomokeyMarquee reverse={true} theme="amber" speed="normal" />

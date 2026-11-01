@@ -148,7 +148,7 @@ export async function GET(request: NextRequest) {
   return new NextResponse(svgContent, {
     headers: {
       'Content-Type': 'image/svg+xml; charset=utf-8',
-      'Cache-Control': 'public, max-age=1800, stale-while-revalidate=86400',
+      'Cache-Control': 'public, max-age=86400, stale-while-revalidate=604800, immutable',
       'X-Content-Type-Options': 'nosniff',
     },
   });

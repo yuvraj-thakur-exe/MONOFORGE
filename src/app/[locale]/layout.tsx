@@ -17,6 +17,7 @@ if (typeof console !== 'undefined') {
 }
 
 import type { Metadata, Viewport } from 'next';
+import { headers } from 'next/headers';
 
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import {
@@ -58,7 +59,18 @@ export async function generateMetadata({
 
   const title = t('title');
   const description = t('description');
-  const appUrl = config.general.urls.app;
+  let appUrl = config.general.urls.app;
+
+  try {
+    const headersList = await headers();
+    const host = headersList.get('host');
+    const proto = headersList.get('x-forwarded-proto') || 'https';
+    if (host && !host.includes('localhost') && !host.includes('127.0.0.1')) {
+      appUrl = `${proto}://${host}`;
+    }
+  } catch {
+    // Fallback to static appUrl
+  }
 
   const languages: Record<string, string> = {
     'x-default': `${appUrl}/en`,
@@ -178,7 +190,7 @@ export default async function RootLayout({
         {/* Above-the-fold Hero LCP Asset Preload with High Priority */}
         <link
           rel="preload"
-          href="/assets/monoforge-monkey-logo.jpg"
+          href="/assets/monoforge-monkey-logo-256.jpg"
           as="image"
           type="image/jpeg"
           fetchPriority="high"
