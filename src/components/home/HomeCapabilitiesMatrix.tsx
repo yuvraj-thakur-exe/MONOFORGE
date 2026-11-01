@@ -55,8 +55,8 @@ const CAPABILITIES: CapabilityFeature[] = [
       { label: 'GitHub Sanitizer', value: 'Strict Camo Safe' },
       { label: 'Frame Rate', value: 'Target 60 FPS' },
     ],
-    ctaText: 'LAUNCH VECTOR STUDIO',
-    ctaHref: '/animator',
+    ctaText: 'EXPLORE ARCHETYPES',
+    ctaHref: '/templates',
     previewType: 'vector',
   },
   {

@@ -20,7 +20,6 @@ import {
   Swords,
   Binary,
   Rocket,
-  Palette,
   Layers,
 } from 'lucide-react';
 import { getDocsNavigation } from '#/content/docs/docs-data';
@@ -176,21 +175,12 @@ export function DocsHomePortal() {
               {/* Secondary Navigation Modes */}
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 font-mono text-xs pt-1">
                 <Link
-                  href="/animator"
-                  onClick={() => playClickSound()}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
-                >
-                  <Palette className="w-3.5 h-3.5 text-cyan-500" />
-                  <span>Vector Animator</span>
-                </Link>
-
-                <Link
                   href="/templates"
                   onClick={() => playClickSound()}
                   className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
                 >
                   <Layers className="w-3.5 h-3.5 text-amber-500" />
-                  <span>18+ Archetypes</span>
+                  <span>75+ Curated Archetypes</span>
                 </Link>
 
                 <Link

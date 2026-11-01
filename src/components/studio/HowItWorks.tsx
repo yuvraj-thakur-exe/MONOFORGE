@@ -46,8 +46,8 @@ const STEPS = [
     description: 'Inject animated vector characters, kinetic typewriter titles, and glowing cyber border beams.',
     icon: Eye,
     badge: '60FPS',
-    link: '/animator',
-    ctaText: 'Vector Animator',
+    link: '/templates',
+    ctaText: 'Explore Archetypes',
   },
   {
     step: '05',

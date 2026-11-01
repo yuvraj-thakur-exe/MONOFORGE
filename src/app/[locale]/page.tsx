@@ -20,7 +20,6 @@ import {
   Github,
   BarChart3,
   BookOpen,
-  Film,
   LayoutTemplate,
   ShieldCheck,
   Heart,
@@ -113,14 +112,6 @@ export default function HomePage() {
               >
                 <BarChart3 className="w-3.5 h-3.5 text-emerald-500" />
                 <span>47+ TELEMETRY</span>
-              </Link>
-              <Link
-                href="/animator"
-                onClick={() => playClickSound()}
-                className="hover:text-purple-600 transition-colors flex items-center gap-1.5"
-              >
-                <Film className="w-3.5 h-3.5 text-purple-500" />
-                <span>SVG ANIMATOR</span>
               </Link>
               <Link
                 href="/docs"

@@ -39,7 +39,7 @@ describe('DocsHomePortal', () => {
 
     // Secondary navigation modes
     expect(screen.getByText(/47\+ TELEMETRY/i)).toBeDefined();
-    expect(screen.getByText(/Vector Animator/i)).toBeDefined();
+    expect(screen.getByText(/75\+ Curated Archetypes/i)).toBeDefined();
   });
 
   it('triggers sound and tab change when clicking terminal install tabs', () => {

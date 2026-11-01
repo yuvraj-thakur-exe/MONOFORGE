@@ -333,11 +333,11 @@ export function StudioBento() {
             </div>
 
             <Link
-              href="/animator"
+              href="/templates"
               onClick={() => playClickSound()}
               className="mt-6 inline-flex items-center justify-between text-xs font-mono font-black text-neutral-950 dark:text-amber-400 hover:text-amber-600 transition-colors pt-3 border-t-2 border-neutral-900 dark:border-slate-800 btn-tactile"
             >
-              <span>Open Vector Animator</span>
+              <span>Explore Character Archetypes</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

@@ -15,7 +15,6 @@ import {
   BookOpen,
   Globe,
   BarChart3,
-  Film,
   Github,
   LayoutTemplate,
   History,
@@ -196,17 +195,6 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               >
                 <BarChart3 className="w-4 h-4 text-emerald-600" />
                 <span className="font-bold">47+ Telemetry Studio (Isometric 3D &amp; Donut)</span>
-              </Command.Item>
-
-              <Command.Item
-                onSelect={() => {
-                  router.push('/animator');
-                  setOpen(false);
-                }}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 cursor-pointer transition-colors"
-              >
-                <Film className="w-4 h-4 text-purple-600" />
-                <span className="font-bold">SVG Animation Studio (Cyber Bot &amp; Motion)</span>
               </Command.Item>
             </Command.Group>
 
