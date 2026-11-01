@@ -139,19 +139,19 @@ export function NomokeyHero() {
       <div className="relative max-w-7xl mx-auto">
         {/* Pre-header Studio Badge: Properly Paired Text */}
         <div className="flex flex-wrap items-center justify-start gap-3 mb-8">
-          <div className="inline-flex flex-wrap items-center gap-2 sm:gap-3 px-4 py-2 rounded-2xl border-2 border-neutral-900 bg-white shadow-[3px_3px_0px_#18181b] text-xs font-mono font-bold tracking-tight">
-            <span className="flex items-center gap-1.5 text-neutral-950 font-black">
-              <Sparkles className="w-4 h-4 text-amber-500 fill-amber-400" />
+          <div className="inline-flex flex-wrap items-center gap-2 sm:gap-3 px-4 py-2 rounded-2xl border-2 border-neutral-900 bg-white dark:bg-slate-900 shadow-[3px_3px_0px_#18181b] text-xs font-mono font-bold tracking-tight">
+            <span className="flex items-center gap-1.5 text-neutral-950 dark:text-white font-black">
+              <Sparkles className="w-4 h-4 text-amber-700 dark:text-amber-400 fill-amber-400" />
               <span>Forge a GitHub profile that gets noticed</span>
             </span>
-            <span className="text-amber-500 font-black select-none">•</span>
+            <span className="text-amber-700 dark:text-amber-400 font-black select-none">•</span>
             <span className="flex items-center gap-1.5 text-cyan-900 dark:text-cyan-200 font-bold">
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
               <span>60fps Camo CDN vectors</span>
             </span>
-            <span className="text-amber-500 font-black select-none">•</span>
+            <span className="text-amber-700 dark:text-amber-400 font-black select-none">•</span>
             <span className="flex items-center gap-1.5 text-emerald-900 dark:text-emerald-200 font-bold">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" />
               <span>Zero external tracking</span>
             </span>
           </div>
@@ -240,9 +240,9 @@ export function NomokeyHero() {
                 href="/templates"
                 onClick={() => playClickSound()}
                 data-cursor-label="TEMPLATES"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white text-neutral-950 font-bold text-sm tracking-wide border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] hover:shadow-[1px_1px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all duration-150 btn-tactile hover:bg-[#ffe600] cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-slate-800 text-neutral-950 dark:text-white font-bold text-sm tracking-wide border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] hover:shadow-[1px_1px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all duration-150 btn-tactile hover:bg-[#ffe600] cursor-pointer"
               >
-                <LayoutTemplate className="w-4 h-4 text-amber-500" />
+                <LayoutTemplate className="w-4 h-4 text-amber-700 dark:text-amber-400" />
                 <span>75+ TEMPLATES</span>
               </Link>
 

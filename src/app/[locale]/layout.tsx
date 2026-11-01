@@ -167,7 +167,6 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Asynchronous Non-Blocking Google Fonts Loading for Sub-Second FCP */}
         <link
           rel="preload"

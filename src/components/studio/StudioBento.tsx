@@ -169,7 +169,7 @@ export function StudioBento() {
                         );
                       })}
                     </div>
-                    <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 font-bold">
+                    <div className="flex items-center justify-between text-[10px] font-mono text-slate-700 dark:text-slate-300 font-bold">
                       <span>LEVELS: 0-4 INTENSITY // GITHUB SYNC</span>
                       <span>AUTO-UPDATED ON COMMIT</span>
                     </div>
@@ -178,15 +178,15 @@ export function StudioBento() {
 
                 {telemetryTab === 'habits' && (
                   <div className="w-full space-y-3">
-                    <div className="flex items-center justify-between text-[11px] font-mono text-neutral-600 dark:text-slate-400 font-bold">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-neutral-800 dark:text-slate-200 font-bold">
                       <span>MOST PRODUCTIVE CODING HOURS (UTC+0)</span>
-                      <span className="text-amber-500 font-bold">PEAK: 21:00 - 02:00</span>
+                      <span className="text-amber-700 dark:text-amber-400 font-bold">PEAK: 21:00 - 02:00</span>
                     </div>
                     <div className="space-y-2 p-3 rounded-lg bg-white dark:bg-slate-900 border-2 border-neutral-900 dark:border-slate-700 font-mono text-xs">
                       <div>
                         <div className="flex justify-between text-[10px] mb-1 font-bold text-neutral-800 dark:text-slate-200">
                           <span>Night Owl Developer Index</span>
-                          <span className="text-amber-500 font-black">89%</span>
+                          <span className="text-amber-700 dark:text-amber-400 font-black">89%</span>
                         </div>
                         <div className="w-full h-2 rounded-full bg-neutral-200 dark:bg-slate-800 overflow-hidden">
                           <div className="w-[89%] h-full bg-amber-400 rounded-full" />
@@ -195,7 +195,7 @@ export function StudioBento() {
                       <div>
                         <div className="flex justify-between text-[10px] mb-1 font-bold text-neutral-800 dark:text-slate-200">
                           <span>Weekend Commits</span>
-                          <span className="text-cyan-500 font-black">64%</span>
+                          <span className="text-cyan-700 dark:text-cyan-300 font-black">64%</span>
                         </div>
                         <div className="w-full h-2 rounded-full bg-neutral-200 dark:bg-slate-800 overflow-hidden">
                           <div className="w-[64%] h-full bg-cyan-400 rounded-full" />
@@ -207,9 +207,9 @@ export function StudioBento() {
 
                 {telemetryTab === 'languages' && (
                   <div className="w-full space-y-3">
-                    <div className="flex items-center justify-between text-[11px] font-mono text-neutral-600 dark:text-slate-400 font-bold">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-neutral-800 dark:text-slate-200 font-bold">
                       <span>VERIFIED LANGUAGE TIME DISTRIBUTION</span>
-                      <span className="text-cyan-500 font-bold">14 LANGUAGES</span>
+                      <span className="text-cyan-700 dark:text-cyan-300 font-bold">14 LANGUAGES</span>
                     </div>
                     <div className="p-3 rounded-lg bg-white dark:bg-slate-900 border-2 border-neutral-900 dark:border-slate-700 space-y-2 font-mono text-xs">
                       <div className="flex h-3 rounded-full overflow-hidden w-full gap-0.5">
@@ -230,9 +230,9 @@ export function StudioBento() {
 
                 {telemetryTab === 'achievements' && (
                   <div className="w-full space-y-3">
-                    <div className="flex items-center justify-between text-[11px] font-mono text-neutral-600 dark:text-slate-400 font-bold">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-neutral-800 dark:text-slate-200 font-bold">
                       <span>SPECIALIZED GITHUB TROPHY MATRIX</span>
-                      <span className="text-amber-500 font-bold">TIER: MASTER</span>
+                      <span className="text-amber-700 dark:text-amber-400 font-bold">TIER: MASTER</span>
                     </div>
                     <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 p-3 rounded-lg bg-white dark:bg-slate-900 border-2 border-neutral-900 dark:border-slate-700 text-center font-mono text-[10px]">
                       {['PULL SHARK', 'QUICKDRAW', 'YOLO', 'PAIR DEV', 'GALAXY', 'ARCTIC'].map((trophy, i) => (
@@ -273,7 +273,7 @@ export function StudioBento() {
                   <h3 className="font-black text-lg text-neutral-950 dark:text-white uppercase font-sans">
                     75+ Curated Archetypes
                   </h3>
-                  <p className="text-xs font-mono text-neutral-500 dark:text-slate-400 font-bold">
+                  <p className="text-xs font-mono text-neutral-700 dark:text-slate-300 font-bold">
                     Zero Setup &bull; Instant Markdown &bull; Camo-Ready
                   </p>
                 </div>
@@ -285,7 +285,7 @@ export function StudioBento() {
 
               {/* Archetypes Preview Mini-Box */}
               <div className="rounded-xl border-2 border-neutral-900 dark:border-slate-800 bg-neutral-950 text-neutral-200 p-4 font-mono text-[11px] leading-relaxed overflow-hidden">
-                <div className="flex items-center justify-between pb-2 mb-2 border-b border-neutral-800 text-[10px] text-neutral-500 font-bold">
+                <div className="flex items-center justify-between pb-2 mb-2 border-b border-neutral-800 text-[10px] text-neutral-300 font-bold">
                   <span>monoforge-templates</span>
                   <span className="text-amber-400">76 READY TO SHIP</span>
                 </div>

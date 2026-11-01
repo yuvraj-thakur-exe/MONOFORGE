@@ -115,9 +115,9 @@ export function NomokeyManifesto() {
         {/* Technical FAQ Accordion */}
         <div className="space-y-6">
           <div className="space-y-2 pb-2">
-            <div className="flex items-center justify-between font-mono text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+            <div className="flex items-center justify-between font-mono text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
               <div className="flex items-center gap-2">
-                <HelpCircle className="w-4 h-4 text-amber-500 shrink-0 stroke-[2.2]" />
+                <HelpCircle className="w-4 h-4 text-amber-700 dark:text-amber-400 shrink-0 stroke-[2.2]" />
                 <span>FREQUENTLY ASKED QUESTIONS</span>
               </div>
               <span className="hidden sm:inline">7 QUESTIONS ANSWERED</span>

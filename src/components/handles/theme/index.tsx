@@ -1,64 +1,47 @@
 'use client';
 
 import { useEffect } from 'react';
-
-import { usePersistedState } from '#/hooks';
-import { actions, command } from '#/lib/command';
+import { useTheme } from 'next-themes';
+import { command } from '#/lib/command';
 
 export function ThemeHandler() {
-  function getSystemTheme() {
-    if (typeof window === 'undefined') return 'dark';
+  const { theme, setTheme, resolvedTheme } = useTheme();
 
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light';
-  }
+  function applyTheme(targetTheme: string) {
+    const normalized = targetTheme === 'dark' ? 'dark' : 'light';
+    setTheme(normalized);
 
-  const [storedTheme, setTheme] = usePersistedState('theme', getSystemTheme());
-
-  function clearTheme() {
-    document.documentElement.removeAttribute('data-theme');
-  }
-
-  function changeTheme(theme: string) {
-    clearTheme();
-    document.documentElement.setAttribute('data-theme', theme);
-    setTheme(theme);
-  }
-
-  function useTheme(theme: string) {
-    changeTheme(theme);
-  }
-
-  function getCurrentTheme() {
-    return storedTheme || getSystemTheme();
+    if (typeof document !== 'undefined') {
+      if (normalized === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    }
   }
 
   function toggleTheme() {
-    const curTheme = getCurrentTheme();
-
-    const newTheme = curTheme === 'dark' ? 'light' : 'dark';
-
-    actions.theme.use(newTheme);
+    const current = resolvedTheme || theme || 'light';
+    applyTheme(current === 'dark' ? 'light' : 'dark');
   }
 
   useEffect(() => {
-    changeTheme(getCurrentTheme());
+    // Keep document class and data-theme strictly in sync with next-themes state
+    const active = resolvedTheme || theme || 'light';
+    applyTheme(active);
 
-    const dispose = command.handle('theme.use', useTheme);
-
-    return () => {
-      dispose();
-    };
-  }, []);
-
-  useEffect(() => {
-    const dispose = command.handle('theme.toggle', toggleTheme);
+    const disposeUse = command.handle('theme.use', (t: string) => applyTheme(t));
+    const disposeToggle = command.handle('theme.toggle', toggleTheme);
 
     return () => {
-      dispose();
+      disposeUse();
+      disposeToggle();
     };
-  }, [storedTheme]);
+  }, [theme, resolvedTheme]);
 
   return null;
 }

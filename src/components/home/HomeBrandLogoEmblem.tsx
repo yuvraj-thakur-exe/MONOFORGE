@@ -18,8 +18,13 @@ export function HomeBrandLogoEmblem() {
             }}
           />
           <img
-            src="/assets/monoforge-monkey-logo.jpg"
+            src="/assets/monoforge-monkey-logo-256.jpg"
+            srcSet="/assets/monoforge-monkey-logo-256.jpg 1x, /assets/monoforge-monkey-logo-512.jpg 2x"
             alt="MonoForge Official Logo"
+            width={80}
+            height={80}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-contain rounded-xl group-hover:scale-105 transition-transform"
           />
         </div>
@@ -29,32 +34,32 @@ export function HomeBrandLogoEmblem() {
       <div className="flex-1 text-center sm:text-left space-y-1.5">
         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
           <span className="font-sans font-black text-2xl sm:text-3xl tracking-tight text-slate-900 dark:text-white uppercase">
-            MONO<span className="text-amber-500">FORGE</span>
+            MONO<span className="text-amber-700 dark:text-amber-400">FORGE</span>
           </span>
-          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20 flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 animate-pulse" />
             100% CLIENT-SIDE
           </span>
         </div>
 
-        <p className="text-xs text-slate-700 dark:text-slate-300 font-mono tracking-wide leading-relaxed w-full">
+        <p className="text-xs text-slate-800 dark:text-slate-200 font-mono tracking-wide leading-relaxed w-full">
           Forge a GitHub profile that gets noticed &bull; 60fps Camo CDN vectors &bull; Zero external tracking
         </p>
 
         {/* Micro Specs Bar */}
-        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-1 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-1 text-[11px] font-mono text-slate-700 dark:text-slate-300">
           <div className="flex items-center gap-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" />
             <span>Zero Broken Links</span>
           </div>
           <span>&bull;</span>
           <div className="flex items-center gap-1">
-            <Cpu className="w-3.5 h-3.5 text-indigo-500" />
+            <Cpu className="w-3.5 h-3.5 text-indigo-700 dark:text-indigo-400" />
             <span>Single-Store Architecture</span>
           </div>
           <span>&bull;</span>
           <div className="flex items-center gap-1">
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+            <Sparkles className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
             <span>10 Production Archetypes</span>
           </div>
         </div>

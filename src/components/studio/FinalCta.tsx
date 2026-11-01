@@ -63,8 +63,8 @@ export function FinalCta() {
           </div>
 
           {/* Footer Guarantee */}
-          <div className="flex items-center justify-center gap-2 text-xs font-mono text-neutral-600 dark:text-slate-400 font-bold pt-4">
-            <ShieldCheck className="w-4 h-4 text-emerald-500" />
+          <div className="flex items-center justify-center gap-2 text-xs font-mono text-neutral-800 dark:text-slate-200 font-bold pt-4">
+            <ShieldCheck className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
             <span>100% Camo CDN Safe &bull; Zero External JS &bull; Open Source Engine</span>
           </div>
         </div>
