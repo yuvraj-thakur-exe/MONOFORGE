@@ -106,7 +106,7 @@ export function DocsSidebar({
           <ChevronRight className="w-3 h-3 text-slate-400" />
         </Link>
         <a
-          href="https://github.com/monoforge/MONOFORGE"
+          href="https://github.com/yuvraj-thakur-exe/MONOFORGE"
           target="_blank"
           rel="noreferrer"
           className="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"

@@ -358,7 +358,7 @@ For power users who prefer raw code over drag-and-drop:
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/monoforge/MONOFORGE.git
+git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git
 cd MONOFORGE
 
 # 2. Install dependencies

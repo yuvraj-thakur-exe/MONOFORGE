@@ -105,7 +105,7 @@ MonoForge is 100% free and open-source under the **MIT License**. It requires no
 Clone the official MonoForge repository from GitHub:
 
 \`\`\`bash
-git clone https://github.com/monoforge/MONOFORGE.git
+git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git
 cd MONOFORGE
 \`\`\`
 
@@ -312,7 +312,7 @@ On Windows, use **PowerShell** or **Windows Terminal**. Follow these steps:
 
 2. **Clone the repository**:
    \`\`\`powershell
-   git clone https://github.com/monoforge/MONOFORGE.git
+   git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git
    cd MONOFORGE
    \`\`\`
 
@@ -339,7 +339,7 @@ On macOS, setup can be completed quickly using Homebrew and the terminal:
 
 3. **Clone and install**:
    \`\`\`bash
-   git clone https://github.com/monoforge/MONOFORGE.git
+   git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git
    cd MONOFORGE
    pnpm install
    \`\`\`
@@ -354,7 +354,7 @@ sudo apt update && sudo apt install -y git curl build-essential
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs
 sudo npm install -g pnpm@10.12.4
-git clone https://github.com/monoforge/MONOFORGE.git
+git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git
 cd MONOFORGE
 pnpm install
 \`\`\`
@@ -362,7 +362,7 @@ pnpm install
 ### Arch Linux:
 \`\`\`bash
 sudo pacman -S git nodejs pnpm
-git clone https://github.com/monoforge/MONOFORGE.git
+git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git
 cd MONOFORGE
 pnpm install
 \`\`\`

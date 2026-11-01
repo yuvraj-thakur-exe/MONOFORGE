@@ -131,7 +131,7 @@ export default function HomePage() {
                 <span>DOCUMENTATION</span>
               </Link>
               <a
-                href="https://github.com/monoforge/MONOFORGE"
+                href="https://github.com/yuvraj-thakur-exe/MONOFORGE"
                 target="_blank"
                 rel="noreferrer"
                 className="hover:text-neutral-950 transition-colors flex items-center gap-1.5"

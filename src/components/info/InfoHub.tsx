@@ -227,8 +227,8 @@ export function InfoHub() {
   // Commands for installer
   const linuxInstallCmd = 'curl -fsSL /install.sh | bash';
   const windowsInstallCmd = 'iwr -useb /install.ps1 | iex';
-  const gitCloneCmd = 'git clone https://github.com/monoforge/MONOFORGE.git\ncd monoforge\ncorepack enable\npnpm install\npnpm dev';
-  const npmCmd = 'git clone https://github.com/monoforge/MONOFORGE.git\ncd monoforge\nnpm install\nnpm run dev';
+  const gitCloneCmd = 'git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git\ncd monoforge\ncorepack enable\npnpm install\npnpm dev';
+  const npmCmd = 'git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git\ncd monoforge\nnpm install\nnpm run dev';
   const dockerCmd = 'docker build -t monoforge .\ndocker run -p 3000:3000 monoforge';
 
   const currentInstallCmd = useMemo(() => {
@@ -795,7 +795,7 @@ export function InfoHub() {
                   <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-800 dark:text-slate-200">
                     <span className="truncate mr-2">git clone https://...</span>
                     <CopyButton
-                      textToCopy="git clone https://github.com/monoforge/MONOFORGE.git"
+                      textToCopy="git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git"
                       variant="ghost"
                       size="xs"
                       iconOnly
@@ -1584,7 +1584,7 @@ export function InfoHub() {
 
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 <a
-                  href="https://github.com/monoforge/MONOFORGE"
+                  href="https://github.com/yuvraj-thakur-exe/MONOFORGE"
                   target="_blank"
                   rel="noreferrer"
                   className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-bold text-xs border border-slate-200 dark:border-slate-700 transition-colors shadow-xs"

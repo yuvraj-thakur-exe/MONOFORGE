@@ -63,9 +63,9 @@ export function DocsHomePortal() {
   };
 
   const codeSnippets = {
-    pnpm: 'pnpm create monoforge-app\n# or clone directly:\ngit clone https://github.com/monoforge/MONOFORGE.git\ncd MONOFORGE && pnpm install && pnpm dev',
+    pnpm: 'pnpm create monoforge-app\n# or clone directly:\ngit clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git\ncd MONOFORGE && pnpm install && pnpm dev',
     npm: 'npx create-monoforge-app\n# or run the standalone CLI without install:\nnpx monoforge generate --username octocat',
-    git: 'git clone https://github.com/monoforge/MONOFORGE.git\ncd MONOFORGE\npnpm install\npnpm test\npnpm build',
+    git: 'git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git\ncd MONOFORGE\npnpm install\npnpm test\npnpm build',
     cli: '# Run standalone CLI (zero install needed with Node.js 18+):\nnode ./bin/monoforge.js list\nnode ./bin/monoforge.js generate --username octocat --archetype wow-3d-city-cat',
   };
 
@@ -687,7 +687,7 @@ export function DocsHomePortal() {
                 INFO HUB
               </Link>
               <a
-                href="https://github.com/monoforge/MONOFORGE"
+                href="https://github.com/yuvraj-thakur-exe/MONOFORGE"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors"

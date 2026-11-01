@@ -23,7 +23,7 @@ if ((Test-Path "package.json") -and (Select-String -Path "package.json" -Pattern
         Set-Location $targetDir
     } else {
         Write-Host "📥 Cloning MonoForge..." -ForegroundColor Cyan
-        git clone https://github.com/monoforge/MONOFORGE.git $targetDir
+        git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git $targetDir
         Set-Location $targetDir
     }
 }

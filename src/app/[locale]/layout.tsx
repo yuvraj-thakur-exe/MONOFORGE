@@ -108,7 +108,7 @@ export async function generateMetadata({
       title,
       description,
       images: '/api/og',
-      creator: 'https://github.com/monoforge/MONOFORGE',
+      creator: 'https://github.com/yuvraj-thakur-exe/MONOFORGE',
     },
     alternates: {
       canonical: `${appUrl}/${locale}`,
@@ -187,10 +187,10 @@ export default async function RootLayout({
               creator: {
                 '@type': 'Organization',
                 name: 'MonoForge Open Source Contributors',
-                url: 'https://github.com/monoforge/MONOFORGE',
+                url: 'https://github.com/yuvraj-thakur-exe/MONOFORGE',
               },
               sameAs: [
-                'https://github.com/monoforge/MONOFORGE',
+                'https://github.com/yuvraj-thakur-exe/MONOFORGE',
               ],
             }),
           }}

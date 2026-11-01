@@ -50,7 +50,7 @@ export function FinalCta() {
             </Link>
 
             <a
-              href="https://github.com/monoforge/MONOFORGE"
+              href="https://github.com/yuvraj-thakur-exe/MONOFORGE"
               target="_blank"
               rel="noreferrer"
               onClick={() => playClickSound()}

@@ -5,7 +5,7 @@ export const mascotBioPlugin: Plugin = {
   name: 'Mascot Companion Bio',
   description: 'Two-column GitHub profile layout pairing structured bulleted bio points with an animated vector mascot sticker.',
   author: 'MonoForge',
-  repository: 'https://github.com/monoforge/MONOFORGE',
+  repository: 'https://github.com/yuvraj-thakur-exe/MONOFORGE',
   category: 'widgets',
   icon: 'user-check',
   fields: [
