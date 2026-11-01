@@ -114,8 +114,8 @@ export function buildMarkdownWithWorkflows(config: ReadmeConfig): BuildMarkdownR
     }
   }
 
-  // Footer attribution
-  const footer = `\n---\n<p align="center">\n  <sub>⚡ Powered by <a href="https://monoforge-studio.vercel.app"><b>MonoForge</b></a> — Forge a GitHub profile that gets noticed.</sub>\n</p>`;
+  // Footer attribution with visual stamp
+  const footer = `\n---\n<p align="center">\n  <sub>⚡ Powered by <a href="https://monoforge-studio.vercel.app/en"><b>MonoForge</b></a> — Forge a GitHub profile that gets noticed.</sub>\n</p>\n\n<div align="right">\n  <a href="https://monoforge-studio.vercel.app/en" target="_blank" rel="noopener noreferrer">\n    <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/public/assets/monoforge-stamp.svg" alt="Built with MonoForge" height="28" />\n  </a>\n</div>`;
   markdownParts.push(footer);
 
   const fullMarkdown = markdownParts.join('\n\n<br/>\n\n');

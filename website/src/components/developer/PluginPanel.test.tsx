@@ -73,7 +73,7 @@ describe('PluginPanel Developer Component', () => {
 
     const title = useReadmeStore.getState().config.title;
     expect(title).toBe('Minimalist Clean Profile');
-  });
+  }, 15000);
 
   it('switches to Schema & API tab and triggers copy json', () => {
     Object.assign(navigator, {

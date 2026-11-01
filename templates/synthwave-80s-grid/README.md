@@ -46,5 +46,7 @@
 ---
 
 <div align="right">
-  <sub>⚡ Built with <a href="https://github.com/yuvraj-thakur-exe/MONOFORGE"><b>MonoForge</b></a></sub>
+  <a href="https://monoforge-studio.vercel.app/en" target="_blank" rel="noopener noreferrer">
+    <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/public/assets/monoforge-stamp.svg" alt="Built with MonoForge" height="28" />
+  </a>
 </div>
