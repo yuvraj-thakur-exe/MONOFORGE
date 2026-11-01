@@ -223,6 +223,8 @@ function drawCommitCity(
 
   if (hoveredDay) {
     onHover?.(`📅 ${hoveredDay.date}: ${hoveredDay.count} commits (Level ${hoveredDay.level})`);
+  } else if (mouse.active) {
+    onHover?.(null);
   }
 }
 
@@ -470,6 +472,8 @@ function drawRepositoryGalaxy(
   ctx.arc(cx, cy, 24, 0, Math.PI * 2);
   ctx.fill();
 
+  let hoveredRepo: any = null;
+
   data.repositories.slice(0, 5).forEach((repo, idx) => {
     const rx = 65 + idx * 45;
     const ry = 30 + idx * 20;
@@ -491,9 +495,15 @@ function drawRepositoryGalaxy(
     ctx.fill();
 
     if (mouse.active && Math.hypot(mouse.x - px, mouse.y - py) < 16) {
-      onHover?.(`🪐 ${repo.name}: ${repo.stars}★ (${repo.language})`);
+      hoveredRepo = repo;
     }
   });
+
+  if (hoveredRepo) {
+    onHover?.(`🪐 ${hoveredRepo.name}: ${hoveredRepo.stars}★ (${hoveredRepo.language})`);
+  } else if (mouse.active) {
+    onHover?.(null);
+  }
 }
 
 function drawDeveloperDna(
@@ -577,6 +587,7 @@ function drawSkillConstellation(
   });
 
   // Nodes
+  let hoveredSkill: any = null;
   nodes.forEach(n => {
     ctx.fillStyle = theme.primary;
     ctx.beginPath();
@@ -584,7 +595,13 @@ function drawSkillConstellation(
     ctx.fill();
 
     if (mouse.active && Math.hypot(mouse.x - n.x, mouse.y - n.y) < 14) {
-      onHover?.(`✨ Skill: ${n.name} (Level ${n.level}/5, ${n.category})`);
+      hoveredSkill = n;
     }
   });
+
+  if (hoveredSkill) {
+    onHover?.(`✨ Skill: ${hoveredSkill.name} (Level ${hoveredSkill.level}/5, ${hoveredSkill.category})`);
+  } else if (mouse.active) {
+    onHover?.(null);
+  }
 }

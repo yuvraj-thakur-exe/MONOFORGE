@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import {
   X,
   Stethoscope,
@@ -31,6 +31,10 @@ export function ReadmeDoctorModal({
 }: ReadmeDoctorModalProps) {
   const [content, setContent] = useState(initialMarkdown);
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    setContent(initialMarkdown);
+  }, [initialMarkdown]);
 
   const report: ReadmeAuditReport = useMemo(() => {
     return auditReadmeContent(content);

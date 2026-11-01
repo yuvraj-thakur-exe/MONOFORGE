@@ -449,6 +449,10 @@ export function VisualizationStudio() {
         isOpen={isDoctorOpen}
         onClose={() => setIsDoctorOpen(false)}
         initialMarkdown={`# ${identity.displayName}\n${identity.bio}\n\n![${activeManifest.name}](https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=${activeVizId.replace(/-/g, '')}&user=${username}&theme=${theme})\n\n## 🚀 Core Technologies\n- Systems Architecture & High-Performance Visualization\n- Open-Source Contributor`}
+        onApplyFix={(fixed) => {
+          navigator.clipboard.writeText(fixed);
+          toast.success('Repaired markdown copied to clipboard!');
+        }}
       />
     </div>
   );
