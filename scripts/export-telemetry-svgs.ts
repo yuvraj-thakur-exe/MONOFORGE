@@ -9,9 +9,9 @@ import {
   generatePageSpeedAuditSvg,
   generateMusicPlayerSvg,
   generateLeetCodeStatsSvg,
-} from '../src/lib/forge-telemetry/svg-generators';
+} from '../website/src/lib/forge-telemetry/svg-generators';
 
-const publicDir = path.resolve(process.cwd(), 'public/assets');
+const publicDir = path.resolve(process.cwd(), 'website/public/assets');
 
 const svgs = [
   { file: 'telemetry-isocalendar-3d.svg', content: generateIsocalendarSvg() },
@@ -24,31 +24,14 @@ const svgs = [
   { file: 'telemetry-leetcode-stats.svg', content: generateLeetCodeStatsSvg() },
 ];
 
-for (const { file, content } of svgs) {
-  const filePath = path.join(publicDir, file);
-  fs.writeFileSync(filePath, content.trim(), 'utf-8');
-  console.log(`Generated: ${filePath}`);
+if (!fs.existsSync(publicDir)) {
+  fs.mkdirSync(publicDir, { recursive: true });
 }
 
-// Remove old metrics-*.svg files from public/assets
-const oldFiles = [
-  'metrics-isocalendar-3d.svg',
-  'metrics-languages-donut.svg',
-  'metrics-habits-radar.svg',
-  'metrics-achievements-rack.svg',
-  'metrics-terminal-hud.svg',
-  'metrics-pagespeed-audit.svg',
-  'metrics-music-player.svg',
-  'metrics-leetcode-stats.svg',
-];
-
-for (const oldFile of oldFiles) {
-  const oldPath = path.join(publicDir, oldFile);
-  if (fs.existsSync(oldPath)) {
-    fs.unlinkSync(oldPath);
-    console.log(`Deleted old: ${oldFile}`);
-  }
+for (const svg of svgs) {
+  const filePath = path.join(publicDir, svg.file);
+  fs.writeFileSync(filePath, svg.content, 'utf8');
+  console.log(`Generated: ${filePath} (${svg.content.length} bytes)`);
 }
 
-console.log('All standalone telemetry SVGs successfully updated in public/assets!');
-
+console.log('All telemetry SVGs generated successfully in public/assets.');

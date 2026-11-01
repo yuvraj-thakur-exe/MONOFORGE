@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" fill="none">
+  <defs>
+    <filter id="fireGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <style>
+    @keyframes dragonSoar {
+      0%, 100% { transform: translateY(0px) rotate(-3deg); }
+      50%      { transform: translateY(-16px) rotate(4deg); }
+    }
+    @keyframes wingTopFlap {
+      0%, 100% { transform: rotate(0deg) scaleY(1); }
+      50%      { transform: rotate(-35deg) scaleY(0.75); }
+    }
+    @keyframes wingBottomFlap {
+      0%, 100% { transform: rotate(0deg) scaleY(1); }
+      50%      { transform: rotate(25deg) scaleY(0.75); }
+    }
+    @keyframes fireBurst {
+      0%, 100% { transform: scale(0.2) translate(0, 0); opacity: 0; }
+      45%      { opacity: 0; }
+      60%      { transform: scale(1.15) translate(-14px, -6px); opacity: 1; filter: drop-shadow(0 0 8px #f59e0b); }
+      80%      { transform: scale(1.5) translate(-28px, -12px); opacity: 0; }
+    }
+    .dragon { transform-box: fill-box; transform-origin: center center; animation: dragonSoar 3.4s ease-in-out infinite; }
+    .wing-top { transform-box: fill-box; transform-origin: bottom right; animation: wingTopFlap 0.85s ease-in-out infinite alternate; }
+    .wing-bottom { transform-box: fill-box; transform-origin: top right; animation: wingBottomFlap 0.85s ease-in-out infinite alternate; }
+    .fire { transform-box: fill-box; transform-origin: right center; animation: fireBurst 2.2s infinite ease-out; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .dragon, .wing-top, .wing-bottom, .fire { animation: none !important; }
+    }
+  </style>
+
+  <g transform="translate(100, 100)" class="dragon">
+    <!-- Fire Breath Burst -->
+    <g transform="translate(-32, -16)" class="fire">
+      <path d="M 0 0 Q -16 -10 -24 -2 Q -32 -20 -8 -22 Z" fill="#f59e0b" filter="url(#fireGlow)" />
+      <path d="M -4 -2 Q -14 -8 -18 -3 Q -22 -14 -8 -15 Z" fill="#ef4444" />
+      <circle cx="-20" cy="-5" r="2.5" fill="#fef08a" />
+    </g>
+
+    <!-- Tail -->
+    <path d="M 12 18 Q 38 28 34 46 Q 28 58 18 56" fill="none" stroke="#e53935" stroke-width="8" stroke-linecap="round" />
+    <path d="M 18 52 Q 28 62 38 54 Q 28 46 22 50 Z" fill="#fdd835" stroke="#1a202c" stroke-width="1.5" />
+
+    <!-- Torso -->
+    <ellipse cx="2" cy="12" rx="20" ry="25" fill="#e53935" stroke="#1a202c" stroke-width="2.5" />
+    <!-- Yellow Belly -->
+    <path d="M -12 6 Q -8 30 0 34 Q -14 28 -12 6 Z" fill="#fdd835" stroke="#1a202c" stroke-width="1.2" />
+
+    <!-- Legs & Claws -->
+    <path d="M -4 30 L -10 40 L -6 43 L -4 40 L -1 43 Z" fill="#e53935" stroke="#1a202c" stroke-width="1.8" />
+    <path d="M 6 28 L 2 38 L 5 41 L 7 38 L 10 41 Z" fill="#e53935" stroke="#1a202c" stroke-width="1.8" />
+
+    <!-- Neck & Head -->
+    <path d="M -6 6 Q -16 -6 -16 -20 Q -24 -22 -32 -17 Q -30 -25 -16 -28 Q -12 -30 -8 -24 Q -3 -16 3 -2 Z" fill="#e53935" stroke="#1a202c" stroke-width="2.2" />
+    <!-- Horns -->
+    <polygon points="-16,-28 -22,-38 -14,-30" fill="#e53935" stroke="#1a202c" stroke-width="1.5" />
+    <polygon points="-12,-28 -16,-36 -10,-30" fill="#fdd835" stroke="#1a202c" stroke-width="1.2" />
+    <!-- Eye -->
+    <circle cx="-23" cy="-22" r="2.4" fill="#1a202c" />
+
+    <!-- Flapping Wings -->
+    <!-- Top Back Wing -->
+    <g class="wing-top">
+      <path d="M -2 0 Q -20 -36 -42 -44 Q -10 -36 18 -28 Q 8 -14 2 0 Z" fill="#e53935" stroke="#1a202c" stroke-width="2.2" />
+      <polygon points="-42,-44 -34,-36 -28,-40" fill="#b71c1c" />
+    </g>
+
+    <!-- Bottom Front Wing -->
+    <g class="wing-bottom">
+      <path d="M 6 12 Q 22 36 34 50 Q 14 36 -6 20 Q 0 14 6 12 Z" fill="#ef5350" stroke="#1a202c" stroke-width="2.2" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,62 @@
+# MonoForge - Robots & AI Agent Crawl Configuration
+# https://monoforge-studio.vercel.app
+
+User-agent: *
+Allow: /
+Disallow: /api/auth/
+Disallow: /api/github/sync
+
+# Google Search Engine Crawler
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /assets/
+Allow: /
+
+# Microsoft Bing
+User-agent: Bingbot
+Allow: /
+
+# AI Agents & LLM Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Omgilibot
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Sitemaps
+Sitemap: https://monoforge-studio.vercel.app/sitemap.xml
+Sitemap: https://monoforge-studio.vercel.app/sitemap
+
+# AI Agent Context & API Schemas
+# llms.txt: https://monoforge-studio.vercel.app/llms.txt
+# AI Skill manifest: https://monoforge-studio.vercel.app/api/agent/skill
+# Config schema: https://monoforge-studio.vercel.app/api/schema

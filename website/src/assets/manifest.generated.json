@@ -1,0 +1,4325 @@
+[
+  {
+    "id": "other-about-me-telemetry",
+    "name": "about-me-telemetry",
+    "path": "website/public/assets/about-me-telemetry.svg",
+    "publicUrl": "/assets/about-me-telemetry.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "about-me-telemetry"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 740 370",
+    "hash": "7cf6bdd54f1a8048c73fa6acf6776554d3c5134ac0cae95b70e7c5c59c2ef540",
+    "fileSize": 13958,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#050914",
+      "#091124",
+      "#0f1a36",
+      "#06b6d4",
+      "#3b82f6"
+    ]
+  },
+  {
+    "id": "other-agent-suite",
+    "name": "agent-suite",
+    "path": "website/public/assets/agent-suite.svg",
+    "publicUrl": "/assets/agent-suite.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "agent-suite"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 920 72",
+    "hash": "a9bc1ce1974199eac9b0c8d243248bb4d9782ad04b9c22380f394db4f40eeeab",
+    "fileSize": 5001,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#d97757",
+      "#34d399",
+      "#38bdf8",
+      "#facc15",
+      "#090d16"
+    ]
+  },
+  {
+    "id": "other-animated-characters",
+    "name": "animated-characters",
+    "path": "website/public/assets/animated-characters.svg",
+    "publicUrl": "/assets/animated-characters.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "animated-characters"
+    ],
+    "width": 100,
+    "height": 320,
+    "viewBox": "0 0 960 320",
+    "hash": "53e730479719da7da69e1434a00dae4c525cac1157a31084439b51d20ccbef59",
+    "fileSize": 26223,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#070a14",
+      "#0f172a",
+      "#050811",
+      "#06b6d4",
+      "#3b82f6"
+    ]
+  },
+  {
+    "id": "other-animated-heroes-squad",
+    "name": "animated-heroes-squad",
+    "path": "website/public/assets/animated-heroes-squad.svg",
+    "publicUrl": "/assets/animated-heroes-squad.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "animated-heroes-squad"
+    ],
+    "width": 100,
+    "height": 300,
+    "viewBox": "0 0 960 300",
+    "hash": "93c59cbddc2f6f00b6187f0b4ac190e9ee00b47d39d6242be8f1b2feca7bc44d",
+    "fileSize": 27680,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#070a14",
+      "#0f172a",
+      "#050811",
+      "#ef4444",
+      "#ec4899"
+    ]
+  },
+  {
+    "id": "other-bento-dashboard-full",
+    "name": "bento-dashboard-full",
+    "path": "website/public/assets/bento-dashboard-full.svg",
+    "publicUrl": "/assets/bento-dashboard-full.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "bento-dashboard-full"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 840 760",
+    "hash": "58607258b03bda64042d41ea019204efb63dd2e186a80a9a8910eb00c6421ba6",
+    "fileSize": 32320,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#0b0f19",
+      "#020617",
+      "#1e1b4b",
+      "#0f172a",
+      "#0284c7"
+    ]
+  },
+  {
+    "id": "banner-bento-dashboard-header",
+    "name": "bento-dashboard-header",
+    "path": "website/public/assets/bento-dashboard-header.svg",
+    "publicUrl": "/assets/bento-dashboard-header.svg",
+    "category": "banner",
+    "format": "svg",
+    "tags": [
+      "banner",
+      "svg",
+      "bento-dashboard-header"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 840 280",
+    "hash": "9baecbf186b6a606ac574450c1c559f7dec80c7358c85fcd4896682f4c50f855",
+    "fileSize": 9649,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#0b0f19",
+      "#030712",
+      "#1e1b4b",
+      "#0f172a",
+      "#0369a1"
+    ]
+  },
+  {
+    "id": "banner-best-readme-banner",
+    "name": "best-readme banner",
+    "path": "website/public/assets/best-readme/banner.svg",
+    "publicUrl": "/assets/best-readme/banner.svg",
+    "category": "banner",
+    "format": "svg",
+    "tags": [
+      "banner",
+      "svg",
+      "best-readme"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 1200 360",
+    "hash": "35eb7a80feb29fd5df955d02a2aa3317c019a8a102379ee8163c494abdc51c5d",
+    "fileSize": 7919,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#090d16",
+      "#0f172a",
+      "#020617",
+      "#ffe600",
+      "#f59e0b"
+    ]
+  },
+  {
+    "id": "brand-best-readme-logo-monoforge",
+    "name": "best-readme logo-monoforge",
+    "path": "website/public/assets/best-readme/logo-monoforge.svg",
+    "publicUrl": "/assets/best-readme/logo-monoforge.svg",
+    "category": "brand",
+    "format": "svg",
+    "tags": [
+      "brand",
+      "svg",
+      "logo-monoforge",
+      "best-readme"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 120 120",
+    "hash": "03317ef45cbbeca573daf2e265350fa2985f774b849379d276ed4446b080890c",
+    "fileSize": 1927,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "best-readme",
+    "dominantColors": [
+      "#ffe600",
+      "#f59e0b",
+      "#334155",
+      "#0f172a",
+      "#090d16"
+    ]
+  },
+  {
+    "id": "brand-best-readme-logo",
+    "name": "best-readme logo",
+    "path": "website/public/assets/best-readme/logo.png",
+    "publicUrl": "/assets/best-readme/logo.png",
+    "category": "brand",
+    "format": "png",
+    "tags": [
+      "brand",
+      "png",
+      "logo",
+      "best-readme"
+    ],
+    "hash": "5344c2fa61e5bca24b388fbd20b494ac6c2b9f2c50e2efac811d33aa225bcef5",
+    "fileSize": 2312,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "best-readme"
+  },
+  {
+    "id": "other-best-readme-screenshot",
+    "name": "best-readme screenshot",
+    "path": "website/public/assets/best-readme/screenshot.png",
+    "publicUrl": "/assets/best-readme/screenshot.png",
+    "category": "other",
+    "format": "png",
+    "tags": [
+      "other",
+      "png",
+      "screenshot",
+      "best-readme"
+    ],
+    "hash": "2ff4fe1b2ee851e00f9cc8cf970d6fa90b68f31c3131958bba9ac172c259b92c",
+    "fileSize": 130524,
+    "isDefault": false,
+    "isProtected": true
+  },
+  {
+    "id": "game-bomberman",
+    "name": "bomberman",
+    "path": "website/public/assets/bomberman.svg",
+    "publicUrl": "/assets/bomberman.svg",
+    "category": "game",
+    "format": "svg",
+    "tags": [
+      "game",
+      "svg",
+      "bomberman"
+    ],
+    "width": 1166,
+    "height": 169,
+    "viewBox": "0 0 1166 169",
+    "hash": "923af1e065797711650f1640bd17c1f33c7fb74007f8cba26a2c4ca3353d5152",
+    "fileSize": 150679,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#0d1117",
+      "#8b949e",
+      "#161b22",
+      "#0e4429",
+      "#26a641"
+    ]
+  },
+  {
+    "id": "game-breakout",
+    "name": "breakout",
+    "path": "website/public/assets/breakout.svg",
+    "publicUrl": "/assets/breakout.svg",
+    "category": "game",
+    "format": "svg",
+    "tags": [
+      "game",
+      "svg",
+      "breakout"
+    ],
+    "width": 1166,
+    "height": 209,
+    "viewBox": "0 0 1166 209",
+    "hash": "4d7df3c3010c555439e14025ec516f95fbb852dc639b59c31a80bfba33e446c4",
+    "fileSize": 261004,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#0d1117",
+      "#8b949e",
+      "#161b22",
+      "#0e4429",
+      "#006d32"
+    ]
+  },
+  {
+    "id": "character-characters-blue-bean",
+    "name": "characters blue-bean",
+    "path": "website/public/assets/characters/blue-bean.svg",
+    "publicUrl": "/assets/characters/blue-bean.svg",
+    "category": "character",
+    "format": "svg",
+    "tags": [
+      "character",
+      "svg",
+      "blue-bean",
+      "characters"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 200 200",
+    "hash": "d69227647b0c028f9e4015a12d904c869830bfe30091f23f6a43e65ea1862826",
+    "fileSize": 2870,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#2b82c9",
+      "#1d5785",
+      "#236da8",
+      "#eef2f7",
+      "#48cfad"
+    ]
+  },
+  {
+    "id": "character-characters-blue-bot",
+    "name": "characters blue-bot",
+    "path": "website/public/assets/characters/blue-bot.svg",
+    "publicUrl": "/assets/characters/blue-bot.svg",
+    "category": "character",
+    "format": "svg",
+    "tags": [
+      "character",
+      "svg",
+      "blue-bot",
+      "characters"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 200 200",
+    "hash": "48bc7b12e9f306f49005e24b1488be41366518e77e471a8bd0377cbc48e9cc53",
+    "fileSize": 3867,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#48cfad",
+      "#2b82c9",
+      "#1d5785",
+      "#eef2f7",
+      "#37474f"
+    ]
+  },
+  {
+    "id": "character-characters-chibi-deadpool",
+    "name": "characters chibi-deadpool",
+    "path": "website/public/assets/characters/chibi-deadpool.svg",
+    "publicUrl": "/assets/characters/chibi-deadpool.svg",
+    "category": "character",
+    "format": "svg",
+    "tags": [
+      "character",
+      "svg",
+      "chibi-deadpool",
+      "characters"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 200 200",
+    "hash": "eaa1151862e6039a013396213ac681c60e455b41aba389500e5eeef8dd5010d1",
+    "fileSize": 11783,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#ef4444",
+      "#f87171",
+      "#dc2626",
+      "#000000",
+      "#090d16"
+    ]
+  },
+  {
+    "id": "character-characters-dragonborn-paladin",
+    "name": "characters dragonborn-paladin",
+    "path": "website/public/assets/characters/dragonborn-paladin.svg",
+    "publicUrl": "/assets/characters/dragonborn-paladin.svg",
+    "category": "character",
+    "format": "svg",
+    "tags": [
+      "character",
+      "svg",
+      "dragonborn-paladin",
+      "characters"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 200 200",
+    "hash": "586da91fa597f62fc083d93888c041e3474f53bbc5a9370a6e1736d92a8fef28",
+    "fileSize": 10239,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#38bdf8",
+      "#ffffff",
+      "#0284c7",
+      "#090d16",
+      "#dca072"
+    ]
+  },
+  {
+    "id": "character-characters-insectoid-warrior",
+    "name": "characters insectoid-warrior",
+    "path": "website/public/assets/characters/insectoid-warrior.svg",
+    "publicUrl": "/assets/characters/insectoid-warrior.svg",
+    "category": "character",
+    "format": "svg",
+    "tags": [
+      "character",
+      "svg",
+      "insectoid-warrior",
+      "characters"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 200 200",
+    "hash": "72fffd4a287a62718b16061657852e2a35feb1ad6cb6741955547497fd9717b0",
+    "fileSize": 8998,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#2563eb",
+      "#ff2a6d",
+      "#ef4444",
+      "#b91c1c",
+      "#f43f5e"
+    ]
+  },
+  {
+    "id": "character-characters-ninja-turtle",
+    "name": "characters ninja-turtle",
+    "path": "website/public/assets/characters/ninja-turtle.svg",
+    "publicUrl": "/assets/characters/ninja-turtle.svg",
+    "category": "character",
+    "format": "svg",
+    "tags": [
+      "character",
+      "svg",
+      "ninja-turtle",
+      "characters"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 200 200",
+    "hash": "49aa92af679f6ce253dd7af098286a0e1dac2b716eec481947cf0a23b96bedfe",
+    "fileSize": 6629,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#22d3ee",
+      "#38bdf8",
+      "#8d6e63",
+      "#1a202c",
+      "#7cb342"
+    ]
+  },
+  {
+    "id": "character-characters-pink-wyvern",
+    "name": "characters pink-wyvern",
+    "path": "website/public/assets/characters/pink-wyvern.svg",
+    "publicUrl": "/assets/characters/pink-wyvern.svg",
+    "category": "character",
+    "format": "svg",
+    "tags": [
+      "character",
+      "svg",
+      "pink-wyvern",
+      "characters"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 200 200",
+    "hash": "a84cd5b6ed27945de9c93ec428fd3ecc7172cc97c3afb92b795468cce1fb7de2",
+    "fileSize": 9079,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#f43f5e",
+      "#fda4af",
+      "#090d16",
+      "#ff6584",
+      "#102a45"
+    ]
+  },
+  {
+    "id": "character-characters-purple-monster",
+    "name": "characters purple-monster",
+    "path": "website/public/assets/characters/purple-monster.svg",
+    "publicUrl": "/assets/characters/purple-monster.svg",
+    "category": "character",
+    "format": "svg",
+    "tags": [
+      "character",
+      "svg",
+      "purple-monster",
+      "characters"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 200 200",
+    "hash": "69d06c8ec6dbec0dbeb278c10682477040d4b9a9e5ca7cdfc3e63d41d1e41260",
+    "fileSize": 3895,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#ffccbc",
+      "#1a202c",
+      "#ffab91",
+      "#7986cb",
+      "#ffffff"
+    ]
+  },
+  {
+    "id": "character-characters-red-dragon",
+    "name": "characters red-dragon",
+    "path": "website/public/assets/characters/red-dragon.svg",
+    "publicUrl": "/assets/characters/red-dragon.svg",
+    "category": "character",
+    "format": "svg",
+    "tags": [
+      "character",
+      "svg",
+      "red-dragon",
+      "characters"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 200 200",
+    "hash": "57d902bcf1bfc0c89c27225bbf31ae70fbf76fda446ed44a23cf833362441a65",
+    "fileSize": 3979,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#f59e0b",
+      "#ef4444",
+      "#fef08a",
+      "#e53935",
+      "#fdd835"
+    ]
+  },
+  {
+    "id": "illustration-coding-unicorn",
+    "name": "coding-unicorn",
+    "path": "website/public/assets/coding-unicorn.svg",
+    "publicUrl": "/assets/coding-unicorn.svg",
+    "category": "illustration",
+    "format": "svg",
+    "tags": [
+      "illustration",
+      "svg",
+      "coding-unicorn"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 400 400",
+    "hash": "fb4aacda09e9834d137556f823dd36e3eac78fc535fc8e6a760e76c04ddf6c99",
+    "fileSize": 6840,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#ffffff",
+      "#f1f5f9",
+      "#f43f5e",
+      "#f59e0b",
+      "#10b981"
+    ]
+  },
+  {
+    "id": "mascot-cyber-monkey-mascot",
+    "name": "cyber-monkey-mascot",
+    "path": "website/public/assets/cyber-monkey-mascot.svg",
+    "publicUrl": "/assets/cyber-monkey-mascot.svg",
+    "category": "mascot",
+    "format": "svg",
+    "tags": [
+      "mascot",
+      "svg",
+      "cyber-monkey-mascot"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 800 600",
+    "hash": "b0e464f61a3729af1471f29f774398346b3ec516c5e2c79d8e2803e1553c9e96",
+    "fileSize": 18046,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#090d16",
+      "#0d1117",
+      "#050811",
+      "#3a3028",
+      "#2a221b"
+    ]
+  },
+  {
+    "id": "other-cyber-stickers-pack",
+    "name": "cyber-stickers-pack",
+    "path": "website/public/assets/cyber-stickers-pack.svg",
+    "publicUrl": "/assets/cyber-stickers-pack.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "cyber-stickers-pack"
+    ],
+    "width": 100,
+    "height": 160,
+    "viewBox": "0 0 860 160",
+    "hash": "f2898d78c285c612b3cbf985ce400f5e3838739698d19f520c54dbb3c0e9ac15",
+    "fileSize": 7762,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#0a0a0c",
+      "#141418",
+      "#fbbf24",
+      "#d97706",
+      "#38bdf8"
+    ]
+  },
+  {
+    "id": "illustration-developer-desk",
+    "name": "developer-desk",
+    "path": "website/public/assets/developer-desk.svg",
+    "publicUrl": "/assets/developer-desk.svg",
+    "category": "illustration",
+    "format": "svg",
+    "tags": [
+      "illustration",
+      "svg",
+      "developer-desk"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 420 380",
+    "hash": "071a086af5d0947b9c8b393b98d7b9a0e85549fcbbb42a8b71bf71226f16d34a",
+    "fileSize": 7441,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#0f172a",
+      "#1e293b",
+      "#38bdf8",
+      "#0284c7",
+      "#334155"
+    ]
+  },
+  {
+    "id": "other-developer-mode",
+    "name": "developer-mode",
+    "path": "website/public/assets/developer-mode.svg",
+    "publicUrl": "/assets/developer-mode.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "developer-mode"
+    ],
+    "width": 100,
+    "height": 380,
+    "viewBox": "0 0 920 380",
+    "hash": "4f661200f145f0dd3a53b0aa40f00f0f13d224a54a305f2f2a21e8e1d7a425d5",
+    "fileSize": 16929,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#0b0f19",
+      "#0f172a",
+      "#080c14",
+      "#141c2e",
+      "#0d1322"
+    ]
+  },
+  {
+    "id": "illustration-digital-hands-divider",
+    "name": "digital-hands-divider",
+    "path": "website/public/assets/digital-hands-divider.svg",
+    "publicUrl": "/assets/digital-hands-divider.svg",
+    "category": "illustration",
+    "format": "svg",
+    "tags": [
+      "illustration",
+      "svg",
+      "digital-hands-divider"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 900 120",
+    "hash": "5b22a9b4eb592efea184e87814a28cc77e64e7882963bfacd6136f3568f71f98",
+    "fileSize": 6093,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#07090e",
+      "#0d111a",
+      "#ef4444",
+      "#22d3ee",
+      "#8b5cf6"
+    ]
+  },
+  {
+    "id": "game-galaga",
+    "name": "galaga",
+    "path": "website/public/assets/galaga.svg",
+    "publicUrl": "/assets/galaga.svg",
+    "category": "game",
+    "format": "svg",
+    "tags": [
+      "game",
+      "svg",
+      "galaga"
+    ],
+    "width": 1166,
+    "height": 259,
+    "viewBox": "0 0 1166 259",
+    "hash": "d34b2dce36c39684948355aca5e67f52f442bcd5526ac1bb9ebe09acf9353c12",
+    "fileSize": 1473954,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#000000",
+      "#aaaaaa",
+      "#0e4429",
+      "#006d32",
+      "#26a641"
+    ]
+  },
+  {
+    "id": "other-hero-animated",
+    "name": "hero-animated",
+    "path": "website/public/assets/hero-animated.gif",
+    "publicUrl": "/assets/hero-animated.gif",
+    "category": "other",
+    "format": "gif",
+    "tags": [
+      "other",
+      "gif",
+      "hero-animated"
+    ],
+    "hash": "80d73909f65daeb8b1a69a1568df69656bbb82ace35520bcad793c9a6510b0ae",
+    "fileSize": 4660802,
+    "isDefault": false,
+    "isProtected": false
+  },
+  {
+    "id": "banner-hero-deck",
+    "name": "hero-deck",
+    "path": "website/public/assets/hero-deck.jpg",
+    "publicUrl": "/assets/hero-deck.jpg",
+    "category": "banner",
+    "format": "jpg",
+    "tags": [
+      "banner",
+      "jpg",
+      "hero-deck"
+    ],
+    "hash": "2fe22e532359fc9653a92de483a02f9dcb5b684de2f28bb65b8a6d957538ebe2",
+    "fileSize": 837301,
+    "isDefault": false,
+    "isProtected": false
+  },
+  {
+    "id": "other-hero-forge",
+    "name": "hero-forge",
+    "path": "website/public/assets/hero-forge.jpg",
+    "publicUrl": "/assets/hero-forge.jpg",
+    "category": "other",
+    "format": "jpg",
+    "tags": [
+      "other",
+      "jpg",
+      "hero-forge"
+    ],
+    "hash": "2fe22e532359fc9653a92de483a02f9dcb5b684de2f28bb65b8a6d957538ebe2",
+    "fileSize": 837301,
+    "isDefault": false,
+    "isProtected": false
+  },
+  {
+    "id": "social-behance-behance",
+    "name": "behance behance",
+    "path": "website/public/assets/icons/social/behance/behance.svg",
+    "publicUrl": "/assets/icons/social/behance/behance.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "behance",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "971b04f16bb9a38041f0fbfce133cb612d2701c12f1164cd0351cc73621f9a82",
+    "fileSize": 1644,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "behance",
+    "dominantColors": [
+      "#1769ff"
+    ]
+  },
+  {
+    "id": "social-behance-default",
+    "name": "behance default",
+    "path": "website/public/assets/icons/social/behance/default.svg",
+    "publicUrl": "/assets/icons/social/behance/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "behance",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "971b04f16bb9a38041f0fbfce133cb612d2701c12f1164cd0351cc73621f9a82",
+    "fileSize": 1644,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "behance",
+    "dominantColors": [
+      "#1769ff"
+    ]
+  },
+  {
+    "id": "social-bluesky-bluesky",
+    "name": "bluesky bluesky",
+    "path": "website/public/assets/icons/social/bluesky/bluesky.svg",
+    "publicUrl": "/assets/icons/social/bluesky/bluesky.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "bluesky",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "babc156cb9648d1afa5c04869dad7a237368dddd5c32cec57ccacaeab879fec5",
+    "fileSize": 712,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "bluesky",
+    "dominantColors": [
+      "#0285ff"
+    ]
+  },
+  {
+    "id": "social-bluesky-default",
+    "name": "bluesky default",
+    "path": "website/public/assets/icons/social/bluesky/default.svg",
+    "publicUrl": "/assets/icons/social/bluesky/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "bluesky",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "babc156cb9648d1afa5c04869dad7a237368dddd5c32cec57ccacaeab879fec5",
+    "fileSize": 712,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "bluesky",
+    "dominantColors": [
+      "#0285ff"
+    ]
+  },
+  {
+    "id": "social-codechef-codechef",
+    "name": "codechef codechef",
+    "path": "website/public/assets/icons/social/codechef/codechef.svg",
+    "publicUrl": "/assets/icons/social/codechef/codechef.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "codechef",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "8db6acad20977df9922cff43e174753c14565dd3e967eaeaae1e9147ebd572af",
+    "fileSize": 7375,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "codechef",
+    "dominantColors": [
+      "#5b4638"
+    ]
+  },
+  {
+    "id": "social-codechef-default",
+    "name": "codechef default",
+    "path": "website/public/assets/icons/social/codechef/default.svg",
+    "publicUrl": "/assets/icons/social/codechef/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "codechef",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "8db6acad20977df9922cff43e174753c14565dd3e967eaeaae1e9147ebd572af",
+    "fileSize": 7375,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "codechef",
+    "dominantColors": [
+      "#5b4638"
+    ]
+  },
+  {
+    "id": "social-codeforces-codeforces",
+    "name": "codeforces codeforces",
+    "path": "website/public/assets/icons/social/codeforces/codeforces.svg",
+    "publicUrl": "/assets/icons/social/codeforces/codeforces.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "codeforces",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "6ca1e139fd69a045ed1add1e7866ffc16206c57bacb6b1de45bfd116a8c596de",
+    "fileSize": 507,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "codeforces",
+    "dominantColors": [
+      "#1f8acb"
+    ]
+  },
+  {
+    "id": "social-codeforces-default",
+    "name": "codeforces default",
+    "path": "website/public/assets/icons/social/codeforces/default.svg",
+    "publicUrl": "/assets/icons/social/codeforces/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "codeforces",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "6ca1e139fd69a045ed1add1e7866ffc16206c57bacb6b1de45bfd116a8c596de",
+    "fileSize": 507,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "codeforces",
+    "dominantColors": [
+      "#1f8acb"
+    ]
+  },
+  {
+    "id": "social-codepen-codepen",
+    "name": "codepen codepen",
+    "path": "website/public/assets/icons/social/codepen/codepen.svg",
+    "publicUrl": "/assets/icons/social/codepen/codepen.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "codepen",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "52888531d463c1a2b3a53464d42eaeba01c3d075891ffbc0c4b0cd5672613b36",
+    "fileSize": 1324,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "codepen",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-codepen-default",
+    "name": "codepen default",
+    "path": "website/public/assets/icons/social/codepen/default.svg",
+    "publicUrl": "/assets/icons/social/codepen/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "codepen",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "52888531d463c1a2b3a53464d42eaeba01c3d075891ffbc0c4b0cd5672613b36",
+    "fileSize": 1324,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "codepen",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-codesandbox-codesandbox",
+    "name": "codesandbox codesandbox",
+    "path": "website/public/assets/icons/social/codesandbox/codesandbox.svg",
+    "publicUrl": "/assets/icons/social/codesandbox/codesandbox.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "codesandbox",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "09ea04cd28d7dd79a01d9cf01d015145556f3436b19bfd40a2c2e5edaed77e7f",
+    "fileSize": 215,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "codesandbox",
+    "dominantColors": [
+      "#151515"
+    ]
+  },
+  {
+    "id": "social-codesandbox-default",
+    "name": "codesandbox default",
+    "path": "website/public/assets/icons/social/codesandbox/default.svg",
+    "publicUrl": "/assets/icons/social/codesandbox/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "codesandbox",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "09ea04cd28d7dd79a01d9cf01d015145556f3436b19bfd40a2c2e5edaed77e7f",
+    "fileSize": 215,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "codesandbox",
+    "dominantColors": [
+      "#151515"
+    ]
+  },
+  {
+    "id": "social-devto-default",
+    "name": "devto default",
+    "path": "website/public/assets/icons/social/devto/default.svg",
+    "publicUrl": "/assets/icons/social/devto/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "devto",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "5d3d31e36402cb57de21a19d0e314ddbfccdd5d9677830bf2e64c21d3ea67eea",
+    "fileSize": 823,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "devto",
+    "dominantColors": [
+      "#0a0a0a"
+    ]
+  },
+  {
+    "id": "social-devto-devto",
+    "name": "devto devto",
+    "path": "website/public/assets/icons/social/devto/devto.svg",
+    "publicUrl": "/assets/icons/social/devto/devto.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "devto",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "5d3d31e36402cb57de21a19d0e314ddbfccdd5d9677830bf2e64c21d3ea67eea",
+    "fileSize": 823,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "devto",
+    "dominantColors": [
+      "#0a0a0a"
+    ]
+  },
+  {
+    "id": "social-discord-default",
+    "name": "discord default",
+    "path": "website/public/assets/icons/social/discord/default.svg",
+    "publicUrl": "/assets/icons/social/discord/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "discord",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "6f47c174afbf39f54e5cad0e6e6b274edd543afb15a0002693269cfa26ed8502",
+    "fileSize": 1425,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "discord",
+    "dominantColors": [
+      "#5865f2"
+    ]
+  },
+  {
+    "id": "social-discord-discord",
+    "name": "discord discord",
+    "path": "website/public/assets/icons/social/discord/discord.svg",
+    "publicUrl": "/assets/icons/social/discord/discord.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "discord",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "6f47c174afbf39f54e5cad0e6e6b274edd543afb15a0002693269cfa26ed8502",
+    "fileSize": 1425,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "discord",
+    "dominantColors": [
+      "#5865f2"
+    ]
+  },
+  {
+    "id": "social-dribbble-default",
+    "name": "dribbble default",
+    "path": "website/public/assets/icons/social/dribbble/default.svg",
+    "publicUrl": "/assets/icons/social/dribbble/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "dribbble",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "ab1a0ab92ebfac89c51d7f81861d89011f1f5532eaf06da5cbbc4030f572fb30",
+    "fileSize": 1035,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "dribbble",
+    "dominantColors": [
+      "#ea4c89"
+    ]
+  },
+  {
+    "id": "social-dribbble-dribbble",
+    "name": "dribbble dribbble",
+    "path": "website/public/assets/icons/social/dribbble/dribbble.svg",
+    "publicUrl": "/assets/icons/social/dribbble/dribbble.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "dribbble",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "ab1a0ab92ebfac89c51d7f81861d89011f1f5532eaf06da5cbbc4030f572fb30",
+    "fileSize": 1035,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "dribbble",
+    "dominantColors": [
+      "#ea4c89"
+    ]
+  },
+  {
+    "id": "social-facebook-default",
+    "name": "facebook default",
+    "path": "website/public/assets/icons/social/facebook/default.svg",
+    "publicUrl": "/assets/icons/social/facebook/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "facebook",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "3585e886108ecefb703ccd5a6367e2d24e30d735eadc352835bfb4942994fc6a",
+    "fileSize": 593,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "facebook",
+    "dominantColors": [
+      "#1877f2"
+    ]
+  },
+  {
+    "id": "social-facebook-facebook",
+    "name": "facebook facebook",
+    "path": "website/public/assets/icons/social/facebook/facebook.svg",
+    "publicUrl": "/assets/icons/social/facebook/facebook.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "facebook",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "3585e886108ecefb703ccd5a6367e2d24e30d735eadc352835bfb4942994fc6a",
+    "fileSize": 593,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "facebook",
+    "dominantColors": [
+      "#1877f2"
+    ]
+  },
+  {
+    "id": "social-github-default",
+    "name": "github default",
+    "path": "website/public/assets/icons/social/github/default.svg",
+    "publicUrl": "/assets/icons/social/github/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "github",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "8ebf16b5f36e3e05ab29b69411339178ddc6dbe0629a3854bed3a033f21dcafb",
+    "fileSize": 873,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "github",
+    "dominantColors": [
+      "#181717"
+    ]
+  },
+  {
+    "id": "social-github-github",
+    "name": "github github",
+    "path": "website/public/assets/icons/social/github/github.svg",
+    "publicUrl": "/assets/icons/social/github/github.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "github",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "8ebf16b5f36e3e05ab29b69411339178ddc6dbe0629a3854bed3a033f21dcafb",
+    "fileSize": 873,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "github",
+    "dominantColors": [
+      "#181717"
+    ]
+  },
+  {
+    "id": "social-github-mark",
+    "name": "github mark",
+    "path": "website/public/assets/icons/social/github/mark.svg",
+    "publicUrl": "/assets/icons/social/github/mark.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "mark",
+      "github",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "8ebf16b5f36e3e05ab29b69411339178ddc6dbe0629a3854bed3a033f21dcafb",
+    "fileSize": 873,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "github",
+    "dominantColors": [
+      "#181717"
+    ]
+  },
+  {
+    "id": "social-gitlab-default",
+    "name": "gitlab default",
+    "path": "website/public/assets/icons/social/gitlab/default.svg",
+    "publicUrl": "/assets/icons/social/gitlab/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "gitlab",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "08302adebcbfbf16593d7d877da8ef21bde36c272cc93588e72189b5499b9aed",
+    "fileSize": 624,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "gitlab",
+    "dominantColors": [
+      "#fc6d26"
+    ]
+  },
+  {
+    "id": "social-gitlab-gitlab",
+    "name": "gitlab gitlab",
+    "path": "website/public/assets/icons/social/gitlab/gitlab.svg",
+    "publicUrl": "/assets/icons/social/gitlab/gitlab.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "gitlab",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "08302adebcbfbf16593d7d877da8ef21bde36c272cc93588e72189b5499b9aed",
+    "fileSize": 624,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "gitlab",
+    "dominantColors": [
+      "#fc6d26"
+    ]
+  },
+  {
+    "id": "social-gmail-default",
+    "name": "gmail default",
+    "path": "website/public/assets/icons/social/gmail/default.svg",
+    "publicUrl": "/assets/icons/social/gmail/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "gmail",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "a554e01e726852dd2ef0bb7afdf25e833a096169a954b5e20d1eceab5dcce8c7",
+    "fileSize": 390,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "gmail",
+    "dominantColors": [
+      "#ea4335"
+    ]
+  },
+  {
+    "id": "social-gmail-gmail",
+    "name": "gmail gmail",
+    "path": "website/public/assets/icons/social/gmail/gmail.svg",
+    "publicUrl": "/assets/icons/social/gmail/gmail.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "gmail",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "a554e01e726852dd2ef0bb7afdf25e833a096169a954b5e20d1eceab5dcce8c7",
+    "fileSize": 390,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "gmail",
+    "dominantColors": [
+      "#ea4335"
+    ]
+  },
+  {
+    "id": "social-hackerrank-default",
+    "name": "hackerrank default",
+    "path": "website/public/assets/icons/social/hackerrank/default.svg",
+    "publicUrl": "/assets/icons/social/hackerrank/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "hackerrank",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "c9f01be34ffbaad124aa214aa05bd08d6f61c0567230b5614d0a7a4b2a97bf05",
+    "fileSize": 546,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "hackerrank",
+    "dominantColors": [
+      "#00ea64"
+    ]
+  },
+  {
+    "id": "social-hackerrank-hackerrank",
+    "name": "hackerrank hackerrank",
+    "path": "website/public/assets/icons/social/hackerrank/hackerrank.svg",
+    "publicUrl": "/assets/icons/social/hackerrank/hackerrank.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "hackerrank",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "c9f01be34ffbaad124aa214aa05bd08d6f61c0567230b5614d0a7a4b2a97bf05",
+    "fileSize": 546,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "hackerrank",
+    "dominantColors": [
+      "#00ea64"
+    ]
+  },
+  {
+    "id": "social-hashnode-default",
+    "name": "hashnode default",
+    "path": "website/public/assets/icons/social/hashnode/default.svg",
+    "publicUrl": "/assets/icons/social/hashnode/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "hashnode",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "cc25ed835e5c12828d44ad33492fe265cebd2ec46275cb3543009a31cb95f753",
+    "fileSize": 378,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "hashnode",
+    "dominantColors": [
+      "#2962ff"
+    ]
+  },
+  {
+    "id": "social-hashnode-hashnode",
+    "name": "hashnode hashnode",
+    "path": "website/public/assets/icons/social/hashnode/hashnode.svg",
+    "publicUrl": "/assets/icons/social/hashnode/hashnode.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "hashnode",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "cc25ed835e5c12828d44ad33492fe265cebd2ec46275cb3543009a31cb95f753",
+    "fileSize": 378,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "hashnode",
+    "dominantColors": [
+      "#2962ff"
+    ]
+  },
+  {
+    "id": "social-instagram-default",
+    "name": "instagram default",
+    "path": "website/public/assets/icons/social/instagram/default.svg",
+    "publicUrl": "/assets/icons/social/instagram/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "instagram",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "3fb186afb9b60165321818663c9b7154ff1e08f6d9e3a19c9341222bcab5b36e",
+    "fileSize": 2152,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "instagram",
+    "dominantColors": [
+      "#e4405f"
+    ]
+  },
+  {
+    "id": "social-instagram-instagram",
+    "name": "instagram instagram",
+    "path": "website/public/assets/icons/social/instagram/instagram.svg",
+    "publicUrl": "/assets/icons/social/instagram/instagram.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "instagram",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "3fb186afb9b60165321818663c9b7154ff1e08f6d9e3a19c9341222bcab5b36e",
+    "fileSize": 2152,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "instagram",
+    "dominantColors": [
+      "#e4405f"
+    ]
+  },
+  {
+    "id": "social-itch-default",
+    "name": "itch default",
+    "path": "website/public/assets/icons/social/itch/default.svg",
+    "publicUrl": "/assets/icons/social/itch/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "itch",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "6c1685c980e05660f224cf051a80ecae1d0c8a2094789d9d68876072ee0c1176",
+    "fileSize": 1882,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "itch",
+    "dominantColors": [
+      "#fa5c5c"
+    ]
+  },
+  {
+    "id": "social-itch-itch",
+    "name": "itch itch",
+    "path": "website/public/assets/icons/social/itch/itch.svg",
+    "publicUrl": "/assets/icons/social/itch/itch.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "itch",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "6c1685c980e05660f224cf051a80ecae1d0c8a2094789d9d68876072ee0c1176",
+    "fileSize": 1882,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "itch",
+    "dominantColors": [
+      "#fa5c5c"
+    ]
+  },
+  {
+    "id": "social-kaggle-default",
+    "name": "kaggle default",
+    "path": "website/public/assets/icons/social/kaggle/default.svg",
+    "publicUrl": "/assets/icons/social/kaggle/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "kaggle",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "7f796f7680a74a3e030643421b4b119737319de8a846000fb97c910a9e9ba1fc",
+    "fileSize": 3616,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "kaggle",
+    "dominantColors": [
+      "#20beff"
+    ]
+  },
+  {
+    "id": "social-kaggle-kaggle",
+    "name": "kaggle kaggle",
+    "path": "website/public/assets/icons/social/kaggle/kaggle.svg",
+    "publicUrl": "/assets/icons/social/kaggle/kaggle.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "kaggle",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "7f796f7680a74a3e030643421b4b119737319de8a846000fb97c910a9e9ba1fc",
+    "fileSize": 3616,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "kaggle",
+    "dominantColors": [
+      "#20beff"
+    ]
+  },
+  {
+    "id": "social-ko-fi-default",
+    "name": "ko-fi default",
+    "path": "website/public/assets/icons/social/ko-fi/default.svg",
+    "publicUrl": "/assets/icons/social/ko-fi/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "ko-fi",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "4821c5e72b8cb0ccbfe3a155b8198e1b60340ff8ff97d9c6cb31bcb65e62b853",
+    "fileSize": 748,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "ko-fi",
+    "dominantColors": [
+      "#ff5e5b"
+    ]
+  },
+  {
+    "id": "social-ko-fi-ko-fi",
+    "name": "ko-fi ko-fi",
+    "path": "website/public/assets/icons/social/ko-fi/ko-fi.svg",
+    "publicUrl": "/assets/icons/social/ko-fi/ko-fi.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "ko-fi",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "4821c5e72b8cb0ccbfe3a155b8198e1b60340ff8ff97d9c6cb31bcb65e62b853",
+    "fileSize": 748,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "ko-fi",
+    "dominantColors": [
+      "#ff5e5b"
+    ]
+  },
+  {
+    "id": "social-leetcode-default",
+    "name": "leetcode default",
+    "path": "website/public/assets/icons/social/leetcode/default.svg",
+    "publicUrl": "/assets/icons/social/leetcode/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "leetcode",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "3e1fd026e1369fa2db3632848247169aa1c754f4c37d0bdf45573d6471cea67f",
+    "fileSize": 964,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "leetcode",
+    "dominantColors": [
+      "#ffa116"
+    ]
+  },
+  {
+    "id": "social-leetcode-leetcode",
+    "name": "leetcode leetcode",
+    "path": "website/public/assets/icons/social/leetcode/leetcode.svg",
+    "publicUrl": "/assets/icons/social/leetcode/leetcode.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "leetcode",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "3e1fd026e1369fa2db3632848247169aa1c754f4c37d0bdf45573d6471cea67f",
+    "fileSize": 964,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "leetcode",
+    "dominantColors": [
+      "#ffa116"
+    ]
+  },
+  {
+    "id": "social-linkedin-default",
+    "name": "linkedin default",
+    "path": "website/public/assets/icons/social/linkedin/default.svg",
+    "publicUrl": "/assets/icons/social/linkedin/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "linkedin",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "5a508802cd66502e6bb11720f4bab54804514395b6dbaec5048a7befeb05fa86",
+    "fileSize": 661,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "linkedin",
+    "dominantColors": [
+      "#0a66c2"
+    ]
+  },
+  {
+    "id": "social-linkedin-linkedin",
+    "name": "linkedin linkedin",
+    "path": "website/public/assets/icons/social/linkedin/linkedin.svg",
+    "publicUrl": "/assets/icons/social/linkedin/linkedin.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "linkedin",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "5a508802cd66502e6bb11720f4bab54804514395b6dbaec5048a7befeb05fa86",
+    "fileSize": 661,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "linkedin",
+    "dominantColors": [
+      "#0a66c2"
+    ]
+  },
+  {
+    "id": "social-linktree-default",
+    "name": "linktree default",
+    "path": "website/public/assets/icons/social/linktree/default.svg",
+    "publicUrl": "/assets/icons/social/linktree/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "linktree",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "51939e92d12e1139edae42c7815663a45eed15880f6a21eb91e1d1a2353db906",
+    "fileSize": 456,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "linktree",
+    "dominantColors": [
+      "#43e660"
+    ]
+  },
+  {
+    "id": "social-linktree-linktree",
+    "name": "linktree linktree",
+    "path": "website/public/assets/icons/social/linktree/linktree.svg",
+    "publicUrl": "/assets/icons/social/linktree/linktree.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "linktree",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "51939e92d12e1139edae42c7815663a45eed15880f6a21eb91e1d1a2353db906",
+    "fileSize": 456,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "linktree",
+    "dominantColors": [
+      "#43e660"
+    ]
+  },
+  {
+    "id": "social-mastodon-default",
+    "name": "mastodon default",
+    "path": "website/public/assets/icons/social/mastodon/default.svg",
+    "publicUrl": "/assets/icons/social/mastodon/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "mastodon",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "c7d35ff9790d1db390c50721042f778181b4da12018ded51d77b8208d99a491d",
+    "fileSize": 1266,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "mastodon",
+    "dominantColors": [
+      "#6364ff"
+    ]
+  },
+  {
+    "id": "social-mastodon-mastodon",
+    "name": "mastodon mastodon",
+    "path": "website/public/assets/icons/social/mastodon/mastodon.svg",
+    "publicUrl": "/assets/icons/social/mastodon/mastodon.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "mastodon",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "c7d35ff9790d1db390c50721042f778181b4da12018ded51d77b8208d99a491d",
+    "fileSize": 1266,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "mastodon",
+    "dominantColors": [
+      "#6364ff"
+    ]
+  },
+  {
+    "id": "social-matrix-default",
+    "name": "matrix default",
+    "path": "website/public/assets/icons/social/matrix/default.svg",
+    "publicUrl": "/assets/icons/social/matrix/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "matrix",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "a6c2a8fa2e333110d2d2ccd21347f340ee745def3804fb01abf9a8592d805e03",
+    "fileSize": 990,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "matrix",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-matrix-matrix",
+    "name": "matrix matrix",
+    "path": "website/public/assets/icons/social/matrix/matrix.svg",
+    "publicUrl": "/assets/icons/social/matrix/matrix.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "matrix",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "a6c2a8fa2e333110d2d2ccd21347f340ee745def3804fb01abf9a8592d805e03",
+    "fileSize": 990,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "matrix",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-medium-default",
+    "name": "medium default",
+    "path": "website/public/assets/icons/social/medium/default.svg",
+    "publicUrl": "/assets/icons/social/medium/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "medium",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "f1891ec65444eb39ee3b0b58a34d7ae4dfca15fff635ed782a9be7ea6edc8e24",
+    "fileSize": 460,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "medium",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-medium-medium",
+    "name": "medium medium",
+    "path": "website/public/assets/icons/social/medium/medium.svg",
+    "publicUrl": "/assets/icons/social/medium/medium.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "medium",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "f1891ec65444eb39ee3b0b58a34d7ae4dfca15fff635ed782a9be7ea6edc8e24",
+    "fileSize": 460,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "medium",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-microsoft-outlook-default",
+    "name": "microsoft-outlook default",
+    "path": "website/public/assets/icons/social/microsoft-outlook/default.svg",
+    "publicUrl": "/assets/icons/social/microsoft-outlook/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "microsoft-outlook",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "94389daad4cb405be2a237937cfe13f44593e07d3726f7afbec7174c8e09c2ad",
+    "fileSize": 1070,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "microsoft-outlook",
+    "dominantColors": [
+      "#0078d4"
+    ]
+  },
+  {
+    "id": "social-microsoft-outlook-microsoft-outlook",
+    "name": "microsoft-outlook microsoft-outlook",
+    "path": "website/public/assets/icons/social/microsoft-outlook/microsoft-outlook.svg",
+    "publicUrl": "/assets/icons/social/microsoft-outlook/microsoft-outlook.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "microsoft-outlook",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "94389daad4cb405be2a237937cfe13f44593e07d3726f7afbec7174c8e09c2ad",
+    "fileSize": 1070,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "microsoft-outlook",
+    "dominantColors": [
+      "#0078d4"
+    ]
+  },
+  {
+    "id": "social-outlook-default",
+    "name": "outlook default",
+    "path": "website/public/assets/icons/social/outlook/default.svg",
+    "publicUrl": "/assets/icons/social/outlook/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "outlook",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "94389daad4cb405be2a237937cfe13f44593e07d3726f7afbec7174c8e09c2ad",
+    "fileSize": 1070,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "outlook",
+    "dominantColors": [
+      "#0078d4"
+    ]
+  },
+  {
+    "id": "social-outlook-outlook",
+    "name": "outlook outlook",
+    "path": "website/public/assets/icons/social/outlook/outlook.svg",
+    "publicUrl": "/assets/icons/social/outlook/outlook.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "outlook",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "94389daad4cb405be2a237937cfe13f44593e07d3726f7afbec7174c8e09c2ad",
+    "fileSize": 1070,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "outlook",
+    "dominantColors": [
+      "#0078d4"
+    ]
+  },
+  {
+    "id": "social-patreon-default",
+    "name": "patreon default",
+    "path": "website/public/assets/icons/social/patreon/default.svg",
+    "publicUrl": "/assets/icons/social/patreon/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "patreon",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "3d4f5f62eeb4c7df7cdad9e84541c5530fed095e5edc17303140878593fbeb14",
+    "fileSize": 420,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "patreon",
+    "dominantColors": [
+      "#ff424d"
+    ]
+  },
+  {
+    "id": "social-patreon-patreon",
+    "name": "patreon patreon",
+    "path": "website/public/assets/icons/social/patreon/patreon.svg",
+    "publicUrl": "/assets/icons/social/patreon/patreon.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "patreon",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "3d4f5f62eeb4c7df7cdad9e84541c5530fed095e5edc17303140878593fbeb14",
+    "fileSize": 420,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "patreon",
+    "dominantColors": [
+      "#ff424d"
+    ]
+  },
+  {
+    "id": "social-paypal-default",
+    "name": "paypal default",
+    "path": "website/public/assets/icons/social/paypal/default.svg",
+    "publicUrl": "/assets/icons/social/paypal/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "paypal",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "5dd7be7853030fb5d46b3dd1180bf5de84749b2264cbb4e9185ad51ee47a5f78",
+    "fileSize": 688,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "paypal",
+    "dominantColors": [
+      "#00457c"
+    ]
+  },
+  {
+    "id": "social-paypal-paypal",
+    "name": "paypal paypal",
+    "path": "website/public/assets/icons/social/paypal/paypal.svg",
+    "publicUrl": "/assets/icons/social/paypal/paypal.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "paypal",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "5dd7be7853030fb5d46b3dd1180bf5de84749b2264cbb4e9185ad51ee47a5f78",
+    "fileSize": 688,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "paypal",
+    "dominantColors": [
+      "#00457c"
+    ]
+  },
+  {
+    "id": "social-reddit-default",
+    "name": "reddit default",
+    "path": "website/public/assets/icons/social/reddit/default.svg",
+    "publicUrl": "/assets/icons/social/reddit/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "reddit",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "d6c9b78edc0f284147a4a5e8473e13c385aa1877e1120734273a1aa7f7b85ac5",
+    "fileSize": 1284,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "reddit",
+    "dominantColors": [
+      "#ff4500"
+    ]
+  },
+  {
+    "id": "social-reddit-reddit",
+    "name": "reddit reddit",
+    "path": "website/public/assets/icons/social/reddit/reddit.svg",
+    "publicUrl": "/assets/icons/social/reddit/reddit.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "reddit",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "d6c9b78edc0f284147a4a5e8473e13c385aa1877e1120734273a1aa7f7b85ac5",
+    "fileSize": 1284,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "reddit",
+    "dominantColors": [
+      "#ff4500"
+    ]
+  },
+  {
+    "id": "social-signal-default",
+    "name": "signal default",
+    "path": "website/public/assets/icons/social/signal/default.svg",
+    "publicUrl": "/assets/icons/social/signal/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "signal",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "c4df115a8ab2af63aa67a77e61205dfc3afaba6f664c17e86f9570728f15fe99",
+    "fileSize": 1757,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "signal",
+    "dominantColors": [
+      "#3a76f0"
+    ]
+  },
+  {
+    "id": "social-signal-signal",
+    "name": "signal signal",
+    "path": "website/public/assets/icons/social/signal/signal.svg",
+    "publicUrl": "/assets/icons/social/signal/signal.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "signal",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "c4df115a8ab2af63aa67a77e61205dfc3afaba6f664c17e86f9570728f15fe99",
+    "fileSize": 1757,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "signal",
+    "dominantColors": [
+      "#3a76f0"
+    ]
+  },
+  {
+    "id": "social-slack-default",
+    "name": "slack default",
+    "path": "website/public/assets/icons/social/slack/default.svg",
+    "publicUrl": "/assets/icons/social/slack/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "slack",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "bac512a44bb249550ddb9bc84694ad86ffc1c41493615fe3c5ffe8953e145042",
+    "fileSize": 1174,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "slack",
+    "dominantColors": [
+      "#4a154b"
+    ]
+  },
+  {
+    "id": "social-slack-slack",
+    "name": "slack slack",
+    "path": "website/public/assets/icons/social/slack/slack.svg",
+    "publicUrl": "/assets/icons/social/slack/slack.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "slack",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "bac512a44bb249550ddb9bc84694ad86ffc1c41493615fe3c5ffe8953e145042",
+    "fileSize": 1174,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "slack",
+    "dominantColors": [
+      "#4a154b"
+    ]
+  },
+  {
+    "id": "social-spotify-default",
+    "name": "spotify default",
+    "path": "website/public/assets/icons/social/spotify/default.svg",
+    "publicUrl": "/assets/icons/social/spotify/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "spotify",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "ddb549ffac549e13bddc660e14b49752d56810163ea0f22b91baf91385e0ea56",
+    "fileSize": 748,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "spotify",
+    "dominantColors": [
+      "#1db954"
+    ]
+  },
+  {
+    "id": "social-spotify-spotify",
+    "name": "spotify spotify",
+    "path": "website/public/assets/icons/social/spotify/spotify.svg",
+    "publicUrl": "/assets/icons/social/spotify/spotify.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "spotify",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "ddb549ffac549e13bddc660e14b49752d56810163ea0f22b91baf91385e0ea56",
+    "fileSize": 748,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "spotify",
+    "dominantColors": [
+      "#1db954"
+    ]
+  },
+  {
+    "id": "social-stackoverflow-default",
+    "name": "stackoverflow default",
+    "path": "website/public/assets/icons/social/stackoverflow/default.svg",
+    "publicUrl": "/assets/icons/social/stackoverflow/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "stackoverflow",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "a8f26072ea2060cec9d8a2d2d274a78d42f0399191c7cc1caf424f66aafc286a",
+    "fileSize": 492,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "stackoverflow",
+    "dominantColors": [
+      "#f58025"
+    ]
+  },
+  {
+    "id": "social-stackoverflow-stackoverflow",
+    "name": "stackoverflow stackoverflow",
+    "path": "website/public/assets/icons/social/stackoverflow/stackoverflow.svg",
+    "publicUrl": "/assets/icons/social/stackoverflow/stackoverflow.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "stackoverflow",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "a8f26072ea2060cec9d8a2d2d274a78d42f0399191c7cc1caf424f66aafc286a",
+    "fileSize": 492,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "stackoverflow",
+    "dominantColors": [
+      "#f58025"
+    ]
+  },
+  {
+    "id": "social-telegram-default",
+    "name": "telegram default",
+    "path": "website/public/assets/icons/social/telegram/default.svg",
+    "publicUrl": "/assets/icons/social/telegram/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "telegram",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "b3ea4405f1154083d278f7cc31b2e79670853a05161aab2d6798e4c7f2fbbc3c",
+    "fileSize": 793,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "telegram",
+    "dominantColors": [
+      "#26a5e4"
+    ]
+  },
+  {
+    "id": "social-telegram-telegram",
+    "name": "telegram telegram",
+    "path": "website/public/assets/icons/social/telegram/telegram.svg",
+    "publicUrl": "/assets/icons/social/telegram/telegram.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "telegram",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "b3ea4405f1154083d278f7cc31b2e79670853a05161aab2d6798e4c7f2fbbc3c",
+    "fileSize": 793,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "telegram",
+    "dominantColors": [
+      "#26a5e4"
+    ]
+  },
+  {
+    "id": "social-threads-default",
+    "name": "threads default",
+    "path": "website/public/assets/icons/social/threads/default.svg",
+    "publicUrl": "/assets/icons/social/threads/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "threads",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "4b5ab0b95b58c9b94b987899bcf93d3eff76627f8b859f1e108cae69734b9fc0",
+    "fileSize": 1338,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "threads",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-threads-threads",
+    "name": "threads threads",
+    "path": "website/public/assets/icons/social/threads/threads.svg",
+    "publicUrl": "/assets/icons/social/threads/threads.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "threads",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "4b5ab0b95b58c9b94b987899bcf93d3eff76627f8b859f1e108cae69734b9fc0",
+    "fileSize": 1338,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "threads",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-tiktok-default",
+    "name": "tiktok default",
+    "path": "website/public/assets/icons/social/tiktok/default.svg",
+    "publicUrl": "/assets/icons/social/tiktok/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "tiktok",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "a8936e36dcda85c15ee6930de518161f604076fe22d2d4901380d69cd67a015a",
+    "fileSize": 758,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "tiktok",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-tiktok-tiktok",
+    "name": "tiktok tiktok",
+    "path": "website/public/assets/icons/social/tiktok/tiktok.svg",
+    "publicUrl": "/assets/icons/social/tiktok/tiktok.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "tiktok",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "a8936e36dcda85c15ee6930de518161f604076fe22d2d4901380d69cd67a015a",
+    "fileSize": 758,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "tiktok",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-tryhackme-default",
+    "name": "tryhackme default",
+    "path": "website/public/assets/icons/social/tryhackme/default.svg",
+    "publicUrl": "/assets/icons/social/tryhackme/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "tryhackme",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "8035d9f29fa3db02c5d8a790c69e6f5407f3fef313ac5ccbb2a039f06eca7e25",
+    "fileSize": 8439,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "tryhackme",
+    "dominantColors": [
+      "#88cc14"
+    ]
+  },
+  {
+    "id": "social-tryhackme-tryhackme",
+    "name": "tryhackme tryhackme",
+    "path": "website/public/assets/icons/social/tryhackme/tryhackme.svg",
+    "publicUrl": "/assets/icons/social/tryhackme/tryhackme.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "tryhackme",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "8035d9f29fa3db02c5d8a790c69e6f5407f3fef313ac5ccbb2a039f06eca7e25",
+    "fileSize": 8439,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "tryhackme",
+    "dominantColors": [
+      "#88cc14"
+    ]
+  },
+  {
+    "id": "social-tutanota-default",
+    "name": "tutanota default",
+    "path": "website/public/assets/icons/social/tutanota/default.svg",
+    "publicUrl": "/assets/icons/social/tutanota/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "tutanota",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "eaca2c519bee2e8ce5f01df16aa61e531915f6fb1505801b7e5961101ebe626d",
+    "fileSize": 183,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "tutanota",
+    "dominantColors": [
+      "#840010"
+    ]
+  },
+  {
+    "id": "social-tutanota-tutanota",
+    "name": "tutanota tutanota",
+    "path": "website/public/assets/icons/social/tutanota/tutanota.svg",
+    "publicUrl": "/assets/icons/social/tutanota/tutanota.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "tutanota",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "eaca2c519bee2e8ce5f01df16aa61e531915f6fb1505801b7e5961101ebe626d",
+    "fileSize": 183,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "tutanota",
+    "dominantColors": [
+      "#840010"
+    ]
+  },
+  {
+    "id": "social-twitch-default",
+    "name": "twitch default",
+    "path": "website/public/assets/icons/social/twitch/default.svg",
+    "publicUrl": "/assets/icons/social/twitch/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "twitch",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "ec79f5c3530463d07533b0135f4b12f1a987b422b5f96d3223f2bd9e30e7b177",
+    "fileSize": 343,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "twitch",
+    "dominantColors": [
+      "#9146ff"
+    ]
+  },
+  {
+    "id": "social-twitch-twitch",
+    "name": "twitch twitch",
+    "path": "website/public/assets/icons/social/twitch/twitch.svg",
+    "publicUrl": "/assets/icons/social/twitch/twitch.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "twitch",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "ec79f5c3530463d07533b0135f4b12f1a987b422b5f96d3223f2bd9e30e7b177",
+    "fileSize": 343,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "twitch",
+    "dominantColors": [
+      "#9146ff"
+    ]
+  },
+  {
+    "id": "social-twitter-default",
+    "name": "twitter default",
+    "path": "website/public/assets/icons/social/twitter/default.svg",
+    "publicUrl": "/assets/icons/social/twitter/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "twitter",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "14e2ccb2e1e9d8cb406f3a0cfaa5c8b86d2eb3df4b9f1d3e4c9830c7cc84f289",
+    "fileSize": 303,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "twitter",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-twitter-twitter",
+    "name": "twitter twitter",
+    "path": "website/public/assets/icons/social/twitter/twitter.svg",
+    "publicUrl": "/assets/icons/social/twitter/twitter.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "twitter",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "14e2ccb2e1e9d8cb406f3a0cfaa5c8b86d2eb3df4b9f1d3e4c9830c7cc84f289",
+    "fileSize": 303,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "twitter",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-twitter-x",
+    "name": "twitter x",
+    "path": "website/public/assets/icons/social/twitter/x.svg",
+    "publicUrl": "/assets/icons/social/twitter/x.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "x",
+      "twitter",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "14e2ccb2e1e9d8cb406f3a0cfaa5c8b86d2eb3df4b9f1d3e4c9830c7cc84f289",
+    "fileSize": 303,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "twitter",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-unsplash-default",
+    "name": "unsplash default",
+    "path": "website/public/assets/icons/social/unsplash/default.svg",
+    "publicUrl": "/assets/icons/social/unsplash/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "unsplash",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "02a994c92d66de37afa2fd81861b774e9247d2d77f5fce3cd4502ee64390d627",
+    "fileSize": 222,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "unsplash",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-unsplash-unsplash",
+    "name": "unsplash unsplash",
+    "path": "website/public/assets/icons/social/unsplash/unsplash.svg",
+    "publicUrl": "/assets/icons/social/unsplash/unsplash.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "unsplash",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "02a994c92d66de37afa2fd81861b774e9247d2d77f5fce3cd4502ee64390d627",
+    "fileSize": 222,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "unsplash",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-visualstudio-default",
+    "name": "visualstudio default",
+    "path": "website/public/assets/icons/social/visualstudio/default.svg",
+    "publicUrl": "/assets/icons/social/visualstudio/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "visualstudio",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "efe8c7da6f32754a3ebff18d536a35789df5b6e377d55bc77f1c56c4b53bcbe3",
+    "fileSize": 534,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "visualstudio",
+    "dominantColors": [
+      "#007acc"
+    ]
+  },
+  {
+    "id": "social-visualstudio-visualstudio",
+    "name": "visualstudio visualstudio",
+    "path": "website/public/assets/icons/social/visualstudio/visualstudio.svg",
+    "publicUrl": "/assets/icons/social/visualstudio/visualstudio.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "visualstudio",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "efe8c7da6f32754a3ebff18d536a35789df5b6e377d55bc77f1c56c4b53bcbe3",
+    "fileSize": 534,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "visualstudio",
+    "dominantColors": [
+      "#007acc"
+    ]
+  },
+  {
+    "id": "social-wechat-default",
+    "name": "wechat default",
+    "path": "website/public/assets/icons/social/wechat/default.svg",
+    "publicUrl": "/assets/icons/social/wechat/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "wechat",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "a07480b80572baa1569e1ee5135ca47d5d07c5d4c767db860bfd6e8f9ab3221f",
+    "fileSize": 1381,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "wechat",
+    "dominantColors": [
+      "#07c160"
+    ]
+  },
+  {
+    "id": "social-wechat-wechat",
+    "name": "wechat wechat",
+    "path": "website/public/assets/icons/social/wechat/wechat.svg",
+    "publicUrl": "/assets/icons/social/wechat/wechat.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "wechat",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "a07480b80572baa1569e1ee5135ca47d5d07c5d4c767db860bfd6e8f9ab3221f",
+    "fileSize": 1381,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "wechat",
+    "dominantColors": [
+      "#07c160"
+    ]
+  },
+  {
+    "id": "social-whatsapp-default",
+    "name": "whatsapp default",
+    "path": "website/public/assets/icons/social/whatsapp/default.svg",
+    "publicUrl": "/assets/icons/social/whatsapp/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "whatsapp",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "8b906abe8a1bfef3e830189e41a6fd61cf25b03d58cfced5269fe7ad8b5b9204",
+    "fileSize": 1267,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "whatsapp",
+    "dominantColors": [
+      "#25d366"
+    ]
+  },
+  {
+    "id": "social-whatsapp-whatsapp",
+    "name": "whatsapp whatsapp",
+    "path": "website/public/assets/icons/social/whatsapp/whatsapp.svg",
+    "publicUrl": "/assets/icons/social/whatsapp/whatsapp.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "whatsapp",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "8b906abe8a1bfef3e830189e41a6fd61cf25b03d58cfced5269fe7ad8b5b9204",
+    "fileSize": 1267,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "whatsapp",
+    "dominantColors": [
+      "#25d366"
+    ]
+  },
+  {
+    "id": "social-x-default",
+    "name": "x default",
+    "path": "website/public/assets/icons/social/x/default.svg",
+    "publicUrl": "/assets/icons/social/x/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "x",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "14e2ccb2e1e9d8cb406f3a0cfaa5c8b86d2eb3df4b9f1d3e4c9830c7cc84f289",
+    "fileSize": 303,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "x",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-x-x",
+    "name": "x x",
+    "path": "website/public/assets/icons/social/x/x.svg",
+    "publicUrl": "/assets/icons/social/x/x.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "x",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "14e2ccb2e1e9d8cb406f3a0cfaa5c8b86d2eb3df4b9f1d3e4c9830c7cc84f289",
+    "fileSize": 303,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "x",
+    "dominantColors": [
+      "#000000"
+    ]
+  },
+  {
+    "id": "social-youtube-default",
+    "name": "youtube default",
+    "path": "website/public/assets/icons/social/youtube/default.svg",
+    "publicUrl": "/assets/icons/social/youtube/default.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "default",
+      "youtube",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "6d6a3d704e012f48878ac1a6e51a395af61ffd29026bf2ffe3e72570bb55f998",
+    "fileSize": 510,
+    "isDefault": true,
+    "isProtected": true,
+    "brand": "youtube",
+    "dominantColors": [
+      "#ff0000"
+    ]
+  },
+  {
+    "id": "social-youtube-youtube",
+    "name": "youtube youtube",
+    "path": "website/public/assets/icons/social/youtube/youtube.svg",
+    "publicUrl": "/assets/icons/social/youtube/youtube.svg",
+    "category": "social",
+    "format": "svg",
+    "tags": [
+      "social",
+      "svg",
+      "youtube",
+      "icon",
+      "social-media",
+      "brand-icon"
+    ],
+    "viewBox": "0 0 24 24",
+    "hash": "6d6a3d704e012f48878ac1a6e51a395af61ffd29026bf2ffe3e72570bb55f998",
+    "fileSize": 510,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "youtube",
+    "dominantColors": [
+      "#ff0000"
+    ]
+  },
+  {
+    "id": "other-isometric-terminal",
+    "name": "isometric-terminal",
+    "path": "website/public/assets/isometric-terminal.svg",
+    "publicUrl": "/assets/isometric-terminal.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "isometric-terminal"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 320 320",
+    "hash": "16f87791baa03044c8d8f5ceb0abf610954d0497a8ad5d586733616900702420",
+    "fileSize": 3637,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#334155",
+      "#1e293b",
+      "#0f172a",
+      "#020617",
+      "#38bdf8"
+    ]
+  },
+  {
+    "id": "brand-logo-dark",
+    "name": "logo-dark",
+    "path": "website/public/assets/logo-dark.svg",
+    "publicUrl": "/assets/logo-dark.svg",
+    "category": "brand",
+    "format": "svg",
+    "tags": [
+      "brand",
+      "svg",
+      "logo-dark"
+    ],
+    "width": 520,
+    "height": 140,
+    "viewBox": "0 0 520 140",
+    "hash": "4d0061222ad80c6ed42d0a24b3f3e887d57a171fd966ea5333a6ca360c8190b6",
+    "fileSize": 1603,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "assets",
+    "dominantColors": [
+      "#8b5cf6",
+      "#22d3ee",
+      "#ffffff",
+      "#94a3b8",
+      "#0b0b12"
+    ]
+  },
+  {
+    "id": "brand-logo-icon",
+    "name": "logo-icon",
+    "path": "website/public/assets/logo-icon.svg",
+    "publicUrl": "/assets/logo-icon.svg",
+    "category": "brand",
+    "format": "svg",
+    "tags": [
+      "brand",
+      "svg",
+      "logo-icon"
+    ],
+    "width": 128,
+    "height": 128,
+    "viewBox": "0 0 140 140",
+    "hash": "75ccfad6b5ad442052f5db33d6275a5fd09974edcbc2f6aff6facf9828d83cd8",
+    "fileSize": 8506,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "assets",
+    "dominantColors": [
+      "#8b5cf6",
+      "#22d3ee",
+      "#0b0b12",
+      "#ffffff"
+    ]
+  },
+  {
+    "id": "brand-logo-light",
+    "name": "logo-light",
+    "path": "website/public/assets/logo-light.svg",
+    "publicUrl": "/assets/logo-light.svg",
+    "category": "brand",
+    "format": "svg",
+    "tags": [
+      "brand",
+      "svg",
+      "logo-light"
+    ],
+    "width": 520,
+    "height": 140,
+    "viewBox": "0 0 520 140",
+    "hash": "0ff024590d4317416ff9220fbca662ece5351834dee154701aabcdbb0dac286f",
+    "fileSize": 1603,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "assets",
+    "dominantColors": [
+      "#8b5cf6",
+      "#22d3ee",
+      "#0b0b12",
+      "#4b5563",
+      "#ffffff"
+    ]
+  },
+  {
+    "id": "brand-logo",
+    "name": "logo",
+    "path": "website/public/assets/logo.jpg",
+    "publicUrl": "/assets/logo.jpg",
+    "category": "brand",
+    "format": "jpg",
+    "tags": [
+      "brand",
+      "jpg",
+      "logo"
+    ],
+    "hash": "9c7bd04b2b8f0b07f9db169146cbcd684cb34f8c3eefd9d702a3392bcf2057d7",
+    "fileSize": 44716,
+    "isDefault": false,
+    "isProtected": false,
+    "brand": "assets"
+  },
+  {
+    "id": "other-mock-github-stats",
+    "name": "mock-github-stats",
+    "path": "website/public/assets/mock-github-stats.svg",
+    "publicUrl": "/assets/mock-github-stats.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "mock-github-stats"
+    ],
+    "width": 495,
+    "height": 195,
+    "viewBox": "0 0 495 195",
+    "hash": "df061ed9343cc5d9a687015b39aca0d0354ad47a694aab787163bfd5436bd7a4",
+    "fileSize": 4429,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#0d1117",
+      "#161b22",
+      "#38bdf8",
+      "#818cf8",
+      "#30363d"
+    ]
+  },
+  {
+    "id": "other-mock-streak-stats",
+    "name": "mock-streak-stats",
+    "path": "website/public/assets/mock-streak-stats.svg",
+    "publicUrl": "/assets/mock-streak-stats.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "mock-streak-stats"
+    ],
+    "width": 495,
+    "height": 195,
+    "viewBox": "0 0 495 195",
+    "hash": "593da77375c7af378b69c8770d310a0168fd7e36ec9ac1480f699c63e0aa070c",
+    "fileSize": 3455,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#0d1117",
+      "#161b22",
+      "#ea580c",
+      "#f97316",
+      "#fbbf24"
+    ]
+  },
+  {
+    "id": "other-monkey-code-hud",
+    "name": "monkey-code-hud",
+    "path": "website/public/assets/monkey-code-hud.svg",
+    "publicUrl": "/assets/monkey-code-hud.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "monkey-code-hud"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 920 320",
+    "hash": "e1e0817b0e839d7bfa314681ca54749800f5d707a1dca1b48ce3c8552f3f9895",
+    "fileSize": 10481,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#070a12",
+      "#0c111a",
+      "#04070d",
+      "#030712",
+      "#0f172a"
+    ]
+  },
+  {
+    "id": "other-monkey-cyber-dj",
+    "name": "monkey-cyber-dj",
+    "path": "website/public/assets/monkey-cyber-dj.svg",
+    "publicUrl": "/assets/monkey-cyber-dj.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "monkey-cyber-dj"
+    ],
+    "width": 100,
+    "height": 260,
+    "viewBox": "0 0 880 260",
+    "hash": "46984e98d19bea4fa7b1860f2c7a63b94f846894283ecf131a0beb117ec19549",
+    "fileSize": 9819,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#09090b",
+      "#141418",
+      "#0d1117",
+      "#f59e0b",
+      "#d97706"
+    ]
+  },
+  {
+    "id": "brand-monoforge-logo",
+    "name": "monoforge-logo",
+    "path": "website/public/assets/monoforge-logo.svg",
+    "publicUrl": "/assets/monoforge-logo.svg",
+    "category": "brand",
+    "format": "svg",
+    "tags": [
+      "brand",
+      "svg",
+      "monoforge-logo"
+    ],
+    "width": 520,
+    "height": 130,
+    "viewBox": "0 0 520 130",
+    "hash": "c54f9e7caa89aa8abe4782d86ba0123b61c792b69d445873fdb11b416a791582",
+    "fileSize": 2595,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "assets",
+    "dominantColors": [
+      "#f59e0b",
+      "#fbbf24",
+      "#ffffff",
+      "#e4e4e7",
+      "#09090b"
+    ]
+  },
+  {
+    "id": "other-monoforge-monkey-icon",
+    "name": "monoforge-monkey-icon",
+    "path": "website/public/assets/monoforge-monkey-icon.svg",
+    "publicUrl": "/assets/monoforge-monkey-icon.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "monoforge-monkey-icon"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 1024 1024",
+    "hash": "fa780338e74c507b9e4fe0723c43622fc15d99b4a5be84844bfc668114b0b940",
+    "fileSize": 1949,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#18181b",
+      "#f4f4f5"
+    ]
+  },
+  {
+    "id": "brand-monoforge-monkey-logo-256",
+    "name": "monoforge-monkey-logo-256",
+    "path": "website/public/assets/monoforge-monkey-logo-256.jpg",
+    "publicUrl": "/assets/monoforge-monkey-logo-256.jpg",
+    "category": "brand",
+    "format": "jpg",
+    "tags": [
+      "brand",
+      "jpg",
+      "monoforge-monkey-logo-256"
+    ],
+    "hash": "b3a326cc399475c15a631d6c398c42c73e1635268e7f871d69560ec4bcde030e",
+    "fileSize": 10513,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "assets"
+  },
+  {
+    "id": "brand-monoforge-monkey-logo-512",
+    "name": "monoforge-monkey-logo-512",
+    "path": "website/public/assets/monoforge-monkey-logo-512.jpg",
+    "publicUrl": "/assets/monoforge-monkey-logo-512.jpg",
+    "category": "brand",
+    "format": "jpg",
+    "tags": [
+      "brand",
+      "jpg",
+      "monoforge-monkey-logo-512"
+    ],
+    "hash": "931fc55f5674f0e4eada09baf0c888547d2377a49949c64377e6a2e024b54c32",
+    "fileSize": 24016,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "assets"
+  },
+  {
+    "id": "brand-monoforge-monkey-logo",
+    "name": "monoforge-monkey-logo",
+    "path": "website/public/assets/monoforge-monkey-logo.jpg",
+    "publicUrl": "/assets/monoforge-monkey-logo.jpg",
+    "category": "brand",
+    "format": "jpg",
+    "tags": [
+      "brand",
+      "jpg",
+      "monoforge-monkey-logo"
+    ],
+    "hash": "9c7bd04b2b8f0b07f9db169146cbcd684cb34f8c3eefd9d702a3392bcf2057d7",
+    "fileSize": 44716,
+    "isDefault": false,
+    "isProtected": true,
+    "brand": "assets"
+  },
+  {
+    "id": "other-octocat-coffee",
+    "name": "octocat-coffee",
+    "path": "website/public/assets/octocat-coffee.svg",
+    "publicUrl": "/assets/octocat-coffee.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "octocat-coffee"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 320 320",
+    "hash": "50fc7b7b342b2f0cd325b9ba703b0db195b677776b16e4747320bf88ea4fcb49",
+    "fileSize": 4844,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#38bdf8",
+      "#0284c7",
+      "#0f172a",
+      "#1e293b",
+      "#f472b6"
+    ]
+  },
+  {
+    "id": "illustration-owl-confetti",
+    "name": "owl-confetti",
+    "path": "website/public/assets/owl-confetti.svg",
+    "publicUrl": "/assets/owl-confetti.svg",
+    "category": "illustration",
+    "format": "svg",
+    "tags": [
+      "illustration",
+      "svg",
+      "owl-confetti"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 400 400",
+    "hash": "c411eff23d2de66ca9f6d83d05ae422d6c7dc01c9d46a6c6321897a506497839",
+    "fileSize": 7647,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#8b5a2b",
+      "#6f441b",
+      "#4a2d11",
+      "#fde8cd",
+      "#e8c39e"
+    ]
+  },
+  {
+    "id": "game-pacman",
+    "name": "pacman",
+    "path": "website/public/assets/pacman.svg",
+    "publicUrl": "/assets/pacman.svg",
+    "category": "game",
+    "format": "svg",
+    "tags": [
+      "game",
+      "svg",
+      "pacman"
+    ],
+    "width": 1166,
+    "height": 184,
+    "viewBox": "0 0 1166 184",
+    "hash": "15f44c436d64626068825206d37d7a98b54c2b23411de8851e3584bb29a17d90",
+    "fileSize": 182460,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#0d1117",
+      "#8b949e",
+      "#161b22",
+      "#0e4429",
+      "#006d32"
+    ]
+  },
+  {
+    "id": "banner-peeking-cat-header",
+    "name": "peeking-cat-header",
+    "path": "website/public/assets/peeking-cat-header.svg",
+    "publicUrl": "/assets/peeking-cat-header.svg",
+    "category": "banner",
+    "format": "svg",
+    "tags": [
+      "banner",
+      "svg",
+      "peeking-cat-header"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 840 280",
+    "hash": "ed373a8277bf53595cebed0b4e51d7770df75f6600f22055a7ce963018cca398",
+    "fileSize": 10923,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#111827",
+      "#0b0f19",
+      "#0f172a",
+      "#020617",
+      "#34d399"
+    ]
+  },
+  {
+    "id": "other-profile-code-build-repeat",
+    "name": "profile code-build-repeat",
+    "path": "website/public/assets/profile/code-build-repeat.png",
+    "publicUrl": "/assets/profile/code-build-repeat.png",
+    "category": "other",
+    "format": "png",
+    "tags": [
+      "other",
+      "png",
+      "code-build-repeat",
+      "profile"
+    ],
+    "hash": "4b2ad6a64b01692f668689dad57c64cc85439ea9da36cbe7e0f1c5dcb0a59b8e",
+    "fileSize": 202316,
+    "isDefault": false,
+    "isProtected": false
+  },
+  {
+    "id": "other-profile-demon-slayer-tanjiro",
+    "name": "profile demon-slayer-tanjiro",
+    "path": "website/public/assets/profile/demon-slayer-tanjiro.jpg",
+    "publicUrl": "/assets/profile/demon-slayer-tanjiro.jpg",
+    "category": "other",
+    "format": "jpg",
+    "tags": [
+      "other",
+      "jpg",
+      "demon-slayer-tanjiro",
+      "profile"
+    ],
+    "hash": "d62184590677133523bc52f726df1de71e48cf2eee4a687673fd7f5a6a584d15",
+    "fileSize": 330380,
+    "isDefault": false,
+    "isProtected": false
+  },
+  {
+    "id": "illustration-profile-digital-hands-divider",
+    "name": "profile digital-hands-divider",
+    "path": "website/public/assets/profile/digital-hands-divider.svg",
+    "publicUrl": "/assets/profile/digital-hands-divider.svg",
+    "category": "illustration",
+    "format": "svg",
+    "tags": [
+      "illustration",
+      "svg",
+      "digital-hands-divider",
+      "profile"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 900 120",
+    "hash": "5b22a9b4eb592efea184e87814a28cc77e64e7882963bfacd6136f3568f71f98",
+    "fileSize": 6093,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#07090e",
+      "#0d111a",
+      "#ef4444",
+      "#22d3ee",
+      "#8b5cf6"
+    ]
+  },
+  {
+    "id": "illustration-profile-digital-hands-genesis",
+    "name": "profile digital-hands-genesis",
+    "path": "website/public/assets/profile/digital-hands-genesis.png",
+    "publicUrl": "/assets/profile/digital-hands-genesis.png",
+    "category": "illustration",
+    "format": "png",
+    "tags": [
+      "illustration",
+      "png",
+      "digital-hands-genesis",
+      "profile"
+    ],
+    "hash": "9752a0e1435e4a566957eb33464a6a7b31634a547ddff2f57b163ea79a5b4c65",
+    "fileSize": 72312,
+    "isDefault": false,
+    "isProtected": false
+  },
+  {
+    "id": "other-profile-night-coder-hoodie",
+    "name": "profile night-coder-hoodie",
+    "path": "website/public/assets/profile/night-coder-hoodie.png",
+    "publicUrl": "/assets/profile/night-coder-hoodie.png",
+    "category": "other",
+    "format": "png",
+    "tags": [
+      "other",
+      "png",
+      "night-coder-hoodie",
+      "profile"
+    ],
+    "hash": "8eb75e0180f54f7615ae1b3b54d2a55c0a9bfd483ad344f77b2abe7c3af1a261",
+    "fileSize": 1042191,
+    "isDefault": false,
+    "isProtected": false
+  },
+  {
+    "id": "other-profile-pixel-retro-pc",
+    "name": "profile pixel-retro-pc",
+    "path": "website/public/assets/profile/pixel-retro-pc.png",
+    "publicUrl": "/assets/profile/pixel-retro-pc.png",
+    "category": "other",
+    "format": "png",
+    "tags": [
+      "other",
+      "png",
+      "pixel-retro-pc",
+      "profile"
+    ],
+    "hash": "194743f7374ac1833e87ba5f3865c940fa2d5d5be638570a2d1d57d94dccacc7",
+    "fileSize": 866069,
+    "isDefault": false,
+    "isProtected": false
+  },
+  {
+    "id": "banner-profile-slayer-night-coder-header",
+    "name": "profile slayer-night-coder-header",
+    "path": "website/public/assets/profile/slayer-night-coder-header.svg",
+    "publicUrl": "/assets/profile/slayer-night-coder-header.svg",
+    "category": "banner",
+    "format": "svg",
+    "tags": [
+      "banner",
+      "svg",
+      "slayer-night-coder-header",
+      "profile"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 920 340",
+    "hash": "57e5e4294aefcced116728b95bcb241296f7e7a40b63abc1f38fdd7614e50ffb",
+    "fileSize": 20365,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#07090e",
+      "#0d111a",
+      "#120c18",
+      "#1a0b12",
+      "#22d3ee"
+    ]
+  },
+  {
+    "id": "other-profile-terminal_animated",
+    "name": "profile terminal_animated",
+    "path": "website/public/assets/profile/terminal_animated.svg",
+    "publicUrl": "/assets/profile/terminal_animated.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "terminal_animated",
+      "profile"
+    ],
+    "width": 1000,
+    "height": 280,
+    "viewBox": "0 0 1000 280",
+    "hash": "2c542f705790e3030a9e75561f86b4b7d1088a8eea67ec1130a8cd1d6e11ab6f",
+    "fileSize": 2368,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#080e1e",
+      "#172340",
+      "#42e7ff",
+      "#a363ff",
+      "#6d8bb7"
+    ]
+  },
+  {
+    "id": "game-puzzle-bobble",
+    "name": "puzzle-bobble",
+    "path": "website/public/assets/puzzle-bobble.svg",
+    "publicUrl": "/assets/puzzle-bobble.svg",
+    "category": "game",
+    "format": "svg",
+    "tags": [
+      "game",
+      "svg",
+      "puzzle-bobble"
+    ],
+    "width": 1166,
+    "height": 249,
+    "viewBox": "0 0 1166 249",
+    "hash": "aca623bb510950d879ff6eb1f9b192606a90d6b52e3955341cce1e5da583aa69",
+    "fileSize": 789103,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#0d1117",
+      "#8b949e",
+      "#161b22",
+      "#f1c40f",
+      "#e74c3c"
+    ]
+  },
+  {
+    "id": "other-resources-fragiola",
+    "name": "resources fragiola",
+    "path": "website/public/assets/resources/fragiola.svg",
+    "publicUrl": "/assets/resources/fragiola.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "fragiola",
+      "resources"
+    ],
+    "width": 67,
+    "height": 26,
+    "viewBox": "-9 -2 85 85",
+    "hash": "638a4bd98f27930bc90da667558ec938a4cb75b5b4951f44c2531134674f7766",
+    "fileSize": 352,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#864ad2",
+      "#b180fc"
+    ]
+  },
+  {
+    "id": "other-resources-toffugy",
+    "name": "resources toffugy",
+    "path": "website/public/assets/resources/toffugy.svg",
+    "publicUrl": "/assets/resources/toffugy.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "toffugy",
+      "resources"
+    ],
+    "width": 512,
+    "height": 512,
+    "viewBox": "0 0 512 512",
+    "hash": "496136a6282a83a4e7bfa74c0008d01360d8378605eb0a6792e59f931a15078c",
+    "fileSize": 2493,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#d26538",
+      "#e5e9ee",
+      "#fdf7ef",
+      "#b6bfca",
+      "#cdd5de"
+    ]
+  },
+  {
+    "id": "other-resources-uncle-sam",
+    "name": "resources uncle-sam",
+    "path": "website/public/assets/resources/uncle-sam.webp",
+    "publicUrl": "/assets/resources/uncle-sam.webp",
+    "category": "other",
+    "format": "webp",
+    "tags": [
+      "other",
+      "webp",
+      "uncle-sam",
+      "resources"
+    ],
+    "hash": "a4387350b5b63b0403fbbd426004a797d9060110f6bdd58b4318dce16c21a7c3",
+    "fileSize": 164960,
+    "isDefault": false,
+    "isProtected": false
+  },
+  {
+    "id": "mascot-roaming-bot",
+    "name": "roaming-bot",
+    "path": "website/public/assets/roaming-bot.svg",
+    "publicUrl": "/assets/roaming-bot.svg",
+    "category": "mascot",
+    "format": "svg",
+    "tags": [
+      "mascot",
+      "svg",
+      "roaming-bot"
+    ],
+    "width": 100,
+    "height": 160,
+    "viewBox": "0 0 880 160",
+    "hash": "26449d3c637279a38f3bf0bb9c91b5d78c457af87f5075c5ca4ad4b4335d9de9",
+    "fileSize": 15277,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#0a0e1a",
+      "#0f172a",
+      "#090d16",
+      "#6366f1",
+      "#22d3ee"
+    ]
+  },
+  {
+    "id": "game-snake",
+    "name": "snake",
+    "path": "website/public/assets/snake.svg",
+    "publicUrl": "/assets/snake.svg",
+    "category": "game",
+    "format": "svg",
+    "tags": [
+      "game",
+      "svg",
+      "snake"
+    ],
+    "width": 880,
+    "height": 192,
+    "viewBox": "-16 -32 880 192",
+    "hash": "7a2b2250540b0e397fd462379a51641fb3e2403e6dc5fafe0692d3e1f0cb6bed",
+    "fileSize": 114989,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#1b1f230a",
+      "#161b22",
+      "#ebedf0",
+      "#9be9a8",
+      "#40c463"
+    ]
+  },
+  {
+    "id": "telemetry-telemetry-achievements-rack",
+    "name": "telemetry-achievements-rack",
+    "path": "website/public/assets/telemetry-achievements-rack.svg",
+    "publicUrl": "/assets/telemetry-achievements-rack.svg",
+    "category": "telemetry",
+    "format": "svg",
+    "tags": [
+      "telemetry",
+      "svg",
+      "telemetry-achievements-rack"
+    ],
+    "width": 800,
+    "height": 360,
+    "viewBox": "0 0 800 360",
+    "hash": "9e7bb62c848367942a69ee058fbbbd5eb100f9c4d021e54b8c5ee6d7fa845f54",
+    "fileSize": 8579,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#ffffff",
+      "#f59e0b",
+      "#fbbf24",
+      "#18181b",
+      "#52525b"
+    ]
+  },
+  {
+    "id": "telemetry-telemetry-habits-radar",
+    "name": "telemetry-habits-radar",
+    "path": "website/public/assets/telemetry-habits-radar.svg",
+    "publicUrl": "/assets/telemetry-habits-radar.svg",
+    "category": "telemetry",
+    "format": "svg",
+    "tags": [
+      "telemetry",
+      "svg",
+      "telemetry-habits-radar"
+    ],
+    "width": 800,
+    "height": 360,
+    "viewBox": "0 0 800 360",
+    "hash": "7481e06439f64b0a0699e4211342073ac436d73d2b7aef4650d3c1883439f212",
+    "fileSize": 9472,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#ffffff",
+      "#18181b",
+      "#52525b",
+      "#f4f4f5",
+      "#fbbf24"
+    ]
+  },
+  {
+    "id": "telemetry-telemetry-isocalendar-3d",
+    "name": "telemetry-isocalendar-3d",
+    "path": "website/public/assets/telemetry-isocalendar-3d.svg",
+    "publicUrl": "/assets/telemetry-isocalendar-3d.svg",
+    "category": "telemetry",
+    "format": "svg",
+    "tags": [
+      "telemetry",
+      "svg",
+      "telemetry-isocalendar-3d"
+    ],
+    "width": 800,
+    "height": 370,
+    "viewBox": "0 0 800 370",
+    "hash": "27ba6d2b6b3504bd3164ded34fe6773f0a3e5c65da7fba00a664fd2aba2f9f19",
+    "fileSize": 90300,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#ffffff",
+      "#f8fafc",
+      "#10b981",
+      "#34d399",
+      "#334155"
+    ]
+  },
+  {
+    "id": "telemetry-telemetry-languages-donut",
+    "name": "telemetry-languages-donut",
+    "path": "website/public/assets/telemetry-languages-donut.svg",
+    "publicUrl": "/assets/telemetry-languages-donut.svg",
+    "category": "telemetry",
+    "format": "svg",
+    "tags": [
+      "telemetry",
+      "svg",
+      "telemetry-languages-donut"
+    ],
+    "width": 800,
+    "height": 360,
+    "viewBox": "0 0 800 360",
+    "hash": "5fb5f2f286224ab3191dc8f86f696cbd41b66c8ad6805e27cfded11990ca984e",
+    "fileSize": 6363,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#ffffff",
+      "#18181b",
+      "#52525b",
+      "#f4f4f5",
+      "#58a6ff"
+    ]
+  },
+  {
+    "id": "telemetry-telemetry-leetcode-stats",
+    "name": "telemetry-leetcode-stats",
+    "path": "website/public/assets/telemetry-leetcode-stats.svg",
+    "publicUrl": "/assets/telemetry-leetcode-stats.svg",
+    "category": "telemetry",
+    "format": "svg",
+    "tags": [
+      "telemetry",
+      "svg",
+      "telemetry-leetcode-stats"
+    ],
+    "width": 800,
+    "height": 320,
+    "viewBox": "0 0 800 320",
+    "hash": "97a2a6fe17789def0294e3067ff2715d8487b87c3ebde86f289a6617216b95ab",
+    "fileSize": 4231,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#0d1117",
+      "#161b22",
+      "#30363d",
+      "#18181b",
+      "#52525b"
+    ]
+  },
+  {
+    "id": "telemetry-telemetry-music-player",
+    "name": "telemetry-music-player",
+    "path": "website/public/assets/telemetry-music-player.svg",
+    "publicUrl": "/assets/telemetry-music-player.svg",
+    "category": "telemetry",
+    "format": "svg",
+    "tags": [
+      "telemetry",
+      "svg",
+      "telemetry-music-player"
+    ],
+    "width": 800,
+    "height": 240,
+    "viewBox": "0 0 800 240",
+    "hash": "786dd1d5edee5727f17f112fd683edfcb33a4e239c57770c7d82c5e44eb8391e",
+    "fileSize": 5677,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#0d1117",
+      "#161b22",
+      "#30363d",
+      "#090d12",
+      "#21262d"
+    ]
+  },
+  {
+    "id": "telemetry-telemetry-pagespeed-audit",
+    "name": "telemetry-pagespeed-audit",
+    "path": "website/public/assets/telemetry-pagespeed-audit.svg",
+    "publicUrl": "/assets/telemetry-pagespeed-audit.svg",
+    "category": "telemetry",
+    "format": "svg",
+    "tags": [
+      "telemetry",
+      "svg",
+      "telemetry-pagespeed-audit"
+    ],
+    "width": 800,
+    "height": 320,
+    "viewBox": "0 0 800 320",
+    "hash": "c640807ab98b3782407d6d8d5fa8aaaacd8f0a228fd439210bb1789a290426f2",
+    "fileSize": 4760,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#0d1117",
+      "#161b22",
+      "#30363d",
+      "#18181b",
+      "#52525b"
+    ]
+  },
+  {
+    "id": "telemetry-telemetry-terminal-hud",
+    "name": "telemetry-terminal-hud",
+    "path": "website/public/assets/telemetry-terminal-hud.svg",
+    "publicUrl": "/assets/telemetry-terminal-hud.svg",
+    "category": "telemetry",
+    "format": "svg",
+    "tags": [
+      "telemetry",
+      "svg",
+      "telemetry-terminal-hud"
+    ],
+    "width": 800,
+    "height": 360,
+    "viewBox": "0 0 800 360",
+    "hash": "834c28d1aef90c4e332be5ad55f982bd30d0298c518e77dd87cd333755c63fc4",
+    "fileSize": 4029,
+    "isDefault": false,
+    "isProtected": true,
+    "dominantColors": [
+      "#0a0e14",
+      "#040608",
+      "#000000",
+      "#30363d",
+      "#161b22"
+    ]
+  },
+  {
+    "id": "other-terminal_animated",
+    "name": "terminal_animated",
+    "path": "website/public/assets/terminal_animated.svg",
+    "publicUrl": "/assets/terminal_animated.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "terminal_animated"
+    ],
+    "width": 1000,
+    "height": 280,
+    "viewBox": "0 0 1000 280",
+    "hash": "2c542f705790e3030a9e75561f86b4b7d1088a8eea67ec1130a8cd1d6e11ab6f",
+    "fileSize": 2368,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#080e1e",
+      "#172340",
+      "#42e7ff",
+      "#a363ff",
+      "#6d8bb7"
+    ]
+  },
+  {
+    "id": "other-text-effects",
+    "name": "text-effects",
+    "path": "website/public/assets/text-effects.svg",
+    "publicUrl": "/assets/text-effects.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "text-effects"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 960 340",
+    "hash": "b0cbdf2d7a79eb400068a1ddadde616dd3c6607ed6bfd1808f55ddfb39a1bf8f",
+    "fileSize": 13309,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#0a0f1d",
+      "#0e172a",
+      "#070a14",
+      "#1e293b",
+      "#0f172a"
+    ]
+  },
+  {
+    "id": "other-wow-profile-full",
+    "name": "wow-profile-full",
+    "path": "website/public/assets/wow-profile-full.svg",
+    "publicUrl": "/assets/wow-profile-full.svg",
+    "category": "other",
+    "format": "svg",
+    "tags": [
+      "other",
+      "svg",
+      "wow-profile-full"
+    ],
+    "width": 100,
+    "height": 100,
+    "viewBox": "0 0 840 760",
+    "hash": "ddb8092989fb15cf5d7b619ad7d7f120754af0ddcd16a2a343d2554fb27a468f",
+    "fileSize": 23593,
+    "isDefault": false,
+    "isProtected": false,
+    "dominantColors": [
+      "#111827",
+      "#070a10",
+      "#0f172a",
+      "#030712",
+      "#34d399"
+    ]
+  }
+]

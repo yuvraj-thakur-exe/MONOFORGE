@@ -1,0 +1,20 @@
+{
+  "name": "MonoForge",
+  "short_name": "MonoForge",
+  "description": "Zero Monkey Business. Pure Precision Engineering. Forge an elite GitHub profile with Camo vector SVGs, 47+ telemetry plugins, and real-time live preview.",
+
+  "start_url": "/",
+  "display": "fullscreen",
+
+  "background_color": "#faf9f6",
+  "theme_color": "#f59e0b",
+
+  "icons": [
+    {
+      "src": "/logo-icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    }
+  ]
+}

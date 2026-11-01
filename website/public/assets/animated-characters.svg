@@ -1,0 +1,455 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" width="100%" height="320" fill="none" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="roamStageBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070a14" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#050811" />
+    </linearGradient>
+
+    <!-- Cyber Floor Gradient -->
+    <linearGradient id="cyberFloorGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0" />
+      <stop offset="15%" stop-color="#06b6d4" stop-opacity="0.9" />
+      <stop offset="40%" stop-color="#3b82f6" stop-opacity="1" />
+      <stop offset="65%" stop-color="#818cf8" stop-opacity="1" />
+      <stop offset="90%" stop-color="#ec4899" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Terminal Background Gradient -->
+    <linearGradient id="terminalBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.88" />
+      <stop offset="100%" stop-color="#0b1120" stop-opacity="0.96" />
+    </linearGradient>
+
+    <!-- Neon Glow Filters -->
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="bladeSlashGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <style><![CDATA[
+    /* =========================================================
+       60FPS GPU-ACCELERATED PEOPLY DEVELOPER KINEMATICS
+       All transforms strictly isolated with transform-box: fill-box
+       ========================================================= */
+
+    /* ---------------- SECTION 1 (LEFT: TS): AI CYBER BOT ---------------- */
+    @keyframes botHoverLoop {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%      { transform: translateY(-7px) rotate(2deg); }
+    }
+    @keyframes botArmWave {
+      0%, 100% { transform: rotate(0deg); }
+      50%      { transform: rotate(-40deg); }
+    }
+    @keyframes botArmPointScan {
+      0%, 100% { transform: rotate(0deg); }
+      30%, 70% { transform: rotate(38deg) translateY(-5px); }
+    }
+    @keyframes botVisorBlinkLoop {
+      0%, 90%, 100% { transform: scaleY(1); }
+      95%           { transform: scaleY(0.12); }
+    }
+    @keyframes botCorePulseLoop {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px #48cfad); }
+      50%      { transform: scale(1.3); filter: drop-shadow(0 0 6px #48cfad); }
+    }
+    @keyframes botScanBeam {
+      0%, 20%, 80%, 100% { opacity: 0; transform: scaleX(0.2); }
+      35%, 65%           { opacity: 0.85; transform: scaleX(1); }
+    }
+    @keyframes bubblePopAnim {
+      0%, 30%, 100% { opacity: 0; transform: scale(0.2) translateY(8px); }
+      35%, 85%      { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* ---------------- SECTION 2 (CENTER: RUST): PIXEL DEVELOPER ---------------- */
+    @keyframes devNodMusic {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      25%      { transform: translateY(-3px) rotate(-1.5deg); }
+      50%      { transform: translateY(0px) rotate(0deg); }
+      75%      { transform: translateY(-3px) rotate(1.5deg); }
+    }
+    @keyframes devTypeLeft {
+      0%, 100% { transform: translateY(0px); }
+      50%      { transform: translateY(-2.5px); }
+    }
+    @keyframes devTypeRight {
+      0%, 100% { transform: translateY(-2.5px); }
+      50%      { transform: translateY(0px); }
+    }
+    @keyframes steamVaporRise {
+      0%   { opacity: 0; transform: translateY(2px) scaleX(0.8); }
+      40%  { opacity: 0.8; transform: translateY(-6px) scaleX(1.2); }
+      80%  { opacity: 0.4; transform: translateY(-12px) scaleX(1.5); }
+      100% { opacity: 0; transform: translateY(-16px) scaleX(1.8); }
+    }
+    @keyframes devScreenGlow {
+      0%, 100% { opacity: 0.75; }
+      50%      { opacity: 0.98; }
+    }
+
+    /* ---------------- SECTION 3 (RIGHT: PYTHON/AI): NINJA CODER ---------------- */
+    @keyframes ninjaStanceLoop {
+      0%, 100% { transform: translateY(0px); }
+      50%      { transform: translateY(-4px); }
+    }
+    @keyframes ninjaScarfWind {
+      0%, 100% { transform: rotate(0deg) skewX(0deg); }
+      50%      { transform: rotate(-18deg) skewX(-12deg); }
+    }
+    @keyframes ninjaBladeSlashL {
+      0%, 100% { transform: rotate(-10deg); }
+      30%, 45% { transform: rotate(-55deg) translateY(-6px); }
+      60%      { transform: rotate(15deg); }
+    }
+    @keyframes ninjaBladeSlashR {
+      0%, 100% { transform: rotate(10deg); }
+      35%, 50% { transform: rotate(55deg) translateY(-6px); }
+      65%      { transform: rotate(-15deg); }
+    }
+    @keyframes ninjaSlashArcTrail {
+      0%, 28%, 56%, 100% { opacity: 0; stroke-dashoffset: 70; }
+      34%, 48%           { opacity: 1; stroke-dashoffset: 0; }
+    }
+
+    /* Terminal Glow Pulse */
+    @keyframes termBorderGlow {
+      0%, 100% { stroke-opacity: 0.45; }
+      50%      { stroke-opacity: 0.95; }
+    }
+
+    /* Class Hooks with fill-box Transform Isolation */
+    .term-box-glow { animation: termBorderGlow 3.5s ease-in-out infinite; }
+
+    .anim-bot-float { transform-box: fill-box; transform-origin: center; animation: botHoverLoop 3s ease-in-out infinite; }
+    .anim-bot-waving { transform-box: fill-box; transform-origin: top right; animation: botArmWave 2s ease-in-out infinite; }
+    .anim-bot-pointing { transform-box: fill-box; transform-origin: top left; animation: botArmPointScan 3s ease-in-out infinite; }
+    .anim-bot-eyes { transform-box: fill-box; transform-origin: center; animation: botVisorBlinkLoop 4s ease-in-out infinite; }
+    .anim-bot-heart { transform-box: fill-box; transform-origin: center; animation: botCorePulseLoop 2s ease-in-out infinite; }
+    .anim-bot-beam { transform-box: fill-box; transform-origin: left center; animation: botScanBeam 3s ease-in-out infinite; }
+    .anim-bubble { transform-box: fill-box; transform-origin: bottom center; animation: bubblePopAnim 3.8s ease-out infinite; }
+
+    .anim-dev-head { transform-box: fill-box; transform-origin: center bottom; animation: devNodMusic 1.8s ease-in-out infinite; }
+    .anim-dev-type-l { transform-box: fill-box; transform-origin: center; animation: devTypeLeft 0.35s ease-in-out infinite; }
+    .anim-dev-type-r { transform-box: fill-box; transform-origin: center; animation: devTypeRight 0.35s ease-in-out infinite; }
+    .anim-coffee-steam { transform-box: fill-box; transform-origin: bottom center; animation: steamVaporRise 2.2s ease-in-out infinite; }
+    .anim-screen-glow { animation: devScreenGlow 2s ease-in-out infinite; }
+
+    .anim-ninja-stance { transform-box: fill-box; transform-origin: center bottom; animation: ninjaStanceLoop 2.4s ease-in-out infinite; }
+    .anim-ninja-ribbon { transform-box: fill-box; transform-origin: top right; animation: ninjaScarfWind 1.6s ease-in-out infinite; }
+    .anim-ninja-blade-l { transform-box: fill-box; transform-origin: top right; animation: ninjaBladeSlashL 4s ease-in-out infinite; }
+    .anim-ninja-blade-r { transform-box: fill-box; transform-origin: top left; animation: ninjaBladeSlashR 4s ease-in-out infinite; }
+    .anim-ninja-arc { animation: ninjaSlashArcTrail 4s ease-out infinite; stroke-dasharray: 70; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; }
+    }
+  ]]></style>
+
+  <!-- Background Stage Frame -->
+  <rect width="960" height="320" rx="16" fill="url(#roamStageBg)" stroke="#1e293b" stroke-width="1.5" />
+
+  <!-- Cyber Grid Runway Floor -->
+  <g stroke="#334155" stroke-opacity="0.22" stroke-width="1">
+    <line x1="0" y1="250" x2="960" y2="250" />
+    <line x1="0" y1="280" x2="960" y2="280" />
+    <line x1="0" y1="305" x2="960" y2="305" />
+    <line x1="50" y1="250" x2="10" y2="320" />
+    <line x1="180" y1="250" x2="150" y2="320" />
+    <line x1="330" y1="250" x2="310" y2="320" />
+    <line x1="480" y1="250" x2="480" y2="320" />
+    <line x1="630" y1="250" x2="650" y2="320" />
+    <line x1="780" y1="250" x2="810" y2="320" />
+    <line x1="910" y1="250" x2="950" y2="320" />
+  </g>
+
+  <!-- Cyber Floor Energy Line -->
+  <line x1="20" y1="250" x2="940" y2="250" stroke="url(#cyberFloorGrad)" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Top Navigation Wordmark -->
+  <g>
+    <rect x="24" y="16" width="410" height="28" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" />
+    <circle cx="38" cy="30" r="5" fill="#38bdf8" />
+    <circle cx="52" cy="30" r="5" fill="#22c55e" />
+    <circle cx="66" cy="30" r="5" fill="#ef4444" />
+    <circle cx="80" cy="30" r="5" fill="#a855f7" />
+    <text x="96" y="34" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif" font-weight="700" font-size="11" letter-spacing="1.2">DYNAMIC SQUAD &#8226; LOGICAL KINEMATICS</text>
+  </g>
+
+
+  <!-- =========================================================
+       SECTION 1 (LEFT): TYPESCRIPT & WEB RUNTIME
+       ========================================================= -->
+  <g transform="translate(30, 70)">
+    <!-- Terminal Box -->
+    <rect width="245" height="152" rx="10" fill="url(#terminalBgGrad)" stroke="#38bdf8" stroke-width="1.5" class="term-box-glow" />
+    <!-- Titlebar -->
+    <path d="M 0 10 C 0 4.5 4.5 0 10 0 L 235 0 C 240.5 0 245 4.5 245 10 L 245 24 L 0 24 Z" fill="#0b1120" />
+    <circle cx="14" cy="12" r="3.5" fill="#ef4444" />
+    <circle cx="26" cy="12" r="3.5" fill="#eab308" />
+    <circle cx="38" cy="12" r="3.5" fill="#22c55e" />
+    <rect x="50" y="5" width="20" height="14" rx="2" fill="#3178c6" />
+    <text x="54" y="15" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="800">TS</text>
+    <text x="76" y="16" fill="#94a3b8" font-family="'JetBrains Mono', Consolas, monospace" font-size="10">profile.types.ts</text>
+
+    <!-- Code Text Lines -->
+    <text x="14" y="44" fill="#38bdf8" font-family="'JetBrains Mono', Consolas, monospace" font-size="10.5" font-weight="600">interface <tspan fill="#4ade80">ProfileForge</tspan> {</text>
+    <text x="24" y="62" fill="#f8fafc" font-family="'JetBrains Mono', Consolas, monospace" font-size="10.5">  languages: <tspan fill="#f59e0b">'TS' | 'Rust' | 'Py'</tspan>;</text>
+    <text x="24" y="80" fill="#f8fafc" font-family="'JetBrains Mono', Consolas, monospace" font-size="10.5">  runtime: <tspan fill="#38bdf8">'60fps-vector'</tspan>;</text>
+    <text x="24" y="98" fill="#f8fafc" font-family="'JetBrains Mono', Consolas, monospace" font-size="10.5">  peoply: <tspan fill="#4ade80">true</tspan>;</text>
+    <text x="14" y="116" fill="#38bdf8" font-family="'JetBrains Mono', Consolas, monospace" font-size="10.5" font-weight="600">}</text>
+    <text x="14" y="134" fill="#c084fc" font-family="'JetBrains Mono', Consolas, monospace" font-size="10.5">export const <tspan fill="#f8fafc">squad</tspan> = new Squad();</text>
+
+    <!-- Neon Decal Corner Accents -->
+    <path d="M 0 35 L 0 24 L 12 24" stroke="#00f5d4" stroke-width="2" fill="none" />
+    <path d="M 245 137 L 245 152 L 230 152" stroke="#00f5d4" stroke-width="2" fill="none" />
+
+    <!-- Scanning beam projected from Bot toward the code -->
+    <line x1="200" y1="95" x2="80" y2="95" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4 2" class="anim-bot-beam" filter="url(#neonGlow)" />
+  </g>
+
+  <!-- CHAR 1: BLUE ASSISTANT BOT (Hovering near TS terminal, scanning AST) -->
+  <g transform="translate(235, 120)">
+    <g class="anim-bot-float">
+      <!-- Shadow Under Bot -->
+      <ellipse cx="0" cy="36" rx="16" ry="3.5" fill="#000000" opacity="0.4" />
+
+      <!-- Left Arm (Waving) -->
+      <g class="anim-bot-waving">
+        <path d="M -16 6 L -26 14 C -30 16 -28 22 -22 20 L -14 12 Z" fill="#2b82c9" stroke="#1d5785" stroke-width="1.5" />
+        <circle cx="-26" cy="18" r="3.5" fill="#2b82c9" stroke="#1d5785" stroke-width="1.2" />
+      </g>
+
+      <!-- Right Arm (Pointing directly at code text!) -->
+      <g class="anim-bot-pointing">
+        <path d="M 16 6 L 28 -6 C 32 -8 36 -4 32 2 L 18 12 Z" fill="#2b82c9" stroke="#1d5785" stroke-width="1.5" />
+        <circle cx="30" cy="-4" r="3.5" fill="#2b82c9" stroke="#1d5785" stroke-width="1.2" />
+      </g>
+
+      <!-- Bot Ears -->
+      <circle cx="-24" cy="-14" r="5.5" fill="#2b82c9" stroke="#1d5785" stroke-width="1.5" />
+      <circle cx="24" cy="-14" r="5.5" fill="#2b82c9" stroke="#1d5785" stroke-width="1.5" />
+
+      <!-- Bot Head Capsule -->
+      <rect x="-22" y="-30" width="44" height="34" rx="17" fill="#2b82c9" stroke="#1d5785" stroke-width="2" />
+      <rect x="-16" y="-24" width="32" height="22" rx="11" fill="#eef2f7" />
+      <rect x="-13" y="-21" width="26" height="16" rx="8" fill="#48cfad" />
+
+      <!-- Smiling Eyes (Winking) -->
+      <g class="anim-bot-eyes">
+        <path d="M -9 -13 C -9 -17 -5 -17 -5 -13 M 5 -13 C 5 -17 9 -17 9 -13" stroke="#37474f" stroke-width="2.5" stroke-linecap="round" fill="none" />
+      </g>
+
+      <!-- Torso & Core -->
+      <rect x="-16" y="6" width="32" height="22" rx="11" fill="#2b82c9" stroke="#1d5785" stroke-width="2" />
+      <polygon points="0,10 5,15 0,20 -5,15" fill="#48cfad" class="anim-bot-heart" />
+
+      <!-- Thruster Wheel -->
+      <path d="M -6 26 L 6 26 L 4 33 L -4 33 Z" fill="#37474f" />
+      <circle cx="0" cy="33" r="2.8" fill="#38bdf8" filter="url(#neonGlow)" />
+
+      <!-- Speech Bubble -->
+      <g transform="translate(15, -42)">
+        <g class="anim-bubble">
+          <rect x="0" y="-18" width="98" height="20" rx="5" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
+          <polygon points="10,2 14,8 18,2" fill="#0f172a" />
+          <text x="8" y="-4" fill="#38bdf8" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700">Type-Safe ✦</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+
+  <!-- =========================================================
+       SECTION 2 (CENTER): RUST & GO CONCURRENCY HUB
+       ========================================================= -->
+  <g transform="translate(315, 65)">
+    <!-- Console Box -->
+    <rect width="320" height="115" rx="10" fill="url(#terminalBgGrad)" stroke="#818cf8" stroke-width="1.5" class="term-box-glow" />
+    <path d="M 0 10 C 0 4.5 4.5 0 10 0 L 310 0 C 315.5 0 320 4.5 320 10 L 320 24 L 0 24 Z" fill="#0b1120" />
+    <circle cx="14" cy="12" r="3.5" fill="#ef4444" />
+    <circle cx="26" cy="12" r="3.5" fill="#eab308" />
+    <circle cx="38" cy="12" r="3.5" fill="#22c55e" />
+    <rect x="50" y="5" width="20" height="14" rx="2" fill="#dea584" />
+    <text x="53" y="15" fill="#1e293b" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="800">RS</text>
+    <rect x="74" y="5" width="20" height="14" rx="2" fill="#00add8" />
+    <text x="77" y="15" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="800">GO</text>
+    <text x="100" y="16" fill="#a5b4fc" font-family="'JetBrains Mono', Consolas, monospace" font-size="10" font-weight="700">main.rs &#8226; goroutines</text>
+
+    <!-- Rust & Go Code Lines -->
+    <text x="14" y="44" fill="#f43f5e" font-family="'JetBrains Mono', monospace" font-size="10.5" font-weight="600">fn <tspan fill="#38bdf8">deploy_squad</tspan>() -&gt; Result&lt;(), ZeroBug&gt; {</text>
+    <text x="24" y="62" fill="#f8fafc" font-family="'JetBrains Mono', monospace" font-size="10.5">  let <tspan fill="#f59e0b">dev</tspan> = Developer::ship_profile();</text>
+    <text x="24" y="80" fill="#f8fafc" font-family="'JetBrains Mono', monospace" font-size="10.5">  dev.slash_memory_latency(<tspan fill="#4ade80">0.001ms</tspan>);</text>
+    <text x="14" y="98" fill="#f43f5e" font-family="'JetBrains Mono', monospace" font-size="10.5" font-weight="600">}</text>
+  </g>
+
+  <!-- CHAR 2: PIXEL DEVELOPER (Human Coder with Hoodie, Headphones, Coffee & Laptop) -->
+  <g transform="translate(475, 246)">
+    <!-- Floor Shadow -->
+    <ellipse cx="0" cy="4" rx="42" ry="6" fill="#050811" opacity="0.5" />
+
+    <!-- Developer Character Group -->
+    <g transform="translate(0, -32)">
+      <!-- Seated Torso (Dark Cyber Hoodie) -->
+      <path d="M -16 6 L -13 -10 C -13 -15 -8 -18 0 -18 C 8 -18 13 -15 13 -10 L 16 6 Z" fill="#1e1b4b" stroke="#312e81" stroke-width="1.8" />
+      <!-- Hoodie Neon Accents -->
+      <line x1="-3" y1="-8" x2="-3" y2="0" stroke="#00f5d4" stroke-width="1" />
+      <line x1="3" y1="-8" x2="3" y2="0" stroke="#00f5d4" stroke-width="1" />
+
+      <!-- Head & Headphones (Bobbing to Lo-Fi Beat) -->
+      <g class="anim-dev-head">
+        <!-- Neck -->
+        <rect x="-4" y="-18" width="8" height="6" fill="#fcd34d" />
+        <!-- Head -->
+        <ellipse cx="0" cy="-25" rx="10" ry="9.5" fill="#fcd34d" />
+        <!-- Hair / Hood -->
+        <path d="M -11 -25 C -11 -35 11 -35 11 -25 C 11 -20 8 -17 0 -17 C -8 -17 -11 -20 -11 -25 Z" fill="#312e81" />
+        <!-- Stylish Front Hair Fringe -->
+        <path d="M -7 -29 Q 0 -34 5 -28 Q 1 -30 -4 -28 Z" fill="#1e1b4b" />
+        <!-- Cyber Visor / Glasses -->
+        <rect x="-8" y="-26" width="6" height="3.5" rx="1" fill="#00f5d4" filter="url(#neonGlow)" />
+        <rect x="2" y="-26" width="6" height="3.5" rx="1" fill="#00f5d4" filter="url(#neonGlow)" />
+        <line x1="-2" y1="-25" x2="2" y2="-25" stroke="#00f5d4" stroke-width="1" />
+        <!-- Focused Smile -->
+        <path d="M -3 -19 Q 0 -17 3 -19" stroke="#78350f" stroke-width="1" stroke-linecap="round" fill="none" />
+
+        <!-- Neon Headphones -->
+        <path d="M -11 -26 C -11 -38 11 -38 11 -26" fill="none" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round" />
+        <rect x="-13.5" y="-28" width="3.5" height="7.5" rx="1.5" fill="#ec4899" />
+        <rect x="10" y="-28" width="3.5" height="7.5" rx="1.5" fill="#ec4899" />
+      </g>
+
+      <!-- Ergonomic Cyber Desk -->
+      <path d="M -36 8 L 36 8 L 30 16 L -30 16 Z" fill="#1e293b" stroke="#818cf8" stroke-width="1.2" />
+      <!-- Desk Legs -->
+      <line x1="-26" y1="16" x2="-28" y2="34" stroke="#334155" stroke-width="2.2" />
+      <line x1="26" y1="16" x2="28" y2="34" stroke="#334155" stroke-width="2.2" />
+
+      <!-- Holographic Laptop Base & Screen -->
+      <rect x="-14" y="5" width="28" height="3" rx="1" fill="#64748b" />
+      <path d="M -13 5 L -10 -13 L 10 -13 L 13 5 Z" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
+      <!-- Screen Display Glow -->
+      <polygon points="-9,4 -8,-11 8,-11 9,4" fill="#38bdf8" opacity="0.85" class="anim-screen-glow" filter="url(#neonGlow)" />
+      <!-- Code Glyph on Laptop Screen -->
+      <text x="0" y="-2" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="700" text-anchor="middle">&lt;/&gt;</text>
+
+      <!-- Steaming Amber Coffee Mug -->
+      <g transform="translate(23, 6)">
+        <rect x="-4" y="-7" width="8" height="8" rx="2" fill="#f59e0b" stroke="#78350f" stroke-width="1" />
+        <path d="M 4 -5 C 6 -5 6 -2 4 -2" fill="none" stroke="#78350f" stroke-width="1" />
+        <!-- Animated Vapor Steam Wisps -->
+        <path d="M 0 -8 Q 2 -14 -1 -19" fill="none" stroke="#fef08a" stroke-width="1.2" stroke-linecap="round" class="anim-coffee-steam" />
+      </g>
+
+      <!-- Active Typing Hands -->
+      <ellipse cx="-6" cy="6" rx="3.5" ry="2.2" fill="#fcd34d" class="anim-dev-type-l" />
+      <ellipse cx="6" cy="6" rx="3.5" ry="2.2" fill="#fcd34d" class="anim-dev-type-r" />
+
+      <!-- Speech Bubble Stationed Above Head -->
+      <g transform="translate(0, -52)">
+        <g class="anim-bubble">
+          <rect x="-44" y="-18" width="88" height="20" rx="5" fill="#0f172a" stroke="#818cf8" stroke-width="1.2" />
+          <polygon points="-4,2 0,7 4,2" fill="#0f172a" />
+          <text x="0" y="-4" fill="#a5b4fc" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" text-anchor="middle">Building ✦ 60fps</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+
+  <!-- =========================================================
+       SECTION 3 (RIGHT): PYTHON & AI AGENT PIPELINE
+       ========================================================= -->
+  <g transform="translate(685, 65)">
+    <!-- Stats / Python Box -->
+    <rect width="245" height="115" rx="10" fill="url(#terminalBgGrad)" stroke="#ec4899" stroke-width="1.5" class="term-box-glow" />
+    <path d="M 0 10 C 0 4.5 4.5 0 10 0 L 235 0 C 240.5 0 245 4.5 245 10 L 245 24 L 0 24 Z" fill="#0b1120" />
+    <circle cx="14" cy="12" r="3.5" fill="#ef4444" />
+    <circle cx="26" cy="12" r="3.5" fill="#eab308" />
+    <circle cx="38" cy="12" r="3.5" fill="#22c55e" />
+    <rect x="50" y="5" width="20" height="14" rx="2" fill="#3776ab" />
+    <text x="54" y="15" fill="#fcd34d" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="800">PY</text>
+    <text x="76" y="16" fill="#f472b6" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700">agent_pipeline.py</text>
+
+    <!-- Python Code & Stats -->
+    <text x="14" y="44" fill="#fb7185" font-family="'JetBrains Mono', monospace" font-size="10.5" font-weight="600">class <tspan fill="#38bdf8">AIAgent</tspan>:</text>
+    <text x="24" y="62" fill="#f8fafc" font-family="'JetBrains Mono', monospace" font-size="10.5">  model = <tspan fill="#4ade80">"gemini-flash"</tspan></text>
+    <text x="24" y="80" fill="#f8fafc" font-family="'JetBrains Mono', monospace" font-size="10.5">  fps = <tspan fill="#f59e0b">60</tspan>; latency = <tspan fill="#4ade80">"0ms"</tspan></text>
+    <text x="14" y="98" fill="#fb7185" font-family="'JetBrains Mono', monospace" font-size="10.5">  async def <tspan fill="#38bdf8">deploy</tspan>(self): return <tspan fill="#4ade80">True</tspan></text>
+  </g>
+
+  <!-- CHAR 3: NINJA CODER (Human Cyber Shinobi Bug Slayer) -->
+  <g transform="translate(805, 246)">
+    <!-- Floor Shadow -->
+    <ellipse cx="0" cy="4" rx="30" ry="5.5" fill="#050811" opacity="0.5" />
+
+    <g class="anim-ninja-stance" transform="translate(0, -32)">
+      <!-- Stealth Legs & Boots -->
+      <rect x="-9" y="12" width="7" height="16" rx="3" fill="#334155" stroke="#1e293b" stroke-width="1.2" />
+      <rect x="2" y="12" width="7" height="16" rx="3" fill="#334155" stroke="#1e293b" stroke-width="1.2" />
+      <rect x="-10" y="22" width="8" height="6" rx="1.5" fill="#06b6d4" />
+      <rect x="2" y="22" width="8" height="6" rx="1.5" fill="#06b6d4" />
+
+      <!-- Torso in Tactical Gi with Cyan Trims -->
+      <path d="M -13 0 L 13 0 L 10 14 L -10 14 Z" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5" />
+      <polygon points="-7,2 7,2 5,10 -5,10" fill="#475569" stroke="#64748b" stroke-width="1" />
+      <rect x="-11" y="10" width="22" height="4" rx="1" fill="#ec4899" />
+
+      <!-- Neck & Ninja Hood -->
+      <rect x="-3" y="-3" width="6" height="5" fill="#fcd34d" />
+      <ellipse cx="0" cy="-14" rx="11" ry="11" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+
+      <!-- Visible Face Mask Opening & Cyber Eyes -->
+      <rect x="-7" y="-15" width="14" height="6.5" rx="2" fill="#fcd34d" />
+      <ellipse cx="-3.5" cy="-12" rx="1.8" ry="1.2" fill="#020617" />
+      <circle cx="-3.2" cy="-12.3" r="0.6" fill="#22d3ee" />
+      <ellipse cx="3.5" cy="-12" rx="1.8" ry="1.2" fill="#020617" />
+      <circle cx="3.8" cy="-12.3" r="0.6" fill="#22d3ee" />
+      <!-- Lower Mask Band -->
+      <line x1="-8" y1="-8" x2="8" y2="-8" stroke="#1e293b" stroke-width="2.5" />
+
+      <!-- Cyan Headband with Silver Shinobi Plate -->
+      <path d="M -11 -17 C -6 -19 6 -19 11 -17 L 11 -13 C 6 -15 -6 -15 -11 -13 Z" fill="#06b6d4" />
+      <rect x="-4" y="-18" width="8" height="4" rx="1" fill="#f8fafc" />
+
+      <!-- Fluttering Dual-Tail Headband Ribbons -->
+      <g class="anim-ninja-ribbon">
+        <path d="M -10 -15 Q -22 -22 -30 -12" fill="none" stroke="#06b6d4" stroke-width="3" stroke-linecap="round" />
+        <path d="M -9 -13 Q -20 -18 -26 -6" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round" />
+      </g>
+
+      <!-- Dual Katana Arms & Energy Blades -->
+      <g class="anim-ninja-blade-l">
+        <line x1="-7" y1="2" x2="-16" y2="-6" stroke="#fcd34d" stroke-width="3.2" stroke-linecap="round" />
+        <line x1="-16" y1="-6" x2="-36" y2="-26" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" filter="url(#bladeSlashGlow)" />
+        <line x1="-16" y1="-6" x2="-36" y2="-26" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" />
+      </g>
+      <g class="anim-ninja-blade-r">
+        <line x1="7" y1="2" x2="16" y2="-6" stroke="#fcd34d" stroke-width="3.2" stroke-linecap="round" />
+        <line x1="16" y1="-6" x2="36" y2="-26" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round" filter="url(#bladeSlashGlow)" />
+        <line x1="16" y1="-6" x2="36" y2="-26" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" />
+      </g>
+
+      <!-- Speed Slash Arc -->
+      <path d="M -42 -28 Q 0 -50 42 -28" fill="none" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" class="anim-ninja-arc" filter="url(#bladeSlashGlow)" />
+
+      <!-- Speech Bubble Stationed Cleanly Above Head -->
+      <g transform="translate(0, -52)">
+        <g class="anim-bubble">
+          <rect x="-44" y="-18" width="88" height="20" rx="5" fill="#0f172a" stroke="#ec4899" stroke-width="1.2" />
+          <polygon points="-4,2 0,7 4,2" fill="#0f172a" />
+          <text x="0" y="-4" fill="#f472b6" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" text-anchor="middle">Zero Latency ✦</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+</svg>

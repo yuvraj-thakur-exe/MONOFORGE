@@ -48,3 +48,6 @@ node_modules/
 # TypeScript cache
 *.tsbuildinfo
 .env*
+
+.next/
+website/.next/

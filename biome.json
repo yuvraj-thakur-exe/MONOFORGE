@@ -1,14 +1,21 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.5.7/schema.json",
-  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
   "files": {
     "includes": [
       "**",
       "!.next/**",
+      "!website/.next/**",
       "!public/**",
+      "!website/public/**",
       "!coverage/**",
       "!node_modules/**",
-      "!src/assets/**/*.svg"
+      "!src/assets/**/*.svg",
+      "!website/src/assets/**/*.svg"
     ]
   },
   "formatter": {
@@ -24,7 +31,9 @@
     "enabled": true,
     "rules": {
       "preset": "none",
-      "a11y": { "preset": "none" },
+      "a11y": {
+        "preset": "none"
+      },
       "complexity": {
         "noUselessThisAlias": "warn",
         "noUselessTypeConstraint": "error"
@@ -35,7 +44,9 @@
         "noUnusedVariables": "warn",
         "useJsxKeyInIterable": "error"
       },
-      "security": { "noDangerouslySetInnerHtmlWithChildren": "error" },
+      "security": {
+        "noDangerouslySetInnerHtmlWithChildren": "error"
+      },
       "style": {
         "noCommonJs": "error",
         "noDefaultExport": "off",
@@ -83,7 +94,9 @@
   },
   "overrides": [
     {
-      "includes": ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+      "includes": [
+        "**/*.{js,mjs,cjs,ts,jsx,tsx}"
+      ],
       "linter": {
         "rules": {
           "complexity": {
@@ -150,9 +163,15 @@
         }
       }
     },
-    { "includes": ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
     {
-      "includes": ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+      "includes": [
+        "**/*.{js,mjs,cjs,ts,jsx,tsx}"
+      ]
+    },
+    {
+      "includes": [
+        "**/*.{js,mjs,cjs,ts,jsx,tsx}"
+      ],
       "javascript": {
         "globals": [
           "onanimationend",
@@ -285,10 +304,17 @@
       }
     },
     {
-      "includes": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
+      "includes": [
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.mts",
+        "**/*.cts"
+      ],
       "linter": {
         "rules": {
-          "complexity": { "noArguments": "error" },
+          "complexity": {
+            "noArguments": "error"
+          },
           "correctness": {
             "noConstAssign": "off",
             "noGlobalObjectCalls": "off",
@@ -299,7 +325,10 @@
             "noUnreachable": "off",
             "noUnreachableSuper": "off"
           },
-          "style": { "useConst": "error", "useSpreadOverApply": "error" },
+          "style": {
+            "useConst": "error",
+            "useSpreadOverApply": "error"
+          },
           "suspicious": {
             "noClassAssign": "off",
             "noDuplicateClassMembers": "off",
@@ -327,6 +356,10 @@
   },
   "assist": {
     "enabled": false,
-    "actions": { "source": { "organizeImports": "off" } }
+    "actions": {
+      "source": {
+        "organizeImports": "off"
+      }
+    }
   }
 }

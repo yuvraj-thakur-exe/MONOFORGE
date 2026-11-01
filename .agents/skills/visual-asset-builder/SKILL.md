@@ -28,6 +28,11 @@ The **Visual Asset Builder** powers the graphics, vector motion, and Canvas rend
    - Technology badge grids formatted with `for-the-badge` or `flat-square`.
    - Standardized colors aligned with Simple Icons brand specifications.
 
+5. **MonoForge Asset Intelligence & Reuse**:
+   - Before generating any new icon or brand visual, query `website/src/lib/assets/manifest.generated.json`.
+   - Reuse authentic social icons (Discord, GitHub, Twitter, etc.), characters, and telemetry graphics.
+   - Never fabricate or substitute unofficial approximations when real SVG assets exist in the repository.
+
 ## 9 Signature Visualizations Catalog
 
 - **`commit-city`**: 3D Isometric architectural skyline where days are buildings with window glows.
@@ -38,5 +43,4 @@ The **Visual Asset Builder** powers the graphics, vector motion, and Canvas rend
 - **`contribution-snake`**: Classic arcade snake crawling through the 52-week calendar grid eating commit nodes.
 - **`repository-galaxy`**: Orbital planetary cosmos where repos orbit as planets based on GitHub stars and languages.
 - **`developer-dna`**: Rotating 3D double-helix strand with base pairs mapped to verified language ratios.
-- **`skill-constellation`**: Celestial star graph connecting technologies backed by repository dependencies.
-
+- **`skill-constellation`**: Starlight astrolabe connecting engineering skills with harmonic lines.

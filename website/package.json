@@ -1,0 +1,12 @@
+{
+  "name": "monoforge-website",
+  "version": "1.0.0",
+  "description": "MonoForge Developer Identity & GitHub Profile README Studio Web Application",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  }
+}
