@@ -36,6 +36,10 @@ const KEYWORDS = [
 ];
 
 const TEMPLATE_PREVIEWS: Record<string, string> = {
+  'best-readme-flagship': '/assets/best-readme/banner.svg',
+  'best-readme-fullstack': '/assets/best-readme/screenshot.png',
+  'best-readme-systems': '/assets/best-readme/banner.svg',
+  'best-readme-cloud': '/assets/best-readme/screenshot.png',
   'wow-3d-city-cat': '/assets/wow-profile-full.svg',
   'bento-signal-dashboard': '/assets/bento-dashboard-full.svg',
   'isometric-terminal-connect': '/assets/isometric-terminal.svg',

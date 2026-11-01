@@ -1,5 +1,5 @@
 import { ReadmeConfig } from '#/lib/plugins/types';
-import { ARCHETYPE_LIBRARY_100 } from './archetypes-library-100';
+import { BEST_README_TEMPLATES } from './best-readme';
 
 export interface TemplateItem {
   id: string;
@@ -96,7 +96,7 @@ export function buildRichPrompt(item: {
 }
 
 const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
-{
+  {
     id: 'minimalist',
     name: 'Minimalist Clean',
     description: 'Ultra-clean profile with understated typography, essential skills, and compact socials.',
@@ -180,6 +180,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
       ],
     },
   },
+  ...BEST_README_TEMPLATES,
   {
     id: 'fullstack',
     name: 'Full-Stack Polyglot',
@@ -5355,5 +5356,4 @@ export const TEMPLATES: TemplateItem[] = [
     ...t,
     prompt: t.prompt && t.prompt.length > 200 ? t.prompt : buildRichPrompt(t),
   })),
-  ...ARCHETYPE_LIBRARY_100,
 ];
