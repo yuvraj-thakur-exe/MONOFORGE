@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { TopNav } from '#/components/navigation/TopNav';
 import { StudioAudioToggle } from '#/components/studio/StudioAudioToggle';
 import { NomokeyHero } from '#/components/studio/NomokeyHero';
@@ -7,13 +8,9 @@ import { LivePlaygroundBar } from '#/components/studio/LivePlaygroundBar';
 import { HowItWorks } from '#/components/studio/HowItWorks';
 import { NomokeyMarquee } from '#/components/studio/NomokeyMarquee';
 import { StudioBento } from '#/components/studio/StudioBento';
-import { TransformationShowcase } from '#/components/studio/TransformationShowcase';
-import { NomokeyStickerBoard } from '#/components/studio/NomokeyStickerBoard';
-import { CuratedArchetypes } from '#/components/studio/CuratedArchetypes';
 import { NomokeyManifesto } from '#/components/studio/NomokeyManifesto';
 import { FinalCta } from '#/components/studio/FinalCta';
 import { HomeBrandLogoEmblem } from '#/components/home/HomeBrandLogoEmblem';
-import { HomeCapabilitiesMatrix } from '#/components/home/HomeCapabilitiesMatrix';
 import { MonoForgeMonkeyIcon } from '#/components/common/MonoForgeLogo';
 import { Link } from '#/i18n/navigation';
 import {
@@ -25,6 +22,27 @@ import {
   Heart,
 } from 'lucide-react';
 import { playClickSound } from '#/lib/sound/sound-effects';
+
+// High-Performance Below-The-Fold Code-Splitting with SSR Pre-Rendering
+const TransformationShowcase = dynamic(
+  () => import('#/components/studio/TransformationShowcase').then((m) => m.TransformationShowcase),
+  { ssr: true }
+);
+
+const NomokeyStickerBoard = dynamic(
+  () => import('#/components/studio/NomokeyStickerBoard').then((m) => m.NomokeyStickerBoard),
+  { ssr: true }
+);
+
+const CuratedArchetypes = dynamic(
+  () => import('#/components/studio/CuratedArchetypes').then((m) => m.CuratedArchetypes),
+  { ssr: true }
+);
+
+const HomeCapabilitiesMatrix = dynamic(
+  () => import('#/components/home/HomeCapabilitiesMatrix').then((m) => m.HomeCapabilitiesMatrix),
+  { ssr: true }
+);
 
 export default function HomePage() {
   return (

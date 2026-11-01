@@ -101,14 +101,23 @@ export async function generateMetadata({
       title,
       description,
       siteName: 'MONOFORGE',
-      images: '/api/og',
+      url: `${appUrl}/${locale}`,
+      images: [
+        {
+          url: `${appUrl}/api/og`,
+          width: 1200,
+          height: 630,
+          alt: 'MonoForge - GitHub Profile README Generator',
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: '/api/og',
-      creator: 'https://github.com/yuvraj-thakur-exe/MONOFORGE',
+      images: [`${appUrl}/api/og`],
+      creator: '@yuvrajthakur',
+      site: '@monoforge',
     },
     alternates: {
       canonical: `${appUrl}/${locale}`,
@@ -147,16 +156,34 @@ export default async function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Asynchronous Non-Blocking Google Fonts Loading for Sub-Second FCP */}
         <link
-          rel="stylesheet"
+          rel="preload"
+          as="style"
           href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         />
         <link
-          rel="preload"
-          href="/assets/animated-characters.svg"
-          as="image"
-          type="image/svg+xml"
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+          media="print"
+          // @ts-expect-error - Next.js inline onLoad handler
+          onLoad="this.media='all'"
         />
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+          />
+        </noscript>
+        {/* Above-the-fold Hero LCP Asset Preload with High Priority */}
+        <link
+          rel="preload"
+          href="/assets/monoforge-monkey-logo.jpg"
+          as="image"
+          type="image/jpeg"
+          fetchPriority="high"
+        />
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
         <link rel="help" href="/llms.txt" />
         <link rel="alternate" type="text/markdown" href="/llms.txt" title="LLM Context" />
         <link rel="describedby" href="/api/schema" />
@@ -211,6 +238,17 @@ export default async function RootLayout({
                     url: 'https://github.com/yuvraj-thakur-exe/MONOFORGE',
                   },
                   sameAs: ['https://github.com/yuvraj-thakur-exe/MONOFORGE'],
+                },
+                {
+                  '@type': 'Organization',
+                  '@id': `${config.general.urls.app}/#organization`,
+                  name: 'MonoForge',
+                  url: config.general.urls.app,
+                  logo: `${config.general.urls.app}/assets/monoforge-monkey-logo.jpg`,
+                  sameAs: [
+                    'https://github.com/yuvraj-thakur-exe/MONOFORGE',
+                    'https://github.com/yuvraj-thakur-exe',
+                  ],
                 },
               ],
             }),

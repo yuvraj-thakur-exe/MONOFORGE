@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 import { Link } from '#/i18n/navigation';
 import {
   Sparkles,
@@ -176,63 +175,34 @@ export function NomokeyHero() {
               </h1>
             </div>
 
-            {/* Animated Kinetic Capability Description */}
-            <motion.p
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: { opacity: 0 },
-                visible: {
-                  opacity: 1,
-                  transition: {
-                    staggerChildren: 0.022,
-                    delayChildren: 0.15,
-                  },
-                },
-              }}
-              className="text-base sm:text-lg text-neutral-900 max-w-2xl font-medium leading-relaxed"
-            >
-              {'Create a professional GitHub profile README with a visual editor, live previews, developer statistics, animated SVGs, and customizable templates. Build your developer identity without manually wrestling with Markdown.'
-                .split(' ')
-                .map((word, idx) => {
-                  const cleanWord = word.replace(/[^a-zA-Z]/g, '').toLowerCase();
-                  const isEmphasized = [
-                    'visual',
-                    'editor',
-                    'live',
-                    'previews',
-                    'developer',
-                    'statistics',
-                    'animated',
-                    'svgs',
-                    'customizable',
-                    'templates',
-                    'identity',
-                  ].includes(cleanWord);
-
-                  return (
-                    <motion.span
-                      key={idx}
-                      variants={{
-                        hidden: { opacity: 0, y: 8, filter: 'blur(3px)' },
-                        visible: {
-                          opacity: 1,
-                          y: 0,
-                          filter: 'blur(0px)',
-                          transition: { duration: 0.38, ease: [0.22, 1, 0.36, 1] },
-                        },
-                      }}
-                      className={`inline-block mr-1.5 ${
-                        isEmphasized
-                          ? 'font-bold text-neutral-950 decoration-[#ffe600] underline decoration-2 underline-offset-4'
-                          : ''
-                      }`}
-                    >
-                      {word}
-                    </motion.span>
-                  );
-                })}
-            </motion.p>
+            {/* High-Performance Capability Description (SSR instant visible for sub-second FCP/LCP & SEO crawlability) */}
+            <p className="text-base sm:text-lg text-neutral-900 max-w-2xl font-medium leading-relaxed">
+              Create a professional GitHub profile README with a{' '}
+              <span className="font-bold text-neutral-950 decoration-[#ffe600] underline decoration-2 underline-offset-4">
+                visual editor
+              </span>
+              ,{' '}
+              <span className="font-bold text-neutral-950 decoration-[#ffe600] underline decoration-2 underline-offset-4">
+                live previews
+              </span>
+              ,{' '}
+              <span className="font-bold text-neutral-950 decoration-[#ffe600] underline decoration-2 underline-offset-4">
+                developer statistics
+              </span>
+              ,{' '}
+              <span className="font-bold text-neutral-950 decoration-[#ffe600] underline decoration-2 underline-offset-4">
+                animated SVGs
+              </span>
+              , and{' '}
+              <span className="font-bold text-neutral-950 decoration-[#ffe600] underline decoration-2 underline-offset-4">
+                customizable templates
+              </span>
+              . Build your{' '}
+              <span className="font-bold text-neutral-950 decoration-[#ffe600] underline decoration-2 underline-offset-4">
+                developer identity
+              </span>{' '}
+              without manually wrestling with Markdown.
+            </p>
 
             {/* Kinetic Typewriter / Dynamic Engine Status Banner */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-neutral-50 border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] text-xs font-mono font-bold text-neutral-950 overflow-hidden max-w-full">
@@ -378,6 +348,10 @@ export function NomokeyHero() {
                       <img
                         src="/assets/monoforge-monkey-logo.jpg"
                         alt="Avatar"
+                        width={64}
+                        height={64}
+                        loading="eager"
+                        decoding="async"
                         className="w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-xl border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] shrink-0"
                       />
                     </div>
@@ -560,6 +534,9 @@ export function NomokeyHero() {
                     alt="MonoForge Official Logo"
                     width={220}
                     height={220}
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
                     className="w-48 h-48 sm:w-56 sm:h-56 object-contain rounded-2xl border-2 border-neutral-900 shadow-[4px_4px_0px_#18181b] bg-white select-none pointer-events-none"
                   />
                   <span className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-[#ffe600] text-neutral-950 text-[10px] font-mono font-black border border-neutral-900 shadow-xs">
