@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Link, usePathname } from '#/i18n/navigation';
 import {
+  Home,
   BookOpen,
   Terminal,
   Layers,
@@ -22,8 +23,10 @@ import { playClickSound } from '#/lib/sound/sound-effects';
 
 export function TopNav() {
   const pathname = usePathname();
-  const isDocs = pathname?.includes('/docs');
-  const isInfo = pathname?.includes('/info');
+  const isHome = pathname === '/' || pathname === '' || pathname === '/en';
+  const isTemplates = Boolean(pathname?.includes('/templates'));
+  const isDocs = Boolean(pathname?.includes('/docs'));
+  const isInfo = Boolean(pathname?.includes('/info'));
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -73,11 +76,31 @@ export function TopNav() {
 
           {/* Desktop Navigation Links */}
           <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-1.5 sm:gap-2 font-mono text-xs">
-            {/* 85+ Templates */}
+            {/* Home Navigation Button */}
+            <Link
+              href="/"
+              onClick={() => playClickSound()}
+              data-cursor-label="HOME"
+              className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
+                isHome
+                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white font-black shadow-xs'
+                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-950 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              <Home className="w-3.5 h-3.5 text-amber-500" />
+              <span>HOME</span>
+            </Link>
+
+            {/* 75+ Templates */}
             <Link
               href="/templates"
               onClick={() => playClickSound()}
-              className="flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer"
+              data-cursor-label="TEMPLATES"
+              className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
+                isTemplates
+                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white font-black shadow-xs'
+                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-950 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
             >
               <LayoutTemplate className="w-3.5 h-3.5 text-amber-500" />
               <span>TEMPLATES</span>
@@ -90,8 +113,8 @@ export function TopNav() {
               data-cursor-label="DOCS"
               className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
                 isDocs
-                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-black'
-                  : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
+                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white font-black shadow-xs'
+                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-950 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
               <BookOpen className="w-3.5 h-3.5 text-emerald-500" />
@@ -102,10 +125,11 @@ export function TopNav() {
             <Link
               href="/info"
               onClick={() => playClickSound()}
+              data-cursor-label="INFO"
               className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
                 isInfo
-                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-black'
-                  : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
+                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white font-black shadow-xs'
+                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-950 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
               <Info className="w-3.5 h-3.5 text-indigo-500" />
@@ -160,16 +184,48 @@ export function TopNav() {
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f172a] p-4 space-y-2 animate-in slide-in-from-top-2 duration-150 font-mono text-xs shadow-lg">
             <Link
-              href="/docs"
+              href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className={`flex items-center justify-between p-3 rounded-xl border font-bold transition-all ${
-                isDocs
-                  ? 'bg-amber-400 text-slate-950 border-amber-500 shadow-sm'
-                  : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700'
+              className={`flex items-center justify-between p-3 rounded-xl border font-black transition-all ${
+                isHome
+                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white shadow-xs'
+                  : 'bg-white dark:bg-slate-800 text-slate-950 dark:text-white border-slate-200 dark:border-slate-700'
               }`}
             >
               <span className="flex items-center gap-2">
-                <BookOpen className="w-4 h-4 text-emerald-600" />
+                <Home className="w-4 h-4 text-amber-500" />
+                <span>HOME</span>
+              </span>
+              <ChevronRight className="w-4 h-4 text-slate-400" />
+            </Link>
+
+            <Link
+              href="/templates"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`flex items-center justify-between p-3 rounded-xl border font-black transition-all ${
+                isTemplates
+                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white shadow-xs'
+                  : 'bg-white dark:bg-slate-800 text-slate-950 dark:text-white border-slate-200 dark:border-slate-700'
+              }`}
+            >
+              <span className="flex items-center gap-2">
+                <LayoutTemplate className="w-4 h-4 text-amber-500" />
+                <span>TEMPLATES (75+)</span>
+              </span>
+              <ChevronRight className="w-4 h-4 text-slate-400" />
+            </Link>
+
+            <Link
+              href="/docs"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`flex items-center justify-between p-3 rounded-xl border font-black transition-all ${
+                isDocs
+                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white shadow-xs'
+                  : 'bg-white dark:bg-slate-800 text-slate-950 dark:text-white border-slate-200 dark:border-slate-700'
+              }`}
+            >
+              <span className="flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-emerald-500" />
                 <span>DOCUMENTATION</span>
               </span>
               <ChevronRight className="w-4 h-4 text-slate-400" />
@@ -178,7 +234,7 @@ export function TopNav() {
             <Link
               href="/docs/getting-started/quickstart"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-amber-500/10 font-medium"
+              className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-950 dark:text-white hover:bg-amber-500/10 font-medium"
             >
               <span className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-amber-500" />
@@ -190,7 +246,7 @@ export function TopNav() {
             <Link
               href="/docs/reference/architecture"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-indigo-500/10 font-medium"
+              className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-950 dark:text-white hover:bg-indigo-500/10 font-medium"
             >
               <span className="flex items-center gap-2">
                 <Layers className="w-4 h-4 text-indigo-500" />
@@ -202,7 +258,7 @@ export function TopNav() {
             <Link
               href="/docs/reference/cli"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-cyan-500/10 font-medium"
+              className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-950 dark:text-white hover:bg-cyan-500/10 font-medium"
             >
               <span className="flex items-center gap-2">
                 <Terminal className="w-4 h-4 text-cyan-500" />
@@ -214,10 +270,10 @@ export function TopNav() {
             <Link
               href="/info"
               onClick={() => setMobileMenuOpen(false)}
-              className={`flex items-center justify-between p-3 rounded-xl border font-bold transition-all ${
+              className={`flex items-center justify-between p-3 rounded-xl border font-black transition-all ${
                 isInfo
-                  ? 'bg-amber-400 text-slate-950 border-amber-500 shadow-sm'
-                  : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700'
+                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border-slate-900 dark:border-white shadow-xs'
+                  : 'bg-white dark:bg-slate-800 text-slate-950 dark:text-white border-slate-200 dark:border-slate-700'
               }`}
             >
               <span className="flex items-center gap-2">

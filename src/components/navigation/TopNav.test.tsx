@@ -32,6 +32,7 @@ describe('TopNav', () => {
     expect(screen.getAllByText(/MONO/i).length).toBeGreaterThanOrEqual(1);
 
     // Navigation Links
+    expect(screen.getByText(/HOME/i)).toBeDefined();
     expect(screen.getByText(/TEMPLATES/i)).toBeDefined();
     expect(screen.getByText(/DOCS/i)).toBeDefined();
     expect(screen.getByText(/INFO/i)).toBeDefined();
