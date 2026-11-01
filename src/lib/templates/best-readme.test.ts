@@ -17,14 +17,14 @@ describe('Best-README Suite & Generator Engine', () => {
   it('generates complete reference-style Best-README markdown', () => {
     const md = buildBestReadmeMarkdown({
       user: {
-        github: 'yuvraj-thakur-exe',
+        github: 'Developer',
         repo: 'MONOFORGE',
         projectTitle: 'MONOFORGE Studio',
         tagline: 'Forge a GitHub profile that gets noticed.',
         description: 'Visual wizard + developer raw-mode editor with 60fps Camo-safe telemetry.',
-        authorName: 'Yuvraj Thakur',
-        twitter: 'yuvrajthakur',
-        email: 'yuvraj@example.com',
+        authorName: 'Developer ',
+        twitter: '@dev_0',
+        email: 'Developer@example.com',
         license: 'MIT',
       },
       technologies: ['nextjs', 'react', 'typescript', 'tailwind', 'rust', 'docker'],
@@ -46,7 +46,7 @@ describe('Best-README Suite & Generator Engine', () => {
     expect(md).toContain('## Usage');
     expect(md).toContain('## Roadmap');
     expect(md).toContain('## Contributing');
-    expect(md).toContain('contrib.rocks/image?repo=yuvraj-thakur-exe/MONOFORGE');
+    expect(md).toContain('contrib.rocks/image?repo=Developer/MONOFORGE');
     expect(md).toContain('## License');
     expect(md).toContain('## Contact');
     expect(md).toContain('## Acknowledgments');

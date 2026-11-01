@@ -21,8 +21,20 @@ import {
   Layers,
   Share2,
   Download,
+  Star,
+  GitCompare,
+  Smartphone,
+  Tablet,
+  Monitor,
+  ArrowUpDown,
+  BookOpen,
+  MapPin,
+  Mail,
+  Link as LinkIcon,
+  Building,
 } from 'lucide-react';
 import { playClickSound, playTone } from '#/lib/sound/sound-effects';
+import { TemplateCompareModal } from '#/components/landing/TemplateCompareModal';
 
 export { TEMPLATES, type TemplateItem } from '#/lib/templates/catalog';
 import { TEMPLATES, type TemplateItem } from '#/lib/templates/catalog';
@@ -807,13 +819,74 @@ export const TemplateGallery: React.FC = () => {
   // Interactive Preview & Customize Modal State
   const [previewTemplate, setPreviewTemplate] = useState<TemplateItem | null>(null);
   const [previewConfig, setPreviewConfig] = useState<ReadmeConfig | null>(null);
-  const [previewTab, setPreviewTab] = useState<'visual' | 'markdown' | 'prompt' | 'plugins'>('visual');
+  const [previewTab, setPreviewTab] = useState<'visual' | 'github' | 'markdown' | 'prompt' | 'plugins'>('visual');
+  const [previewDevice, setPreviewDevice] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [mounted, setMounted] = useState<boolean>(false);
 
+  // Studio Filter & Compare States
+  const [selectedStyle, setSelectedStyle] = useState<string>('all');
+  const [selectedDevType, setSelectedDevType] = useState<string>('all');
+  const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
+  const [sortBy, setSortBy] = useState<'default' | 'featured' | 'popular' | 'name' | 'sections'>('default');
+  const [favorites, setFavorites] = useState<Set<string>>(() => new Set());
+  const [onlyFavorites, setOnlyFavorites] = useState<boolean>(false);
+  const [compareList, setCompareList] = useState<string[]>([]);
+  const [isComparing, setIsComparing] = useState<boolean>(false);
+
   useEffect(() => {
     setMounted(true);
+    try {
+      const saved = localStorage.getItem('monoforge:favorites');
+      if (saved) {
+        setFavorites(new Set(JSON.parse(saved)));
+      }
+    } catch {
+      // Ignored
+    }
   }, []);
+
+  const toggleFavorite = (id: string, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    playClickSound();
+    setFavorites(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+        showToast('Removed from favorites');
+      } else {
+        next.add(id);
+        showToast('Added to favorites! ⭐');
+        try {
+          confetti({ particleCount: 22, spread: 50, origin: { y: 0.7 } });
+        } catch {
+          // Ignored
+        }
+      }
+      try {
+        localStorage.setItem('monoforge:favorites', JSON.stringify(Array.from(next)));
+      } catch {
+        // Ignored
+      }
+      return next;
+    });
+  };
+
+  const toggleCompare = (id: string, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    playClickSound();
+    setCompareList(prev => {
+      if (prev.includes(id)) {
+        return prev.filter(x => x !== id);
+      }
+      if (prev.length >= 3) {
+        showToast('Maximum 3 archetypes can be compared at once');
+        return prev;
+      }
+      showToast('Added to comparison matrix');
+      return [...prev, id];
+    });
+  };
 
   // Dynamic Keyword Text Animation
   const [keywordIdx, setKeywordIdx] = useState<number>(0);
@@ -849,25 +922,68 @@ export const TemplateGallery: React.FC = () => {
   const [visibleCount, setVisibleCount] = useState<number>(36);
 
   const filtered = useMemo(() => {
-    return TEMPLATES.filter(tmpl => {
+    let list = TEMPLATES.filter(tmpl => {
       const matchesCat = activeCategory === 'all' || tmpl.category === activeCategory;
+      if (!matchesCat) return false;
+
+      if (onlyFavorites && !favorites.has(tmpl.id)) {
+        return false;
+      }
+
+      if (selectedStyle !== 'all') {
+        const style = selectedStyle.toLowerCase();
+        const matchesStyle =
+          tmpl.visualStyle === selectedStyle ||
+          tmpl.category.toLowerCase().includes(style) ||
+          tmpl.name.toLowerCase().includes(style) ||
+          (tmpl.tags && tmpl.tags.some(t => t.toLowerCase().includes(style)));
+        if (!matchesStyle) return false;
+      }
+
+      if (selectedDevType !== 'all') {
+        const dev = selectedDevType.toLowerCase();
+        const matchesDev =
+          tmpl.developerType === selectedDevType ||
+          tmpl.category.toLowerCase().includes(dev) ||
+          tmpl.name.toLowerCase().includes(dev) ||
+          (tmpl.tags && tmpl.tags.some(t => t.toLowerCase().includes(dev)));
+        if (!matchesDev) return false;
+      }
+
+      if (selectedDifficulty !== 'all') {
+        if (tmpl.difficulty && tmpl.difficulty !== selectedDifficulty) return false;
+      }
+
       const q = searchQuery.toLowerCase().trim();
-      if (!q) return matchesCat;
+      if (!q) return true;
 
       const matchesSearch =
         tmpl.name.toLowerCase().includes(q) ||
         tmpl.description.toLowerCase().includes(q) ||
         tmpl.category.toLowerCase().includes(q) ||
+        (tmpl.tags && tmpl.tags.some(t => t.toLowerCase().includes(q))) ||
         tmpl.config.sections.some(s => s.type.toLowerCase().includes(q));
 
-      return matchesCat && matchesSearch;
+      return matchesSearch;
     });
-  }, [activeCategory, searchQuery]);
 
-  // Reset pagination when category or search changes
+    if (sortBy === 'featured') {
+      list = [...list].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+    } else if (sortBy === 'popular') {
+      list = [...list].sort((a, b) => (b.popularity || 80) - (a.popularity || 80));
+    } else if (sortBy === 'name') {
+      list = [...list].sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortBy === 'sections') {
+      list = [...list].sort((a, b) => b.config.sections.length - a.config.sections.length);
+    }
+
+    return list;
+  }, [activeCategory, onlyFavorites, favorites, selectedStyle, selectedDevType, selectedDifficulty, searchQuery, sortBy]);
+
+  // Reset pagination when category, search or filters change
   useEffect(() => {
     setVisibleCount(36);
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory, searchQuery, selectedStyle, selectedDevType, selectedDifficulty, onlyFavorites, sortBy]);
 
   const displayedTemplates = useMemo(() => {
     return filtered.slice(0, visibleCount);
@@ -1100,6 +1216,117 @@ export const TemplateGallery: React.FC = () => {
         })}
       </div>
 
+      {/* Sub-Filters & Studio Control Toolbar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-xs font-mono shadow-xs">
+        <div className="flex flex-wrap items-center gap-2.5">
+          {/* Visual Style Filter */}
+          <div className="flex items-center gap-1.5">
+            <span className="text-slate-500 font-bold uppercase text-[10px]">Style:</span>
+            <select
+              value={selectedStyle}
+              onChange={e => setSelectedStyle(e.target.value)}
+              className="px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold focus:outline-hidden focus:border-amber-400 cursor-pointer text-xs"
+            >
+              <option value="all">All Styles</option>
+              <option value="minimal">Minimalist</option>
+              <option value="cyberpunk">Cyberpunk &amp; Neon</option>
+              <option value="terminal">Terminal &amp; ASCII</option>
+              <option value="editorial">Editorial &amp; Typography</option>
+              <option value="isometric">3D &amp; Isometric</option>
+              <option value="illustrated">Illustrated &amp; Mascots</option>
+              <option value="anime">Anime &amp; Gaming</option>
+              <option value="dashboard">Data Dashboard</option>
+            </select>
+          </div>
+
+          {/* Dev Role Filter */}
+          <div className="flex items-center gap-1.5">
+            <span className="text-slate-500 font-bold uppercase text-[10px]">Role:</span>
+            <select
+              value={selectedDevType}
+              onChange={e => setSelectedDevType(e.target.value)}
+              className="px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold focus:outline-hidden focus:border-amber-400 cursor-pointer text-xs"
+            >
+              <option value="all">All Disciplines</option>
+              <option value="fullstack">Full-Stack Engineer</option>
+              <option value="frontend">Frontend Specialist</option>
+              <option value="backend">Backend &amp; Distributed</option>
+              <option value="devops">Cloud &amp; DevOps</option>
+              <option value="ai-ml">AI / ML / Data Science</option>
+              <option value="mobile">Mobile &amp; Cross-Platform</option>
+              <option value="oss-maintainer">Open-Source Maintainer</option>
+              <option value="student">Student &amp; Learner</option>
+            </select>
+          </div>
+
+          {/* Difficulty Filter */}
+          <div className="flex items-center gap-1.5">
+            <span className="text-slate-500 font-bold uppercase text-[10px]">Difficulty:</span>
+            <select
+              value={selectedDifficulty}
+              onChange={e => setSelectedDifficulty(e.target.value)}
+              className="px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold focus:outline-hidden focus:border-amber-400 cursor-pointer text-xs"
+            >
+              <option value="all">All Difficulties</option>
+              <option value="beginner">Beginner (Zero Config)</option>
+              <option value="intermediate">Intermediate (Telemetry)</option>
+              <option value="advanced">Advanced (3D / Animations)</option>
+            </select>
+          </div>
+
+          {/* Sort Selector */}
+          <div className="flex items-center gap-1.5">
+            <ArrowUpDown className="w-3.5 h-3.5 text-slate-400" />
+            <select
+              value={sortBy}
+              onChange={e => setSortBy(e.target.value as any)}
+              className="px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold focus:outline-hidden focus:border-amber-400 cursor-pointer text-xs"
+            >
+              <option value="default">Default Order</option>
+              <option value="featured">Featured First</option>
+              <option value="popular">Most Popular</option>
+              <option value="name">Name (A-Z)</option>
+              <option value="sections">Module Arsenal Count</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          {/* Favorites Filter Toggle */}
+          <button
+            type="button"
+            onClick={() => setOnlyFavorites(prev => !prev)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold border-2 transition-all cursor-pointer ${
+              onlyFavorites
+                ? 'bg-amber-400 text-slate-950 border-amber-500 font-black shadow-xs'
+                : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-900'
+            }`}
+          >
+            <Star className={`w-3.5 h-3.5 ${onlyFavorites ? 'fill-current text-slate-950' : 'text-amber-500'}`} />
+            <span>Favorites ({favorites.size})</span>
+          </button>
+
+          {/* Reset All Filters Button */}
+          {(activeCategory !== 'all' || searchQuery || selectedStyle !== 'all' || selectedDevType !== 'all' || selectedDifficulty !== 'all' || onlyFavorites || sortBy !== 'default') && (
+            <button
+              type="button"
+              onClick={() => {
+                setActiveCategory('all');
+                setSearchQuery('');
+                setSelectedStyle('all');
+                setSelectedDevType('all');
+                setSelectedDifficulty('all');
+                setOnlyFavorites(false);
+                setSortBy('default');
+              }}
+              className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold transition-colors cursor-pointer border border-slate-300 dark:border-slate-700"
+            >
+              Reset Filters
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Archetypes Count & Active Filter Indicator */}
       <div className="flex items-center justify-between text-xs font-mono text-slate-600 dark:text-slate-400 px-1 pt-1">
         <span>
@@ -1125,6 +1352,8 @@ export const TemplateGallery: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
         {displayedTemplates.map((tmpl) => {
           const isCopied = copiedPromptId === tmpl.id;
+          const isFavorited = favorites.has(tmpl.id);
+          const isCompared = compareList.includes(tmpl.id);
 
           return (
             <div
@@ -1139,18 +1368,64 @@ export const TemplateGallery: React.FC = () => {
 
               <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-lg font-black border bg-amber-500/10 text-amber-800 dark:text-amber-300 border-amber-500/20 shadow-2xs">
-                      {tmpl.category}
-                    </span>
-                    <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
-                      <span
-                        className="w-2.5 h-2.5 rounded-full shadow-xs"
-                        style={{ backgroundColor: tmpl.accent }}
-                      />
-                      <span className="text-[10px] font-mono font-bold text-slate-600 dark:text-slate-300 uppercase">
-                        {tmpl.accent}
+                  {/* Top Card Controls: Category + Difficulty + Accent + Compare + Favorite */}
+                  <div className="flex items-center justify-between mb-3 gap-2">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-lg font-black border bg-amber-500/10 text-amber-800 dark:text-amber-300 border-amber-500/20 shadow-2xs">
+                        {tmpl.category}
                       </span>
+                      {tmpl.difficulty && (
+                        <span
+                          className={`text-[9px] font-mono uppercase px-1.5 py-0.5 rounded-md font-black border ${
+                            tmpl.difficulty === 'beginner'
+                              ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
+                              : tmpl.difficulty === 'intermediate'
+                              ? 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30'
+                              : 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border-cyan-500/30'
+                          }`}
+                        >
+                          {tmpl.difficulty}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-1.5">
+                      {/* Compare Toggle Button */}
+                      <button
+                        type="button"
+                        onClick={(e) => toggleCompare(tmpl.id, e)}
+                        title={isCompared ? 'Remove from comparison matrix' : 'Add to compare (max 3)'}
+                        aria-label={`Compare ${tmpl.name}`}
+                        className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
+                          isCompared
+                            ? 'bg-[#ffe600] text-slate-950 border-slate-950 font-black shadow-xs'
+                            : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:hover:text-white border-slate-300 dark:border-slate-700'
+                        }`}
+                      >
+                        <GitCompare className="w-3.5 h-3.5" />
+                      </button>
+
+                      {/* Favorite Toggle Button */}
+                      <button
+                        type="button"
+                        onClick={(e) => toggleFavorite(tmpl.id, e)}
+                        title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
+                        aria-label={`Favorite ${tmpl.name}`}
+                        className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
+                          isFavorited
+                            ? 'bg-amber-400 text-slate-950 border-amber-500 font-black shadow-xs'
+                            : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-amber-500 border-slate-300 dark:border-slate-700'
+                        }`}
+                      >
+                        <Star className={`w-3.5 h-3.5 ${isFavorited ? 'fill-current text-slate-950' : ''}`} />
+                      </button>
+
+                      {/* Accent Dot */}
+                      <span
+                        className="w-2.5 h-2.5 rounded-full shadow-xs border border-slate-900/40 ml-0.5"
+                        style={{ backgroundColor: tmpl.accent }}
+                        title={`Accent: ${tmpl.accent}`}
+                      />
                     </div>
                   </div>
 
@@ -1158,9 +1433,23 @@ export const TemplateGallery: React.FC = () => {
                     {tmpl.name}
                   </h3>
 
-                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 line-clamp-2 leading-relaxed font-mono">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-1.5 line-clamp-2 leading-relaxed font-mono">
                     {tmpl.description}
                   </p>
+
+                  {/* Tag Pills */}
+                  {tmpl.tags && tmpl.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {tmpl.tags.slice(0, 3).map((tag, i) => (
+                        <span
+                          key={i}
+                          className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700"
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
 
                   {/* Interactive Visual Preview Window Box */}
                   <InteractiveArchetypeCardPreview
@@ -1304,59 +1593,127 @@ export const TemplateGallery: React.FC = () => {
               </button>
             </div>
 
-            {/* Modal Tabs Bar */}
-            <div className="flex items-center gap-2 px-6 py-2.5 bg-slate-100 dark:bg-slate-900 border-b-2 border-slate-300 dark:border-slate-800 text-xs font-mono font-bold overflow-x-auto">
-              <button
-                type="button"
-                onClick={() => setPreviewTab('visual')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'visual'
-                    ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-2xs font-black'
-                    : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:text-slate-900 hover:border-slate-900'
-                  }`}
-              >
-                <Eye className="w-3.5 h-3.5" />
-                <span>Visual Preview</span>
-              </button>
+            {/* Modal Tabs & Viewport Switcher Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-2 px-6 py-2.5 bg-slate-100 dark:bg-slate-900 border-b-2 border-slate-300 dark:border-slate-800 text-xs font-mono font-bold">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <button
+                  type="button"
+                  onClick={() => setPreviewTab('visual')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'visual'
+                      ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-2xs font-black'
+                      : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:text-slate-900 hover:border-slate-900'
+                    }`}
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  <span>Visual Preview</span>
+                </button>
 
-              <button
-                type="button"
-                onClick={() => setPreviewTab('markdown')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'markdown'
-                    ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-2xs font-black'
-                    : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:text-slate-900 hover:border-slate-900'
-                  }`}
-              >
-                <Code className="w-3.5 h-3.5" />
-                <span>Markdown Output</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setPreviewTab('github')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'github'
+                      ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-2xs font-black'
+                      : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:text-slate-900 hover:border-slate-900'
+                    }`}
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>GitHub Profile View</span>
+                </button>
 
-              <button
-                type="button"
-                onClick={() => setPreviewTab('prompt')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'prompt'
-                    ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-2xs font-black'
-                    : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:text-slate-900 hover:border-slate-900'
-                  }`}
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Archetype Spec</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setPreviewTab('markdown')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'markdown'
+                      ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-2xs font-black'
+                      : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:text-slate-900 hover:border-slate-900'
+                    }`}
+                >
+                  <Code className="w-3.5 h-3.5" />
+                  <span>Markdown Output</span>
+                </button>
 
-              <button
-                type="button"
-                onClick={() => setPreviewTab('plugins')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'plugins'
-                    ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-2xs font-black'
-                    : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:text-slate-900 hover:border-slate-900'
+                <button
+                  type="button"
+                  onClick={() => setPreviewTab('prompt')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'prompt'
+                      ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-2xs font-black'
+                      : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:text-slate-900 hover:border-slate-900'
+                    }`}
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Archetype Spec</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setPreviewTab('plugins')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'plugins'
+                      ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-2xs font-black'
+                      : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:text-slate-900 hover:border-slate-900'
+                    }`}
+                >
+                  <Layers className="w-3.5 h-3.5" />
+                  <span>Manage Plugins ({previewConfig.sections.length})</span>
+                </button>
+              </div>
+
+              {/* Viewport Switcher */}
+              <div className="flex items-center gap-1 bg-white dark:bg-slate-800 p-1 rounded-xl border border-slate-300 dark:border-slate-700 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setPreviewDevice('desktop')}
+                  title="Desktop (100% width)"
+                  className={`px-2 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                    previewDevice === 'desktop'
+                      ? 'bg-[#ffe600] text-slate-950 font-black shadow-xs'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
-              >
-                <Layers className="w-3.5 h-3.5" />
-                <span>Manage Plugins ({previewConfig.sections.length})</span>
-              </button>
+                >
+                  <Monitor className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Desktop</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setPreviewDevice('tablet')}
+                  title="Tablet (768px width)"
+                  className={`px-2 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                    previewDevice === 'tablet'
+                      ? 'bg-[#ffe600] text-slate-950 font-black shadow-xs'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  <Tablet className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Tablet</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setPreviewDevice('mobile')}
+                  title="Mobile (375px width)"
+                  className={`px-2 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                    previewDevice === 'mobile'
+                      ? 'bg-[#ffe600] text-slate-950 font-black shadow-xs'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  <Smartphone className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Mobile</span>
+                </button>
+              </div>
             </div>
 
             {/* Modal Content Scroll Area */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-5 bg-[#fafbfc] dark:bg-[#0f172a] text-slate-900 dark:text-slate-100">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 bg-[#fafbfc] dark:bg-[#0f172a] text-slate-900 dark:text-slate-100">
+              <div
+                className={`transition-all duration-300 mx-auto ${
+                  previewDevice === 'desktop'
+                    ? 'w-full'
+                    : previewDevice === 'tablet'
+                    ? 'w-full max-w-[768px] border-2 border-slate-300 dark:border-slate-700 rounded-2xl p-4 bg-white dark:bg-slate-900 shadow-xl'
+                    : 'w-full max-w-[375px] border-2 border-slate-300 dark:border-slate-700 rounded-3xl p-3 bg-white dark:bg-slate-900 shadow-2xl'
+                }`}
+              >
               {/* TAB 1: Visual Simulated GitHub Profile */}
               {previewTab === 'visual' && (
                 <div className="space-y-4">
@@ -1492,7 +1849,228 @@ export const TemplateGallery: React.FC = () => {
                 </div>
               )}
 
-              {/* TAB 2: Raw Markdown Source */}
+              {/* TAB 2: Full GitHub Profile View Simulation */}
+              {previewTab === 'github' && (
+                <div className="space-y-4 font-sans text-slate-900 dark:text-slate-100">
+                  {/* Simulated GitHub Top Navigation */}
+                  <div className="rounded-xl bg-[#24292f] text-slate-200 px-4 py-2.5 flex items-center justify-between text-xs font-mono border border-slate-700 shadow-sm">
+                    <div className="flex items-center gap-3">
+                      <svg height="20" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="20" fill="currentColor">
+                        <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
+                      </svg>
+                      <span className="font-bold text-white">github.com/{previewConfig.settings.user.github || 'octocat'}</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-[11px] text-slate-300">
+                      <span className="hidden sm:inline bg-slate-800 px-2.5 py-1 rounded-md border border-slate-700 text-slate-400">Type / to search</span>
+                      <span className="font-bold">Pull requests</span>
+                      <span className="font-bold">Issues</span>
+                      <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center font-bold text-[10px]">
+                        {(previewConfig.settings.user.name?.[0] || 'O').toUpperCase()}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Simulated GitHub Sub-Tabs */}
+                  <div className="flex items-center gap-4 px-2 border-b border-slate-200 dark:border-slate-800 text-xs font-sans font-medium text-slate-600 dark:text-slate-400">
+                    <div className="flex items-center gap-1.5 py-2.5 border-b-2 border-[#fd8c73] text-slate-900 dark:text-white font-bold">
+                      <BookOpen className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+                      <span>Overview</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 py-2.5 hover:text-slate-900 dark:hover:text-white cursor-pointer">
+                      <span>Repositories</span>
+                      <span className="px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-slate-800 text-[10px] font-mono font-bold text-slate-700 dark:text-slate-300">42</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 py-2.5 hover:text-slate-900 dark:hover:text-white cursor-pointer">
+                      <span>Projects</span>
+                      <span className="px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-slate-800 text-[10px] font-mono font-bold text-slate-700 dark:text-slate-300">3</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 py-2.5 hover:text-slate-900 dark:hover:text-white cursor-pointer">
+                      <span>Packages</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 py-2.5 hover:text-slate-900 dark:hover:text-white cursor-pointer">
+                      <span>Stars</span>
+                      <span className="px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-slate-800 text-[10px] font-mono font-bold text-slate-700 dark:text-slate-300">128</span>
+                    </div>
+                  </div>
+
+                  {/* Realistic 2-Column GitHub Profile Layout */}
+                  <div className="flex flex-col md:flex-row gap-6 pt-2">
+                    {/* Left Column: User Sidebar */}
+                    <div className="w-full md:w-64 lg:w-72 shrink-0 space-y-4">
+                      <div className="flex flex-col items-start space-y-3">
+                        {/* Large Circular Avatar */}
+                        <div className="relative">
+                          <div
+                            className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 rounded-full border-2 border-slate-300 dark:border-slate-700 bg-slate-900 shadow-md flex items-center justify-center text-4xl font-black"
+                            style={{ color: previewTemplate.accent || '#ffe600' }}
+                          >
+                            {(previewConfig.settings.user.name?.[0] || 'O').toUpperCase()}
+                          </div>
+                          <span className="absolute bottom-2 right-2 p-1.5 rounded-full bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 text-xs shadow-xs" title="Status: Focus Mode">
+                            ⚡
+                          </span>
+                        </div>
+
+                        {/* User Identity */}
+                        <div>
+                          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-tight">
+                            {previewConfig.settings.user.name || 'Alex Mercer'}
+                          </h2>
+                          <span className="text-sm font-mono text-slate-500 dark:text-slate-400">
+                            @{previewConfig.settings.user.github || 'octocat'}
+                          </span>
+                        </div>
+
+                        {/* Edit Profile Button */}
+                        <button
+                          type="button"
+                          className="w-full py-1.5 px-3 rounded-md bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold border border-slate-300 dark:border-slate-700 transition-colors shadow-2xs cursor-pointer"
+                        >
+                          Edit profile
+                        </button>
+
+                        {/* User Bio */}
+                        <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
+                          {previewConfig.settings.user.bio || 'Building open-source tools and high-performance distributed systems.'}
+                        </p>
+
+                        {/* Followers / Following Stats */}
+                        <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 font-sans">
+                          <span className="flex items-center gap-1 font-semibold text-slate-900 dark:text-white">
+                            👥 814 <span className="font-normal text-slate-500">followers</span>
+                          </span>
+                          <span>&bull;</span>
+                          <span className="font-semibold text-slate-900 dark:text-white">
+                            23 <span className="font-normal text-slate-500">following</span>
+                          </span>
+                        </div>
+
+                        {/* Metadata Details */}
+                        <div className="space-y-1.5 text-xs text-slate-700 dark:text-slate-300 pt-1 font-sans">
+                          <div className="flex items-center gap-2">
+                            <Building className="w-3.5 h-3.5 text-slate-500" />
+                            <span>MonoForge Open Source</span>
+                          </div>
+                          {previewConfig.settings.user.location && (
+                            <div className="flex items-center gap-2">
+                              <MapPin className="w-3.5 h-3.5 text-slate-500" />
+                              <span>{previewConfig.settings.user.location}</span>
+                            </div>
+                          )}
+                          <div className="flex items-center gap-2">
+                            <Mail className="w-3.5 h-3.5 text-slate-500" />
+                            <span className="truncate">{previewConfig.settings.user.github || 'developer'}@monoforge.dev</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <LinkIcon className="w-3.5 h-3.5 text-slate-500" />
+                            <span className="text-blue-600 dark:text-blue-400 truncate">https://monoforge-studio.vercel.app</span>
+                          </div>
+                        </div>
+
+                        {/* Achievements Section */}
+                        <div className="pt-2 border-t border-slate-200 dark:border-slate-800 w-full">
+                          <h4 className="text-xs font-bold text-slate-900 dark:text-white mb-2">Achievements</h4>
+                          <div className="flex items-center gap-2 flex-wrap text-lg">
+                            <span title="Pull Shark (x2)">🦈</span>
+                            <span title="Quickdraw">⚡</span>
+                            <span title="Pair Extraordinaire">👥</span>
+                            <span title="Starstruck">⭐</span>
+                            <span title="Heart On Your Sleeve">💖</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right Column: Pinned Repos + README Container */}
+                    <div className="flex-1 space-y-5 min-w-0">
+                      {/* Pinned Repos Section */}
+                      <div className="space-y-2.5">
+                        <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
+                          <span className="font-semibold text-slate-900 dark:text-white">Pinned</span>
+                          <span className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">Customize your pins</span>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {[
+                            { name: 'monoforge-engine', desc: 'Deterministic Camo-compliant SVG animator & profile studio', lang: 'TypeScript', color: '#3178c6', stars: '1.4k', forks: '182' },
+                            { name: 'distributed-raft-kv', desc: 'Zero-allocation distributed consensus log in Rust', lang: 'Rust', color: '#dea584', stars: '890', forks: '64' },
+                            { name: 'neural-mesh-transformer', desc: 'Edge-accelerated vector embedding search in WASM', lang: 'Python', color: '#3572A5', stars: '640', forks: '48' },
+                            { name: 'hyper-kernel-ebpf', desc: 'Real-time network observability driver for high throughput', lang: 'C', color: '#555555', stars: '415', forks: '32' },
+                          ].map((repo, i) => (
+                            <div key={i} className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-1.5 shadow-2xs hover:border-slate-400 transition-colors">
+                              <div className="flex items-center justify-between">
+                                <span className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer truncate">
+                                  {repo.name}
+                                </span>
+                                <span className="text-[10px] px-1.5 py-0.5 rounded-full border border-slate-300 dark:border-slate-700 text-slate-500 font-mono">
+                                  Public
+                                </span>
+                              </div>
+                              <p className="text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                                {repo.desc}
+                              </p>
+                              <div className="flex items-center gap-3 text-[11px] text-slate-500 dark:text-slate-400 pt-1">
+                                <span className="flex items-center gap-1">
+                                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: repo.color }} />
+                                  {repo.lang}
+                                </span>
+                                <span>⭐ {repo.stars}</span>
+                                <span>🍴 {repo.forks}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* GitHub Profile README Container */}
+                      <div className="rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden shadow-sm">
+                        {/* README.md Header Box */}
+                        <div className="flex items-center justify-between px-4 py-2 bg-slate-50 dark:bg-slate-850 border-b border-slate-300 dark:border-slate-700 text-xs font-mono">
+                          <div className="flex items-center gap-2">
+                            <BookOpen className="w-3.5 h-3.5 text-slate-500" />
+                            <span className="font-bold text-slate-900 dark:text-white">
+                              {previewConfig.settings.user.github || 'octocat'} / README.md
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-bold border border-emerald-300 dark:border-emerald-800">
+                              ● Camo Safe
+                            </span>
+                            <span className="text-slate-400">✏️</span>
+                          </div>
+                        </div>
+
+                        {/* README Rendered Content */}
+                        <div className="p-4 sm:p-6 space-y-4">
+                          <div className={`space-y-2 ${previewConfig.settings.align === 'center' ? 'text-center' : 'text-left'}`}>
+                            <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+                              Hi there, I&apos;m {previewConfig.settings.user.name} 👋
+                            </h3>
+                            <span
+                              className="inline-block px-3 py-1 rounded-md text-xs font-bold text-slate-950 shadow-2xs"
+                              style={{ backgroundColor: previewTemplate.accent || '#ffe600' }}
+                            >
+                              {previewConfig.settings.user.role}
+                            </span>
+                            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-mono pt-1">
+                              {previewConfig.settings.user.bio}
+                            </p>
+                          </div>
+
+                          <div className="space-y-3 pt-2">
+                            {previewConfig.sections.map(sec => (
+                              <div key={sec.id}>
+                                {renderModuleVisual(sec, previewConfig.settings.align === 'center', previewConfig.settings.user.github || 'octocat', previewTemplate.accent || '#ffe600')}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* TAB 3: Raw Markdown Source */}
               {previewTab === 'markdown' && (
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
@@ -1639,6 +2217,7 @@ export const TemplateGallery: React.FC = () => {
                   )}
                 </div>
               )}
+              </div>
             </div>
 
             {/* Modal Footer Actions */}
@@ -1714,6 +2293,64 @@ export const TemplateGallery: React.FC = () => {
         </div>,
         document.body
       )}
+
+      {/* Floating Compare Dock */}
+      {compareList.length > 0 && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-md border-2 border-[#ffe600] text-white shadow-2xl animate-in slide-in-from-bottom-5 max-w-[95vw]">
+          <div className="flex items-center gap-2">
+            <GitCompare className="w-4 h-4 text-[#ffe600] animate-pulse" />
+            <span className="text-xs font-mono font-bold text-slate-200">
+              Comparing <b className="text-[#ffe600]">{compareList.length}</b>/3:
+            </span>
+            <div className="hidden sm:flex items-center gap-1.5">
+              {compareList.map(id => {
+                const item = TEMPLATES.find(t => t.id === id);
+                return (
+                  <span
+                    key={id}
+                    className="px-2 py-0.5 rounded-md bg-slate-800 text-[10px] font-mono font-bold text-amber-300 border border-slate-700 truncate max-w-[120px]"
+                    title={item?.name || id}
+                  >
+                    {item?.name || id}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 pl-2 border-l border-slate-700">
+            <button
+              type="button"
+              onClick={() => setIsComparing(true)}
+              className="px-3.5 py-1.5 rounded-xl bg-[#ffe600] hover:bg-[#fde047] text-slate-950 font-mono text-xs font-black border border-slate-950 shadow-xs cursor-pointer flex items-center gap-1.5 transition-all hover:scale-105"
+            >
+              <GitCompare className="w-3.5 h-3.5" />
+              <span>Compare Matrix</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setCompareList([])}
+              className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition-colors cursor-pointer"
+              title="Clear comparison list"
+              aria-label="Clear comparison list"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Template Comparison Modal */}
+      <TemplateCompareModal
+        templates={TEMPLATES.filter(t => compareList.includes(t.id))}
+        isOpen={isComparing}
+        onClose={() => setIsComparing(false)}
+        onSelectTemplate={(tmpl) => {
+          handleOpenPreview(tmpl);
+          setIsComparing(false);
+        }}
+      />
     </section>
   );
 };

@@ -28,9 +28,9 @@ export async function generateMetadata({ params }: TemplatesPageProps): Promise<
     languages[loc] = `${baseUrl}/${loc}/templates`;
   }
 
-  const title = 'Flagship GitHub Profile & Best-README Templates | MonoForge';
+  const title = '120+ Curated GitHub Profile & Best-README Templates | MonoForge';
   const description =
-    'Browse curated developer profile & repository README templates including the legendary Best-README-Template suite, 3D isometric commit skylines, bento grids, and contributor telemetry.';
+    'Browse 120+ curated developer profile presets across 12 disciplines, including the legendary Best-README-Template suite, 3D isometric commit skylines, bento grids, and contributor telemetry.';
 
   return {
     title,
@@ -47,10 +47,10 @@ export async function generateMetadata({ params }: TemplatesPageProps): Promise<
       siteName: 'MONOFORGE',
       images: [
         {
-          url: `${baseUrl}/api/og?title=75%2B%20Curated%20GitHub%20Profile%20Templates`,
+          url: `${baseUrl}/api/og?title=120%2B%20Curated%20GitHub%20Profile%20Templates`,
           width: 1200,
           height: 630,
-          alt: 'MonoForge 75+ Curated Profile Archetypes',
+          alt: 'MonoForge 120+ Curated Profile Archetypes',
         },
       ],
     },
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: TemplatesPageProps): Promise<
       card: 'summary_large_image',
       title,
       description,
-      images: [`${baseUrl}/api/og?title=75%2B%20Curated%20GitHub%20Profile%20Templates`],
+      images: [`${baseUrl}/api/og?title=120%2B%20Curated%20GitHub%20Profile%20Templates`],
       creator: '@yuvrajthakur',
       site: '@monoforge',
     },
@@ -86,9 +86,9 @@ export default async function TemplatesPage({ params }: TemplatesPageProps) {
             '@type': 'CollectionPage',
             '@id': `${baseUrl}/${locale}/templates#webpage`,
             url: `${baseUrl}/${locale}/templates`,
-            name: 'Curated GitHub Profile README Templates & Archetypes',
+            name: '120+ Curated GitHub Profile README Templates & Archetypes',
             description:
-              'Browse 75+ production-ready developer profile README templates. 100% GitHub Camo-safe, zero JavaScript, pure CSS 60fps animations, 3D isometric commit skylines, bento grids, and live telemetry widgets.',
+              'Browse 120+ production-ready developer profile README templates across 12 disciplines. 100% GitHub Camo-safe, zero JavaScript, pure CSS 60fps animations, 3D isometric commit skylines, bento grids, and live telemetry widgets.',
             isPartOf: {
               '@type': 'WebSite',
               '@id': `${baseUrl}/#website`,
@@ -114,7 +114,7 @@ export default async function TemplatesPage({ params }: TemplatesPageProps) {
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white">
                 <span className="px-2.5 py-0.5 rounded-lg bg-[#ffe600] text-slate-950 font-black border border-slate-900 shadow-2xs">
-                  [ 50+ FLAGSHIP ARCHETYPES &amp; BEST-README SUITE ]
+                  [ 120+ CURATED PRESETS &amp; BEST-README SUITE ]
                 </span>
                 <span className="text-slate-600 dark:text-slate-400 hidden sm:inline">
                   &bull; 100% GITHUB CAMO SAFE &bull; ZERO JS &bull; 60FPS CSS
@@ -160,7 +160,7 @@ export default async function TemplatesPage({ params }: TemplatesPageProps) {
             </div>
             <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 flex items-center gap-2.5 shadow-xs">
               <span className="text-amber-500 font-black">#</span>
-              <span>75+ Tested Archetypes</span>
+              <span>120+ Curated Presets</span>
             </div>
             <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 flex items-center gap-2.5 shadow-xs">
               <span className="text-emerald-500 font-black">●</span>

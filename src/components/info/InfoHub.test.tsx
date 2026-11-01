@@ -66,10 +66,10 @@ describe('InfoHub Component', () => {
     const templatesTab = screen.getByRole('button', { name: /README Archetypes/i });
     fireEvent.click(templatesTab);
 
-    expect(screen.getByText(/Minimalist Clean/i)).toBeDefined();
-    expect(screen.getByText(/Cyberpunk & Gamer/i)).toBeDefined();
-    expect(screen.getByText(/Full-Stack Polyglot/i)).toBeDefined();
-    expect(screen.getByText(/Mobile & Cross-Platform/i)).toBeDefined();
+    expect(screen.getAllByText(/Minimalist Clean/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Cyberpunk & Gamer/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Full-Stack Polyglot/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Mobile & Cross-Platform/i).length).toBeGreaterThan(0);
   });
 
   it('switches to Live Mini-Studio tab and allows parameter changes', () => {

@@ -150,4 +150,58 @@ describe('TemplateGallery Component', () => {
     // Sections should now contain Cyberpunk's sections
     expect(storeConfig.sections.length).toBe(TEMPLATES[1].config.sections.length);
   }, 15000);
+
+  it('switches to GitHub Profile View tab in preview modal', () => {
+    render(<TemplateGallery />);
+
+    const previewButtons = screen.getAllByRole('button', { name: /Preview/i });
+    fireEvent.click(previewButtons[0]);
+
+    const githubTab = screen.getByRole('button', { name: /GitHub Profile View/i });
+    fireEvent.click(githubTab);
+
+    // Realistic GitHub profile elements should be rendered
+    expect(screen.getByText(/Overview/i)).toBeDefined();
+    expect(screen.getByText(/Pinned/i)).toBeDefined();
+    expect(screen.getByText(/monoforge-engine/i)).toBeDefined();
+    expect(screen.getByText(/Edit profile/i)).toBeDefined();
+  }, 15000);
+
+  it('toggles device viewport switcher between Desktop, Tablet, and Mobile', () => {
+    render(<TemplateGallery />);
+
+    const previewButtons = screen.getAllByRole('button', { name: /Preview/i });
+    fireEvent.click(previewButtons[0]);
+
+    const tabletBtn = screen.getByTitle(/Tablet \(768px width\)/i);
+    fireEvent.click(tabletBtn);
+    expect(tabletBtn).toBeDefined();
+
+    const mobileBtn = screen.getByTitle(/Mobile \(375px width\)/i);
+    fireEvent.click(mobileBtn);
+    expect(mobileBtn).toBeDefined();
+
+    const desktopBtn = screen.getByTitle(/Desktop \(100% width\)/i);
+    fireEvent.click(desktopBtn);
+    expect(desktopBtn).toBeDefined();
+  }, 15000);
+
+  it('toggles template favorite and adds template to compare matrix', () => {
+    render(<TemplateGallery />);
+
+    // Toggle favorite on first template
+    const favoriteBtn = screen.getAllByTitle(/Add to favorites/i)[0];
+    fireEvent.click(favoriteBtn);
+
+    // Favorites counter button should show (1)
+    expect(screen.getByText(/Favorites \(1\)/i)).toBeDefined();
+
+    // Toggle compare on first template
+    const compareBtn = screen.getAllByTitle(/Add to compare/i)[0];
+    fireEvent.click(compareBtn);
+
+    // Floating Compare Dock should appear
+    expect(screen.getByText(/Comparing/i)).toBeDefined();
+    expect(screen.getByText(/Compare Matrix/i)).toBeDefined();
+  }, 15000);
 });

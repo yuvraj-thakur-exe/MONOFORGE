@@ -1,5 +1,6 @@
 import { ReadmeConfig } from '#/lib/plugins/types';
 import { BEST_README_TEMPLATES } from './best-readme';
+import { PRESETS_120 } from './catalog-120';
 
 export interface TemplateItem {
   id: string;
@@ -9,6 +10,12 @@ export interface TemplateItem {
   accent: string;
   prompt: string;
   config: ReadmeConfig;
+  tags?: string[];
+  visualStyle?: 'minimal' | 'colorful' | 'dark' | 'light' | 'terminal' | '3d' | 'animated' | 'data';
+  developerType?: string;
+  difficulty?: 'beginner' | 'intermediate' | 'advanced';
+  popularity?: number;
+  featured?: boolean;
 }
 
 export function buildRichPrompt(item: {
@@ -5356,4 +5363,5 @@ export const TEMPLATES: TemplateItem[] = [
     ...t,
     prompt: t.prompt && t.prompt.length > 200 ? t.prompt : buildRichPrompt(t),
   })),
+  ...PRESETS_120,
 ];
