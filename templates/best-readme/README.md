@@ -91,3 +91,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ⭐ **If MonoForge elevated your GitHub profile, please give the repository a star on GitHub:**
 `https://github.com/yuvraj-thakur-exe/MONOFORGE`
+
+<div align="right">
+  <sub>⚡ Built with <a href="https://github.com/yuvraj-thakur-exe/MONOFORGE"><b>MonoForge</b></a></sub>
+</div>

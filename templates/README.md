@@ -30,7 +30,7 @@ Customize live in your browser with real GitHub data, streak telemetry, and Camo
 ### Option 2: Copy Directly into your GitHub Profile Repo
 1. Create a public repository with the exact same name as your GitHub username (e.g. `username/username`).
 2. Copy the `README.md` contents from any directory above into your repo's `README.md`.
-3. Replace placeholder handles (e.g. `octocat` or `yuvraj-thakur-exe`) with your actual GitHub username.
+3. Replace placeholder handles (e.g. `octocat` or `developer`) with your actual GitHub username.
 4. Commit and push!
 
 ---
@@ -38,3 +38,6 @@ Customize live in your browser with real GitHub data, streak telemetry, and Camo
 ⭐ **Love these templates? Support the open-source project by starring the repository:**
 `https://github.com/yuvraj-thakur-exe/MONOFORGE`
 
+<div align="right">
+  <sub>⚡ Built with <a href="https://github.com/yuvraj-thakur-exe/MONOFORGE"><b>MonoForge</b></a></sub>
+</div>

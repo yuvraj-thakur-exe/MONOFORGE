@@ -30,8 +30,8 @@ describe('MonoForge Telemetry Studio Page', () => {
   it('updates the GitHub username input and toggles template', () => {
     render(<TelemetryStudioPage />);
     const usernameInput = screen.getByTestId('github-username-input') as HTMLInputElement;
-    fireEvent.change(usernameInput, { target: { value: 'yuvraj' } });
-    expect(usernameInput.value).toBe('yuvraj');
+    fireEvent.change(usernameInput, { target: { value: 'octocat' } });
+    expect(usernameInput.value).toBe('octocat');
 
     // Click Terminal template
     const terminalBtn = screen.getByText('Terminal');

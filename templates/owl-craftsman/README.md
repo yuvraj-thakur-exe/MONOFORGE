@@ -4,21 +4,21 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&color=581c87&height=180&section=header&text=HELLO%20WORLD&fontSize=42&fontColor=fff&desc=WELCOME%20TO%20MY%20PROFILE&descSize=16&descAlignY=70&animation=fadeIn" width="100%" alt="Header" />
 </p>
 
-# ⚡ I'm Kiran!
+# ⚡ I'm Developer!
 
-> **Digital Craftsman (Developer / Programmer)**
+> **Digital Craftsman (Software Engineer / Architect)**
 
-I am a Full Stack Developer and Machine Learning Enthusiast with a huge love for **Python, React.js, Node.js, Django, RDBMS, REST API, and Data Visualization**.
+I am a Full Stack Developer and Systems Enthusiast with a passion for **TypeScript, Python, React.js, Node.js, Cloud Architectures, and Open-Source Tooling**.
 
-- 🎓 Student of life :)
-- 🔭 I'm currently learning many things, I believe that everyday is a learning opportunity.
-- 👨‍💻 A lifetime insider and Mentor at Exercism.
-- ✍️ I write technical blogs on Dev.to.
-- ❤️ Contributing to Open Source.
-- 🌐 Visit my portfolio for more details about me.
+- 🎓 Continuous learner and open-source contributor
+- 🔭 Currently building modern web experiences and resilient distributed systems
+- 👨‍💻 Community mentor and technical writer
+- ✍️ Writing technical deep dives on distributed systems and frontend engineering
+- ❤️ Passionate about open source development
+- 🌐 Visit my portfolio and GitHub repositories to explore my work
 
 <p align="left">
-  <img src="https://komarev.com/ghpvc/?username=yuvraj-thakur-exe&label=PROFILE+VIEWS&color=a855f7&style=for-the-badge" alt="Profile Views" />
+  <img src="https://komarev.com/ghpvc/?username=octocat&label=PROFILE+VIEWS&color=a855f7&style=for-the-badge" alt="Profile Views" />
 </p>
 
 <p align="center">
@@ -36,11 +36,13 @@ I am a Full Stack Developer and Machine Learning Enthusiast with a huge love for
 
 ### 📊 Contributor Telemetry
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=yuvraj-thakur-exe&show_icons=true&theme=radical&hide_border=true" alt="GitHub Stats" />
+  <img src="https://github-readme-stats.vercel.app/api?username=octocat&show_icons=true&theme=radical&hide_border=true" alt="GitHub Stats" />
 </p>
 
 </div>
 
 ---
-<sub>Crafted with [MonoForge](https://github.com/yuvraj-thakur-exe/MONOFORGE) — The Developer Identity Engine. ⭐ Star the repo!</sub>
 
+<div align="right">
+  <sub>⚡ Built with <a href="https://github.com/yuvraj-thakur-exe/MONOFORGE"><b>MonoForge</b></a></sub>
+</div>

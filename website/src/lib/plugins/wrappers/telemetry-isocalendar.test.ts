@@ -20,14 +20,14 @@ describe('Plugin: telemetry-isocalendar', () => {
   it('renders native 3D isometric calendar markdown', () => {
     const res = telemetryIsocalendarPlugin.renderMarkdown(
       {
-        username: 'yuvraj',
+        username: 'octocat',
         duration: 'full-year',
       },
       defaultSettings
     ) as { markdown: string };
 
     expect(res.markdown).toContain('/api/telemetry/svg?plugin=isocalendar');
-    expect(res.markdown).toContain('user=yuvraj');
+    expect(res.markdown).toContain('user=octocat');
     expect(res.markdown).toContain('duration=full-year');
     expect(res.markdown).not.toContain('metrics.lecoq.io');
   });

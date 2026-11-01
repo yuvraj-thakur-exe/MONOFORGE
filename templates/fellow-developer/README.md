@@ -3,20 +3,20 @@
 # Hello Fellow `<Developers/>`! 👋
 
 <p align="left">
-  <img src="https://komarev.com/ghpvc/?username=yuvraj-thakur-exe&label=visitors&color=2563eb&style=flat" alt="Visitors" />
+  <img src="https://komarev.com/ghpvc/?username=octocat&label=visitors&color=2563eb&style=flat" alt="Visitors" />
 </p>
 
-Hi! My name is Rahul. Thank you for taking the time to view my GitHub profile :smile:
+Hi! My name is Developer. Thank you for taking the time to view my GitHub profile :smile:
 
 ---
 
 ### 🚀 About Me
 
 - 🔭 I’m currently working on my **Blog, Open Source Projects, and Cloud Tools**.
-- 🌱 I’m currently learning **Data Science, AWS Cloud Architecture, and Distributed Systems**.
-- 👯 I’m looking to collaborate on **Open Source Projects, Web Applications, and Tech Articles**.
+- 🌱 I’m currently learning **Data Science, Cloud Architecture, and Distributed Systems**.
+- 👯 I’m looking to collaborate on **Open Source Projects, Web Applications, and Tech Tooling**.
 - 💬 Talk to me about **Python, JavaScript, TypeScript, Freelancing Opportunities, and Open Source**.
-- 📬 How to reach me: `contact@rahuldev.me`
+- 📬 How to reach me: `contact@developer.example`
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/public/assets/octocat-coffee.svg" width="340" alt="Coding Mascot" />
@@ -35,12 +35,14 @@ Hi! My name is Rahul. Thank you for taking the time to view my GitHub profile :s
 ### 📊 GitHub Activity
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=yuvraj-thakur-exe&show_icons=true&theme=default&hide_border=true" alt="GitHub Stats" />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=yuvraj-thakur-exe&theme=default&hide_border=true" alt="Streak Stats" />
+  <img src="https://github-readme-stats.vercel.app/api?username=octocat&show_icons=true&theme=default&hide_border=true" alt="GitHub Stats" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=octocat&theme=default&hide_border=true" alt="Streak Stats" />
 </p>
 
 </div>
 
 ---
-<sub>Crafted with [MonoForge](https://github.com/yuvraj-thakur-exe/MONOFORGE) — The Developer Identity Engine. ⭐ Star the repo!</sub>
 
+<div align="right">
+  <sub>⚡ Built with <a href="https://github.com/yuvraj-thakur-exe/MONOFORGE"><b>MonoForge</b></a></sub>
+</div>

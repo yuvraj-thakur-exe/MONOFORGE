@@ -10,7 +10,7 @@
   <a href="https://linkedin.com"><img src="https://img.shields.io/badge/LINKEDIN-0077b5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
   <a href="https://dev.to"><img src="https://img.shields.io/badge/DEV.TO-0a0a0a?style=for-the-badge&logo=devdotto&logoColor=white" alt="Dev.to" /></a>
   <a href="https://twitter.com"><img src="https://img.shields.io/badge/TWITTER-00acee?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" /></a>
-  <a href="https://instagram.com"><img src="https://img.shields.io/badge/INSTAGRAM-e1306c?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" /></a>
+  <a href="https://github.com/octocat"><img src="https://img.shields.io/badge/GITHUB-octocat-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
 </p>
 
 <!-- Demon Slayer Anime Feature GIF / Graphic -->
@@ -29,12 +29,14 @@
 
 ---
 
-### 📊 Demon Slayer Contributor Stats
+### 📊 Contributor Stats
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=yuvraj-thakur-exe&show_icons=true&theme=tokyonight&hide_border=true" alt="GitHub Stats" />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=yuvraj-thakur-exe&theme=tokyonight&hide_border=true" alt="Streak Stats" />
+  <img src="https://github-readme-stats.vercel.app/api?username=octocat&show_icons=true&theme=tokyonight&hide_border=true" alt="GitHub Stats" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=octocat&theme=tokyonight&hide_border=true" alt="Streak Stats" />
 </p>
 
 ---
-<sub>Crafted with [MonoForge](https://github.com/yuvraj-thakur-exe/MONOFORGE) — The Developer Identity Engine. ⭐ Star the repo!</sub>
 
+<div align="right">
+  <sub>⚡ Built with <a href="https://github.com/yuvraj-thakur-exe/MONOFORGE"><b>MonoForge</b></a></sub>
+</div>

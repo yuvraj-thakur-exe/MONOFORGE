@@ -16,8 +16,8 @@ describe('MonoForge 3.0 Developer Identity Data Engine', () => {
   });
 
   it('guarantees deterministic output for the same username', () => {
-    const data1 = buildSyntheticDeveloperIdentity('yuvraj');
-    const data2 = buildSyntheticDeveloperIdentity('yuvraj');
+    const data1 = buildSyntheticDeveloperIdentity('developer');
+    const data2 = buildSyntheticDeveloperIdentity('developer');
 
     expect(data1.totalContributions).toBe(data2.totalContributions);
     expect(data1.highestDay).toBe(data2.highestDay);

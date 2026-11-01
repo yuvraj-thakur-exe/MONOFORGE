@@ -6,7 +6,7 @@
 
 <!-- Live 3D Isometric Skyline (Backed by MonoForge Contributor Engine) -->
 <p align="center">
-  <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=isocalendar&user=yuvraj-thakur-exe&theme=emerald" width="100%" alt="3D Isometric Skyline" />
+  <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=isocalendar&user=octocat&theme=emerald" width="100%" alt="3D Isometric Skyline" />
 </p>
 
 ---
@@ -15,15 +15,15 @@
 
 ### 📈 Contributor Momentum & Streak
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=yuvraj-thakur-exe&show_icons=true&theme=tokyonight&hide_border=true" alt="Stats" />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=yuvraj-thakur-exe&theme=tokyonight&hide_border=true" alt="Streak" />
+  <img src="https://github-readme-stats.vercel.app/api?username=octocat&show_icons=true&theme=tokyonight&hide_border=true" alt="Stats" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=octocat&theme=tokyonight&hide_border=true" alt="Streak" />
 </p>
 
 ---
 
 ### 💻 Polyglot Architecture & Most Used Languages
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=yuvraj-thakur-exe&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=octocat&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages" />
 </p>
 
 ---
@@ -35,11 +35,6 @@
 
 ---
 
-### 🎧 Now Playing
-<p align="center">
-  <img src="https://novatorem.vercel.app/api/spotify" alt="Spotify Telemetry" />
-</p>
-
----
-<sub>Crafted with [MonoForge](https://github.com/yuvraj-thakur-exe/MONOFORGE) — The Developer Identity Engine. ⭐ Star the repo!</sub>
-
+<div align="right">
+  <sub>⚡ Built with <a href="https://github.com/yuvraj-thakur-exe/MONOFORGE"><b>MonoForge</b></a></sub>
+</div>

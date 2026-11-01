@@ -81,7 +81,7 @@ export function synthesizeFallbackAiResponse(
             name: cleanPrompt.length < 30 ? cleanPrompt : 'MonoForge Engine',
             description:
               'A high-performance open-source developer toolkit and profile README generator with 47+ native telemetry modules.',
-            url: 'https://github.com/yuvraj-thakur-exe/MONOFORGE',
+            url: 'https://github.com/octocat/hello-world',
             tags: ['TypeScript', 'Next.js', 'Tailwind', 'SVG'],
           },
         ],
@@ -300,7 +300,7 @@ export function synthesizeFallbackAiResponse(
 
 ### 📊 GitHub Activity Telemetry
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=yuvraj-thakur-exe&show_icons=true&theme=tokyonight" alt="GitHub Stats" />
+  <img src="https://github-readme-stats.vercel.app/api?username=octocat&show_icons=true&theme=tokyonight" alt="GitHub Stats" />
 </p>
 `;
       return {
