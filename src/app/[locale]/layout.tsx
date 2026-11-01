@@ -169,33 +169,49 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
-              '@type': ['WebApplication', 'SoftwareApplication'],
-              name: 'MONOFORGE',
-              softwareVersion: '2.0.0',
-              applicationCategory: 'DeveloperApplication',
-              operatingSystem: 'All',
-              url: config.general.urls.app,
-              description:
-                'AI-native GitHub profile README engine featuring 75+ curated archetypes, 47+ live telemetry plugins, Camo-safe 60fps SVG animations, and zero-drift plugin architecture.',
-              featureList: [
-                'GitHub Profile README Generator',
-                '75+ Curated Starter Archetypes',
-                '47+ Live Telemetry Engines',
-                'Camo-safe 60fps Vector Animations',
-                'Direct Authenticated GitHub Push with Diff Preview',
-              ],
-              offers: {
-                '@type': 'Offer',
-                price: '0',
-                priceCurrency: 'USD',
-              },
-              creator: {
-                '@type': 'Organization',
-                name: 'MonoForge Open Source Contributors',
-                url: 'https://github.com/yuvraj-thakur-exe/MONOFORGE',
-              },
-              sameAs: [
-                'https://github.com/yuvraj-thakur-exe/MONOFORGE',
+              '@graph': [
+                {
+                  '@type': 'WebSite',
+                  '@id': `${config.general.urls.app}/#website`,
+                  url: config.general.urls.app,
+                  name: 'MonoForge',
+                  description:
+                    'AI-native GitHub profile README engine with 75+ curated archetypes, 47+ live telemetry plugins, and Camo-safe 60fps SVG animations.',
+                  potentialAction: {
+                    '@type': 'SearchAction',
+                    target: `${config.general.urls.app}/en/docs?q={search_term_string}`,
+                    'query-input': 'required name=search_term_string',
+                  },
+                },
+                {
+                  '@type': ['WebApplication', 'SoftwareApplication'],
+                  '@id': `${config.general.urls.app}/#app`,
+                  name: 'MONOFORGE',
+                  softwareVersion: '2.0.0',
+                  applicationCategory: 'DeveloperApplication',
+                  operatingSystem: 'All',
+                  url: config.general.urls.app,
+                  description:
+                    'AI-native GitHub profile README engine featuring 75+ curated archetypes, 47+ live telemetry plugins, Camo-safe 60fps SVG animations, and zero-drift plugin architecture.',
+                  featureList: [
+                    'GitHub Profile README Generator',
+                    '75+ Curated Starter Archetypes',
+                    '47+ Live Telemetry Engines',
+                    'Camo-safe 60fps Vector Animations',
+                    'Direct Authenticated GitHub Push with Diff Preview',
+                  ],
+                  offers: {
+                    '@type': 'Offer',
+                    price: '0',
+                    priceCurrency: 'USD',
+                  },
+                  creator: {
+                    '@type': 'Organization',
+                    name: 'MonoForge Open Source Contributors',
+                    url: 'https://github.com/yuvraj-thakur-exe/MONOFORGE',
+                  },
+                  sameAs: ['https://github.com/yuvraj-thakur-exe/MONOFORGE'],
+                },
               ],
             }),
           }}

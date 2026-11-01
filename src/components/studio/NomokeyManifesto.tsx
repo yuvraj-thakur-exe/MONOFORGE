@@ -57,6 +57,25 @@ export function NomokeyManifesto() {
 
   return (
     <section className="relative bg-[#fafbfc] dark:bg-[#1e293b]/50 border-b-2 border-slate-300 dark:border-slate-700 py-16 sm:py-24 px-4 sm:px-6 transition-colors duration-200">
+      {/* Google Rich Snippet FAQPage Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: FAQS.map(faq => ({
+              '@type': 'Question',
+              name: faq.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.answer,
+              },
+            })),
+          }),
+        }}
+      />
+
       <div className="max-w-5xl mx-auto space-y-16">
         {/* Manifesto Block */}
         <div className="p-8 sm:p-12 rounded-3xl border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-[#1e293b] shadow-[5px_5px_0px_#334155] dark:shadow-[5px_5px_0px_#475569] space-y-6">
