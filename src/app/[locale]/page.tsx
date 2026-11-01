@@ -46,11 +46,11 @@ const HomeCapabilitiesMatrix = dynamic(
 
 export default function HomePage() {
   return (
-    <div className="relative flex flex-col min-h-screen bg-[#faf9f6] dark:bg-[#0a0a0c] text-neutral-950 dark:text-slate-100 selection:bg-[#ffe600] selection:text-neutral-950 overflow-x-hidden font-sans transition-colors duration-200">
+    <div className="relative flex flex-col min-h-screen bg-[#F4F6FB] dark:bg-[#0B101D] text-[#172033] dark:text-slate-100 selection:bg-[#6366F1] selection:text-white overflow-x-hidden font-sans transition-colors duration-200">
       {/* Accessible Skip Link for Keyboard & Screen Readers */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#ffe600] focus:text-neutral-950 focus:font-black focus:border-2 focus:border-neutral-900 focus:rounded-xl focus:shadow-[2px_2px_0px_#18181b]"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#6366F1] focus:text-white focus:font-black focus:border-2 focus:border-indigo-600 focus:rounded-xl focus:shadow-md"
       >
         Skip to main content
       </a>
@@ -70,7 +70,7 @@ export default function HomePage() {
         <NomokeyHero />
 
         {/* Brand Logo Showcase & Live Telemetry Strip */}
-        <section className="py-6 px-4 sm:px-6 border-b-2 border-neutral-900 dark:border-slate-800 bg-white dark:bg-[#0f172a]">
+        <section className="py-6 px-4 sm:px-6 border-b border-[#DCE3EF] dark:border-slate-800 bg-white dark:bg-[#111827]">
           <div className="max-w-7xl mx-auto">
             <HomeBrandLogoEmblem />
           </div>
@@ -108,30 +108,30 @@ export default function HomePage() {
       <NomokeyMarquee reverse={true} theme="amber" speed="normal" />
 
       {/* High-Fashion Studio Editorial Footer */}
-      <footer className="relative z-10 border-t-2 border-neutral-900 dark:border-slate-800 bg-white dark:bg-[#0f172a] py-12 px-4 sm:px-6 text-xs text-neutral-800 dark:text-neutral-200">
+      <footer className="relative z-10 border-t border-[#DCE3EF] dark:border-slate-800 bg-[#E9EEF8] dark:bg-[#111827] py-12 px-4 sm:px-6 text-xs text-[#172033] dark:text-neutral-200">
         <div className="max-w-7xl mx-auto space-y-8">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b-2 border-neutral-900/15 dark:border-slate-800">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-[#DCE3EF] dark:border-slate-800">
             <div className="flex items-center gap-3">
-              <div className="p-1 rounded-xl bg-white dark:bg-slate-900 border-2 border-neutral-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b] overflow-hidden">
+              <div className="p-1 rounded-xl bg-white dark:bg-slate-900 border border-[#DCE3EF] dark:border-slate-700 shadow-xs overflow-hidden">
                 <MonoForgeMonkeyIcon className="w-8 h-8" />
               </div>
               <div>
-                <span className="font-black text-lg tracking-tight text-neutral-950 dark:text-white uppercase font-sans">
-                  MONO<span className="text-amber-700 dark:text-amber-400">FORGE</span>
+                <span className="font-black text-lg tracking-tight text-[#172033] dark:text-white uppercase font-sans">
+                  MONO<span className="text-[#6366F1]">FORGE</span>
                 </span>
-                <p className="text-[11px] font-mono text-neutral-700 dark:text-neutral-300 font-bold">
+                <p className="text-[11px] font-mono text-[#64748B] dark:text-neutral-300 font-bold">
                   Zero Monkey Business. Pure Precision Profile Engineering.
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 text-xs font-mono font-black text-neutral-950 dark:text-white">
+            <div className="flex flex-wrap items-center gap-4 text-xs font-mono font-black text-[#172033] dark:text-white">
               <Link
                 href="/templates"
                 onClick={() => playClickSound()}
-                className="hover:text-amber-700 dark:hover:text-amber-400 transition-colors flex items-center gap-1.5"
+                className="hover:text-[#6366F1] transition-colors flex items-center gap-1.5"
               >
-                <LayoutTemplate className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
+                <LayoutTemplate className="w-3.5 h-3.5 text-[#6366F1]" />
                 <span>75+ TEMPLATES</span>
               </Link>
               <Link
@@ -145,7 +145,7 @@ export default function HomePage() {
               <Link
                 href="/docs"
                 onClick={() => playClickSound()}
-                className="hover:text-neutral-950 dark:hover:text-amber-400 transition-colors flex items-center gap-1.5"
+                className="hover:text-[#6366F1] transition-colors flex items-center gap-1.5"
               >
                 <BookOpen className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" />
                 <span>DOCUMENTATION</span>
@@ -154,7 +154,7 @@ export default function HomePage() {
                 href="https://github.com/yuvraj-thakur-exe/MONOFORGE"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-amber-700 dark:hover:text-amber-400 transition-colors flex items-center gap-1.5"
+                className="hover:text-[#6366F1] transition-colors flex items-center gap-1.5"
               >
                 <Github className="w-3.5 h-3.5" />
                 <span>GITHUB</span>
@@ -162,7 +162,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-neutral-700 dark:text-neutral-300 font-bold">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-[#64748B] dark:text-neutral-300 font-bold">
             <span className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
               <span>100% Camo CDN Safe &bull; Zero JavaScript Inside Generated SVGs &bull; Open Source MIT</span>
@@ -176,7 +176,7 @@ export default function HomePage() {
                 href="https://github.com/yuvraj-thakur-exe"
                 target="_blank"
                 rel="noreferrer"
-                className="text-[11px] font-mono font-bold text-neutral-800 dark:text-neutral-200 hover:text-amber-700 dark:hover:text-amber-400 transition-colors"
+                className="text-[11px] font-mono font-bold text-[#172033] dark:text-neutral-200 hover:text-[#6366F1] transition-colors"
               >
                 Made by Yuvraj Vinod Thakur
               </a>

@@ -304,7 +304,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className="palette-surface min-h-screen bg-[#fafbfc] dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 font-sans selection:bg-[#ffe600] selection:text-slate-950 transition-colors duration-200">
+      <body className="palette-surface min-h-screen bg-[#F4F6FB] dark:bg-[#0B101D] text-[#172033] dark:text-slate-100 font-sans selection:bg-[#6366F1] selection:text-white transition-colors duration-200">
         <ThemeProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <ScrollProgressIndicator />

@@ -715,10 +715,10 @@ export const TemplateGallery: React.FC = () => {
         </h2>
 
         {/* Animated Subtitle */}
-        <p className="text-sm font-mono text-slate-800 dark:text-slate-200 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-sm font-mono text-[#64748B] dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
           One-click apply clean, structured templates designed to{' '}
           <span
-            className={`inline-block whitespace-nowrap font-black text-slate-950 bg-[#ffe600] px-2 py-0.5 rounded border border-slate-900 shadow-2xs transition-opacity duration-300 ${
+            className={`inline-block whitespace-nowrap font-black text-white bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] px-2.5 py-0.5 rounded-md shadow-xs transition-opacity duration-300 ${
               fadeKeyword ? 'opacity-100' : 'opacity-0'
             }`}
           >
@@ -730,21 +730,21 @@ export const TemplateGallery: React.FC = () => {
         {/* Search Bar */}
         <div className="pt-3 w-full max-w-md mx-auto">
           <div className="relative flex items-center">
-            <Search className="w-4 h-4 text-slate-500 absolute left-3.5 pointer-events-none" />
+            <Search className="w-4 h-4 text-[#64748B] absolute left-3.5 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Search by archetype, stack, or keyword..."
               aria-label="Search archetypes by name, category, or tech stack"
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-slate-950 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-hidden focus:border-[#ffe600] shadow-[2px_2px_0px_#334155] transition-all"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white dark:bg-[#111827] border-2 border-[#DCE3EF] dark:border-slate-700 text-xs font-mono font-bold text-[#172033] dark:text-white placeholder:text-[#64748B] dark:placeholder:text-slate-400 focus:outline-hidden focus:border-[#6366F1] focus:ring-2 focus:ring-[#6366F1]/20 shadow-xs transition-all"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
                 aria-label="Clear search query"
-                className="absolute right-3 text-slate-500 hover:text-slate-900 dark:hover:text-white p-1"
+                className="absolute right-3 text-[#64748B] hover:text-[#172033] dark:hover:text-white p-1 cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -764,18 +764,18 @@ export const TemplateGallery: React.FC = () => {
               key={cat}
               type="button"
               onClick={() => setActiveCategory(cat)}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold border-2 transition-all cursor-pointer btn-tactile ${
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-mono transition-all cursor-pointer ${
                 isActive
-                  ? 'bg-[#ffe600] text-slate-950 border-slate-900 shadow-[2px_2px_0px_#18181b] font-black'
-                  : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-400 hover:text-slate-950 dark:hover:text-white shadow-2xs'
+                  ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-2 border-transparent shadow-[0_2px_10px_-1px_rgba(99,102,241,0.4)] font-black'
+                  : 'bg-white dark:bg-[#111827] text-[#172033] dark:text-slate-200 border-2 border-[#DCE3EF] dark:border-slate-700 hover:border-[#6366F1] hover:text-[#6366F1] hover:bg-[#EEF2FF] dark:hover:bg-slate-800 shadow-xs font-bold'
               }`}
             >
               <span className="capitalize">{cat}</span>
               <span
                 className={`text-[10px] font-mono font-black px-1.5 py-0.5 rounded-md ${
                   isActive
-                    ? 'bg-slate-950 text-white'
-                    : 'bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-600'
+                    ? 'bg-white/20 text-white'
+                    : 'bg-[#F4F6FB] dark:bg-slate-800 text-[#64748B] dark:text-slate-300 border border-[#DCE3EF] dark:border-slate-700'
                 }`}
               >
                 {count}
@@ -786,21 +786,21 @@ export const TemplateGallery: React.FC = () => {
       </div>
 
       {/* Archetypes Count & Active Filter Indicator */}
-      <div className="flex items-center justify-between text-xs font-mono text-slate-600 dark:text-slate-400 px-1 pt-1">
+      <div className="flex items-center justify-between text-xs font-mono text-[#64748B] dark:text-slate-400 px-1 pt-1">
         <span>
-          Showing <b className="text-slate-900 dark:text-white">{displayedTemplates.length}</b> of{' '}
-          <b className="text-slate-900 dark:text-white">{filtered.length}</b> Signature Archetypes
+          Showing <b className="text-[#172033] dark:text-white">{displayedTemplates.length}</b> of{' '}
+          <b className="text-[#172033] dark:text-white">{filtered.length}</b> Signature Archetypes
         </span>
         {visibleCount < filtered.length ? (
           <button
             type="button"
             onClick={() => setVisibleCount(filtered.length)}
-            className="text-amber-700 dark:text-amber-400 font-bold hover:underline cursor-pointer"
+            className="text-[#6366F1] dark:text-indigo-400 font-bold hover:underline cursor-pointer"
           >
             Show All ({filtered.length})
           </button>
         ) : (
-          <span className="text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-1">
+          <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
             <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" /> All Loaded
           </span>
         )}
@@ -814,76 +814,61 @@ export const TemplateGallery: React.FC = () => {
           return (
             <div
               key={tmpl.id}
-              className="rounded-2xl bg-white dark:bg-slate-800/90 border-2 border-slate-300 dark:border-slate-700 shadow-[4px_4px_0px_#334155] dark:shadow-[4px_4px_0px_#0f172a] hover:shadow-[2px_2px_0px_#334155] hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col justify-between overflow-hidden group"
-              style={{
-                boxShadow: `0 0 0 1px ${tmpl.accent}30, 4px 4px 0px #334155`,
-              }}
+              className="rounded-2xl bg-white dark:bg-[#111827] border-2 border-[#DCE3EF] dark:border-slate-800 shadow-[0_4px_16px_-2px_rgba(15,23,42,0.06),0_2px_6px_-1px_rgba(99,102,241,0.04)] hover:shadow-[0_12px_28px_-6px_rgba(99,102,241,0.18)] hover:border-[#6366F1]/60 hover:translate-y-[-2px] transition-all duration-200 flex flex-col justify-between overflow-hidden group"
             >
               {/* Top Accent Strip */}
-              <div className="h-2 w-full shrink-0" style={{ backgroundColor: tmpl.accent }} />
+              <div
+                className="h-1.5 w-full shrink-0"
+                style={{ background: `linear-gradient(90deg, ${tmpl.accent || '#6366F1'}, #8B5CF6)` }}
+              />
 
               <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span
-                      className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-lg font-black border shadow-2xs"
-                      style={{
-                        backgroundColor: `${tmpl.accent}18`,
-                        color: tmpl.accent,
-                        borderColor: `${tmpl.accent}60`,
-                      }}
-                    >
+                    <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-lg font-black border bg-[#EEF2FF] text-[#4338CA] border-[#C7D2FE] dark:bg-indigo-950/60 dark:text-indigo-300 dark:border-indigo-800 shadow-2xs">
                       {tmpl.category}
                     </span>
-                    <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700">
+                    <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#F4F6FB] dark:bg-slate-900 border border-[#DCE3EF] dark:border-slate-700">
                       <span
                         className="w-2.5 h-2.5 rounded-full shadow-xs"
                         style={{ backgroundColor: tmpl.accent }}
                       />
-                      <span className="text-[10px] font-mono font-black text-slate-800 dark:text-slate-200 uppercase">
+                      <span className="text-[10px] font-mono font-bold text-[#64748B] dark:text-slate-300 uppercase">
                         {tmpl.accent}
                       </span>
                     </div>
                   </div>
 
-                  <h3 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors uppercase font-sans">
+                  <h3 className="text-lg font-black text-[#172033] dark:text-white group-hover:text-[#6366F1] dark:group-hover:text-indigo-400 transition-colors uppercase font-sans tracking-tight">
                     {tmpl.name}
                   </h3>
 
-                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 line-clamp-2 leading-relaxed font-mono">
+                  <p className="text-xs text-[#64748B] dark:text-slate-300 mt-2 line-clamp-2 leading-relaxed font-mono">
                     {tmpl.description}
                   </p>
 
                   {/* Visual Preview Window Box */}
                   <div
                     onClick={() => handleOpenPreview(tmpl)}
-                    className="my-4 rounded-xl border-2 border-slate-300 dark:border-slate-700 p-3 hover:translate-y-[-2px] cursor-pointer transition-all group/preview relative overflow-hidden shadow-2xs"
-                    style={{
-                      background: `linear-gradient(180deg, ${tmpl.accent}12 0%, rgba(255,255,255,0.02) 100%)`,
-                      borderColor: `${tmpl.accent}40`,
-                    }}
+                    className="my-4 rounded-xl border border-[#DCE3EF] dark:border-slate-700/80 p-3 bg-[#F8FAFC] dark:bg-[#0B101D] hover:bg-[#EEF2FF]/40 dark:hover:bg-[#151E32] cursor-pointer transition-all duration-200 group/preview relative overflow-hidden shadow-inner"
                   >
-                    <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-200 dark:border-slate-700">
+                    <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#DCE3EF] dark:border-slate-700/80">
                       <div className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-red-400 border border-slate-900" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#ffe600] border border-slate-900" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 border border-slate-900" />
-                        <span className="ml-1 text-[10px] font-mono text-slate-700 dark:text-slate-300 font-bold truncate max-w-[130px]">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444]" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]" />
+                        <span className="ml-1 text-[10px] font-mono text-[#64748B] dark:text-slate-400 font-bold truncate max-w-[130px]">
                           {tmpl.config.settings.user.github || 'developer'} / README.md
                         </span>
                       </div>
-                      <span
-                        className="text-[10px] font-mono font-black flex items-center gap-1 px-2 py-0.5 rounded border border-slate-900 shadow-2xs transition-transform group-hover/preview:scale-105"
-                        style={{ backgroundColor: tmpl.accent, color: '#0f172a' }}
-                      >
-                        <Eye className="w-3 h-3" /> Preview
+                      <span className="text-[10px] font-mono font-black flex items-center gap-1 px-2 py-0.5 rounded bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white shadow-2xs transition-transform group-hover/preview:scale-105">
+                        <Eye className="w-3 h-3 text-white" /> Preview
                       </span>
                     </div>
 
                     {TEMPLATE_PREVIEWS[tmpl.id] ? (
                       <div
-                        className="relative rounded-lg overflow-hidden border border-slate-300 dark:border-slate-700 max-h-48 group-hover/preview:scale-[1.01] transition-transform"
-                        style={{ backgroundColor: `${tmpl.accent}10` }}
+                        className="relative rounded-lg overflow-hidden border border-[#DCE3EF] dark:border-slate-700 max-h-48 group-hover/preview:scale-[1.01] transition-transform bg-white dark:bg-[#060913]"
                       >
                         <img
                           src={TEMPLATE_PREVIEWS[tmpl.id]}
@@ -902,26 +887,26 @@ export const TemplateGallery: React.FC = () => {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
+                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#DCE3EF] dark:border-slate-800">
                   <button
                     type="button"
                     onClick={() => handleCopyPrompt(tmpl)}
                     title="Copy Archetype Spec"
                     aria-label={`Copy archetype specification for ${tmpl.name}`}
-                    className={`flex items-center justify-center gap-1 px-2 py-2 rounded-xl text-[11px] font-mono font-black border-2 border-slate-900 transition-all cursor-pointer ${
+                    className={`w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-bold border transition-all cursor-pointer shadow-xs active:scale-[0.98] ${
                       isCopied
-                        ? 'bg-emerald-400 text-slate-950 shadow-[1px_1px_0px_#334155]'
-                        : 'bg-[#ffe600] hover:bg-[#ffdf00] text-slate-950 shadow-[2px_2px_0px_#334155] active:translate-x-[1px] active:translate-y-[1px]'
+                        ? 'bg-emerald-500 text-white border-emerald-600 shadow-sm'
+                        : 'bg-[#EEF2FF] hover:bg-[#E0E7FF] text-[#4338CA] dark:bg-[#1E1B4B] dark:hover:bg-[#2E2875] dark:text-[#C7D2FE] border-[#C7D2FE] dark:border-indigo-800'
                     }`}
                   >
                     {isCopied ? (
                       <>
-                        <CheckCheck className="w-3 h-3 text-slate-950" />
-                        <span>Copied!</span>
+                        <CheckCheck className="w-3.5 h-3.5 text-white" />
+                        <span className="text-white font-bold">Copied!</span>
                       </>
                     ) : (
                       <>
-                        <Sparkles className="w-3 h-3" />
+                        <Sparkles className="w-3.5 h-3.5 text-[#6366F1] dark:text-indigo-400" />
                         <span>Copy Spec</span>
                       </>
                     )}
@@ -932,11 +917,10 @@ export const TemplateGallery: React.FC = () => {
                     onClick={() => handleOpenPreview(tmpl)}
                     title="Preview Template & Markdown"
                     aria-label={`Preview archetype ${tmpl.name}`}
-                    style={{ borderColor: tmpl.accent }}
-                    className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-black bg-slate-900 dark:bg-slate-950 hover:bg-[#ffe600] dark:hover:bg-[#ffe600] text-white hover:text-slate-950 dark:hover:text-slate-950 border-2 shadow-[2px_2px_0px_#334155] transition-all cursor-pointer btn-tactile"
+                    className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-black bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:from-[#4F46E5] hover:to-[#7C3AED] text-white border border-indigo-400/30 shadow-[0_2px_10px_-1px_rgba(99,102,241,0.4)] hover:shadow-[0_4px_14px_-2px_rgba(99,102,241,0.55)] transition-all cursor-pointer active:scale-[0.98]"
                   >
-                    <Eye className="w-3.5 h-3.5" />
-                    <span>Preview</span>
+                    <Eye className="w-3.5 h-3.5 text-white" />
+                    <span className="text-white font-black">Preview</span>
                   </button>
                 </div>
               </div>
@@ -951,16 +935,16 @@ export const TemplateGallery: React.FC = () => {
           <button
             type="button"
             onClick={() => setVisibleCount(prev => Math.min(prev + 24, filtered.length))}
-            className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-mono text-xs font-bold border-2 border-slate-900 dark:border-slate-700 shadow-[3px_3px_0px_#18181b] hover:bg-[#ffe600] hover:text-slate-950 transition-all cursor-pointer btn-tactile"
+            className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-[#111827] text-[#172033] dark:text-white font-mono text-xs font-bold border-2 border-[#DCE3EF] dark:border-slate-700 shadow-xs hover:border-[#6366F1] hover:text-[#6366F1] hover:bg-[#EEF2FF] dark:hover:bg-slate-800 transition-all cursor-pointer"
             aria-label={`Load 24 more archetypes. ${filtered.length - visibleCount} remaining`}
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+            <Sparkles className="w-3.5 h-3.5 text-[#6366F1]" />
             <span>Load More Archetypes (+24) &bull; {filtered.length - visibleCount} remaining</span>
           </button>
           <button
             type="button"
             onClick={() => setVisibleCount(filtered.length)}
-            className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#ffe600] text-slate-950 font-mono text-xs font-black border-2 border-slate-900 shadow-[3px_3px_0px_#18181b] hover:bg-[#ffdf00] transition-all cursor-pointer btn-tactile"
+            className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:from-[#4F46E5] hover:to-[#7C3AED] text-white font-mono text-xs font-black shadow-[0_2px_12px_-2px_rgba(99,102,241,0.5)] transition-all cursor-pointer"
             aria-label={`Show all ${filtered.length} archetypes`}
           >
             <span>Show All {filtered.length} Archetypes</span>
@@ -969,15 +953,15 @@ export const TemplateGallery: React.FC = () => {
       )}
 
       {filtered.length === 0 && (
-        <div className="text-center py-12 space-y-3 bg-white dark:bg-slate-800/90 border-2 border-slate-300 dark:border-slate-700 rounded-2xl p-8 shadow-xs">
-          <p className="text-sm font-mono text-slate-600 dark:text-slate-300">No archetypes matched your search &quot;{searchQuery}&quot;.</p>
+        <div className="text-center py-12 space-y-3 bg-white dark:bg-[#111827] border-2 border-[#DCE3EF] dark:border-slate-800 rounded-2xl p-8 shadow-xs">
+          <p className="text-sm font-mono text-[#64748B] dark:text-slate-300">No archetypes matched your search &quot;{searchQuery}&quot;.</p>
           <button
             type="button"
             onClick={() => {
               setActiveCategory('all');
               setSearchQuery('');
             }}
-            className="px-4 py-2 rounded-xl bg-[#ffe600] text-slate-950 font-mono text-xs font-black border-2 border-slate-900 shadow-2xs hover:bg-[#ffdf00] cursor-pointer"
+            className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white font-mono text-xs font-black shadow-xs cursor-pointer hover:opacity-95"
           >
             Reset Filters
           </button>
@@ -991,19 +975,16 @@ export const TemplateGallery: React.FC = () => {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/70 backdrop-blur-md animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/75 backdrop-blur-md animate-in fade-in duration-200"
         >
           <div
-            className="relative w-full max-w-4xl max-h-[90vh] bg-white dark:bg-[#1e293b] border-2 border-slate-900 dark:border-slate-700 rounded-3xl flex flex-col overflow-hidden text-slate-900 dark:text-slate-100"
-            style={{
-              boxShadow: `0 0 0 1px ${previewTemplate.accent || '#ffe600'}40, 8px 8px 0px #18181b`,
-            }}
+            className="relative w-full max-w-4xl max-h-[90vh] bg-white dark:bg-[#111827] border-2 border-[#DCE3EF] dark:border-slate-700 rounded-3xl flex flex-col overflow-hidden text-[#172033] dark:text-slate-100 shadow-[0_25px_60px_-15px_rgba(15,23,42,0.3)]"
           >
             {/* Top Accent Strip */}
-            <div className="h-2.5 w-full shrink-0" style={{ backgroundColor: previewTemplate.accent || '#ffe600' }} />
+            <div className="h-2 w-full shrink-0 bg-gradient-to-r from-[#6366F1] via-[#8B5CF6] to-[#06B6D4]" />
 
             {/* Modal Header */}
-            <div className="flex items-center justify-between px-6 py-4 bg-slate-50 dark:bg-slate-900/90 border-b-2 border-slate-300 dark:border-slate-700">
+            <div className="flex items-center justify-between px-6 py-4 bg-[#F8FAFC] dark:bg-[#0B101D] border-b border-[#DCE3EF] dark:border-slate-800">
               <div className="flex items-center gap-3">
                 <span
                   className="w-4 h-4 rounded-full border border-slate-900 shadow-xs shrink-0"
@@ -1011,21 +992,16 @@ export const TemplateGallery: React.FC = () => {
                 />
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-base font-black text-slate-900 dark:text-white uppercase font-sans">
+                    <h3 className="text-base font-black text-[#172033] dark:text-white uppercase font-sans tracking-tight">
                       {previewTemplate.name}
                     </h3>
                     <span
-                      className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded font-black border shadow-2xs"
-                      style={{
-                        backgroundColor: `${previewTemplate.accent}20`,
-                        color: previewTemplate.accent,
-                        borderColor: `${previewTemplate.accent}60`,
-                      }}
+                      className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded font-black border bg-[#EEF2FF] text-[#4338CA] border-[#C7D2FE] dark:bg-indigo-950/60 dark:text-indigo-300 dark:border-indigo-800 shadow-2xs"
                     >
                       {previewTemplate.category}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-300 font-mono line-clamp-1">{previewTemplate.description}</p>
+                  <p className="text-xs text-[#64748B] dark:text-slate-300 font-mono line-clamp-1">{previewTemplate.description}</p>
                 </div>
               </div>
 
@@ -1036,7 +1012,7 @@ export const TemplateGallery: React.FC = () => {
                   setPreviewTemplate(null);
                   setPreviewConfig(null);
                 }}
-                className="p-1.5 rounded-xl border-2 border-slate-900 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-[#ffe600] dark:hover:bg-[#ffe600] text-slate-900 dark:text-slate-100 dark:hover:text-slate-950 transition-colors shadow-2xs cursor-pointer"
+                className="p-1.5 rounded-xl border border-[#DCE3EF] dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-[#EEF2FF] dark:hover:bg-slate-700 text-[#172033] dark:text-slate-100 transition-colors shadow-xs cursor-pointer"
                 title="Close preview"
                 aria-label="Close template preview modal"
               >
@@ -1045,15 +1021,14 @@ export const TemplateGallery: React.FC = () => {
             </div>
 
             {/* Modal Tabs Bar */}
-            <div className="flex items-center gap-2 px-6 py-2.5 bg-slate-100/90 dark:bg-slate-900/80 border-b-2 border-slate-300 dark:border-slate-700 text-xs font-mono font-bold overflow-x-auto">
+            <div className="flex items-center gap-2 px-6 py-2.5 bg-[#F4F6FB] dark:bg-[#0F172A] border-b border-[#DCE3EF] dark:border-slate-800 text-xs font-mono font-bold overflow-x-auto">
               <button
                 type="button"
                 onClick={() => setPreviewTab('visual')}
-                style={previewTab === 'visual' ? { backgroundColor: previewTemplate.accent || '#ffe600', color: '#0f172a' } : undefined}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 transition-all cursor-pointer ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
                   previewTab === 'visual'
-                    ? 'border-slate-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b] font-black'
-                    : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-400'
+                    ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent shadow-xs font-black'
+                    : 'bg-white dark:bg-slate-800 text-[#64748B] dark:text-slate-300 border-[#DCE3EF] dark:border-slate-700 hover:text-[#172033] hover:border-[#6366F1]'
                 }`}
               >
                 <Eye className="w-3.5 h-3.5" />
@@ -1063,11 +1038,10 @@ export const TemplateGallery: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setPreviewTab('markdown')}
-                style={previewTab === 'markdown' ? { backgroundColor: previewTemplate.accent || '#ffe600', color: '#0f172a' } : undefined}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 transition-all cursor-pointer ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
                   previewTab === 'markdown'
-                    ? 'border-slate-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b] font-black'
-                    : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-400'
+                    ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent shadow-xs font-black'
+                    : 'bg-white dark:bg-slate-800 text-[#64748B] dark:text-slate-300 border-[#DCE3EF] dark:border-slate-700 hover:text-[#172033] hover:border-[#6366F1]'
                 }`}
               >
                 <Code className="w-3.5 h-3.5" />
@@ -1077,11 +1051,10 @@ export const TemplateGallery: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setPreviewTab('prompt')}
-                style={previewTab === 'prompt' ? { backgroundColor: previewTemplate.accent || '#ffe600', color: '#0f172a' } : undefined}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 transition-all cursor-pointer ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
                   previewTab === 'prompt'
-                    ? 'border-slate-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b] font-black'
-                    : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-400'
+                    ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent shadow-xs font-black'
+                    : 'bg-white dark:bg-slate-800 text-[#64748B] dark:text-slate-300 border-[#DCE3EF] dark:border-slate-700 hover:text-[#172033] hover:border-[#6366F1]'
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5" />
@@ -1091,11 +1064,10 @@ export const TemplateGallery: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setPreviewTab('plugins')}
-                style={previewTab === 'plugins' ? { backgroundColor: previewTemplate.accent || '#ffe600', color: '#0f172a' } : undefined}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 transition-all cursor-pointer ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
                   previewTab === 'plugins'
-                    ? 'border-slate-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b] font-black'
-                    : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-400'
+                    ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent shadow-xs font-black'
+                    : 'bg-white dark:bg-slate-800 text-[#64748B] dark:text-slate-300 border-[#DCE3EF] dark:border-slate-700 hover:text-[#172033] hover:border-[#6366F1]'
                 }`}
               >
                 <Layers className="w-3.5 h-3.5" />
@@ -1104,18 +1076,18 @@ export const TemplateGallery: React.FC = () => {
             </div>
 
             {/* Modal Content Scroll Area */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-5 bg-slate-100/70 dark:bg-[#0b1324] text-slate-900 dark:text-slate-100">
+            <div className="flex-1 overflow-y-auto p-6 space-y-5 bg-[#F4F6FB] dark:bg-[#0B101D] text-[#172033] dark:text-slate-100">
               {/* TAB 1: Visual Simulated GitHub Profile */}
               {previewTab === 'visual' && (
                 <div className="space-y-4">
                   {/* High-Fidelity Asset Banner or Procedural Fallback */}
                   {TEMPLATE_PREVIEWS[previewTemplate.id] ? (
-                    <div className="rounded-2xl overflow-hidden border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/90 p-3 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-2">
-                      <div className="flex items-center justify-between px-2 pt-1 pb-2 border-b border-slate-200 dark:border-slate-700">
-                        <span className="text-xs font-mono text-slate-900 dark:text-white font-black flex items-center gap-1.5">
-                          <Eye className="w-3.5 h-3.5 text-amber-500" /> High-Fidelity Showcase
+                    <div className="rounded-2xl overflow-hidden border border-[#DCE3EF] dark:border-slate-800 bg-white dark:bg-[#151E32] p-3 shadow-md space-y-2">
+                      <div className="flex items-center justify-between px-2 pt-1 pb-2 border-b border-[#DCE3EF] dark:border-slate-800">
+                        <span className="text-xs font-mono text-[#172033] dark:text-white font-black flex items-center gap-1.5">
+                          <Eye className="w-3.5 h-3.5 text-[#6366F1]" /> High-Fidelity Showcase
                         </span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/60 text-emerald-950 dark:text-emerald-300 border border-slate-900 dark:border-slate-700 font-bold">
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 font-bold">
                           100% Camo Compliant
                         </span>
                       </div>
@@ -1126,12 +1098,12 @@ export const TemplateGallery: React.FC = () => {
                       />
                     </div>
                   ) : (
-                    <div className="rounded-2xl overflow-hidden border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/90 p-3 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-2">
-                      <div className="flex items-center justify-between px-2 pt-1 pb-2 border-b border-slate-200 dark:border-slate-700">
-                        <span className="text-xs font-mono text-slate-900 dark:text-white font-black flex items-center gap-1.5">
-                          <Eye className="w-3.5 h-3.5 text-amber-500" /> Dynamic Vector Archetype Showcase
+                    <div className="rounded-2xl overflow-hidden border border-[#DCE3EF] dark:border-slate-800 bg-white dark:bg-[#151E32] p-3 shadow-md space-y-2">
+                      <div className="flex items-center justify-between px-2 pt-1 pb-2 border-b border-[#DCE3EF] dark:border-slate-800">
+                        <span className="text-xs font-mono text-[#172033] dark:text-white font-black flex items-center gap-1.5">
+                          <Eye className="w-3.5 h-3.5 text-[#6366F1]" /> Dynamic Vector Archetype Showcase
                         </span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/60 text-emerald-950 dark:text-emerald-300 border border-slate-900 dark:border-slate-700 font-bold">
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 font-bold">
                           Live Procedural Preview
                         </span>
                       </div>
@@ -1144,41 +1116,41 @@ export const TemplateGallery: React.FC = () => {
                     const isCentered = previewConfig.settings.align === 'center';
                     return (
                       <div
-                        className={`rounded-2xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-[#1e293b] p-6 sm:p-8 space-y-5 shadow-[4px_4px_0px_#334155] dark:shadow-[4px_4px_0px_#0f172a] ${
+                        className={`rounded-2xl border border-[#DCE3EF] dark:border-slate-800 bg-white dark:bg-[#151E32] p-6 sm:p-8 space-y-5 shadow-sm ${
                           isCentered ? 'text-center' : 'text-left'
                         }`}
                       >
                         {/* macOS Window Controls Header */}
-                        <div className="flex items-center justify-between pb-3 border-b-2 border-slate-200 dark:border-slate-700">
+                        <div className="flex items-center justify-between pb-3 border-b border-[#DCE3EF] dark:border-slate-800">
                           <div className="flex items-center gap-2">
-                            <span className="w-3 h-3 rounded-full bg-[#ef4444] border border-slate-900 dark:border-slate-700" />
-                            <span className="w-3 h-3 rounded-full bg-[#eab308] border border-slate-900 dark:border-slate-700" />
-                            <span className="w-3 h-3 rounded-full bg-[#22c55e] border border-slate-900 dark:border-slate-700" />
-                            <span className="ml-2 font-mono text-xs font-black text-slate-900 dark:text-white px-2.5 py-0.5 rounded bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                            <span className="w-3 h-3 rounded-full bg-[#ef4444]" />
+                            <span className="w-3 h-3 rounded-full bg-[#eab308]" />
+                            <span className="w-3 h-3 rounded-full bg-[#22c55e]" />
+                            <span className="ml-2 font-mono text-xs font-black text-[#172033] dark:text-white px-2.5 py-0.5 rounded bg-[#EEF2FF] dark:bg-slate-900 border border-[#DCE3EF] dark:border-slate-800">
                               README.md
                             </span>
                           </div>
-                          <span className="text-[10px] font-mono font-black px-2.5 py-1 rounded-lg bg-emerald-400 text-slate-950 border border-slate-900 shadow-[2px_2px_0px_#18181b] flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-slate-950 animate-pulse" />
+                          <span className="text-[10px] font-mono font-black px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                             <span>● 60FPS CAMO SAFE</span>
                           </span>
                         </div>
 
                         {/* Developer Heading, Role & Bio */}
                         <div className="space-y-3">
-                          <h4 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-sans tracking-tight">
+                          <h4 className="text-3xl sm:text-4xl font-black text-[#172033] dark:text-white font-sans tracking-tight">
                             Hi there, I&apos;m {previewConfig.settings.user.name} 👋
                           </h4>
                           <div className={isCentered ? 'flex justify-center' : 'flex justify-start'}>
                             <span
-                              className="inline-block px-3.5 py-1.5 rounded-xl text-slate-950 font-mono text-xs sm:text-sm font-black border-2 border-slate-900 shadow-[2px_2px_0px_#18181b]"
-                              style={{ backgroundColor: previewTemplate.accent || '#ffe600' }}
+                              className="inline-block px-3.5 py-1.5 rounded-xl text-white font-mono text-xs sm:text-sm font-black border border-indigo-400/30 shadow-xs"
+                              style={{ backgroundColor: previewTemplate.accent || '#6366F1' }}
                             >
                               {previewConfig.settings.user.role}
                             </span>
                           </div>
                           <p
-                            className={`text-sm sm:text-base text-slate-700 dark:text-slate-300 font-mono pt-1 leading-relaxed max-w-2xl ${
+                            className={`text-sm sm:text-base text-[#64748B] dark:text-slate-300 font-mono pt-1 leading-relaxed max-w-2xl ${
                               isCentered ? 'mx-auto' : ''
                             }`}
                           >
@@ -1193,17 +1165,17 @@ export const TemplateGallery: React.FC = () => {
                           }`}
                         >
                           {previewConfig.settings.user.location && (
-                            <span className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white border-2 border-slate-300 dark:border-slate-700 shadow-[2px_2px_0px_#334155] dark:shadow-[2px_2px_0px_#0f172a]">
+                            <span className="px-3 py-1.5 rounded-xl bg-[#F4F6FB] dark:bg-slate-800 text-[#172033] dark:text-white border border-[#DCE3EF] dark:border-slate-700">
                               📍 Based in <b>{previewConfig.settings.user.location}</b>
                             </span>
                           )}
                           {previewConfig.settings.user.status && (
-                            <span className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white border-2 border-slate-300 dark:border-slate-700 shadow-[2px_2px_0px_#334155] dark:shadow-[2px_2px_0px_#0f172a]">
+                            <span className="px-3 py-1.5 rounded-xl bg-[#F4F6FB] dark:bg-slate-800 text-[#172033] dark:text-white border border-[#DCE3EF] dark:border-slate-700">
                               🔭 Currently: <b>{previewConfig.settings.user.status}</b>
                             </span>
                           )}
                           {previewConfig.settings.user.pronouns && (
-                            <span className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white border-2 border-slate-300 dark:border-slate-700 shadow-[2px_2px_0px_#334155] dark:shadow-[2px_2px_0px_#0f172a]">
+                            <span className="px-3 py-1.5 rounded-xl bg-[#F4F6FB] dark:bg-slate-800 text-[#172033] dark:text-white border border-[#DCE3EF] dark:border-slate-700">
                               💬 Pronouns: <b>{previewConfig.settings.user.pronouns}</b>
                             </span>
                           )}
@@ -1214,23 +1186,23 @@ export const TemplateGallery: React.FC = () => {
 
                   {/* Plugins Simulated Cards */}
                   <div className="space-y-3">
-                    <h5 className="text-xs font-mono uppercase tracking-wider text-slate-900 dark:text-white font-black">
+                    <h5 className="text-xs font-mono uppercase tracking-wider text-[#172033] dark:text-white font-black">
                       Active Telemetry Modules &amp; SVGs ({previewConfig.sections.length})
                     </h5>
 
                     {previewConfig.sections.length === 0 ? (
-                      <div className="p-6 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 text-center text-xs font-mono text-slate-600 dark:text-slate-400 bg-white dark:bg-slate-800/50">
+                      <div className="p-6 rounded-2xl border-2 border-dashed border-[#DCE3EF] dark:border-slate-800 text-center text-xs font-mono text-[#64748B] dark:text-slate-400 bg-white dark:bg-slate-800/50">
                         This archetype is ultra-minimalist and relies purely on clean bio, markdown lists, and typography.
                       </div>
                     ) : (
                       <div className="space-y-3">
                         {previewConfig.sections.map(sec => (
                           <div key={sec.id} className="relative group/sec">
-                            {renderModuleVisual(sec, previewConfig.settings.align === 'center', previewConfig.settings.user.github || 'octocat', previewTemplate.accent || '#ffe600')}
+                            {renderModuleVisual(sec, previewConfig.settings.align === 'center', previewConfig.settings.user.github || 'octocat', previewTemplate.accent || '#6366F1')}
                             <button
                               type="button"
                               onClick={() => handleRemovePluginFromPreview(sec.id)}
-                              className="absolute top-3 right-3 p-1 rounded-lg bg-red-100 dark:bg-red-950/60 hover:bg-red-500 hover:text-white text-red-700 dark:text-red-300 border border-slate-900 dark:border-slate-700 text-xs font-mono transition-colors shadow-2xs"
+                              className="absolute top-3 right-3 p-1 rounded-lg bg-red-50 dark:bg-red-950/60 hover:bg-red-500 hover:text-white text-red-600 dark:text-red-300 border border-red-200 dark:border-red-900 text-xs font-mono transition-colors shadow-xs"
                               title="Remove plugin from this preview"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
@@ -1247,7 +1219,7 @@ export const TemplateGallery: React.FC = () => {
               {previewTab === 'markdown' && (
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300">Generated Markdown Output</span>
+                    <span className="text-xs font-mono font-bold text-[#64748B] dark:text-slate-300">Generated Markdown Output</span>
                     <button
                       type="button"
                       onClick={() => {
@@ -1258,7 +1230,7 @@ export const TemplateGallery: React.FC = () => {
                           setTimeout(() => setCopiedMarkdown(false), 2200);
                         }
                       }}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 border-slate-900 bg-[#ffe600] text-slate-950 font-mono text-xs font-black shadow-2xs hover:bg-[#ffdf00] cursor-pointer"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-indigo-400/30 bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white font-mono text-xs font-bold shadow-xs hover:from-[#4F46E5] hover:to-[#7C3AED] cursor-pointer"
                     >
                       {copiedMarkdown ? (
                         <>
@@ -1273,7 +1245,7 @@ export const TemplateGallery: React.FC = () => {
                       )}
                     </button>
                   </div>
-                  <pre className="p-5 rounded-2xl bg-[#0a0f1d] border-2 border-slate-800 text-xs text-slate-100 font-mono overflow-x-auto whitespace-pre-wrap max-h-96 select-all leading-relaxed shadow-[3px_3px_0px_#18181b] dark:shadow-[3px_3px_0px_#0f172a]">
+                  <pre className="p-5 rounded-2xl bg-[#0a0f1d] border border-slate-800 text-xs text-slate-100 font-mono overflow-x-auto whitespace-pre-wrap max-h-96 select-all leading-relaxed shadow-lg">
                     {previewMarkdown}
                   </pre>
                 </div>
@@ -1282,27 +1254,27 @@ export const TemplateGallery: React.FC = () => {
               {/* TAB 3: AI Prompt */}
               {previewTab === 'prompt' && (
                 <div className="space-y-4">
-                  <div className="p-6 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[4px_4px_0px_#334155] dark:shadow-[4px_4px_0px_#0f172a] space-y-3">
+                  <div className="p-6 rounded-2xl bg-white dark:bg-[#151E32] border border-[#DCE3EF] dark:border-slate-800 shadow-sm space-y-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Sparkles className="w-4 h-4 text-amber-500" />
-                        <span className="text-xs font-black uppercase text-slate-900 dark:text-white font-mono">
+                        <Sparkles className="w-4 h-4 text-[#6366F1]" />
+                        <span className="text-xs font-black uppercase text-[#172033] dark:text-white font-mono">
                           Archetype Specification &amp; Markdown
                         </span>
                       </div>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#ffe600] text-slate-950 border border-slate-900 font-bold">
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#EEF2FF] text-[#4338CA] border border-[#C7D2FE] font-bold">
                         Deterministic Camo-Compliant Markdown
                       </span>
                     </div>
 
-                    <p className="text-xs text-slate-800 dark:text-slate-200 leading-relaxed font-mono bg-slate-50 dark:bg-[#0a0f1d] p-4 rounded-xl border border-slate-300 dark:border-slate-800 select-all">
+                    <p className="text-xs text-[#172033] dark:text-slate-200 leading-relaxed font-mono bg-[#F4F6FB] dark:bg-[#0a0f1d] p-4 rounded-xl border border-[#DCE3EF] dark:border-slate-800 select-all">
                       {previewTemplate.prompt}
                     </p>
 
                     <button
                       type="button"
                       onClick={() => handleCopyPrompt(previewTemplate)}
-                      className="flex items-center gap-1.5 px-4 py-2 rounded-xl font-mono font-black text-xs bg-[#ffe600] hover:bg-[#ffdf00] text-slate-950 border-2 border-slate-900 shadow-[2px_2px_0px_#18181b] active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
+                      className="flex items-center gap-1.5 px-4 py-2 rounded-xl font-mono font-black text-xs bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:from-[#4F46E5] hover:to-[#7C3AED] text-white border border-indigo-400/30 shadow-xs cursor-pointer"
                     >
                       {copiedPromptId === previewTemplate.id ? (
                         <>
@@ -1325,10 +1297,10 @@ export const TemplateGallery: React.FC = () => {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="text-xs font-mono font-black text-slate-900 dark:text-white uppercase">
+                      <h4 className="text-xs font-mono font-black text-[#172033] dark:text-white uppercase">
                         Active Plugins in this Archetype ({previewConfig.sections.length})
                       </h4>
-                      <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400">
+                      <p className="text-[11px] font-mono text-[#64748B] dark:text-slate-400">
                         Remove plugins to customize before applying to your profile.
                       </p>
                     </div>
@@ -1336,7 +1308,7 @@ export const TemplateGallery: React.FC = () => {
                       <button
                         type="button"
                         onClick={handleResetPreviewPlugins}
-                        className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#ffe600] text-slate-950 font-mono text-xs font-black border border-slate-900 shadow-2xs hover:bg-[#ffdf00] cursor-pointer"
+                        className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#EEF2FF] text-[#4338CA] font-mono text-xs font-bold border border-[#C7D2FE] shadow-xs hover:bg-[#E0E7FF] cursor-pointer"
                       >
                         <RefreshCw className="w-3 h-3" />
                         <span>Restore All Plugins</span>
@@ -1345,12 +1317,12 @@ export const TemplateGallery: React.FC = () => {
                   </div>
 
                   {previewConfig.sections.length === 0 ? (
-                    <div className="p-8 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 text-center space-y-3 bg-white dark:bg-slate-800/50">
-                      <p className="text-xs font-mono text-slate-600 dark:text-slate-400">All plugins have been removed from this preview.</p>
+                    <div className="p-8 rounded-2xl border-2 border-dashed border-[#DCE3EF] dark:border-slate-800 text-center space-y-3 bg-white dark:bg-slate-800/50">
+                      <p className="text-xs font-mono text-[#64748B] dark:text-slate-400">All plugins have been removed from this preview.</p>
                       <button
                         type="button"
                         onClick={handleResetPreviewPlugins}
-                        className="px-4 py-2 rounded-xl bg-[#ffe600] text-slate-950 font-mono text-xs font-black border-2 border-slate-900 shadow-2xs hover:bg-[#ffdf00] cursor-pointer"
+                        className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white font-mono text-xs font-bold border border-indigo-400/30 shadow-xs cursor-pointer"
                       >
                         Restore Plugins
                       </button>
@@ -1360,17 +1332,17 @@ export const TemplateGallery: React.FC = () => {
                       {previewConfig.sections.map((sec, idx) => (
                         <div
                           key={sec.id}
-                          className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 shadow-2xs"
+                          className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-[#DCE3EF] dark:border-slate-700 shadow-xs"
                         >
                           <div className="flex items-center gap-3">
-                            <span className="w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-mono text-[11px] text-slate-950 dark:text-slate-100 font-black">
+                            <span className="w-6 h-6 rounded-lg bg-[#EEF2FF] dark:bg-slate-900 border border-[#DCE3EF] dark:border-slate-700 flex items-center justify-center font-mono text-[11px] text-[#4338CA] dark:text-slate-100 font-black">
                               {idx + 1}
                             </span>
                             <div>
-                              <span className="text-xs font-black text-slate-900 dark:text-white font-mono uppercase">
+                              <span className="text-xs font-black text-[#172033] dark:text-white font-mono uppercase">
                                 {sec.type}
                               </span>
-                              <p className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
+                              <p className="text-[10px] text-[#64748B] dark:text-slate-400 font-mono">
                                 ID: {sec.id}
                               </p>
                             </div>
@@ -1379,7 +1351,7 @@ export const TemplateGallery: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => handleRemovePluginFromPreview(sec.id)}
-                            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-red-100 dark:bg-red-950/60 hover:bg-red-500 hover:text-white text-red-700 dark:text-red-300 border border-slate-900 dark:border-slate-700 text-xs font-mono transition-colors shadow-2xs cursor-pointer"
+                            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-red-50 dark:bg-red-950/60 hover:bg-red-500 hover:text-white text-red-600 dark:text-red-300 border border-red-200 dark:border-red-900 text-xs font-mono transition-colors shadow-xs cursor-pointer"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                             <span>Remove</span>
@@ -1393,14 +1365,14 @@ export const TemplateGallery: React.FC = () => {
             </div>
 
             {/* Modal Footer Actions */}
-            <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 bg-slate-50 dark:bg-slate-900/90 border-t-2 border-slate-300 dark:border-slate-700">
+            <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 bg-[#E9EEF8] dark:bg-[#111827] border-t border-[#DCE3EF] dark:border-slate-800">
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => handleCopyPrompt(previewTemplate)}
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border-2 border-slate-900 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-2xs cursor-pointer"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border border-[#DCE3EF] dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-[#EEF2FF] dark:hover:bg-slate-700 text-[#172033] dark:text-slate-100 shadow-xs cursor-pointer"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                  <Sparkles className="w-3.5 h-3.5 text-[#6366F1]" />
                   <span>Copy Spec</span>
                 </button>
 
@@ -1414,7 +1386,7 @@ export const TemplateGallery: React.FC = () => {
                       setTimeout(() => setCopiedMarkdown(false), 2000);
                     }
                   }}
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border-2 border-slate-900 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-2xs cursor-pointer"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border border-[#DCE3EF] dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-[#EEF2FF] dark:hover:bg-slate-700 text-[#172033] dark:text-slate-100 shadow-xs cursor-pointer"
                 >
                   <Copy className="w-3.5 h-3.5" />
                   <span>Copy Markdown</span>
@@ -1423,20 +1395,20 @@ export const TemplateGallery: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => handleDownloadMarkdown(previewTemplate.name, previewMarkdown)}
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border-2 border-slate-900 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-2xs cursor-pointer"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border border-[#DCE3EF] dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-[#EEF2FF] dark:hover:bg-slate-700 text-[#172033] dark:text-slate-100 shadow-xs cursor-pointer"
                   title="Download README.md"
                 >
-                  <Download className="w-3.5 h-3.5 text-cyan-500" />
+                  <Download className="w-3.5 h-3.5 text-[#06B6D4]" />
                   <span>Download .md</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => handleShareTemplate(previewTemplate)}
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border-2 border-slate-900 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-2xs cursor-pointer"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border border-[#DCE3EF] dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-[#EEF2FF] dark:hover:bg-slate-700 text-[#172033] dark:text-slate-100 shadow-xs cursor-pointer"
                   title="Share direct link to this archetype"
                 >
-                  <Share2 className="w-3.5 h-3.5 text-amber-500" />
+                  <Share2 className="w-3.5 h-3.5 text-[#8B5CF6]" />
                   <span>Share</span>
                 </button>
               </div>
@@ -1445,7 +1417,7 @@ export const TemplateGallery: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleMergeFromPreview}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 font-mono text-xs font-bold border-2 border-slate-900 dark:border-slate-700 shadow-[2px_2px_0px_#18181b] dark:shadow-[2px_2px_0px_#0f172a] cursor-pointer"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-[#EEF2FF] dark:hover:bg-slate-700 text-[#172033] dark:text-slate-100 font-mono text-xs font-bold border border-[#DCE3EF] dark:border-slate-700 shadow-xs cursor-pointer"
                 >
                   <Layers className="w-3.5 h-3.5" />
                   <span>Add to My Profile</span>
@@ -1454,7 +1426,7 @@ export const TemplateGallery: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleApplyFromPreview}
-                  className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-[#ffe600] hover:bg-[#ffdf00] text-slate-950 font-mono text-xs font-black border-2 border-slate-900 shadow-[3px_3px_0px_#18181b] active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
+                  className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:from-[#4F46E5] hover:to-[#7C3AED] text-white font-mono text-xs font-black border border-indigo-400/30 shadow-[0_2px_10px_-1px_rgba(99,102,241,0.4)] cursor-pointer"
                 >
                   <Check className="w-4 h-4" />
                   <span>Apply Template</span>
