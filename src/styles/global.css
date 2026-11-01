@@ -204,7 +204,6 @@ button * {
 
   button {
     @apply font-sans text-sm font-normal;
-    color: inherit;
   }
 
   h1,

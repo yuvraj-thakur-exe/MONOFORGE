@@ -176,14 +176,12 @@ function renderModuleVisual(
     case 'snk':
       return (
         <div
-          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${
-            isCentered ? 'text-center' : 'text-left'
-          }`}
+          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${isCentered ? 'text-center' : 'text-left'
+            }`}
         >
           <div
-            className={`flex items-center justify-between text-xs font-mono font-bold text-slate-900 dark:text-white ${
-              isCentered ? 'flex-col sm:flex-row gap-2' : ''
-            }`}
+            className={`flex items-center justify-between text-xs font-mono font-bold text-slate-900 dark:text-white ${isCentered ? 'flex-col sm:flex-row gap-2' : ''
+              }`}
           >
             <span className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -223,15 +221,14 @@ function renderModuleVisual(
                       return (
                         <div
                           key={row}
-                          className={`w-3 h-3 rounded-xs relative ${
-                            isSnakeHead
+                          className={`w-3 h-3 rounded-xs relative ${isSnakeHead
                               ? 'bg-[#ffe600] scale-110 shadow-[0_0_8px_#ffe600] z-10'
                               : isSnakeBody
                                 ? 'bg-[#40c463]'
                                 : isFood
                                   ? 'bg-[#ec4899] animate-ping'
                                   : ''
-                          }`}
+                            }`}
                           style={{
                             backgroundColor: isSnakeHead
                               ? '#ffe600'
@@ -270,9 +267,8 @@ function renderModuleVisual(
     case 'pie-chart':
       return (
         <div
-          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${
-            isCentered ? 'text-center' : 'text-left'
-          }`}
+          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${isCentered ? 'text-center' : 'text-left'
+            }`}
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-1 border-b border-slate-200 dark:border-slate-700">
             <div>
@@ -351,9 +347,8 @@ function renderModuleVisual(
     case 'activity-graph':
       return (
         <div
-          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${
-            isCentered ? 'text-center' : 'text-left'
-          }`}
+          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${isCentered ? 'text-center' : 'text-left'
+            }`}
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-1 border-b border-slate-200 dark:border-slate-700">
             <div>
@@ -394,9 +389,8 @@ function renderModuleVisual(
     case 'github-profile-trophy':
       return (
         <div
-          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${
-            isCentered ? 'text-center' : 'text-left'
-          }`}
+          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${isCentered ? 'text-center' : 'text-left'
+            }`}
         >
           <div className="flex items-center justify-between text-xs font-mono font-bold text-slate-900 dark:text-white">
             <span className="font-mono text-xs font-black uppercase tracking-wider">
@@ -431,9 +425,8 @@ function renderModuleVisual(
     case 'github-readme-stats':
       return (
         <div
-          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${
-            isCentered ? 'text-center' : 'text-left'
-          }`}
+          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${isCentered ? 'text-center' : 'text-left'
+            }`}
         >
           <div className="flex items-center justify-between text-xs font-mono font-bold text-slate-900 dark:text-white">
             <span className="font-mono text-xs font-black uppercase tracking-wider">
@@ -692,25 +685,25 @@ export const TemplateGallery: React.FC = () => {
   }, [previewConfig]);
 
   return (
-    <section className="py-12 px-4 max-w-7xl mx-auto space-y-8 relative font-sans text-slate-900 dark:text-slate-100">
+    <section className="py-12 px-4 max-w-7xl mx-auto space-y-8 relative font-sans text-[#172033] dark:text-slate-100">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-900 dark:border-slate-700 text-slate-900 dark:text-white text-xs font-bold shadow-[4px_4px_0px_#334155] animate-in fade-in slide-in-from-bottom-2">
-          <Sparkles className="w-4 h-4 text-amber-500 animate-pulse" />
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-[#DCE3EF] dark:border-slate-700 text-[#172033] dark:text-white text-xs font-bold shadow-lg animate-in fade-in slide-in-from-bottom-2">
+          <Sparkles className="w-4 h-4 text-[#6366F1] animate-pulse" />
           <span>{toastMessage}</span>
         </div>
       )}
 
       {/* Header with Dynamic Text Animation */}
       <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white text-xs font-mono font-bold shadow-[2px_2px_0px_#334155]">
-          <LayoutTemplate className="w-3.5 h-3.5 text-amber-500" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-[#DCE3EF] dark:border-slate-700 text-[#172033] dark:text-white text-xs font-mono font-bold shadow-xs">
+          <LayoutTemplate className="w-3.5 h-3.5 text-[#6366F1]" />
           <span>CURATED STARTERS &amp; ARCHETYPES</span>
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-[10px] text-slate-600 dark:text-slate-400 font-mono font-black">{TEMPLATES.length} READY-TO-SHIP</span>
+          <span className="text-[10px] text-[#64748B] dark:text-slate-400 font-mono font-black">{TEMPLATES.length} READY-TO-SHIP</span>
         </div>
 
-        <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight uppercase font-sans">
+        <h2 className="text-3xl sm:text-5xl font-black text-[#172033] dark:text-white tracking-tight uppercase font-sans">
           CURATED STARTER ARCHETYPES
         </h2>
 
@@ -718,9 +711,8 @@ export const TemplateGallery: React.FC = () => {
         <p className="text-sm font-mono text-[#64748B] dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
           One-click apply clean, structured templates designed to{' '}
           <span
-            className={`inline-block whitespace-nowrap font-black text-white bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] px-2.5 py-0.5 rounded-md shadow-xs transition-opacity duration-300 ${
-              fadeKeyword ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`inline-block whitespace-nowrap font-black text-white bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] px-2.5 py-0.5 rounded-md shadow-xs transition-opacity duration-300 ${fadeKeyword ? 'opacity-100' : 'opacity-0'
+              }`}
           >
             {KEYWORDS[keywordIdx]}
           </span>
@@ -764,19 +756,17 @@ export const TemplateGallery: React.FC = () => {
               key={cat}
               type="button"
               onClick={() => setActiveCategory(cat)}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-mono transition-all cursor-pointer ${
-                isActive
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-mono transition-all cursor-pointer ${isActive
                   ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-2 border-transparent shadow-[0_2px_10px_-1px_rgba(99,102,241,0.4)] font-black'
                   : 'bg-white dark:bg-[#111827] text-[#172033] dark:text-slate-200 border-2 border-[#DCE3EF] dark:border-slate-700 hover:border-[#6366F1] hover:text-[#6366F1] hover:bg-[#EEF2FF] dark:hover:bg-slate-800 shadow-xs font-bold'
-              }`}
+                }`}
             >
               <span className="capitalize">{cat}</span>
               <span
-                className={`text-[10px] font-mono font-black px-1.5 py-0.5 rounded-md ${
-                  isActive
+                className={`text-[10px] font-mono font-black px-1.5 py-0.5 rounded-md ${isActive
                     ? 'bg-white/20 text-white'
                     : 'bg-[#F4F6FB] dark:bg-slate-800 text-[#64748B] dark:text-slate-300 border border-[#DCE3EF] dark:border-slate-700'
-                }`}
+                  }`}
               >
                 {count}
               </span>
@@ -887,27 +877,26 @@ export const TemplateGallery: React.FC = () => {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#DCE3EF] dark:border-slate-800">
+                <div className="grid grid-cols-2 gap-2.5 pt-3 border-t border-[#DCE3EF] dark:border-slate-800">
                   <button
                     type="button"
                     onClick={() => handleCopyPrompt(tmpl)}
                     title="Copy Archetype Spec"
                     aria-label={`Copy archetype specification for ${tmpl.name}`}
-                    className={`w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-bold border transition-all cursor-pointer shadow-xs active:scale-[0.98] ${
-                      isCopied
-                        ? 'bg-emerald-500 text-white border-emerald-600 shadow-sm'
-                        : 'bg-[#EEF2FF] hover:bg-[#E0E7FF] text-[#4338CA] dark:bg-[#1E1B4B] dark:hover:bg-[#2E2875] dark:text-[#C7D2FE] border-[#C7D2FE] dark:border-indigo-800'
-                    }`}
+                    className={`w-full flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-mono font-bold border-2 transition-all cursor-pointer shadow-xs active:scale-95 ${isCopied
+                        ? 'bg-emerald-600 text-white border-emerald-500 shadow-sm font-black'
+                        : 'bg-[#EEF2FF] hover:bg-[#E0E7FF] text-[#4338CA] dark:bg-[#1E1B4B] dark:hover:bg-[#2E2875] dark:text-[#C7D2FE] border-[#C7D2FE] dark:border-indigo-800/80 hover:border-[#6366F1]'
+                      }`}
                   >
                     {isCopied ? (
                       <>
-                        <CheckCheck className="w-3.5 h-3.5 text-white" />
-                        <span className="text-white font-bold">Copied!</span>
+                        <CheckCheck className="w-3.5 h-3.5 text-white stroke-[2.5]" />
+                        <span className="text-white font-black">Copied!</span>
                       </>
                     ) : (
                       <>
-                        <Sparkles className="w-3.5 h-3.5 text-[#6366F1] dark:text-indigo-400" />
-                        <span>Copy Spec</span>
+                        <Sparkles className="w-3.5 h-3.5 text-[#6366F1] dark:text-indigo-400 stroke-[2.5]" />
+                        <span className="font-bold">Copy Spec</span>
                       </>
                     )}
                   </button>
@@ -915,12 +904,12 @@ export const TemplateGallery: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleOpenPreview(tmpl)}
-                    title="Preview Template & Markdown"
+                    title="Preview Archetype & Markdown"
                     aria-label={`Preview archetype ${tmpl.name}`}
-                    className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-black bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:from-[#4F46E5] hover:to-[#7C3AED] text-white border border-indigo-400/30 shadow-[0_2px_10px_-1px_rgba(99,102,241,0.4)] hover:shadow-[0_4px_14px_-2px_rgba(99,102,241,0.55)] transition-all cursor-pointer active:scale-[0.98]"
+                    className="w-full flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-mono font-black bg-gradient-to-r from-[#6366F1] via-[#7C3AED] to-[#8B5CF6] hover:from-[#4F46E5] hover:via-[#6D28D9] hover:to-[#7C3AED] text-white border-2 border-indigo-400/40 shadow-[0_4px_14px_rgba(99,102,241,0.35)] hover:shadow-[0_6px_18px_rgba(99,102,241,0.5)] transition-all cursor-pointer active:scale-95"
                   >
-                    <Eye className="w-3.5 h-3.5 text-white" />
-                    <span className="text-white font-black">Preview</span>
+                    <Eye className="w-4 h-4 text-white stroke-[2.5]" />
+                    <span className="text-white font-black tracking-wide">Live Preview</span>
                   </button>
                 </div>
               </div>
@@ -1025,11 +1014,10 @@ export const TemplateGallery: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setPreviewTab('visual')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
-                  previewTab === 'visual'
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'visual'
                     ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent shadow-xs font-black'
                     : 'bg-white dark:bg-slate-800 text-[#64748B] dark:text-slate-300 border-[#DCE3EF] dark:border-slate-700 hover:text-[#172033] hover:border-[#6366F1]'
-                }`}
+                  }`}
               >
                 <Eye className="w-3.5 h-3.5" />
                 <span>Visual Preview</span>
@@ -1038,11 +1026,10 @@ export const TemplateGallery: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setPreviewTab('markdown')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
-                  previewTab === 'markdown'
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'markdown'
                     ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent shadow-xs font-black'
                     : 'bg-white dark:bg-slate-800 text-[#64748B] dark:text-slate-300 border-[#DCE3EF] dark:border-slate-700 hover:text-[#172033] hover:border-[#6366F1]'
-                }`}
+                  }`}
               >
                 <Code className="w-3.5 h-3.5" />
                 <span>Markdown Output</span>
@@ -1051,11 +1038,10 @@ export const TemplateGallery: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setPreviewTab('prompt')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
-                  previewTab === 'prompt'
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'prompt'
                     ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent shadow-xs font-black'
                     : 'bg-white dark:bg-slate-800 text-[#64748B] dark:text-slate-300 border-[#DCE3EF] dark:border-slate-700 hover:text-[#172033] hover:border-[#6366F1]'
-                }`}
+                  }`}
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Archetype Spec</span>
@@ -1064,11 +1050,10 @@ export const TemplateGallery: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setPreviewTab('plugins')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
-                  previewTab === 'plugins'
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'plugins'
                     ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent shadow-xs font-black'
                     : 'bg-white dark:bg-slate-800 text-[#64748B] dark:text-slate-300 border-[#DCE3EF] dark:border-slate-700 hover:text-[#172033] hover:border-[#6366F1]'
-                }`}
+                  }`}
               >
                 <Layers className="w-3.5 h-3.5" />
                 <span>Manage Plugins ({previewConfig.sections.length})</span>
@@ -1116,9 +1101,8 @@ export const TemplateGallery: React.FC = () => {
                     const isCentered = previewConfig.settings.align === 'center';
                     return (
                       <div
-                        className={`rounded-2xl border border-[#DCE3EF] dark:border-slate-800 bg-white dark:bg-[#151E32] p-6 sm:p-8 space-y-5 shadow-sm ${
-                          isCentered ? 'text-center' : 'text-left'
-                        }`}
+                        className={`rounded-2xl border border-[#DCE3EF] dark:border-slate-800 bg-white dark:bg-[#151E32] p-6 sm:p-8 space-y-5 shadow-sm ${isCentered ? 'text-center' : 'text-left'
+                          }`}
                       >
                         {/* macOS Window Controls Header */}
                         <div className="flex items-center justify-between pb-3 border-b border-[#DCE3EF] dark:border-slate-800">
@@ -1150,9 +1134,8 @@ export const TemplateGallery: React.FC = () => {
                             </span>
                           </div>
                           <p
-                            className={`text-sm sm:text-base text-[#64748B] dark:text-slate-300 font-mono pt-1 leading-relaxed max-w-2xl ${
-                              isCentered ? 'mx-auto' : ''
-                            }`}
+                            className={`text-sm sm:text-base text-[#64748B] dark:text-slate-300 font-mono pt-1 leading-relaxed max-w-2xl ${isCentered ? 'mx-auto' : ''
+                              }`}
                           >
                             {previewConfig.settings.user.bio}
                           </p>
@@ -1160,9 +1143,8 @@ export const TemplateGallery: React.FC = () => {
 
                         {/* Metadata Badges */}
                         <div
-                          className={`flex flex-wrap gap-2.5 pt-2 text-xs font-mono font-bold ${
-                            isCentered ? 'justify-center' : 'justify-start'
-                          }`}
+                          className={`flex flex-wrap gap-2.5 pt-2 text-xs font-mono font-bold ${isCentered ? 'justify-center' : 'justify-start'
+                            }`}
                         >
                           {previewConfig.settings.user.location && (
                             <span className="px-3 py-1.5 rounded-xl bg-[#F4F6FB] dark:bg-slate-800 text-[#172033] dark:text-white border border-[#DCE3EF] dark:border-slate-700">
