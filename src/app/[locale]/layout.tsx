@@ -115,7 +115,11 @@ export async function generateMetadata({
       languages,
     },
     verification: {
-      google: ['google6fe900e7443f16a1', 'nH_oO8Fxc76PZpqDg9y4loKj8DNPDL84Zz0zAKgAaSA'],
+      google: [
+        'bz6vQ1AHEnhwY9bON5NOfiVM7B-KtMHPLMENF2JXX9g',
+        'google6fe900e7443f16a1',
+        'nH_oO8Fxc76PZpqDg9y4loKj8DNPDL84Zz0zAKgAaSA',
+      ],
     },
   };
 }
@@ -158,6 +162,7 @@ export default async function RootLayout({
         <link rel="describedby" href="/api/schema" />
         <meta name="ai:ready" content="true" />
         <meta name="ai:agent-skill" content="/.agents/skills/monoforge/SKILL.md" />
+        <meta name="google-site-verification" content="bz6vQ1AHEnhwY9bON5NOfiVM7B-KtMHPLMENF2JXX9g" />
         <meta name="google-site-verification" content="google6fe900e7443f16a1" />
         <script
           type="application/ld+json"
