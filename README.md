@@ -245,7 +245,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Generate MonoForge Telemetry
-        uses: monoforge/MONOFORGE@main
+        uses: yuvraj-thakur-exe/MONOFORGE@main
         with:
           token: ${{ secrets.TELEMETRY_TOKEN }}
           user: ${{ github.repository_owner }}

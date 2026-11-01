@@ -7,7 +7,7 @@ Thank you for your interest in contributing to **MonoForge**! MonoForge is desig
 ## Quickstart
 
 ```bash
-git clone https://github.com/monoforge/monoforge.git
+git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git
 cd monoforge
 corepack enable pnpm
 pnpm install
