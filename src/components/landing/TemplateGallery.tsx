@@ -642,7 +642,7 @@ export const TemplateGallery: React.FC = () => {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
           One-click apply clean, structured templates designed to{' '}
           <span
-            className={`font-black text-slate-950 bg-[#ffe600] px-2 py-0.5 rounded border border-slate-900 shadow-2xs transition-opacity duration-300 ${
+            className={`inline-block whitespace-nowrap font-black text-slate-950 bg-[#ffe600] px-2 py-0.5 rounded border border-slate-900 shadow-2xs transition-opacity duration-300 ${
               fadeKeyword ? 'opacity-100' : 'opacity-0'
             }`}
           >
@@ -652,7 +652,7 @@ export const TemplateGallery: React.FC = () => {
         </p>
 
         {/* Search Bar */}
-        <div className="pt-3 max-w-md mx-auto">
+        <div className="pt-3 w-full max-w-md mx-auto">
           <div className="relative flex items-center">
             <Search className="w-4 h-4 text-slate-500 absolute left-3.5 pointer-events-none" />
             <input
@@ -686,16 +686,18 @@ export const TemplateGallery: React.FC = () => {
               key={cat}
               type="button"
               onClick={() => setActiveCategory(cat)}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-mono font-black border-2 transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold border-2 transition-all cursor-pointer btn-tactile ${
                 isActive
-                  ? 'bg-[#ffe600] text-slate-950 border-slate-900 shadow-[2px_2px_0px_#334155]'
-                  : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-500 hover:text-slate-950 dark:hover:text-white'
+                  ? 'bg-[#ffe600] text-slate-950 border-slate-900 shadow-[2px_2px_0px_#18181b] font-black'
+                  : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-400 hover:text-slate-950 dark:hover:text-white shadow-2xs'
               }`}
             >
               <span className="capitalize">{cat}</span>
               <span
-                className={`text-[10px] px-1.5 py-0.2 rounded font-mono ${
-                  isActive ? 'bg-slate-950 text-white' : 'bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
+                className={`text-[10px] font-mono font-black px-1.5 py-0.5 rounded-md ${
+                  isActive
+                    ? 'bg-slate-950 text-white'
+                    : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600'
                 }`}
               >
                 {count}

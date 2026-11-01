@@ -19,7 +19,6 @@ import { Link } from '#/i18n/navigation';
 import {
   Github,
   BarChart3,
-  Code2,
   Sparkles,
   BookOpen,
   Film,
@@ -115,14 +114,6 @@ export default function HomePage() {
               >
                 <LayoutTemplate className="w-3.5 h-3.5 text-amber-500" />
                 <span>85+ TEMPLATES</span>
-              </Link>
-              <Link
-                href="/developer?mode=editor"
-                onClick={() => playClickSound()}
-                className="hover:text-cyan-600 transition-colors flex items-center gap-1.5"
-              >
-                <Code2 className="w-3.5 h-3.5 text-cyan-500" />
-                <span>DEVELOPER IDE</span>
               </Link>
               <Link
                 href="/developer?mode=telemetry"

@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { Link } from '#/i18n/navigation';
 import {
   Sparkles,
-  Code2,
   Terminal,
   Copy,
   Check,
@@ -277,17 +276,6 @@ export function NomokeyHero() {
                 <span>85+ TEMPLATES</span>
               </Link>
 
-              {/* Raw Mode Monaco Action */}
-              <Link
-                href="/developer?mode=editor"
-                onClick={() => playClickSound()}
-                data-cursor-label="DEV IDE"
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-white hover:bg-neutral-100 text-neutral-950 font-mono text-xs font-bold border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-colors btn-tactile cursor-pointer"
-              >
-                <Code2 className="w-3.5 h-3.5 text-cyan-600" />
-                <span>DEV IDE</span>
-              </Link>
-
               {/* Documentation Website */}
               <Link
                 href="/docs"
@@ -383,7 +371,7 @@ export function NomokeyHero() {
                         <h3 className="text-xl sm:text-2xl font-black font-sans tracking-tight text-neutral-950 dark:text-white uppercase">
                           ALEXANDER FORGE
                         </h3>
-                        <p className="text-xs font-mono text-neutral-700 dark:text-slate-300 leading-relaxed max-w-sm">
+                        <p className="text-xs font-mono text-neutral-700 dark:text-slate-300 leading-relaxed w-full">
                           Architecting distributed systems, zero-dependency CLIs, and 60fps GPU web applications.
                         </p>
                       </div>

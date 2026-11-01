@@ -21,7 +21,6 @@ import {
   History,
   TrendingUp,
   Package,
-  Code2,
   Brain,
   ShoppingBag,
   FolderKanban,
@@ -186,17 +185,6 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               >
                 <Sparkles className="w-4 h-4 text-amber-500" />
                 <span className="font-bold">Visual Studio (Canvas &amp; Drag-and-Drop)</span>
-              </Command.Item>
-
-              <Command.Item
-                onSelect={() => {
-                  router.push('/developer?mode=editor');
-                  setOpen(false);
-                }}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 cursor-pointer transition-colors"
-              >
-                <Code2 className="w-4 h-4 text-cyan-600" />
-                <span className="font-bold">Developer IDE (Monaco Editor &amp; Split Preview)</span>
               </Command.Item>
 
               <Command.Item

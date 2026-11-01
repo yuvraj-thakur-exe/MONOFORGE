@@ -46,8 +46,8 @@ const STEPS = [
     description: 'Inspect live Markdown and 60fps Camo SVGs side-by-side with zero latency before publishing.',
     icon: Eye,
     badge: 'LIVE VIEW',
-    link: '/developer?mode=editor',
-    ctaText: 'View Split Preview',
+    link: '/developer?mode=visual',
+    ctaText: 'View Live Preview',
   },
   {
     step: '05',
@@ -55,7 +55,7 @@ const STEPS = [
     description: 'Review color-coded git diffs and approve changes through a safe, confirmation-gated OAuth commit flow.',
     icon: GitPullRequest,
     badge: 'DIFF SAFE',
-    link: '/developer?mode=editor',
+    link: '/developer?mode=visual',
     ctaText: 'Review Diff Flow',
   },
   {

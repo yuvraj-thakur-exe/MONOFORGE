@@ -305,11 +305,11 @@ export function StudioBento() {
 
             <div className="pt-6">
               <Link
-                href="/developer?mode=editor"
+                href="/developer?mode=visual"
                 onClick={() => playClickSound()}
                 className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-black text-xs font-mono tracking-wider uppercase border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] hover:shadow-[1px_1px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all btn-tactile"
               >
-                <span>Launch /developer Raw Mode</span>
+                <span>Launch Profile Canvas</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>

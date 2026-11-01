@@ -37,7 +37,7 @@ export function HomeBrandLogoEmblem() {
           </span>
         </div>
 
-        <p className="text-xs text-slate-600 dark:text-slate-400 font-mono tracking-wide max-w-xl">
+        <p className="text-xs text-slate-700 dark:text-slate-300 font-mono tracking-wide leading-relaxed w-full">
           Forge a GitHub profile that gets noticed &bull; 60fps Camo CDN vectors &bull; Zero external tracking
         </p>
 

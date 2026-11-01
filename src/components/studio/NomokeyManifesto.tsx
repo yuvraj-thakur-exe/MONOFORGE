@@ -161,7 +161,7 @@ export function NomokeyManifesto() {
             <h4 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white uppercase font-sans">
               LOVE MONOFORGE? STAR THE REPOSITORY!
             </h4>
-            <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 max-w-xl font-medium">
+            <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium leading-relaxed w-full">
               MonoForge is completely free and open-source. Help us empower thousands of developers by giving the repo a star on GitHub.
             </p>
           </div>

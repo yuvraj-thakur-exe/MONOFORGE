@@ -133,7 +133,7 @@ export function TransformationShowcase() {
                     <h2 className="text-2xl sm:text-4xl font-black font-sans tracking-tight text-neutral-950 dark:text-white">
                       ALEXANDER FORGE
                     </h2>
-                    <p className="text-xs sm:text-sm font-mono text-neutral-800 dark:text-slate-200 font-medium max-w-xl leading-relaxed">
+                    <p className="text-xs sm:text-sm font-mono text-neutral-800 dark:text-slate-200 font-medium leading-relaxed w-full">
                       Architecting distributed systems, zero-dependency CLIs, and 60fps GPU web applications.
                     </p>
                   </div>

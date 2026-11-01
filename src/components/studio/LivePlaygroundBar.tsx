@@ -127,7 +127,7 @@ export function LivePlaygroundBar() {
         <div className="space-y-2">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <div className="relative flex-1">
-              <span className="absolute left-3.5 top-3 text-sm font-mono text-slate-500 dark:text-slate-400 font-bold select-none">@</span>
+              <span className="absolute left-3.5 top-3 text-sm font-mono text-slate-700 dark:text-slate-300 font-bold select-none">@</span>
               <input
                 type="text"
                 value={inputVal}
@@ -137,7 +137,7 @@ export function LivePlaygroundBar() {
                   setHasError(false);
                 }}
                 placeholder="github-username"
-                className={`w-full pl-8 pr-4 py-2.5 rounded-xl border-2 bg-white dark:bg-slate-800 text-slate-950 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 font-mono text-sm font-bold shadow-[2px_2px_0px_#334155] dark:shadow-[2px_2px_0px_#475569] focus:outline-hidden ${
+                className={`w-full pl-8 pr-4 py-2.5 rounded-xl border-2 bg-white dark:bg-slate-850 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-400 font-mono text-sm font-bold shadow-[2px_2px_0px_#334155] dark:shadow-[2px_2px_0px_#475569] focus:outline-hidden ${
                   isValidInput
                     ? 'border-slate-300 dark:border-slate-700 focus:border-[#ffe600] dark:focus:border-[#ffe600]'
                     : 'border-red-500 focus:border-red-500 bg-red-50/30'
