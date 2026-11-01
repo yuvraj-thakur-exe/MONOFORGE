@@ -38,7 +38,7 @@ describe('DocsHomePortal', () => {
     expect(screen.getByText(/WHAT MONOFORGE CAN DO & WHAT IT HAS/i)).toBeDefined();
 
     // Secondary navigation modes
-    expect(screen.getByText(/OPEN RAW IDE/i)).toBeDefined();
+    expect(screen.getByText(/47\+ TELEMETRY/i)).toBeDefined();
     expect(screen.getByText(/Vector Animator/i)).toBeDefined();
   });
 

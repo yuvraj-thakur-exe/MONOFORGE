@@ -82,7 +82,7 @@ const STICKERS: StickerItem[] = [
     cardClasses: 'bg-amber-500 text-neutral-950 border-neutral-900 shadow-[5px_5px_0px_#18181b]',
     pillClasses: 'bg-neutral-950 text-white',
     rotation: 'rotate-2',
-    markdown: '[![AST-Safe Monaco](https://img.shields.io/badge/IDE-Monaco_Raw_Mode-d97706?style=for-the-badge&logo=visualstudiocode)](https://monoforge-studio.vercel.app/developer)',
+    markdown: '[![75+ Curated Archetypes](https://img.shields.io/badge/Templates-75+_Archetypes-d97706?style=for-the-badge&logo=github)](https://monoforge-studio.vercel.app/templates)',
   },
 ];
 

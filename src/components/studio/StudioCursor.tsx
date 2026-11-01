@@ -1,12 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { usePathname } from 'next/navigation';
 
 export function StudioCursor() {
-  const pathname = usePathname();
-  const isDeveloperPage = pathname?.includes('/developer');
-
   const [isVisible, setIsVisible] = useState(false);
   const [isTextInput, setIsTextInput] = useState(false);
 
@@ -80,8 +76,8 @@ export function StudioCursor() {
     };
   }, [isVisible]);
 
-  // Don't render on developer studio page, when invisible, or inside code/text editor
-  if (!isVisible || isDeveloperPage || isTextInput) return null;
+  // Don't render when invisible, or inside code/text editor
+  if (!isVisible || isTextInput) return null;
 
   return (
     <>

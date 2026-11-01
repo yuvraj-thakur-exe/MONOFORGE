@@ -128,7 +128,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     if (found) {
       setEntireConfig(found.config);
       toast.success(`Applied template "${found.name}"`);
-      router.push('/developer?mode=visual');
+      router.push('/templates');
     }
     setOpen(false);
   };
@@ -178,18 +178,18 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             <Command.Group heading="Studio Modes" className="text-neutral-500 font-bold px-2 py-1 uppercase text-[10px] tracking-wider">
               <Command.Item
                 onSelect={() => {
-                  router.push('/developer?mode=visual');
+                  router.push('/templates');
                   setOpen(false);
                 }}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 cursor-pointer transition-colors"
               >
-                <Sparkles className="w-4 h-4 text-amber-500" />
-                <span className="font-bold">Visual Studio (Canvas &amp; Drag-and-Drop)</span>
+                <LayoutTemplate className="w-4 h-4 text-amber-500" />
+                <span className="font-bold">Curated Templates (75+ Starters)</span>
               </Command.Item>
 
               <Command.Item
                 onSelect={() => {
-                  router.push('/developer?mode=telemetry');
+                  router.push('/telemetry');
                   setOpen(false);
                 }}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 cursor-pointer transition-colors"
@@ -200,7 +200,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
               <Command.Item
                 onSelect={() => {
-                  router.push('/developer?mode=animator');
+                  router.push('/animator');
                   setOpen(false);
                 }}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 cursor-pointer transition-colors"
@@ -367,7 +367,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                 <Command.Item
                   key={mod.id}
                   onSelect={() => {
-                    router.push(`/developer?mode=telemetry&plugin=${mod.id}`);
+                    router.push('/telemetry');
                     setOpen(false);
                   }}
                   className="flex items-center justify-between px-3 py-2 rounded-lg text-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 cursor-pointer transition-colors"

@@ -255,9 +255,9 @@ export function NomokeyHero() {
             <div className="flex flex-wrap items-center gap-3.5 pt-2">
               {/* Primary Action */}
               <Link
-                href="/developer?mode=visual"
+                href="/templates"
                 onClick={() => playClickSound()}
-                data-cursor-label="STUDIO"
+                data-cursor-label="TEMPLATES"
                 className="group relative inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-black text-sm tracking-wide border-2 border-neutral-900 shadow-[4px_4px_0px_#18181b] hover:shadow-[2px_2px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all duration-150 btn-tactile cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-neutral-950 group-hover:rotate-12 transition-transform" />

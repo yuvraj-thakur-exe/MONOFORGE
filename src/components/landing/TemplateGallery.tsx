@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
-import Link from 'next/link';
 import { useReadmeStore } from '#/store/useReadmeStore';
 import { ReadmeConfig } from '#/lib/plugins/types';
 import { buildMarkdown } from '#/lib/buildMarkdown';
@@ -22,7 +21,6 @@ import {
   Layers,
   Share2,
   Download,
-  ArrowRight,
 } from 'lucide-react';
 
 export { TEMPLATES, type TemplateItem } from '#/lib/templates/catalog';
@@ -630,7 +628,7 @@ export const TemplateGallery: React.FC = () => {
         </h2>
 
         {/* Animated Subtitle */}
-        <p className="text-sm font-mono text-slate-700 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-sm font-mono text-slate-800 dark:text-slate-200 max-w-2xl mx-auto leading-relaxed">
           One-click apply clean, structured templates designed to{' '}
           <span
             className={`inline-block whitespace-nowrap font-black text-slate-950 bg-[#ffe600] px-2 py-0.5 rounded border border-slate-900 shadow-2xs transition-opacity duration-300 ${
@@ -651,7 +649,7 @@ export const TemplateGallery: React.FC = () => {
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Search by archetype, stack, or keyword..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-hidden focus:border-[#ffe600] shadow-[2px_2px_0px_#334155] transition-all"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 text-xs font-mono font-bold text-slate-950 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-hidden focus:border-[#ffe600] shadow-[2px_2px_0px_#334155] transition-all"
             />
             {searchQuery && (
               <button
@@ -680,7 +678,7 @@ export const TemplateGallery: React.FC = () => {
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold border-2 transition-all cursor-pointer btn-tactile ${
                 isActive
                   ? 'bg-[#ffe600] text-slate-950 border-slate-900 shadow-[2px_2px_0px_#18181b] font-black'
-                  : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-400 hover:text-slate-950 dark:hover:text-white shadow-2xs'
+                  : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-slate-400 hover:text-slate-950 dark:hover:text-white shadow-2xs'
               }`}
             >
               <span className="capitalize">{cat}</span>
@@ -688,7 +686,7 @@ export const TemplateGallery: React.FC = () => {
                 className={`text-[10px] font-mono font-black px-1.5 py-0.5 rounded-md ${
                   isActive
                     ? 'bg-slate-950 text-white'
-                    : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600'
+                    : 'bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-600'
                 }`}
               >
                 {count}
@@ -812,21 +810,12 @@ export const TemplateGallery: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => handleOpenPreview(tmpl)}
-                  title="Preview Template"
-                  className="flex items-center justify-center gap-1 px-2 py-2 rounded-xl text-[11px] font-mono font-bold bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border-2 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white shadow-[2px_2px_0px_#334155] transition-all cursor-pointer"
+                  title="Preview Template & Markdown"
+                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-black bg-slate-900 dark:bg-slate-950 hover:bg-[#ffe600] dark:hover:bg-[#ffe600] text-white hover:text-slate-950 dark:hover:text-slate-950 border-2 border-slate-900 dark:border-slate-700 shadow-[2px_2px_0px_#334155] transition-all cursor-pointer btn-tactile"
                 >
-                  <Eye className="w-3 h-3" />
+                  <Eye className="w-3.5 h-3.5" />
                   <span>Preview</span>
                 </button>
-
-                <Link
-                  href={`/developer?template=${tmpl.id}&mode=visual`}
-                  title="Open in All-in-One Studio"
-                  className="flex items-center justify-center gap-1 px-2 py-2 rounded-xl text-[11px] font-mono font-black bg-slate-900 dark:bg-slate-950 hover:bg-[#ffe600] dark:hover:bg-[#ffe600] text-white hover:text-slate-950 dark:hover:text-slate-950 border-2 border-slate-900 dark:border-slate-700 shadow-[2px_2px_0px_#334155] transition-all cursor-pointer"
-                >
-                  <span>Studio</span>
-                  <ArrowRight className="w-3 h-3" />
-                </Link>
               </div>
             </div>
           );
@@ -1280,15 +1269,6 @@ export const TemplateGallery: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                <Link
-                  href={`/developer?template=${previewTemplate.id}&mode=visual`}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-neutral-950 hover:bg-[#ffe600] hover:text-neutral-950 text-white font-mono text-xs font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] transition-all"
-                  title="Customize directly in All-in-One Studio"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-[#ffe600]" />
-                  <span>Open in Studio</span>
-                </Link>
-
                 <button
                   type="button"
                   onClick={handleMergeFromPreview}

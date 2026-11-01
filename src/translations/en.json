@@ -519,8 +519,8 @@
       "subtitle": "Everything you need to design, customize, and maintain your GitHub presence without fragile markdown hacks.",
       "wizardTitle": "6-Step Interactive Wizard",
       "wizardDesc": "Step-by-step guidance for identity, vibe, tech stacks, stats, dynamic widgets, and socials with real-time feedback.",
-      "monacoTitle": "Monaco /developer IDE",
-      "monacoDesc": "Split-screen raw JSON configuration editor backed by Monaco, real-time Zod schema validation, and instant side-by-side markdown view.",
+      "monacoTitle": "Curated Archetypes",
+      "monacoDesc": "75+ production-tested developer profile templates with live Camo SVG animations and instant copy-paste markdown.",
       "pluginsTitle": "8+ Curated OSS Plugins",
       "pluginsDesc": "Zero-friction integration with GitHub stats cards, contribution snakes, typing lines, trophies, WakaTime, and visitor counters.",
       "enrichmentTitle": "Confirmation-Gated Enrichment",
@@ -559,9 +559,9 @@
     },
     "developerMode": {
       "badge": "Power-User Route",
-      "title": "Prefer Raw JSON? Use /developer",
+      "title": "Explore 75+ Templates",
       "subtitle": "A dedicated IDE workspace for developers who want full schema control, instant syntax validation, and live Markdown output.",
-      "cta": "Open /developer IDE"
+      "cta": "Browse Templates"
     },
     "faq": {
       "title": "Frequently Asked Questions",

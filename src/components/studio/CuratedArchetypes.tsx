@@ -127,7 +127,7 @@ export function CuratedArchetypes() {
 
               <div className="pt-6 mt-6 border-t-2 border-slate-200 dark:border-slate-700 flex items-center justify-between">
                 <Link
-                  href={`/developer?template=${arch.id}&mode=visual`}
+                  href="/templates"
                   onClick={() => playClickSound()}
                   className="w-full justify-center px-3.5 py-2 rounded-xl bg-[#ffe600] text-slate-950 text-xs font-mono font-black border-2 border-slate-900 shadow-[2px_2px_0px_#334155] hover:bg-[#ffdf00] inline-flex items-center gap-1.5 transition-all btn-tactile"
                 >

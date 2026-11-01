@@ -144,10 +144,9 @@ http://localhost:3000/en
 
 ## Step 4: Forge Your Profile
 
-1. Click **All-in-One Studio** in the top navigation bar or navigate directly to \`/developer\`.
-2. Select your preferred mode:
-   - **Visual Studio**: Interactive cards for personal bio, social badges, and project highlights.
-   - **Monaco IDE**: Direct markdown editing with live split preview.
+1. Click **Templates** in the top navigation bar or navigate directly to \`/templates\`.
+2. Select your preferred engine:
+   - **Templates Showcase**: 75+ battle-tested developer archetypes.
    - **Telemetry Studio**: Configure and drop in any of the 47+ telemetry engines.
    - **SVG Animator**: Customize animated vector characters and ambient banners.
 
@@ -518,13 +517,13 @@ The Diagnostics HUD validates:
       { id: 'customizing-user-profile', title: 'User Profile & Identity Fields', level: 2 },
     ],
     content: `
-## Accessing Visual Studio
+## Accessing Curated Starters
 
-Access the Visual Studio at:
+Access the curated starter templates at:
 \`\`\`
-http://localhost:3000/en/developer?mode=visual
+http://localhost:3000/en/templates
 \`\`\`
-Or click **All-in-One Studio** in the navigation header and select the **Visual Studio** tab in the top workspace bar.
+Or click **Templates** in the navigation header to browse 75+ production-ready archetypes.
 
 ---
 
@@ -556,54 +555,43 @@ Inside the **Blocks** tab of the side panel:
 `,
   },
   {
-    slug: 'guides/developer-ide',
-    title: 'Developer IDE (Monaco Split Mode)',
-    description: 'Master the raw Monaco editor with live split preview, hotkeys, AST validation, and custom CSS/HTML.',
+    slug: 'guides/templates-engine',
+    title: 'Curated Templates & Archetypes Engine',
+    description: 'Master the 75+ battle-tested developer profile templates with live Camo SVG animations and 1-click Markdown export.',
     category: 'Usage Guides',
     categoryOrder: 3,
     order: 2,
-    badge: 'Pro Mode',
+    badge: '75+ Starters',
     headings: [
-      { id: 'monaco-capabilities', title: 'Monaco Editor Capabilities', level: 2 },
-      { id: 'keyboard-shortcuts', title: 'Keyboard Shortcuts', level: 2 },
-      { id: 'split-screen-preview', title: 'Live Split-Screen Preview', level: 2 },
-      { id: 'ast-schema-safety', title: 'AST Schema Safety', level: 2 },
+      { id: 'archetypes-catalog', title: '75+ Archetypes Catalog', level: 2 },
+      { id: 'camo-svg-compliance', title: 'GitHub Camo SVG Compliance', level: 2 },
+      { id: 'customizing-markdown', title: 'Customizing Markdown Sections', level: 2 },
+      { id: 'instant-export', title: 'Instant 1-Click Export', level: 2 },
     ],
     content: `
-## Monaco Editor Capabilities
+## 75+ Archetypes Catalog
 
-For developers who prefer writing raw markdown with high-speed tactile feedback, MonoForge provides a complete Monaco Editor integration (the engine powering Visual Studio Code).
+MonoForge provides an extensive collection of 75+ production-tested developer profile templates tailored for systems architects, full-stack engineers, cloud specialists, and open-source leads.
 
 Key features:
-- **Full Markdown Syntax Highlighting**: GFM table formatting, HTML tag coloring, and fenced code blocks.
-- **Minimap & Line Numbers**: Fluid navigation across large profile files.
-- **Auto-Closing Tags & Brackets**: Fast typing experience for complex tables and HTML wrappers.
+- **Tailored Personas**: Handcrafted aesthetic themes from Cyber Terminal HUD to Swiss Typographer.
+- **Dynamic Telemetry Previews**: Pre-integrated commit velocity, streak stats, and tech donuts.
+- **1-Click Copy & Download**: Ready to deploy directly to your GitHub repository in under 60 seconds.
 
 ---
 
-## Keyboard Shortcuts
+## GitHub Camo SVG Compliance
 
-| Shortcut | Action | Description |
-| :--- | :--- | :--- |
-| \`Ctrl + S\` / \`Cmd + S\` | **Save & Compile** | Re-parses AST and writes configuration to store |
-| \`Ctrl + K\` / \`Cmd + K\` | **Command Palette** | Opens global commands, shortcuts, and navigation |
-| \`Ctrl + Shift + D\` | **Diagnostics HUD** | Toggles the real-time system diagnostics modal |
-| \`Alt + Up / Down\` | **Move Line** | Moves selected markdown lines up or down |
+Every asset strictly adheres to GitHub Camo image proxy sanitization standards:
+- **Zero JavaScript**: 100% hardware-accelerated CSS keyframe animations.
+- **System Font Fallbacks**: Seamless rendering across all devices and operating systems.
+- **Adaptive Themes**: Dynamic contrast support for light and dark modes.
 
 ---
 
-## Live Split-Screen Preview
+## Instant 1-Click Export
 
-The right-hand pane renders GitHub-equivalent markdown in real time:
-- Uses GitHub CSS rules to mimic the exact styling of \`github.com\`.
-- Evaluates raw HTML containers (\`<div align="center">\`, \`<table>\`, \`<img>\`).
-- Automatically updates as you type with zero noticeable lag.
-
----
-
-## AST Schema Safety
-
-When editing in Monaco mode, MonoForge continuously validates the document structure against the strict Zod configuration schema. If an invalid or unparseable block is introduced, the live preview highlights the error without corrupting your profile state.
+Copy the generated markdown or download a ready-to-commit README.md file directly from the template preview drawer.
 `,
   },
   {
@@ -1407,7 +1395,7 @@ export const pluginRegistry: Plugin[] = [
 
 ## Step 4: Verify in Studio
 
-Launch \`pnpm dev\` and navigate to \`/developer\`. Your new plugin will immediately appear in the **Plugins** panel, ready for 1-click addition to any profile!
+Launch \`pnpm dev\` and navigate to \`/telemetry\`. Your new plugin will immediately appear in the telemetry catalog, ready for 1-click export!
 `,
   },
   {

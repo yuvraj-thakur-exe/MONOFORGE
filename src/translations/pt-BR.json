@@ -520,8 +520,8 @@
       "subtitle": "Tudo o que você precisa para desenhar, personalizar e manter sua presença no GitHub sem gambiarras.",
       "wizardTitle": "Assistente Visual em 6 Etapas",
       "wizardDesc": "Guia passo a passo para identidade, estilo visual, stacks, estatísticas, widgets dinâmicos e redes sociais com feedback em tempo real.",
-      "monacoTitle": "IDE Monaco em /developer",
-      "monacoDesc": "Editor JSON com tela dividida alimentado por Monaco, validação de schema Zod em tempo real e visualização lado a lado de Markdown.",
+      "monacoTitle": "Curated Archetypes",
+      "monacoDesc": "75+ production-tested developer profile templates with live Camo SVG animations and instant copy-paste markdown.",
       "pluginsTitle": "8+ Plugins Open-Source Curados",
       "pluginsDesc": "Integração direta com cards de estatísticas do GitHub, jogo da cobrinha, linhas de digitação, troféus, WakaTime e contador de visitas.",
       "enrichmentTitle": "Enriquecimento com Confirmação Obrigatória",
@@ -560,9 +560,9 @@
     },
     "developerMode": {
       "badge": "Rota para Usuários Avançados",
-      "title": "Prefere JSON Puro? Use /developer",
+      "title": "Explorar 75+ Modelos",
       "subtitle": "Um ambiente IDE dedicado para desenvolvedores que desejam controle total de schema, validação instantânea e Markdown em tempo real.",
-      "cta": "Abrir IDE /developer"
+      "cta": "Explorar Modelos"
     },
     "faq": {
       "title": "Perguntas Frequentes",

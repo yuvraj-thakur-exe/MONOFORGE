@@ -171,14 +171,12 @@ export default async function RootLayout({
               operatingSystem: 'All',
               url: config.general.urls.app,
               description:
-                'AI-native GitHub profile README studio and precision telemetry engine featuring visual studio, raw Monaco /developer IDE, Camo-safe SVG animations, and zero-drift plugin registry.',
+                'AI-native GitHub profile README engine featuring 75+ curated archetypes, 47+ live telemetry plugins, Camo-safe 60fps SVG animations, and zero-drift plugin architecture.',
               featureList: [
                 'GitHub Profile README Generator',
-                'Visual Studio with Real-time Preview',
-                'Developer Raw Mode Monaco IDE',
-                '47+ Scraped Telemetry Engines',
+                '75+ Curated Starter Archetypes',
+                '47+ Live Telemetry Engines',
                 'Camo-safe 60fps Vector Animations',
-                'Interactive Cyber Monkey Companion',
                 'Direct Authenticated GitHub Push with Diff Preview',
               ],
               offers: {

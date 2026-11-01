@@ -6,5 +6,5 @@ export default async function LocalizedCanvasPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  redirect(`/${locale}/docs/guides/visual-studio`);
+  redirect(`/${locale}/templates`);
 }

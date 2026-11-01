@@ -1,5 +1,10 @@
-import { ResultTemplate } from '#/components/templates/result';
+import { redirect } from 'next/navigation';
 
-export default function ResultPage() {
-  return <ResultTemplate />;
+export default async function LocalizedResultPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  redirect(`/${locale}/templates`);
 }

@@ -114,17 +114,17 @@ const CAPABILITIES: CapabilityFeature[] = [
     id: 'store',
     badge: 'SINGLE STORE',
     title: 'Single Zustand Source-of-Truth',
-    tagline: 'Seamless Transition Between Visual Wizard & Monaco Raw Editor',
+    tagline: 'Deterministic Markdown Engine with Zero State Loss',
     description:
-      'Never lose edits when switching between modes. The visual Wizard and raw Monaco `/developer` editor both bind to the exact same Zustand store. The pure `buildMarkdown(config)` pipeline guarantees deterministic rendering.',
-    metrics: ['Zero Parallel State', 'Pure Function Compiler', 'Dual-Mode Editor'],
+      'The pure buildMarkdown(config) pipeline guarantees deterministic rendering. 75+ templates and 47+ telemetry plugins produce instant Camo-safe markdown outputs.',
+    metrics: ['Zero Parallel State', 'Pure Function Compiler', 'Deterministic AST'],
     specs: [
       { label: 'State Engine', value: 'Zustand 5' },
-      { label: 'Editor', value: 'Monaco Editor AST' },
+      { label: 'Compiler', value: 'Pure TypeScript AST' },
       { label: 'Validation', value: 'Zod Config Schema' },
     ],
-    ctaText: 'OPEN DEVELOPER MODE',
-    ctaHref: '/developer',
+    ctaText: 'EXPLORE TEMPLATES',
+    ctaHref: '/templates',
     previewType: 'store',
   },
 ];

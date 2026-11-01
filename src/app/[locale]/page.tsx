@@ -19,7 +19,6 @@ import { Link } from '#/i18n/navigation';
 import {
   Github,
   BarChart3,
-  Sparkles,
   BookOpen,
   Film,
   LayoutTemplate,
@@ -100,14 +99,6 @@ export default function HomePage() {
 
             <div className="flex flex-wrap items-center gap-4 text-xs font-mono font-black text-neutral-950">
               <Link
-                href="/developer?mode=visual"
-                onClick={() => playClickSound()}
-                className="hover:text-amber-600 transition-colors flex items-center gap-1.5"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                <span>PROFILE BUILDER</span>
-              </Link>
-              <Link
                 href="/templates"
                 onClick={() => playClickSound()}
                 className="hover:text-amber-600 transition-colors flex items-center gap-1.5"
@@ -116,7 +107,7 @@ export default function HomePage() {
                 <span>75+ TEMPLATES</span>
               </Link>
               <Link
-                href="/developer?mode=telemetry"
+                href="/telemetry"
                 onClick={() => playClickSound()}
                 className="hover:text-emerald-600 transition-colors flex items-center gap-1.5"
               >

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Link } from '#/i18n/navigation';
 import {
   BarChart3,
-  Code2,
+  LayoutTemplate,
   ShieldCheck,
   Terminal,
   Zap,
@@ -75,7 +75,7 @@ export function StudioBento() {
                 </div>
 
                 <Link
-                  href="/developer?mode=telemetry"
+                  href="/telemetry"
                   onClick={() => playClickSound()}
                   className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#ffe600] text-neutral-950 border-2 border-neutral-900 text-xs font-mono font-black shadow-[2px_2px_0px_#18181b] hover:translate-x-[1px] hover:translate-y-[1px] transition-all btn-tactile"
                 >
@@ -262,54 +262,57 @@ export function StudioBento() {
             </div>
           </div>
 
-          {/* Bento Card 2: Monaco IDE Raw Mode (5 cols) */}
+          {/* Bento Card 2: Curated Archetypes (5 cols) */}
           <div className="md:col-span-5 rounded-2xl border-2 border-neutral-900 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 sm:p-8 shadow-[4px_4px_0px_#18181b] dark:shadow-[4px_4px_0px_#334155] flex flex-col justify-between">
             <div className="space-y-4">
               <div className="flex items-center gap-2.5">
                 <div className="p-2 rounded-lg bg-[#ffe600] text-neutral-950 border-2 border-neutral-900 font-bold shadow-[2px_2px_0px_#18181b]">
-                  <Code2 className="w-5 h-5" />
+                  <LayoutTemplate className="w-5 h-5 text-neutral-950" />
                 </div>
                 <div>
                   <h3 className="font-black text-lg text-neutral-950 dark:text-white uppercase font-sans">
-                    /developer Monaco IDE
+                    75+ Curated Archetypes
                   </h3>
                   <p className="text-xs font-mono text-neutral-500 dark:text-slate-400 font-bold">
-                    AST-Safe JSON &bull; Real-time Preview &bull; Schema Validated
+                    Zero Setup &bull; Instant Markdown &bull; Camo-Ready
                   </p>
                 </div>
               </div>
 
               <p className="text-xs text-neutral-700 dark:text-slate-300 font-mono leading-relaxed">
-                Power users don&apos;t want handholding. Open full-screen Monaco Editor with live AST linting, autocomplete, and split rendered markdown.
+                Skip blank-page paralysis. Select from 75+ production-tested profile archetypes designed to demand recruiter attention and highlight your true tech stack.
               </p>
 
-              {/* Monaco Mockup Box */}
+              {/* Archetypes Preview Mini-Box */}
               <div className="rounded-xl border-2 border-neutral-900 dark:border-slate-800 bg-neutral-950 text-neutral-200 p-4 font-mono text-[11px] leading-relaxed overflow-hidden">
                 <div className="flex items-center justify-between pb-2 mb-2 border-b border-neutral-800 text-[10px] text-neutral-500 font-bold">
-                  <span>monoforge-config.json</span>
-                  <span className="text-emerald-400">ZOD VALIDATED</span>
+                  <span>monoforge-templates</span>
+                  <span className="text-amber-400">76 READY TO SHIP</span>
                 </div>
-                <pre className="text-cyan-300">
-                  {`{
-  "title": "MonoForge Profile",
-  "theme": "light",
-  "accent": "#f59e0b",
-  "archetype": "cyber-monkey-hud",
-  "telemetry": [
-    "isocalendar", "habits", "languages"
-  ]
-}`}
-                </pre>
+                <div className="space-y-1.5 text-slate-300 text-[11px]">
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                    <span>Cyber Monkey Terminal HUD</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                    <span>3D Isometric Skyline Polyglot</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    <span>Pixel Craftsman Dual-Monitor Desk</span>
+                  </div>
+                </div>
               </div>
             </div>
 
             <div className="pt-6">
               <Link
-                href="/developer?mode=visual"
+                href="/templates"
                 onClick={() => playClickSound()}
                 className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-black text-xs font-mono tracking-wider uppercase border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] hover:shadow-[1px_1px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all btn-tactile"
               >
-                <span>Launch Profile Canvas</span>
+                <span>Browse Curated Starters</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -330,7 +333,7 @@ export function StudioBento() {
             </div>
 
             <Link
-              href="/developer?mode=animator"
+              href="/animator"
               onClick={() => playClickSound()}
               className="mt-6 inline-flex items-center justify-between text-xs font-mono font-black text-neutral-950 dark:text-amber-400 hover:text-amber-600 transition-colors pt-3 border-t-2 border-neutral-900 dark:border-slate-800 btn-tactile"
             >

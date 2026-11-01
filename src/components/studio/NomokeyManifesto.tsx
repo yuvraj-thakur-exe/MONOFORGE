@@ -23,7 +23,7 @@ const FAQS: FaqItem[] = [
   {
     question: 'Do I need coding knowledge?',
     answer:
-      'No. You can use the Visual Studio wizard to craft layouts with guided drag-and-drop options. Developers who prefer direct configuration editing can jump into the Monaco-powered /developer raw IDE.',
+      'No. You can select from 75+ battle-tested curated archetypes, customize 47+ live telemetry metrics, and craft 60fps vector SVGs with 1-click copy-paste precision.',
   },
   {
     question: 'Can I use the generated components in my GitHub README?',
@@ -87,7 +87,7 @@ export function NomokeyManifesto() {
             <div className="space-y-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-[2px_2px_0px_#334155]">
               <span className="text-emerald-600 dark:text-emerald-400 font-black block text-sm">03 / VELOCITY</span>
               <p>
-                From raw JSON in /developer to one-click confirmed GitHub commit in under 60 seconds. Precision tooling without friction.
+                From curated archetype selection to one-click confirmed GitHub commit in under 60 seconds. Precision tooling without friction.
               </p>
             </div>
           </div>

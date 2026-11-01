@@ -47,7 +47,7 @@ describe('RouteLoadingIndicator (Separate Page Loading Animation)', () => {
     expect(screen.queryByText('PAGE LOADING')).toBeNull();
 
     // Trigger another route change
-    mockPathname.mockReturnValue('/developer');
+    mockPathname.mockReturnValue('/templates');
     rerender(<RouteLoadingIndicator />);
     expect(screen.getByText('PAGE LOADING')).toBeDefined();
   });

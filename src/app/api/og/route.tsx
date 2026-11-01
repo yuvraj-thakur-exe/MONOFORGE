@@ -87,7 +87,7 @@ export async function GET(req: NextRequest) {
               maxWidth: '750px',
             }}
           >
-            Zero Monkey Business · Monaco /developer Mode · 47+ Telemetry Plugins · Camo Vector SVGs
+            Zero Monkey Business · 75+ Curated Archetypes · 47+ Telemetry Plugins · Camo Vector SVGs
           </div>
 
           {/* Footer handle */}

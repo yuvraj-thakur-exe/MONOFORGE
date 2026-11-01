@@ -11,6 +11,7 @@ import {
   Cpu,
   Github,
   Code2,
+  BarChart3,
   Zap,
   Lock,
   Sparkles,
@@ -151,7 +152,7 @@ export function DocsHomePortal() {
               {/* Mega Primary Launchpad Button */}
               <div className="pt-2 flex flex-col sm:flex-row items-center sm:items-start gap-4">
                 <Link
-                  href="/wizard"
+                  href="/templates"
                   onClick={() => playClickSound()}
                   className="btn-shimmer w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-sm sm:text-base border-2 border-amber-500 shadow-xl hover:shadow-2xl active:scale-95 transition-all cursor-pointer font-sans tracking-wide"
                 >
@@ -161,12 +162,12 @@ export function DocsHomePortal() {
                 </Link>
 
                 <Link
-                  href="/developer"
+                  href="/telemetry"
                   onClick={() => playClickSound()}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold text-sm border border-slate-200 dark:border-slate-700 shadow-sm hover:border-amber-400 hover:bg-slate-50 dark:hover:bg-slate-750 transition-all cursor-pointer font-mono"
                 >
-                  <Code2 className="w-4 h-4 text-indigo-500" />
-                  <span>OPEN RAW IDE</span>
+                  <BarChart3 className="w-4 h-4 text-emerald-500" />
+                  <span>47+ TELEMETRY</span>
                 </Link>
 
                 <GitHubStarButton className="h-[52px] px-5 py-3 rounded-2xl border border-slate-800 shadow-md shrink-0" />
