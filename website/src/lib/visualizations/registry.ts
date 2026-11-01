@@ -1,6 +1,7 @@
 import { VisualizationManifest, VisualizationId } from './types';
 
 export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManifest> = {
+  // --- A. Contributor Activity Visualizations ---
   'commit-city': {
     id: 'commit-city',
     name: 'Commit City',
@@ -79,6 +80,60 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
   },
+  'commit-waterfall': {
+    id: 'commit-waterfall',
+    name: 'Commit Waterfall',
+    tagline: 'Cascading Gravity-Driven Stream',
+    category: 'activity',
+    description:
+      'Vertical physics-accelerated data cascade where commit droplets tumble across project ledges into high-volume sprint reservoirs.',
+    badge: 'Physics Fluid',
+    accent: '#06b6d4',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'contribution-topography': {
+    id: 'contribution-topography',
+    name: 'Contribution Topography',
+    tagline: 'Elevation Contour Terrain Map',
+    category: 'activity',
+    description:
+      'Constructs topographical elevation contours across your annual coding calendar, creating mountain peaks from relentless commit consistency.',
+    badge: 'Topographic GIS',
+    accent: '#10b981',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'coding-weather': {
+    id: 'coding-weather',
+    name: 'Coding Weather',
+    tagline: 'Dynamic Atmospheric Conditions',
+    category: 'activity',
+    description:
+      'Synthesizes dynamic meteorological scenes — thunderstorms during major releases, golden sunshine during steady sprints, and auroras during weekend hacks.',
+    badge: 'Atmospheric Scene',
+    accent: '#6366f1',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'developer-seasons': {
+    id: 'developer-seasons',
+    name: 'Developer Seasons',
+    tagline: 'Quarterly Ecology & Foliage Cycles',
+    category: 'activity',
+    description:
+      'Maps four quarters of open-source momentum to spring blooms, summer growth, autumn harvests, and winter deep-focus architecture cycles.',
+    badge: 'Ecological Cycle',
+    accent: '#84cc16',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+
+  // --- B. Repository Universe & Architecture ---
   'repository-galaxy': {
     id: 'repository-galaxy',
     name: 'Repository Galaxy',
@@ -92,6 +147,125 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
   },
+  'project-constellation': {
+    id: 'project-constellation',
+    name: 'Project Constellation',
+    tagline: 'Interconnected Stellar Graph',
+    category: 'repository',
+    description:
+      'Connects your public repositories as celestial stars linked by shared libraries, shared monorepo packages, and cross-repo dependencies.',
+    badge: 'Stellar Graph',
+    accent: '#a855f7',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'codebase-blueprint': {
+    id: 'codebase-blueprint',
+    name: 'Codebase Blueprint',
+    tagline: 'Engineering Schematic Blueprint',
+    category: 'repository',
+    description:
+      'Renders an explorable cyan architectural blueprint displaying directory topologies, data contracts, and microservice boundaries.',
+    badge: 'Technical Blueprint',
+    accent: '#0284c7',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'language-river': {
+    id: 'language-river',
+    name: 'Language River',
+    tagline: 'Polyglot Stream Composition',
+    category: 'repository',
+    description:
+      'A multi-hued flowing river tracking your polyglot code composition over time, showing how your balance between TypeScript, Rust, Python, and Go evolves.',
+    badge: 'Multi-Stream',
+    accent: '#ec4899',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'tech-stack-solar-system': {
+    id: 'tech-stack-solar-system',
+    name: 'Tech Stack Solar System',
+    tagline: 'Gravitational Core & Satellite Moons',
+    category: 'repository',
+    description:
+      'Your primary language forms a radiant sun, with satellite moons orbiting at distances determined by frequency of framework, database, and devops tool usage.',
+    badge: 'Gravitational Orbit',
+    accent: '#f97316',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'release-timeline': {
+    id: 'release-timeline',
+    name: 'Release Timeline',
+    tagline: 'Milestone Subway Transit Map',
+    category: 'repository',
+    description:
+      'Arranges repository releases, tags, semantic versions, and changelogs along a high-speed metro transit line with illuminated station nodes.',
+    badge: 'Transit Map',
+    accent: '#14b8a6',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'repository-tree': {
+    id: 'repository-tree',
+    name: 'Repository Tree',
+    tagline: 'Botanical Architectural Branching',
+    category: 'repository',
+    description:
+      'Visualizes modular repository architectures as organic trees where branches represent source packages and leaves represent merged feature branches.',
+    badge: 'Botanical Tree',
+    accent: '#22c55e',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'commit-constellation': {
+    id: 'commit-constellation',
+    name: 'Commit Constellation',
+    tagline: 'Chronological Stellar Starfield',
+    category: 'repository',
+    description:
+      'Deep-space astrophotography starfield where star brightness and color coordinates directly encode commit volume and programming language.',
+    badge: 'Stellar Nebula',
+    accent: '#c084fc',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'code-impact-map': {
+    id: 'code-impact-map',
+    name: 'Code Impact Map',
+    tagline: 'Global Velocity Heat Intensity',
+    category: 'repository',
+    description:
+      'Chronological radar display that isolates high-impact architectural pull requests, refactors, and critical performance milestones.',
+    badge: 'Radar Intensity',
+    accent: '#ef4444',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'collaboration-network': {
+    id: 'collaboration-network',
+    name: 'Collaboration Network',
+    tagline: 'Force-Directed Peer Social Graph',
+    category: 'repository',
+    description:
+      'Force-directed organic network illustrating co-contributor clusters, reviewed PR bonds, and open-source relationships.',
+    badge: 'Social Graph',
+    accent: '#3b82f6',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+
+  // --- C. Developer DNA & Verified Skill Systems ---
   'developer-dna': {
     id: 'developer-dna',
     name: 'Developer DNA',
@@ -101,6 +275,32 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
       'A rotating 3D double-helix genetic strand where base-pair rungs are mapped to verified programming language ratios and repository architectural traits.',
     badge: 'Biometric Helix',
     accent: '#ec4899',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'engineering-radar': {
+    id: 'engineering-radar',
+    name: 'Engineering Radar',
+    tagline: 'Hexagonal Competency Polygon',
+    category: 'skills',
+    description:
+      'A multi-axis polygon evaluating Frontend, Backend, Systems, Cloud, AI, and Tooling capabilities supported strictly by verified repository evidence.',
+    badge: 'Hexagonal Radar',
+    accent: '#f59e0b',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'skill-tree': {
+    id: 'skill-tree',
+    name: 'Skill Tree',
+    tagline: 'RPG Talent Matrix & Mastery Nodes',
+    category: 'skills',
+    description:
+      'Game-inspired talent tree showing mastered languages, framework mastery tiers, and active learning questlines.',
+    badge: 'RPG Skill Tree',
+    accent: '#eab308',
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
@@ -118,7 +318,84 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
   },
+  'project-dna': {
+    id: 'project-dna',
+    name: 'Project DNA',
+    tagline: 'Architecture Comparative Barcode',
+    category: 'identity',
+    description:
+      'Side-by-side genetic barcodes contrasting the complexity, dependency footprint, and test ratio of your top open-source repositories.',
+    badge: 'Genetic Barcode',
+    accent: '#d946ef',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'opensource-footprints': {
+    id: 'opensource-footprints',
+    name: 'Open Source Footprints',
+    tagline: 'Luminescent Contributor Trails',
+    category: 'identity',
+    description:
+      'Traces glowing path coordinates representing upstream pull requests, issue triage, and open-source ecosystem contributions.',
+    badge: 'Path Tracer',
+    accent: '#10b981',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'pr-flightpath': {
+    id: 'pr-flightpath',
+    name: 'PR Flight Path',
+    tagline: 'Curved Ballistic Pull Request Arcs',
+    category: 'identity',
+    description:
+      'Simulates pull requests as glowing ballistic arcs launched from feature branches, navigating CI checks, and landing gracefully at the main merge point.',
+    badge: 'Ballistic Arcs',
+    accent: '#0ea5e9',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'issue-garden': {
+    id: 'issue-garden',
+    name: 'Issue Garden',
+    tagline: 'Generative Botanical Flora Garden',
+    category: 'identity',
+    description:
+      'A serene botanical garden where reported issues sprout as saplings and bloom into vibrant flowering vector plants upon successful PR resolution.',
+    badge: 'Generative Flora',
+    accent: '#84cc16',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'year-in-code': {
+    id: 'year-in-code',
+    name: 'Year in Code',
+    tagline: 'Cinematic Annual Recap Story',
+    category: 'identity',
+    description:
+      'Cinematic retrospective timeline framing your highest commit day, longest streak, flagship repository launch, and polyglot growth.',
+    badge: 'Cinematic Story',
+    accent: '#f43f5e',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
+  'developer-timeline': {
+    id: 'developer-timeline',
+    name: 'Developer Timeline',
+    tagline: 'Chronological Career Journey',
+    category: 'identity',
+    description:
+      'Clean chronological trajectory plotting career milestones, shipped open-source packages, publications, and engineering evolution.',
+    badge: 'Chronological Track',
+    accent: '#a855f7',
+    supportsCanvas: true,
+    supportsSvg: true,
+    exportFormats: ['svg', 'png', 'markdown', 'embed'],
+  },
 };
 
 export const ALL_VISUALIZATION_IDS = Object.keys(VISUALIZATION_REGISTRY) as VisualizationId[];
-

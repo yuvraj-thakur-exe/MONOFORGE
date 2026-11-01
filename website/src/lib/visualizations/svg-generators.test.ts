@@ -10,6 +10,13 @@ import {
   generateRepositoryGalaxySvg,
   generateDeveloperDnaSvg,
   generateSkillConstellationSvg,
+  generateEngineeringRadarSvg,
+  generateCodebaseBlueprintSvg,
+  generateLanguageRiverSvg,
+  generateReleaseTimelineSvg,
+  generateTechStackSolarSystemSvg,
+  generateSynthwaveBentoSvg,
+  generateNeofetchTerminalSvg,
 } from './svg-generators';
 
 describe('MonoForge 3.0 Signature Visualization SVG Generators', () => {
@@ -25,6 +32,13 @@ describe('MonoForge 3.0 Signature Visualization SVG Generators', () => {
     { name: 'Repository Galaxy', fn: generateRepositoryGalaxySvg },
     { name: 'Developer DNA', fn: generateDeveloperDnaSvg },
     { name: 'Skill Constellation', fn: generateSkillConstellationSvg },
+    { name: 'Engineering Radar', fn: generateEngineeringRadarSvg },
+    { name: 'Codebase Blueprint', fn: generateCodebaseBlueprintSvg },
+    { name: 'Language River', fn: generateLanguageRiverSvg },
+    { name: 'Release Timeline', fn: generateReleaseTimelineSvg },
+    { name: 'Tech Stack Solar System', fn: generateTechStackSolarSystemSvg },
+    { name: 'Synthwave Bento', fn: generateSynthwaveBentoSvg },
+    { name: 'Neofetch Terminal', fn: generateNeofetchTerminalSvg },
   ];
 
   generators.forEach(({ name, fn }) => {

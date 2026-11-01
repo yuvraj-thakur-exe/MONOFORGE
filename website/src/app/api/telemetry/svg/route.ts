@@ -21,7 +21,16 @@ import {
   generateRepositoryGalaxySvg,
   generateDeveloperDnaSvg,
   generateSkillConstellationSvg,
+  generateEngineeringRadarSvg,
+  generateCodebaseBlueprintSvg,
+  generateLanguageRiverSvg,
+  generateReleaseTimelineSvg,
+  generateTechStackSolarSystemSvg,
+  generateSynthwaveBentoSvg,
+  generateNeofetchTerminalSvg,
+  generateUniversalVisualizationSvg,
 } from '#/lib/visualizations/svg-generators';
+import { ALL_VISUALIZATION_IDS } from '#/lib/visualizations/registry';
 import { buildSyntheticDeveloperIdentity } from '#/lib/visualizations/data-engine';
 import { fetchUserContributions } from '#/lib/github/contributions';
 import { VisualizationTheme } from '#/lib/visualizations/types';
@@ -174,7 +183,7 @@ export async function GET(request: NextRequest) {
 
     case 'yearclock':
     case 'clock':
-    case 'radar': {
+    case 'radial': {
       const identity = buildSyntheticDeveloperIdentity(user);
       const theme = (searchParams.get('theme') || 'amber') as VisualizationTheme;
       svgContent = generateYearClockSvg(identity, { theme });
@@ -235,9 +244,82 @@ export async function GET(request: NextRequest) {
       break;
     }
 
-    default:
-      svgContent = generateIsocalendarSvg({ username: user });
+    case 'radar':
+    case 'engineeringradar': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'emerald') as VisualizationTheme;
+      svgContent = generateEngineeringRadarSvg(identity, { theme });
       break;
+    }
+
+    case 'blueprint':
+    case 'schematic':
+    case 'codebaseblueprint': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'emerald') as VisualizationTheme;
+      svgContent = generateCodebaseBlueprintSvg(identity, { theme });
+      break;
+    }
+
+    case 'languageriver':
+    case 'polyglot': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'ocean') as VisualizationTheme;
+      svgContent = generateLanguageRiverSvg(identity, { theme });
+      break;
+    }
+
+    case 'timeline':
+    case 'releasetimeline':
+    case 'roadmap': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'amber') as VisualizationTheme;
+      svgContent = generateReleaseTimelineSvg(identity, { theme });
+      break;
+    }
+
+    case 'solarsystem':
+    case 'techstack':
+    case 'techstacksolarsystem': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'cyberpunk') as VisualizationTheme;
+      svgContent = generateTechStackSolarSystemSvg(identity, { theme });
+      break;
+    }
+
+    case 'synthwave':
+    case 'outrun':
+    case 'bento':
+    case 'synthwavebento': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'cyberpunk') as VisualizationTheme;
+      svgContent = generateSynthwaveBentoSvg(identity, { theme });
+      break;
+    }
+
+    case 'neofetch':
+    case 'fastfetch':
+    case 'asciiterminal': {
+      const identity = buildSyntheticDeveloperIdentity(user);
+      const theme = (searchParams.get('theme') || 'matrix') as VisualizationTheme;
+      svgContent = generateNeofetchTerminalSvg(identity, { theme });
+      break;
+    }
+
+    default: {
+      const cleanPlugin = plugin.toLowerCase().replace(/[-_]/g, '');
+      const match = ALL_VISUALIZATION_IDS.find(
+        id => id.replace(/[-_]/g, '') === cleanPlugin || id.toLowerCase() === plugin.toLowerCase()
+      );
+      if (match) {
+        const identity = buildSyntheticDeveloperIdentity(user);
+        const theme = (searchParams.get('theme') || 'emerald') as VisualizationTheme;
+        svgContent = generateUniversalVisualizationSvg(match, identity, { theme });
+      } else {
+        svgContent = generateIsocalendarSvg({ username: user });
+      }
+      break;
+    }
   }
 
   return new NextResponse(svgContent, {

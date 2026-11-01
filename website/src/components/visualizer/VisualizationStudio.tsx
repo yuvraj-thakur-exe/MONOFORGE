@@ -14,15 +14,7 @@ import {
   fetchNormalizedDeveloperIdentity,
 } from '#/lib/visualizations/data-engine';
 import {
-  generateCommitCitySvg,
-  generateCommitRiverSvg,
-  generateYearClockSvg,
-  generateCodingPulseSvg,
-  generateDeveloperTerminalSvg,
-  generateContributionSnakeSvg,
-  generateRepositoryGalaxySvg,
-  generateDeveloperDnaSvg,
-  generateSkillConstellationSvg,
+  generateUniversalVisualizationSvg,
 } from '#/lib/visualizations/svg-generators';
 import { CanvasVisualizer } from './CanvasVisualizer';
 import { ReadmeDoctorModal } from '#/components/studio/ReadmeDoctorModal';
@@ -56,10 +48,31 @@ export function VisualizationStudio() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDoctorOpen, setIsDoctorOpen] = useState<boolean>(false);
 
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [vizSearchQuery, setVizSearchQuery] = useState<string>('');
+
   // Identity state
   const [identity, setIdentity] = useState<NormalizedDeveloperIdentity>(() =>
     buildSyntheticDeveloperIdentity('octocat')
   );
+
+  // Filtered visualizations by category & search
+  const filteredVizIds = useMemo(() => {
+    return ALL_VISUALIZATION_IDS.filter(vizId => {
+      const manifest = VISUALIZATION_REGISTRY[vizId];
+      if (!manifest) return false;
+      const matchesCat = selectedCategory === 'all' || manifest.category === selectedCategory;
+      if (!matchesCat) return false;
+      if (!vizSearchQuery.trim()) return true;
+      const q = vizSearchQuery.toLowerCase();
+      return (
+        manifest.name.toLowerCase().includes(q) ||
+        manifest.tagline.toLowerCase().includes(q) ||
+        manifest.badge.toLowerCase().includes(q) ||
+        manifest.description.toLowerCase().includes(q)
+      );
+    });
+  }, [selectedCategory, vizSearchQuery]);
 
   // Fetch telemetry whenever username changes
   const handleFetchUser = async (e?: React.FormEvent) => {
@@ -87,28 +100,7 @@ export function VisualizationStudio() {
 
   // Active SVG content
   const activeSvg = useMemo(() => {
-    switch (activeVizId) {
-      case 'commit-city':
-        return generateCommitCitySvg(identity, { theme });
-      case 'commit-river':
-        return generateCommitRiverSvg(identity, { theme });
-      case 'year-clock':
-        return generateYearClockSvg(identity, { theme });
-      case 'coding-pulse':
-        return generateCodingPulseSvg(identity, { theme });
-      case 'developer-terminal':
-        return generateDeveloperTerminalSvg(identity, { theme });
-      case 'contribution-snake':
-        return generateContributionSnakeSvg(identity, { theme });
-      case 'repository-galaxy':
-        return generateRepositoryGalaxySvg(identity, { theme });
-      case 'developer-dna':
-        return generateDeveloperDnaSvg(identity, { theme });
-      case 'skill-constellation':
-        return generateSkillConstellationSvg(identity, { theme });
-      default:
-        return generateCommitCitySvg(identity, { theme });
-    }
+    return generateUniversalVisualizationSvg(activeVizId, identity, { theme });
   }, [activeVizId, identity, theme]);
 
   // Copy Markdown Embed
@@ -209,20 +201,57 @@ export function VisualizationStudio() {
 
       {/* Main Studio Body */}
       <div className="flex-1 flex flex-col lg:flex-row max-w-[1720px] w-full mx-auto p-4 sm:p-6 gap-6">
-        {/* Left Sidebar: 9 Signature Visualizations Selector */}
+        {/* Left Sidebar: 30 Signature Visualizations Selector */}
         <aside className="w-full lg:w-80 shrink-0 space-y-4">
           <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">
-                Signature Architectures ({ALL_VISUALIZATION_IDS.length})
+                Architectures ({filteredVizIds.length})
               </span>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-bold">
                 REAL DATA
               </span>
             </div>
 
-            <div className="space-y-1.5">
-              {ALL_VISUALIZATION_IDS.map(vizId => {
+            {/* Category Filter Tabs */}
+            <div className="flex items-center gap-1 overflow-x-auto pb-1 text-[11px] font-mono scrollbar-none">
+              {[
+                { id: 'all', label: `All (${ALL_VISUALIZATION_IDS.length})` },
+                { id: 'activity', label: 'Activity' },
+                { id: 'repository', label: 'Repos' },
+                { id: 'skills', label: 'Skills' },
+                { id: 'identity', label: 'Identity' },
+              ].map(cat => (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`px-2.5 py-1 rounded-lg font-bold shrink-0 transition-colors cursor-pointer ${
+                    selectedCategory === cat.id
+                      ? 'bg-amber-400 text-slate-950 shadow-xs'
+                      : 'bg-slate-800/80 text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Real-time Search Filter */}
+            <div className="relative">
+              <Search className="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-slate-500" />
+              <input
+                type="text"
+                value={vizSearchQuery}
+                onChange={e => setVizSearchQuery(e.target.value)}
+                placeholder="Filter 30 visualizations..."
+                className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
+              />
+            </div>
+
+            {/* Visualization Item List */}
+            <div className="space-y-1.5 max-h-[380px] overflow-y-auto pr-1">
+              {filteredVizIds.map(vizId => {
                 const manifest = VISUALIZATION_REGISTRY[vizId];
                 const isActive = activeVizId === vizId;
 
@@ -253,6 +282,11 @@ export function VisualizationStudio() {
                   </button>
                 );
               })}
+              {filteredVizIds.length === 0 && (
+                <div className="p-4 text-center text-xs font-mono text-slate-500">
+                  No visualizations match &quot;{vizSearchQuery}&quot;
+                </div>
+              )}
             </div>
           </div>
 
@@ -311,6 +345,40 @@ export function VisualizationStudio() {
 
         {/* Center Canvas / SVG Studio Preview Stage */}
         <main className="flex-1 flex flex-col space-y-4 min-w-0">
+          {/* Inspiration Archetype Quick Pills */}
+          <div className="flex items-center gap-2 overflow-x-auto p-2.5 rounded-2xl bg-slate-900/60 border border-slate-800 scrollbar-none text-[11px] font-mono">
+            <span className="text-slate-500 font-bold shrink-0 text-[10px] uppercase tracking-wider pl-1">
+              ARCHETYPES:
+            </span>
+            {[
+              { label: '📊 Lowlighter Metrics', id: 'coding-pulse' as VisualizationId, theme: 'slate' as VisualizationTheme },
+              { label: '🌆 Synthwave Bento', id: 'year-clock' as VisualizationId, theme: 'cyberpunk' as VisualizationTheme },
+              { label: '📟 Neofetch Terminal', id: 'developer-terminal' as VisualizationId, theme: 'matrix' as VisualizationTheme },
+              { label: '⚡ Tech Solar System', id: 'tech-stack-solar-system' as VisualizationId, theme: 'cyberpunk' as VisualizationTheme },
+              { label: '🌊 Language River', id: 'language-river' as VisualizationId, theme: 'ocean' as VisualizationTheme },
+              { label: '🎯 Engineering Radar', id: 'engineering-radar' as VisualizationId, theme: 'emerald' as VisualizationTheme },
+              { label: '🚇 Release Timeline', id: 'release-timeline' as VisualizationId, theme: 'amber' as VisualizationTheme },
+              { label: '🏙️ Commit City', id: 'commit-city' as VisualizationId, theme: 'emerald' as VisualizationTheme },
+            ].map(pill => (
+              <button
+                key={pill.label}
+                type="button"
+                onClick={() => {
+                  setActiveVizId(pill.id);
+                  setTheme(pill.theme);
+                  setHoverInfo(null);
+                }}
+                className={`px-2.5 py-1 rounded-xl border text-xs font-medium shrink-0 transition-all cursor-pointer ${
+                  activeVizId === pill.id
+                    ? 'bg-amber-400/10 border-amber-400/80 text-amber-300 shadow-xs'
+                    : 'bg-slate-950/60 border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-white'
+                }`}
+              >
+                {pill.label}
+              </button>
+            ))}
+          </div>
+
           {/* Stage Controls Bar */}
           <div className="flex flex-wrap items-center justify-between gap-3 p-3 rounded-2xl bg-slate-900/60 border border-slate-800">
             {/* Dual Output Mode Switcher */}

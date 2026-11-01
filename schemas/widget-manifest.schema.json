@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://monoforge.dev/schemas/widget-manifest.schema.json",
+  "title": "MonoForge Widget Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "version", "name", "category", "renderers", "configSchema"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "description": { "type": "string", "maxLength": 500 },
+    "category": { "type": "string" },
+    "tags": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "dataSources": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "renderers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["studio", "markdown", "svg", "png", "gif"],
+      "properties": {
+        "studio": { "type": "boolean" },
+        "markdown": { "type": "boolean" },
+        "svg": { "type": "boolean" },
+        "png": { "type": "boolean" },
+        "gif": { "type": "boolean" },
+        "hostedWidget": { "type": "boolean" }
+      }
+    },
+    "interactions": { "type": "array", "items": { "enum": ["hover", "tooltip", "replay", "zoom", "pan", "select", "filter", "drag", "keyboard"] }, "uniqueItems": true },
+    "animation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "reducedMotionFallback": { "type": "boolean" },
+        "loopSupported": { "type": "boolean" },
+        "maxDurationMs": { "type": "integer", "minimum": 0, "maximum": 30000 }
+      }
+    },
+    "configSchema": { "type": "object" },
+    "license": { "type": "string" },
+    "sourceAttribution": { "type": "string" },
+    "securityProfile": { "enum": ["trusted-internal", "sanitized-svg", "isolated-renderer"] }
+  }
+}

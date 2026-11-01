@@ -12,8 +12,29 @@ export type VisualizationId =
   | 'developer-terminal'
   | 'contribution-snake'
   | 'repository-galaxy'
+  | 'project-constellation'
+  | 'codebase-blueprint'
+  | 'language-river'
+  | 'tech-stack-solar-system'
+  | 'release-timeline'
   | 'developer-dna'
-  | 'skill-constellation';
+  | 'engineering-radar'
+  | 'skill-tree'
+  | 'skill-constellation'
+  | 'commit-waterfall'
+  | 'contribution-topography'
+  | 'coding-weather'
+  | 'developer-seasons'
+  | 'opensource-footprints'
+  | 'pr-flightpath'
+  | 'issue-garden'
+  | 'repository-tree'
+  | 'commit-constellation'
+  | 'year-in-code'
+  | 'project-dna'
+  | 'collaboration-network'
+  | 'code-impact-map'
+  | 'developer-timeline';
 
 export type OutputMode = 'canvas' | 'svg';
 
