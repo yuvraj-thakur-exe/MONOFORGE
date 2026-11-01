@@ -147,10 +147,20 @@ export default function HomePage() {
               <ShieldCheck className="w-4 h-4 text-emerald-500" />
               <span>100% Camo CDN Safe &bull; Zero JavaScript Inside Generated SVGs &bull; Open Source MIT</span>
             </span>
-            <span className="flex items-center gap-1">
-              <span>Engineered with precision for developers</span>
-              <Heart className="w-3 h-3 text-red-500 fill-red-500 inline" />
-            </span>
+            <div className="flex flex-col items-center sm:items-end gap-1">
+              <span className="flex items-center gap-1">
+                <span>Engineered with precision for developers</span>
+                <Heart className="w-3 h-3 text-red-500 fill-red-500 inline" />
+              </span>
+              <a
+                href="https://github.com/yuvraj-thakur-exe"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[11px] font-mono font-bold text-neutral-800 hover:text-amber-600 transition-colors"
+              >
+                Made by Yuvraj Vinod Thakur
+              </a>
+            </div>
           </div>
         </div>
       </footer>
