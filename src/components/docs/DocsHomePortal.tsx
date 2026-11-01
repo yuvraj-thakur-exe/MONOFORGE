@@ -31,6 +31,7 @@ import { HomeBrandLogoEmblem } from '#/components/home/HomeBrandLogoEmblem';
 import { HomeCyberMonkeyHero } from '#/components/home/HomeCyberMonkeyHero';
 import { HomeCapabilitiesMatrix } from '#/components/home/HomeCapabilitiesMatrix';
 import { SoundToggleButton } from '#/components/common/SoundToggleButton';
+import { TopNav } from '#/components/navigation/TopNav';
 import { playClickSound, playTone } from '#/lib/sound/sound-effects';
 
 type ShowcaseTab = 'geometric' | 'cyberbot' | 'ninja' | 'matrix';
@@ -84,6 +85,9 @@ export function DocsHomePortal() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#fafbfc] dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 font-sans selection:bg-[#ffe600] selection:text-slate-950 transition-colors">
+      {/* Global MonoForge Top Navigation */}
+      <TopNav />
+
       {/* Top Banner Notice with Sound Toggle */}
       <div className="border-b border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur-xs py-2 px-4 flex items-center justify-between text-xs font-mono text-slate-600 dark:text-slate-400">
         <div className="flex items-center gap-2">
@@ -101,7 +105,7 @@ export function DocsHomePortal() {
       <section className="relative border-b border-slate-200/80 dark:border-slate-800 py-10 sm:py-16 px-4 sm:px-6 overflow-hidden">
         {/* Soft Radial Ambient Lighting */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[450px] bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(245,158,11,0.14),transparent_70%)] dark:bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(245,158,11,0.18),transparent_70%)] pointer-events-none" />
-        <div className="absolute top-1/3 right-10 w-[500px] h-[300px] bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,rgba(99,102,241,0.08),transparent_70%)] pointer-events-none" />
+        <div className="absolute top-1/3 right-10 w-[500px] h-[300px] bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,rgba(245,158,11,0.06),transparent_70%)] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto space-y-10 relative z-10">
           {/* Top Brand Logo Showcase */}
@@ -188,7 +192,7 @@ export function DocsHomePortal() {
                   onClick={() => playClickSound()}
                   className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
                 >
-                  <Terminal className="w-3.5 h-3.5 text-indigo-500" />
+                  <Terminal className="w-3.5 h-3.5 text-amber-500" />
                   <span>Info Hub</span>
                 </Link>
 
@@ -345,7 +349,7 @@ export function DocsHomePortal() {
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
-                    <Swords className="w-3.5 h-3.5 text-indigo-500" />
+                    <Swords className="w-3.5 h-3.5 text-emerald-500" />
                     <span>Ninja Coder</span>
                   </button>
 
@@ -367,7 +371,7 @@ export function DocsHomePortal() {
                 {showcaseTab === 'geometric' && (
                   <div className="flex items-center gap-2 font-mono text-[11px] text-slate-500">
                     <span className="hidden sm:inline">Dot Glow:</span>
-                    {(['#ffe600', '#6366f1', '#10b981', '#06b6d4', '#ec4899'] as const).map((color) => (
+                    {(['#ffe600', '#f59e0b', '#10b981', '#06b6d4', '#ec4899'] as const).map((color) => (
                       <button
                         key={color}
                         type="button"
@@ -562,7 +566,7 @@ export function DocsHomePortal() {
 
               <div className="card-hover-lift p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
                 <div className="flex items-center gap-2 font-mono text-xs font-black text-slate-900 dark:text-white uppercase">
-                  <Code2 className="w-4 h-4 text-indigo-500" />
+                  <Code2 className="w-4 h-4 text-emerald-500" />
                   <span>2. Pure Function Markdown Pipeline</span>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
@@ -637,7 +641,7 @@ export function DocsHomePortal() {
               </div>
 
               <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2">
-                <span className="font-bold text-indigo-600 dark:text-indigo-400 text-[11px]">monoforge mcp</span>
+                <span className="font-bold text-amber-600 dark:text-amber-400 text-[11px]">monoforge mcp</span>
                 <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
                   Starts the stdio Model Context Protocol (MCP) server for developer tools.
                 </p>

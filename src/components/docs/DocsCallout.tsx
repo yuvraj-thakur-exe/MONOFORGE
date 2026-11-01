@@ -29,11 +29,11 @@ export function DocsCallout({ type = 'note', title, children }: DocsCalloutProps
       defaultTitle: 'Tip',
     },
     important: {
-      border: 'border-purple-500/30 dark:border-purple-400/30',
-      bg: 'bg-purple-50/50 dark:bg-purple-950/20',
-      text: 'text-purple-700 dark:text-purple-300',
-      badgeBg: 'bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-500/20',
-      icon: <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-purple-500" />,
+      border: 'border-amber-500/30 dark:border-amber-400/30',
+      bg: 'bg-amber-50/50 dark:bg-amber-950/20',
+      text: 'text-amber-800 dark:text-amber-300',
+      badgeBg: 'bg-amber-500/10 text-amber-800 dark:text-amber-300 border-amber-500/20',
+      icon: <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-amber-500" />,
       defaultTitle: 'Important',
     },
     warning: {

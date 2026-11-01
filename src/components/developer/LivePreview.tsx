@@ -96,23 +96,23 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
 
   return (
     <div
-      className={`flex flex-col h-full bg-white dark:bg-[#111827] rounded-2xl border border-[#DCE3EF] dark:border-slate-800 overflow-hidden shadow-lg transition-colors ${className}`}
+      className={`flex flex-col h-full bg-white dark:bg-[#111827] rounded-2xl border-2 border-slate-300 dark:border-slate-800 overflow-hidden shadow-lg transition-colors ${className}`}
     >
       {/* Dynamic Accent Color Banner */}
       <div className="h-1.5 w-full shrink-0" style={{ backgroundColor: accentColor }} />
 
       {/* Header Bar */}
-      <div className="flex flex-wrap items-center justify-between px-4 py-2.5 bg-[#E9EEF8] dark:bg-[#151E32] border-b border-[#DCE3EF] dark:border-slate-800 text-xs gap-2">
+      <div className="flex flex-wrap items-center justify-between px-4 py-2.5 bg-slate-100 dark:bg-slate-900 border-b-2 border-slate-300 dark:border-slate-800 text-xs gap-2">
         <div className="flex items-center gap-2">
           {/* Rendered vs Raw Markdown */}
-          <div className="flex items-center bg-white/80 dark:bg-slate-900 rounded-lg p-0.5 border border-[#DCE3EF] dark:border-slate-700 shadow-2xs">
+          <div className="flex items-center bg-white dark:bg-slate-950 rounded-lg p-0.5 border-2 border-slate-300 dark:border-slate-700 shadow-2xs">
             <button
               type="button"
               onClick={() => setTab('preview')}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono font-bold transition-all cursor-pointer ${
                 tab === 'preview'
-                  ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border border-indigo-400/30 font-black shadow-xs'
-                  : 'text-[#64748B] dark:text-slate-300 hover:text-[#172033] dark:hover:text-white'
+                  ? 'bg-[#ffe600] text-slate-950 border border-slate-900 font-black shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <Eye className="w-3.5 h-3.5" /> RENDERED
@@ -122,8 +122,8 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
               onClick={() => setTab('raw')}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono font-bold transition-all cursor-pointer ${
                 tab === 'raw'
-                  ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border border-indigo-400/30 font-black shadow-xs'
-                  : 'text-[#64748B] dark:text-slate-300 hover:text-[#172033] dark:hover:text-white'
+                  ? 'bg-[#ffe600] text-slate-950 border border-slate-900 font-black shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <Code className="w-3.5 h-3.5" /> RAW MD
@@ -132,14 +132,14 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
 
           {/* Viewport Frame Switcher */}
           {tab === 'preview' && (
-            <div className="hidden sm:flex items-center bg-white dark:bg-slate-900 rounded-lg p-0.5 border border-[#DCE3EF] dark:border-slate-700 text-[#64748B] dark:text-slate-400 shadow-2xs">
+            <div className="hidden sm:flex items-center bg-white dark:bg-slate-950 rounded-lg p-0.5 border-2 border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 shadow-2xs">
               <button
                 type="button"
                 onClick={() => setViewMode('desktop')}
                 className={`p-1 rounded transition-colors cursor-pointer ${
                   viewMode === 'desktop'
-                    ? 'bg-[#EEF2FF] dark:bg-slate-800 text-[#6366F1] dark:text-cyan-400 font-bold'
-                    : 'hover:text-[#172033] dark:hover:text-slate-200'
+                    ? 'bg-amber-100 dark:bg-amber-950/40 text-amber-900 dark:text-amber-300 font-bold'
+                    : 'hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
                 title="Desktop View"
                 aria-label="Desktop View"
@@ -151,8 +151,8 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
                 onClick={() => setViewMode('tablet')}
                 className={`p-1 rounded transition-colors cursor-pointer ${
                   viewMode === 'tablet'
-                    ? 'bg-[#EEF2FF] dark:bg-slate-800 text-[#6366F1] dark:text-blue-400 font-bold'
-                    : 'hover:text-[#172033] dark:hover:text-slate-200'
+                    ? 'bg-amber-100 dark:bg-amber-950/40 text-amber-900 dark:text-amber-300 font-bold'
+                    : 'hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
                 title="Tablet View (768px)"
                 aria-label="Tablet View"
@@ -164,8 +164,8 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
                 onClick={() => setViewMode('mobile')}
                 className={`p-1 rounded transition-colors cursor-pointer ${
                   viewMode === 'mobile'
-                    ? 'bg-[#EEF2FF] dark:bg-slate-800 text-[#6366F1] dark:text-amber-400 font-bold'
-                    : 'hover:text-[#172033] dark:hover:text-slate-200'
+                    ? 'bg-amber-100 dark:bg-amber-950/40 text-amber-900 dark:text-amber-300 font-bold'
+                    : 'hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
                 title="Mobile View"
                 aria-label="Mobile View"
@@ -177,8 +177,8 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
                 onClick={() => setViewMode('crt')}
                 className={`p-1 rounded transition-colors cursor-pointer ${
                   viewMode === 'crt'
-                    ? 'bg-[#EEF2FF] dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 font-bold'
-                    : 'hover:text-[#172033] dark:hover:text-slate-200'
+                    ? 'bg-emerald-100 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 font-bold'
+                    : 'hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
                 title="Cyber CRT View"
                 aria-label="Cyber CRT View"
@@ -190,30 +190,30 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-white dark:bg-slate-900 border border-[#DCE3EF] dark:border-slate-700">
+          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700">
             <span
               className="w-2.5 h-2.5 rounded-full border border-slate-400 dark:border-slate-600 shadow-2xs"
               style={{ backgroundColor: accentColor }}
             />
-            <span className="text-[10px] font-mono font-bold text-[#64748B] dark:text-slate-300 uppercase">
+            <span className="text-[10px] font-mono font-bold text-slate-700 dark:text-slate-300 uppercase">
               {accentColor}
             </span>
           </div>
 
-          <span className="text-[#64748B] dark:text-slate-400 font-mono text-[11px] hidden sm:inline">
+          <span className="text-slate-600 dark:text-slate-400 font-mono text-[11px] hidden sm:inline">
             {lineCount} lines · {charCount} chars
           </span>
           <button
             type="button"
             onClick={handleCopy}
-            className="flex items-center gap-1 px-3 py-1 rounded-lg bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:from-[#4F46E5] hover:to-[#7C3AED] text-white border border-indigo-400/30 text-xs font-mono font-black transition-all shadow-xs active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
+            className="flex items-center gap-1 px-3 py-1 rounded-lg bg-[#ffe600] hover:bg-[#fde047] text-slate-950 border border-slate-900 text-xs font-mono font-black transition-all shadow-xs active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
             title="Copy markdown to clipboard"
             aria-label="Copy markdown"
           >
             {copied ? (
-              <Check className="w-3 h-3 text-white" />
+              <Check className="w-3 h-3 text-slate-950" />
             ) : (
-              <Copy className="w-3 h-3 text-white" />
+              <Copy className="w-3 h-3 text-slate-950" />
             )}
             <span>{copied ? 'Copied' : 'Copy'}</span>
           </button>
@@ -221,7 +221,7 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
       </div>
 
       {/* Content Area */}
-      <div className="flex-1 overflow-y-auto p-3 sm:p-5 bg-[#F4F6FB] dark:bg-[#0B101D] flex justify-center transition-colors">
+      <div className="flex-1 overflow-y-auto p-3 sm:p-5 bg-slate-50 dark:bg-slate-950 flex justify-center transition-colors">
         {tab === 'raw' ? (
           <pre className="w-full font-mono text-xs text-slate-100 bg-[#0a0f1d] p-5 rounded-2xl border border-slate-800 shadow-lg whitespace-pre-wrap break-words leading-relaxed select-all">
             {markdown}
@@ -230,9 +230,9 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
           <div
             className={`w-full transition-all duration-300 ${
               viewMode === 'mobile'
-                ? 'max-w-[390px] border-4 border-[#DCE3EF] dark:border-slate-700 rounded-3xl p-3 bg-white dark:bg-[#151E32] shadow-2xl my-2'
+                ? 'max-w-[390px] border-4 border-slate-300 dark:border-slate-700 rounded-3xl p-3 bg-white dark:bg-slate-900 shadow-2xl my-2'
                 : viewMode === 'tablet'
-                ? 'max-w-[768px] border-4 border-[#DCE3EF] dark:border-slate-700 rounded-2xl p-4 bg-white dark:bg-[#151E32] shadow-xl my-2'
+                ? 'max-w-[768px] border-4 border-slate-300 dark:border-slate-700 rounded-2xl p-4 bg-white dark:bg-slate-900 shadow-xl my-2'
                 : viewMode === 'crt'
                 ? 'max-w-4xl border-2 border-emerald-500/40 rounded-xl p-4 bg-[#0a100d] text-emerald-300 font-mono shadow-[0_0_20px_rgba(16,185,129,0.15)] scanline-overlay'
                 : 'max-w-4xl'
@@ -252,21 +252,21 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
             )}
 
             <div
-              className="p-5 sm:p-8 bg-white dark:bg-[#151E32] rounded-2xl border border-[#DCE3EF] dark:border-slate-800 space-y-5 shadow-sm transition-colors"
+              className="p-5 sm:p-8 bg-white dark:bg-slate-900 rounded-2xl border-2 border-slate-200 dark:border-slate-800 space-y-5 shadow-sm transition-colors"
             >
               {/* macOS Style GitHub File Window Header */}
-              <div className="flex items-center justify-between pb-3 border-b border-[#DCE3EF] dark:border-slate-800 text-xs font-mono">
+              <div className="flex items-center justify-between pb-3 border-b-2 border-slate-200 dark:border-slate-800 text-xs font-mono">
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-[#ef4444]" />
                   <span className="w-3 h-3 rounded-full bg-[#f59e0b]" />
                   <span className="w-3 h-3 rounded-full bg-[#10b981]" />
                   <span
-                    className="ml-2 font-mono text-xs font-black px-2.5 py-0.5 rounded-md border border-indigo-400/30 text-white shadow-2xs"
-                    style={{ backgroundColor: accentColor && accentColor !== '#ffe600' ? accentColor : '#6366F1' }}
+                    className="ml-2 font-mono text-xs font-black px-2.5 py-0.5 rounded-md border border-slate-900 shadow-2xs"
+                    style={{ backgroundColor: accentColor || '#ffe600', color: accentColor && accentColor !== '#ffe600' ? '#ffffff' : '#0f172a' }}
                   >
                     README.md
                   </span>
-                  <span className="text-[11px] text-[#64748B] dark:text-slate-400 font-bold hidden sm:inline">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 font-bold hidden sm:inline">
                     github.com/{rawUser || 'developer'}/{rawUser || 'developer'}
                   </span>
                 </div>
@@ -277,7 +277,7 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
               </div>
 
               {/* Rendered Markdown Body */}
-              <div className="markdown-body prose prose-slate dark:prose-invert max-w-none text-[#172033] dark:text-slate-100 text-sm leading-relaxed overflow-x-auto">
+              <div className="markdown-body prose prose-slate dark:prose-invert max-w-none text-slate-900 dark:text-slate-100 text-sm leading-relaxed overflow-x-auto">
                 {renderedContent}
               </div>
             </div>

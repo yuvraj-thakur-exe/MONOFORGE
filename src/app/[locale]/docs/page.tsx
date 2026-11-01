@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { DocsLayout } from '#/components/docs/DocsLayout';
-import { getDocBySlug } from '#/content/docs/docs-data';
+import { DocsHomePortal } from '#/components/docs/DocsHomePortal';
 import { routing } from '#/i18n/routing';
 
 export function generateStaticParams() {
@@ -9,15 +7,10 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Documentation — MonoForge',
-  description: 'Complete technical documentation, installation guides, and API reference for MonoForge.',
+  title: 'MonoForge Documentation — Architecture, Camo Invariants & Quickstart',
+  description: 'Complete developer documentation, vector motion laboratory, Camo sanitizer invariants, 47+ telemetry engines, and installation guides for MonoForge.',
 };
 
 export default function DocsIndexPage() {
-  const doc = getDocBySlug(['getting-started', 'introduction']);
-  if (!doc) {
-    notFound();
-  }
-  return <DocsLayout currentDoc={doc} />;
+  return <DocsHomePortal />;
 }
-

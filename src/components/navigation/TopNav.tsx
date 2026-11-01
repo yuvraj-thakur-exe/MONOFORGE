@@ -53,21 +53,21 @@ export function TopNav() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b border-[#DCE3EF] dark:border-slate-800 bg-[#F4F6FB]/85 dark:bg-[#0B101D]/85 backdrop-blur-md shadow-xs transition-colors">
+      <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-[#f8fafc]/90 dark:bg-[#0f172a]/90 backdrop-blur-md shadow-xs transition-colors">
         <div className="max-w-[1720px] mx-auto flex items-center justify-between h-14 px-3 sm:px-6">
           {/* Brand */}
           <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group" data-cursor-label="HOME">
-            <div className="relative p-1 rounded-xl bg-white dark:bg-slate-900 border border-[#DCE3EF] dark:border-slate-750 shadow-xs group-hover:scale-105 transition-transform duration-200 overflow-hidden">
+            <div className="relative p-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-750 shadow-xs group-hover:scale-105 transition-transform duration-200 overflow-hidden">
               <MonoForgeMonkeyIcon className="w-6 h-6 sm:w-7 sm:h-7" />
               <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-900 animate-pulse" />
             </div>
             <div className="flex flex-col">
-              <span className="font-black text-sm tracking-tight text-[#172033] dark:text-white uppercase font-sans">
-                MONO<span className="text-[#6366F1]">FORGE</span>
+              <span className="font-black text-sm tracking-tight text-slate-900 dark:text-white uppercase font-sans">
+                MONO<span className="text-amber-500">FORGE</span>
               </span>
               <span
                 suppressHydrationWarning
-                className="text-[9px] text-[#64748B] dark:text-slate-400 font-mono font-medium hidden sm:inline uppercase"
+                className="text-[9px] text-slate-500 dark:text-slate-400 font-mono font-medium hidden sm:inline uppercase"
               >
                 GITHUB PROFILE BUILDER &amp; ENGINES
               </span>
@@ -83,12 +83,12 @@ export function TopNav() {
               data-cursor-label="HOME"
               className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
                 isHome
-                  ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent font-black shadow-xs'
-                  : 'border-[#DCE3EF] dark:border-slate-700 bg-white dark:bg-slate-900/60 text-[#172033] dark:text-white hover:bg-[#EEF2FF] dark:hover:bg-slate-800'
+                  ? 'bg-slate-950 text-white dark:bg-white dark:text-slate-950 border-slate-950 dark:border-white font-black shadow-xs'
+                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
               <Home className="w-3.5 h-3.5 text-amber-500" />
-              <span className={isHome ? 'text-white' : 'text-[#172033] dark:text-white'}>
+              <span className={isHome ? 'text-white dark:text-slate-950' : 'text-slate-800 dark:text-slate-200'}>
                 HOME
               </span>
             </Link>
@@ -100,12 +100,12 @@ export function TopNav() {
               data-cursor-label="TEMPLATES"
               className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
                 isTemplates
-                  ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent font-black shadow-xs'
-                  : 'border-[#DCE3EF] dark:border-slate-700 bg-white dark:bg-slate-900/60 text-[#172033] dark:text-white hover:bg-[#EEF2FF] dark:hover:bg-slate-800'
+                  ? 'bg-slate-950 text-white dark:bg-white dark:text-slate-950 border-slate-950 dark:border-white font-black shadow-xs'
+                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
               <LayoutTemplate className="w-3.5 h-3.5 text-amber-500" />
-              <span className={isTemplates ? 'text-white' : 'text-[#172033] dark:text-white'}>
+              <span className={isTemplates ? 'text-white dark:text-slate-950' : 'text-slate-800 dark:text-slate-200'}>
                 TEMPLATES
               </span>
             </Link>
@@ -117,12 +117,12 @@ export function TopNav() {
               data-cursor-label="DOCS"
               className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
                 isDocs
-                  ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent font-black shadow-xs'
-                  : 'border-[#DCE3EF] dark:border-slate-700 bg-white dark:bg-slate-900/60 text-[#172033] dark:text-white hover:bg-[#EEF2FF] dark:hover:bg-slate-800'
+                  ? 'bg-slate-950 text-white dark:bg-white dark:text-slate-950 border-slate-950 dark:border-white font-black shadow-xs'
+                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
               <BookOpen className="w-3.5 h-3.5 text-emerald-500" />
-              <span className={isDocs ? 'text-white' : 'text-[#172033] dark:text-white'}>
+              <span className={isDocs ? 'text-white dark:text-slate-950' : 'text-slate-800 dark:text-slate-200'}>
                 DOCS
               </span>
             </Link>
@@ -134,12 +134,12 @@ export function TopNav() {
               data-cursor-label="INFO"
               className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
                 isInfo
-                  ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent font-black shadow-xs'
-                  : 'border-[#DCE3EF] dark:border-slate-700 bg-white dark:bg-slate-900/60 text-[#172033] dark:text-white hover:bg-[#EEF2FF] dark:hover:bg-slate-800'
+                  ? 'bg-slate-950 text-white dark:bg-white dark:text-slate-950 border-slate-950 dark:border-white font-black shadow-xs'
+                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
-              <Info className="w-3.5 h-3.5 text-indigo-500" />
-              <span className={isInfo ? 'text-white' : 'text-[#172033] dark:text-white'}>
+              <Info className="w-3.5 h-3.5 text-amber-500" />
+              <span className={isInfo ? 'text-white dark:text-slate-950' : 'text-slate-800 dark:text-slate-200'}>
                 INFO
               </span>
             </Link>
@@ -153,11 +153,11 @@ export function TopNav() {
             <button
               type="button"
               onClick={() => setIsSearchOpen(true)}
-              className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-[#DCE3EF] dark:border-slate-700 bg-[#E9EEF8] dark:bg-slate-800/80 hover:bg-[#EEF2FF] dark:hover:bg-slate-750 text-[#172033] dark:text-slate-300 transition-colors shadow-2xs cursor-pointer"
+              className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-300 transition-colors shadow-2xs cursor-pointer"
               title="Search documentation (⌘K)"
             >
               <Search className="w-3.5 h-3.5" />
-              <kbd className="px-1.5 py-0.2 rounded text-[10px] bg-white dark:bg-slate-900 border border-[#DCE3EF] dark:border-slate-600 text-[#172033] dark:text-slate-300 font-bold">
+              <kbd className="px-1.5 py-0.2 rounded text-[10px] bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold">
                 ⌘K
               </kbd>
             </button>
@@ -190,19 +190,19 @@ export function TopNav() {
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-[#DCE3EF] dark:border-slate-800 bg-[#F4F6FB] dark:bg-[#0B101D] p-4 space-y-2 animate-in slide-in-from-top-2 duration-150 font-mono text-xs shadow-lg">
+          <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-[#f8fafc] dark:bg-[#0f172a] p-4 space-y-2 animate-in slide-in-from-top-2 duration-150 font-mono text-xs shadow-lg">
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
               className={`flex items-center justify-between p-3 rounded-xl border font-black transition-all ${
                 isHome
-                  ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent shadow-xs'
-                  : 'bg-white dark:bg-slate-800 text-[#172033] dark:text-white border-[#DCE3EF] dark:border-slate-700'
+                  ? 'bg-slate-950 text-white dark:bg-white dark:text-slate-950 border-slate-950 dark:border-white shadow-xs'
+                  : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700'
               }`}
             >
               <span className="flex items-center gap-2">
                 <Home className="w-4 h-4 text-amber-500" />
-                <span className={isHome ? 'text-white' : 'text-[#172033] dark:text-white'}>
+                <span className={isHome ? 'text-white dark:text-slate-950' : 'text-slate-800 dark:text-slate-200'}>
                   HOME
                 </span>
               </span>
@@ -214,13 +214,13 @@ export function TopNav() {
               onClick={() => setMobileMenuOpen(false)}
               className={`flex items-center justify-between p-3 rounded-xl border font-black transition-all ${
                 isTemplates
-                  ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent shadow-xs'
-                  : 'bg-white dark:bg-slate-800 text-[#172033] dark:text-white border-[#DCE3EF] dark:border-slate-700'
+                  ? 'bg-slate-950 text-white dark:bg-white dark:text-slate-950 border-slate-950 dark:border-white shadow-xs'
+                  : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700'
               }`}
             >
               <span className="flex items-center gap-2">
                 <LayoutTemplate className="w-4 h-4 text-amber-500" />
-                <span className={isTemplates ? 'text-white' : 'text-[#172033] dark:text-white'}>
+                <span className={isTemplates ? 'text-white dark:text-slate-950' : 'text-slate-800 dark:text-slate-200'}>
                   TEMPLATES (75+)
                 </span>
               </span>
@@ -232,13 +232,13 @@ export function TopNav() {
               onClick={() => setMobileMenuOpen(false)}
               className={`flex items-center justify-between p-3 rounded-xl border font-black transition-all ${
                 isDocs
-                  ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white border-transparent shadow-xs'
-                  : 'bg-white dark:bg-slate-800 text-[#172033] dark:text-white border-[#DCE3EF] dark:border-slate-700'
+                  ? 'bg-slate-950 text-white dark:bg-white dark:text-slate-950 border-slate-950 dark:border-white shadow-xs'
+                  : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700'
               }`}
             >
               <span className="flex items-center gap-2">
                 <BookOpen className="w-4 h-4 text-emerald-500" />
-                <span className={isDocs ? 'text-white' : 'text-[#172033] dark:text-white'}>
+                <span className={isDocs ? 'text-white dark:text-slate-950' : 'text-slate-800 dark:text-slate-200'}>
                   DOCUMENTATION
                 </span>
               </span>

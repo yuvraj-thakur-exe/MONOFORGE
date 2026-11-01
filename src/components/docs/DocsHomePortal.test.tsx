@@ -9,6 +9,8 @@ vi.mock('#/i18n/navigation', () => ({
       {children}
     </a>
   ),
+  usePathname: () => '/docs',
+  useRouter: () => ({ push: vi.fn(), replace: vi.fn() }),
 }));
 
 // Mock motion

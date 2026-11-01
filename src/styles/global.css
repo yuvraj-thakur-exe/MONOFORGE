@@ -10,16 +10,16 @@
 
 :root {
   /* MonoForge Color System Tokens */
-  --bg-main: #F4F6FB;
-  --bg-secondary: #E9EEF8;
-  --color-primary: #6366F1;
-  --color-secondary: #8B5CF6;
-  --color-accent: #06B6D4;
-  --text-primary: #172033;
-  --text-secondary: #64748B;
-  --border-subtle: #DCE3EF;
-  --bg-preview: #FFFFFF;
-  --bg-highlight: #EEF2FF;
+  --bg-main: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --color-primary: #ffe600;
+  --color-secondary: #f59e0b;
+  --color-accent: #10b981;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --border-subtle: #cbd5e1;
+  --bg-preview: #ffffff;
+  --bg-highlight: #fef9c3;
 
   /* Legacy Spacing Tokens for custom css calculations */
   --spacing-xxs: 0.4rem;
@@ -33,16 +33,16 @@
 
 :root[data-theme='dark'],
 .dark {
-  --bg-main: #0B101D;
-  --bg-secondary: #151E32;
-  --color-primary: #818CF8;
-  --color-secondary: #A78BFA;
-  --color-accent: #22D3EE;
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --border-subtle: #243049;
-  --bg-preview: #111827;
-  --bg-highlight: #1E1B4B;
+  --bg-main: #0f172a;
+  --bg-secondary: #1e293b;
+  --color-primary: #ffe600;
+  --color-secondary: #f59e0b;
+  --color-accent: #10b981;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-subtle: #334155;
+  --bg-preview: #1e293b;
+  --bg-highlight: #854d0e;
 }
 
 @theme inline {
@@ -160,16 +160,16 @@
 html,
 body {
   font-size: 10px;
-  background-color: #F4F6FB;
-  color: #172033;
+  background-color: #f8fafc;
+  color: #0f172a;
 }
 
 :root[data-theme='dark'],
 .dark,
 :root[data-theme='dark'] body,
 .dark body {
-  background-color: #0B101D;
-  color: #F8FAFC;
+  background-color: #0f172a;
+  color: #f8fafc;
 }
 
 ul,

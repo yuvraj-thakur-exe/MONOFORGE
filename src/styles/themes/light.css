@@ -1,69 +1,69 @@
 :root,
 :root[data-theme='light'] {
-  --palette-base: #F4F6FB;
-  --palette-soft: #E9EEF8;
-  --palette-line: #DCE3EF;
-  --palette-contrast: #172033;
-  --palette-accent: #6366F1;
-  --palette-secondary: #8B5CF6;
-  --palette-cyan: #06B6D4;
-  --palette-preview-bg: #FFFFFF;
-  --palette-highlight: #EEF2FF;
-  --palette-ring: #6366F1;
+  --palette-base: #f8fafc;
+  --palette-soft: #f1f5f9;
+  --palette-line: #cbd5e1;
+  --palette-contrast: #0f172a;
+  --palette-accent: #ffe600;
+  --palette-secondary: #f59e0b;
+  --palette-cyan: #06b6d4;
+  --palette-preview-bg: #ffffff;
+  --palette-highlight: #fef9c3;
+  --palette-ring: #f59e0b;
   --palette-state-shift: -0.08;
 }
 
 /* Surface — app floor (base, text, borders) */
 :root[data-theme='light'] .palette-surface,
 .palette-surface {
-  --palette-base: #F4F6FB;
-  --palette-soft: #E9EEF8;
-  --palette-line: #DCE3EF;
-  --palette-contrast: #172033;
-  --palette-accent: #6366F1;
-  --palette-ring: #6366F1;
+  --palette-base: #f8fafc;
+  --palette-soft: #f1f5f9;
+  --palette-line: #cbd5e1;
+  --palette-contrast: #0f172a;
+  --palette-accent: #ffe600;
+  --palette-ring: #f59e0b;
 }
 
 :root[data-theme='light'] .palette-surface-green,
 .palette-surface-green {
-  --palette-base: #F4F6FB;
-  --palette-soft: #E9EEF8;
-  --palette-line: #DCE3EF;
-  --palette-contrast: #172033;
-  --palette-accent: #10B981;
-  --palette-ring: #10B981;
+  --palette-base: #f8fafc;
+  --palette-soft: #f1f5f9;
+  --palette-line: #cbd5e1;
+  --palette-contrast: #0f172a;
+  --palette-accent: #10b981;
+  --palette-ring: #10b981;
 }
 
 :root[data-theme='light'] .palette-surface-orange,
 .palette-surface-orange {
-  --palette-base: #F4F6FB;
-  --palette-soft: #E9EEF8;
-  --palette-line: #DCE3EF;
-  --palette-contrast: #172033;
-  --palette-accent: #F59E0B;
-  --palette-ring: #F59E0B;
+  --palette-base: #f8fafc;
+  --palette-soft: #f1f5f9;
+  --palette-line: #cbd5e1;
+  --palette-contrast: #0f172a;
+  --palette-accent: #f59e0b;
+  --palette-ring: #f59e0b;
 }
 
 /* Raised — elevated surface (cards, popovers, dialogs) */
 :root[data-theme='light'] .palette-raised,
 .palette-raised {
-  --palette-base: #FFFFFF;
-  --palette-soft: #F8FAFC;
-  --palette-line: #DCE3EF;
-  --palette-contrast: #172033;
-  --palette-accent: #6366F1;
-  --palette-ring: #6366F1;
+  --palette-base: #ffffff;
+  --palette-soft: #f8fafc;
+  --palette-line: #cbd5e1;
+  --palette-contrast: #0f172a;
+  --palette-accent: #ffe600;
+  --palette-ring: #f59e0b;
 }
 
-/* Blue / Indigo — primary brand */
+/* Yellow / Amber — primary brand */
 :root[data-theme='light'] .palette-blue,
 .palette-blue {
-  --palette-base: #6366F1;
-  --palette-soft: #EEF2FF;
-  --palette-line: #C7D2FE;
-  --palette-contrast: #FFFFFF;
-  --palette-accent: #4F46E5;
-  --palette-ring: #6366F1;
+  --palette-base: #ffe600;
+  --palette-soft: #fef9c3;
+  --palette-line: #fde047;
+  --palette-contrast: #0f172a;
+  --palette-accent: #f59e0b;
+  --palette-ring: #f59e0b;
 }
 
 /* Green — success/positive */
