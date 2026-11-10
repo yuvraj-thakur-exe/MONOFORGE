@@ -1,6 +1,8 @@
 import { ReadmeConfig } from '#/lib/plugins/types';
 import { BEST_README_TEMPLATES } from './best-readme';
 import { PRESETS_120 } from './catalog-120';
+import { SHOWCASE_30_TEMPLATES } from './showcase-30';
+import { TEMPLATES_100 } from './templates-100';
 
 export interface TemplateItem {
   id: string;
@@ -9,6 +11,7 @@ export interface TemplateItem {
   category: string;
   accent: string;
   prompt: string;
+  shortPrompt?: string;
   config: ReadmeConfig;
   tags?: string[];
   visualStyle?: 'minimal' | 'colorful' | 'dark' | 'light' | 'terminal' | '3d' | 'animated' | 'data';
@@ -16,6 +19,51 @@ export interface TemplateItem {
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
   popularity?: number;
   featured?: boolean;
+}
+
+export function buildMasterDashboardPrompt(item: TemplateItem): string {
+  const originalPrompt = item.prompt || item.description;
+  const user = item.config.settings.user;
+  const settings = item.config.settings;
+
+  return [
+    `# PROMPT: MONOFORGE MASTER PROFILE DASHBOARD — ${item.name.toUpperCase()}`,
+    ``,
+    `Act as an elite developer identity designer and senior open-source frontend engineer.`,
+    `Generate a complete, high-fidelity GitHub Profile README and Dashboard following the "${item.name}" archetype.`,
+    ``,
+    `### Design Language & Visual Identity`,
+    `- **Archetype**: ${item.name} (${item.category})`,
+    `- **Visual Direction**: ${originalPrompt}`,
+    `- **Visual Accent**: ${item.accent} (Base Theme: ${settings.theme})`,
+    `- **Typography & Layout**: ${settings.align}-aligned, ${settings.badgeStyle} badges`,
+    `- **Developer Persona**: ${user.name || item.name} — ${user.role || 'Full-Stack Software Engineer'}`,
+    `- **Bio & Philosophy**: "${user.bio || item.description}"`,
+    ``,
+    `### Complete 11-Section Master Profile Dashboard Layout`,
+    `Every generated asset must strictly align with the 11 official MonoForge Master Layout sections:`,
+    `1. **Section A — Profile Sidebar**: Large avatar frame (${item.accent} accent), verified badge, bio, status ticker ("${user.status || 'Shipping reliable software'}"), follower counts, location, portfolio links, and 4 achievement badges.`,
+    `2. **Section B — Main Hero Banner**: Signature 60fps Camo CDN-safe animated waving header (${item.accent} palette) with kinetic typography and developer designation.`,
+    `3. **Section C — 6 KPI Stat Cards**: Overview metrics (Total Contributions, Global Stars, Contributed PRs, Merged Commits, Code Reviews, Verified Rank: A+).`,
+    `4. **Section D — 6 Featured Repositories**: Two-column bento repository showcase with language badges, live star/fork telemetry, and engineering descriptions.`,
+    `5. **Section E — 52-Week Contribution Heatmap**: Full-width annual activity matrix with customizable year selector and intensity gradient.`,
+    `6. **Section F — Categorized Tech Stack**: Core languages, backend architectures, frontend tooling, databases, and DevOps/cloud infrastructure badges.`,
+    `7. **Section G — Currently Focusing On**: 3 live priorities (Current active architecture, deep learning focus, and research initiatives).`,
+    `8. **Section H — Top Programming Languages**: Language distribution breakdown with percentage velocity bars.`,
+    `9. **Section I — GitHub Detailed Telemetry**: Detailed commits, PR acceptance rate, and repository health scores.`,
+    `10. **Section J — Commit Streak Engine**: Active day counter, longest continuous streak, and total consistency ledger.`,
+    `11. **Section K — Recent Activity Timeline**: Latest merged commits, open-source releases, and pull requests.`,
+    ``,
+    `### GitHub Camo & Security Constraints`,
+    `- Strictly compliant with GitHub Camo image proxy: zero <script> tags, zero foreignObject, zero tracking cookies.`,
+    `- 100% native hardware-accelerated pure CSS @keyframes for smooth 60fps animations.`,
+    `- Dual theme contrast compliance (WCAG AA accessibility on dark and light GitHub themes).`,
+    ``,
+    `### MonoForge Machine-Readable Configuration (JSON)`,
+    `\`\`\`json`,
+    JSON.stringify(item.config, null, 2),
+    `\`\`\``,
+  ].join('\n');
 }
 
 export function buildRichPrompt(item: {
@@ -5358,7 +5406,21 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
   }
 ];
 
+export const ALL_130_TEMPLATES: TemplateItem[] = [
+  ...SHOWCASE_30_TEMPLATES.map(t => ({
+    ...t,
+    shortPrompt: t.prompt,
+    prompt: t.prompt && t.prompt.length > 500 ? t.prompt : buildMasterDashboardPrompt(t),
+  })),
+  ...TEMPLATES_100.map(t => ({
+    ...t,
+    shortPrompt: t.prompt,
+    prompt: t.prompt && t.prompt.length > 500 ? t.prompt : buildMasterDashboardPrompt(t),
+  })),
+];
+
 export const TEMPLATES: TemplateItem[] = [
+  ...ALL_130_TEMPLATES,
   ...RAW_TEMPLATES.map(t => ({
     ...t,
     prompt: t.prompt && t.prompt.length > 200 ? t.prompt : buildRichPrompt(t),

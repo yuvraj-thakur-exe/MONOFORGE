@@ -35,6 +35,7 @@ import {
 } from 'lucide-react';
 import { playClickSound, playTone } from '#/lib/sound/sound-effects';
 import { TemplateCompareModal } from '#/components/landing/TemplateCompareModal';
+import { FullProfileDashboardModal } from '#/components/landing/FullProfileDashboardModal';
 
 export { TEMPLATES, type TemplateItem } from '#/lib/templates/catalog';
 import { TEMPLATES, type TemplateItem } from '#/lib/templates/catalog';
@@ -813,6 +814,7 @@ export const TemplateGallery: React.FC = () => {
 
   const [copiedPromptId, setCopiedPromptId] = useState<string | null>(null);
   const [copiedMarkdown, setCopiedMarkdown] = useState<boolean>(false);
+  const [activeCollection, setActiveCollection] = useState<'all' | 'showcase-30' | 'catalog-100'>('all');
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -913,16 +915,28 @@ export const TemplateGallery: React.FC = () => {
 
   const categories = useMemo(() => {
     const set = new Set<string>();
-    TEMPLATES.forEach(t => {
+    const pool = activeCollection === 'showcase-30'
+      ? TEMPLATES.filter(t => /^\d{2}-/.test(t.id))
+      : activeCollection === 'catalog-100'
+      ? TEMPLATES.filter(t => t.id.startsWith('tpl-'))
+      : TEMPLATES;
+
+    pool.forEach(t => {
       if (t.category) set.add(t.category);
     });
     return ['all', ...Array.from(set)];
-  }, []);
+  }, [activeCollection]);
 
   const [visibleCount, setVisibleCount] = useState<number>(36);
 
   const filtered = useMemo(() => {
     let list = TEMPLATES.filter(tmpl => {
+      if (activeCollection === 'showcase-30') {
+        if (!/^\d{2}-/.test(tmpl.id)) return false;
+      } else if (activeCollection === 'catalog-100') {
+        if (!tmpl.id.startsWith('tpl-')) return false;
+      }
+
       const matchesCat = activeCategory === 'all' || tmpl.category === activeCategory;
       if (!matchesCat) return false;
 
@@ -961,6 +975,7 @@ export const TemplateGallery: React.FC = () => {
         tmpl.name.toLowerCase().includes(q) ||
         tmpl.description.toLowerCase().includes(q) ||
         tmpl.category.toLowerCase().includes(q) ||
+        (tmpl.prompt && tmpl.prompt.toLowerCase().includes(q)) ||
         (tmpl.tags && tmpl.tags.some(t => t.toLowerCase().includes(q))) ||
         tmpl.config.sections.some(s => s.type.toLowerCase().includes(q));
 
@@ -978,12 +993,12 @@ export const TemplateGallery: React.FC = () => {
     }
 
     return list;
-  }, [activeCategory, onlyFavorites, favorites, selectedStyle, selectedDevType, selectedDifficulty, searchQuery, sortBy]);
+  }, [activeCollection, activeCategory, onlyFavorites, favorites, selectedStyle, selectedDevType, selectedDifficulty, searchQuery, sortBy]);
 
-  // Reset pagination when category, search or filters change
+  // Reset pagination when collection, category, search or filters change
   useEffect(() => {
     setVisibleCount(36);
-  }, [activeCategory, searchQuery, selectedStyle, selectedDevType, selectedDifficulty, onlyFavorites, sortBy]);
+  }, [activeCollection, activeCategory, searchQuery, selectedStyle, selectedDevType, selectedDifficulty, onlyFavorites, sortBy]);
 
   const displayedTemplates = useMemo(() => {
     return filtered.slice(0, visibleCount);
@@ -1160,6 +1175,28 @@ export const TemplateGallery: React.FC = () => {
           .
         </p>
 
+        {/* 100 Templates Showcase Banner */}
+        <div className="my-6 max-w-5xl mx-auto rounded-2xl overflow-hidden border-2 border-slate-800 bg-slate-950 shadow-2xl relative group">
+          <img
+            src="/assets/branding/100-templates-showcase.jpg"
+            alt="MonoForge 100 GitHub Profile Templates Showcase"
+            className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.01]"
+          />
+          <div className="absolute bottom-3 left-4 right-4 flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-950/80 backdrop-blur-md border border-slate-700/60 text-xs font-mono">
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-black text-[10px]">100 ARCHETYPES</span>
+              <span className="text-slate-300 font-bold hidden sm:inline">From Minimal to Cyberpunk, Anime to AI</span>
+            </div>
+            <div className="flex items-center gap-3 text-slate-400 text-[11px]">
+              <span>10 Disciplines</span>
+              <span>•</span>
+              <span>100% Fully Customizable</span>
+              <span>•</span>
+              <span className="text-emerald-400 font-bold">Camo-Safe Export</span>
+            </div>
+          </div>
+        </div>
+
         {/* Search Bar */}
         <div className="pt-3 w-full max-w-md mx-auto">
           <div className="relative flex items-center">
@@ -1184,6 +1221,65 @@ export const TemplateGallery: React.FC = () => {
             )}
           </div>
         </div>
+      </div>
+
+      {/* Collection Switcher: All (130) vs 30 Master Showcase vs 100 System Catalog */}
+      <div className="flex items-center justify-center gap-2.5 sm:gap-3 flex-wrap">
+        <button
+          type="button"
+          onClick={() => {
+            setActiveCollection('all');
+            setActiveCategory('all');
+          }}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer ${
+            activeCollection === 'all'
+              ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-black shadow-md border-2 border-slate-900 dark:border-white'
+              : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-2 border-slate-200 dark:border-slate-700 hover:border-slate-900 font-bold'
+          }`}
+        >
+          <span>All Templates</span>
+          <span className="px-1.5 py-0.5 rounded-md bg-amber-400 text-slate-950 text-[10px] font-black">
+            130
+          </span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => {
+            setActiveCollection('showcase-30');
+            setActiveCategory('all');
+          }}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer ${
+            activeCollection === 'showcase-30'
+              ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-950 shadow-[2px_2px_0px_#0f172a] font-black'
+              : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-2 border-slate-200 dark:border-slate-700 hover:border-slate-900 font-bold'
+          }`}
+        >
+          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+          <span>30 Master Showcase</span>
+          <span className="px-1.5 py-0.5 rounded-md bg-slate-900 text-amber-400 text-[10px] font-black">
+            30
+          </span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => {
+            setActiveCollection('catalog-100');
+            setActiveCategory('all');
+          }}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer ${
+            activeCollection === 'catalog-100'
+              ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-950 shadow-[2px_2px_0px_#0f172a] font-black'
+              : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-2 border-slate-200 dark:border-slate-700 hover:border-slate-900 font-bold'
+          }`}
+        >
+          <Layers className="w-3.5 h-3.5 text-sky-500" />
+          <span>100 Profile Catalog</span>
+          <span className="px-1.5 py-0.5 rounded-md bg-slate-900 text-sky-400 text-[10px] font-black">
+            100
+          </span>
+        </button>
       </div>
 
       {/* Category Filter Pills */}
@@ -1464,8 +1560,8 @@ export const TemplateGallery: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleCopyPrompt(tmpl)}
-                    title="Copy Archetype Spec"
-                    aria-label={`Copy archetype specification for ${tmpl.name}`}
+                    title="Copy Master AI Generation Prompt"
+                    aria-label={`Copy Master AI prompt for ${tmpl.name}`}
                     className={`w-full flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-mono font-bold border-2 transition-all cursor-pointer shadow-[2px_2px_0px_#cbd5e1] dark:shadow-[2px_2px_0px_#0f172a] hover:shadow-[3px_3px_0px_#cbd5e1] dark:hover:shadow-[3px_3px_0px_#0f172a] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 ${isCopied
                         ? 'bg-emerald-600 text-white border-emerald-700 font-black'
                         : 'bg-white hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 border-slate-300 dark:border-slate-700 hover:border-slate-900'
@@ -1479,7 +1575,7 @@ export const TemplateGallery: React.FC = () => {
                     ) : (
                       <>
                         <Sparkles className="w-3.5 h-3.5 text-amber-500 stroke-[2.5]" />
-                        <span className="font-bold text-slate-900 dark:text-white">Copy Spec</span>
+                        <span className="font-bold text-slate-900 dark:text-white">Copy Prompt</span>
                       </>
                     )}
                   </button>
@@ -1544,754 +1640,23 @@ export const TemplateGallery: React.FC = () => {
       {/* ========================================================
           FULL INTERACTIVE PREVIEW & CUSTOMIZE MODAL
           ======================================================== */}
-      {mounted && previewTemplate && previewConfig && typeof document !== 'undefined' && createPortal(
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/75 backdrop-blur-md animate-in fade-in duration-200"
-        >
-          <div
-            className="relative w-full max-w-4xl max-h-[90vh] bg-white dark:bg-[#111827] border-2 border-[#DCE3EF] dark:border-slate-700 rounded-3xl flex flex-col overflow-hidden text-[#172033] dark:text-slate-100 shadow-[0_25px_60px_-15px_rgba(15,23,42,0.3)]"
-          >
-            {/* Top Accent Strip */}
-            <div className="h-2 w-full shrink-0 bg-gradient-to-r from-[#6366F1] via-[#8B5CF6] to-[#06B6D4]" />
-
-            {/* Modal Header */}
-            <div className="flex items-center justify-between px-6 py-4 bg-[#F8FAFC] dark:bg-[#0B101D] border-b border-[#DCE3EF] dark:border-slate-800">
-              <div className="flex items-center gap-3">
-                <span
-                  className="w-4 h-4 rounded-full border border-slate-900 shadow-xs shrink-0"
-                  style={{ backgroundColor: previewTemplate.accent }}
-                />
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-base font-black text-[#172033] dark:text-white uppercase font-sans tracking-tight">
-                      {previewTemplate.name}
-                    </h3>
-                    <span
-                      className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded font-black border bg-[#EEF2FF] text-[#4338CA] border-[#C7D2FE] dark:bg-indigo-950/60 dark:text-indigo-300 dark:border-indigo-800 shadow-2xs"
-                    >
-                      {previewTemplate.category}
-                    </span>
-                  </div>
-                  <p className="text-xs text-[#64748B] dark:text-slate-300 font-mono line-clamp-1">{previewTemplate.description}</p>
-                </div>
-              </div>
-
-              {/* Close Button */}
-              <button
-                type="button"
-                onClick={() => {
-                  setPreviewTemplate(null);
-                  setPreviewConfig(null);
-                }}
-                className="p-1.5 rounded-xl border border-[#DCE3EF] dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-[#EEF2FF] dark:hover:bg-slate-700 text-[#172033] dark:text-slate-100 transition-colors shadow-xs cursor-pointer"
-                title="Close preview"
-                aria-label="Close template preview modal"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Modal Tabs & Viewport Switcher Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-2 px-6 py-2.5 bg-slate-100 dark:bg-slate-900 border-b-2 border-slate-300 dark:border-slate-800 text-xs font-mono font-bold">
-              <div className="flex items-center gap-1.5 flex-wrap">
-                <button
-                  type="button"
-                  onClick={() => setPreviewTab('visual')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'visual'
-                      ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-2xs font-black'
-                      : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:text-slate-900 hover:border-slate-900'
-                    }`}
-                >
-                  <Eye className="w-3.5 h-3.5" />
-                  <span>Visual Preview</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setPreviewTab('github')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'github'
-                      ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-2xs font-black'
-                      : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:text-slate-900 hover:border-slate-900'
-                    }`}
-                >
-                  <BookOpen className="w-3.5 h-3.5" />
-                  <span>GitHub Profile View</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setPreviewTab('markdown')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'markdown'
-                      ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-2xs font-black'
-                      : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:text-slate-900 hover:border-slate-900'
-                    }`}
-                >
-                  <Code className="w-3.5 h-3.5" />
-                  <span>Markdown Output</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setPreviewTab('prompt')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'prompt'
-                      ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-2xs font-black'
-                      : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:text-slate-900 hover:border-slate-900'
-                    }`}
-                >
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Archetype Spec</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setPreviewTab('plugins')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${previewTab === 'plugins'
-                      ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-2xs font-black'
-                      : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:text-slate-900 hover:border-slate-900'
-                    }`}
-                >
-                  <Layers className="w-3.5 h-3.5" />
-                  <span>Manage Plugins ({previewConfig.sections.length})</span>
-                </button>
-              </div>
-
-              {/* Viewport Switcher */}
-              <div className="flex items-center gap-1 bg-white dark:bg-slate-800 p-1 rounded-xl border border-slate-300 dark:border-slate-700 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => setPreviewDevice('desktop')}
-                  title="Desktop (100% width)"
-                  className={`px-2 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                    previewDevice === 'desktop'
-                      ? 'bg-[#ffe600] text-slate-950 font-black shadow-xs'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  <Monitor className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Desktop</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setPreviewDevice('tablet')}
-                  title="Tablet (768px width)"
-                  className={`px-2 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                    previewDevice === 'tablet'
-                      ? 'bg-[#ffe600] text-slate-950 font-black shadow-xs'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  <Tablet className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Tablet</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setPreviewDevice('mobile')}
-                  title="Mobile (375px width)"
-                  className={`px-2 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                    previewDevice === 'mobile'
-                      ? 'bg-[#ffe600] text-slate-950 font-black shadow-xs'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  <Smartphone className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Mobile</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Modal Content Scroll Area */}
-            <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 bg-[#fafbfc] dark:bg-[#0f172a] text-slate-900 dark:text-slate-100">
-              <div
-                className={`transition-all duration-300 mx-auto ${
-                  previewDevice === 'desktop'
-                    ? 'w-full'
-                    : previewDevice === 'tablet'
-                    ? 'w-full max-w-[768px] border-2 border-slate-300 dark:border-slate-700 rounded-2xl p-4 bg-white dark:bg-slate-900 shadow-xl'
-                    : 'w-full max-w-[375px] border-2 border-slate-300 dark:border-slate-700 rounded-3xl p-3 bg-white dark:bg-slate-900 shadow-2xl'
-                }`}
-              >
-              {/* TAB 1: Visual Simulated GitHub Profile */}
-              {previewTab === 'visual' && (
-                <div className="space-y-4">
-                  {/* High-Fidelity Asset Banner or Procedural Fallback */}
-                  {TEMPLATE_PREVIEWS[previewTemplate.id] ? (
-                    <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 shadow-md space-y-2">
-                      <div className="flex items-center justify-between px-2 pt-1 pb-2 border-b border-slate-200 dark:border-slate-800">
-                        <span className="text-xs font-mono text-slate-900 dark:text-white font-black flex items-center gap-1.5">
-                          <Eye className="w-3.5 h-3.5 text-amber-500" /> High-Fidelity Showcase
-                        </span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 font-bold">
-                          100% Camo Compliant
-                        </span>
-                      </div>
-                      <img
-                        src={TEMPLATE_PREVIEWS[previewTemplate.id]}
-                        alt={`${previewTemplate.name} Showcase`}
-                        className="w-full h-auto object-contain rounded-lg max-h-[380px] mx-auto"
-                      />
-                    </div>
-                  ) : (
-                    <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 shadow-md space-y-2">
-                      <div className="flex items-center justify-between px-2 pt-1 pb-2 border-b border-slate-200 dark:border-slate-800">
-                        <span className="text-xs font-mono text-slate-900 dark:text-white font-black flex items-center gap-1.5">
-                          <Eye className="w-3.5 h-3.5 text-amber-500" /> Dynamic Vector Archetype Showcase
-                        </span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 font-bold">
-                          Live Procedural Preview
-                        </span>
-                      </div>
-                      {renderProceduralPreview(previewTemplate)}
-                    </div>
-                  )}
-
-                  {/* macOS Profile Header Box */}
-                  {(() => {
-                    const isCentered = previewConfig.settings.align === 'center';
-                    return (
-                      <div
-                        className={`rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-8 space-y-5 shadow-sm ${isCentered ? 'text-center' : 'text-left'
-                          }`}
-                      >
-                        {/* macOS Window Controls Header */}
-                        <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
-                          <div className="flex items-center gap-2">
-                            <span className="w-3 h-3 rounded-full bg-[#ef4444]" />
-                            <span className="w-3 h-3 rounded-full bg-[#eab308]" />
-                            <span className="w-3 h-3 rounded-full bg-[#22c55e]" />
-                            <span className="ml-2 font-mono text-xs font-black text-slate-900 dark:text-white px-2.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700">
-                              README.md
-                            </span>
-                          </div>
-                          <span className="text-[10px] font-mono font-black px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                            <span>● 60FPS CAMO SAFE</span>
-                          </span>
-                        </div>
-
-                        {/* Developer Heading, Role & Bio */}
-                        <div className="space-y-3">
-                          <h4 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-sans tracking-tight">
-                            Hi there, I&apos;m {previewConfig.settings.user.name} 👋
-                          </h4>
-                          <div className={isCentered ? 'flex justify-center' : 'flex justify-start'}>
-                            <span
-                              className="inline-block px-3.5 py-1.5 rounded-xl text-slate-950 font-mono text-xs sm:text-sm font-black border border-slate-900 shadow-xs"
-                              style={{ backgroundColor: previewTemplate.accent || '#ffe600' }}
-                            >
-                              {previewConfig.settings.user.role}
-                            </span>
-                          </div>
-                          <p
-                            className={`text-sm sm:text-base text-slate-600 dark:text-slate-300 font-mono pt-1 leading-relaxed max-w-2xl ${isCentered ? 'mx-auto' : ''
-                              }`}
-                          >
-                            {previewConfig.settings.user.bio}
-                          </p>
-                        </div>
-
-                        {/* Metadata Badges */}
-                        <div
-                          className={`flex flex-wrap gap-2.5 pt-2 text-xs font-mono font-bold ${isCentered ? 'justify-center' : 'justify-start'
-                            }`}
-                        >
-                          {previewConfig.settings.user.location && (
-                            <span className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-300 dark:border-slate-700">
-                              📍 Based in <b>{previewConfig.settings.user.location}</b>
-                            </span>
-                          )}
-                          {previewConfig.settings.user.status && (
-                            <span className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-300 dark:border-slate-700">
-                              🔭 Currently: <b>{previewConfig.settings.user.status}</b>
-                            </span>
-                          )}
-                          {previewConfig.settings.user.pronouns && (
-                            <span className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-300 dark:border-slate-700">
-                              💬 Pronouns: <b>{previewConfig.settings.user.pronouns}</b>
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })()}
-
-                  {/* Plugins Simulated Cards */}
-                  <div className="space-y-3">
-                    <h5 className="text-xs font-mono uppercase tracking-wider text-slate-900 dark:text-white font-black">
-                      Active Telemetry Modules &amp; SVGs ({previewConfig.sections.length})
-                    </h5>
-
-                    {previewConfig.sections.length === 0 ? (
-                      <div className="p-6 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 text-center text-xs font-mono text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-800/50">
-                        This archetype is ultra-minimalist and relies purely on clean bio, markdown lists, and typography.
-                      </div>
-                    ) : (
-                      <div className="space-y-3">
-                        {previewConfig.sections.map(sec => (
-                          <div key={sec.id} className="relative group/sec">
-                            {renderModuleVisual(sec, previewConfig.settings.align === 'center', previewConfig.settings.user.github || 'octocat', previewTemplate.accent || '#ffe600')}
-                            <button
-                              type="button"
-                              onClick={() => handleRemovePluginFromPreview(sec.id)}
-                              className="absolute top-3 right-3 p-1 rounded-lg bg-red-50 dark:bg-red-950/60 hover:bg-red-500 hover:text-white text-red-600 dark:text-red-300 border border-red-200 dark:border-red-900 text-xs font-mono transition-colors shadow-xs"
-                              title="Remove plugin from this preview"
-                            >
-                              <Trash2 className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {/* TAB 2: Full GitHub Profile View Simulation */}
-              {previewTab === 'github' && (
-                <div className="space-y-4 font-sans text-slate-900 dark:text-slate-100">
-                  {/* Simulated GitHub Top Navigation */}
-                  <div className="rounded-xl bg-[#24292f] text-slate-200 px-4 py-2.5 flex items-center justify-between text-xs font-mono border border-slate-700 shadow-sm">
-                    <div className="flex items-center gap-3">
-                      <svg height="20" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="20" fill="currentColor">
-                        <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
-                      </svg>
-                      <span className="font-bold text-white">github.com/{previewConfig.settings.user.github || 'octocat'}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-[11px] text-slate-300">
-                      <span className="hidden sm:inline bg-slate-800 px-2.5 py-1 rounded-md border border-slate-700 text-slate-400">Type / to search</span>
-                      <span className="font-bold">Pull requests</span>
-                      <span className="font-bold">Issues</span>
-                      <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center font-bold text-[10px]">
-                        {(previewConfig.settings.user.name?.[0] || 'O').toUpperCase()}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Simulated GitHub Sub-Tabs */}
-                  <div className="flex items-center gap-4 px-2 border-b border-slate-200 dark:border-slate-800 text-xs font-sans font-medium text-slate-600 dark:text-slate-400">
-                    <div className="flex items-center gap-1.5 py-2.5 border-b-2 border-[#fd8c73] text-slate-900 dark:text-white font-bold">
-                      <BookOpen className="w-4 h-4 text-slate-700 dark:text-slate-300" />
-                      <span>Overview</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 py-2.5 hover:text-slate-900 dark:hover:text-white cursor-pointer">
-                      <span>Repositories</span>
-                      <span className="px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-slate-800 text-[10px] font-mono font-bold text-slate-700 dark:text-slate-300">42</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 py-2.5 hover:text-slate-900 dark:hover:text-white cursor-pointer">
-                      <span>Projects</span>
-                      <span className="px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-slate-800 text-[10px] font-mono font-bold text-slate-700 dark:text-slate-300">3</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 py-2.5 hover:text-slate-900 dark:hover:text-white cursor-pointer">
-                      <span>Packages</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 py-2.5 hover:text-slate-900 dark:hover:text-white cursor-pointer">
-                      <span>Stars</span>
-                      <span className="px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-slate-800 text-[10px] font-mono font-bold text-slate-700 dark:text-slate-300">128</span>
-                    </div>
-                  </div>
-
-                  {/* Realistic 2-Column GitHub Profile Layout */}
-                  <div className="flex flex-col md:flex-row gap-6 pt-2">
-                    {/* Left Column: User Sidebar */}
-                    <div className="w-full md:w-64 lg:w-72 shrink-0 space-y-4">
-                      <div className="flex flex-col items-start space-y-3">
-                        {/* Large Circular Avatar */}
-                        <div className="relative">
-                          <div
-                            className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 rounded-full border-2 border-slate-300 dark:border-slate-700 bg-slate-900 shadow-md flex items-center justify-center text-4xl font-black"
-                            style={{ color: previewTemplate.accent || '#ffe600' }}
-                          >
-                            {(previewConfig.settings.user.name?.[0] || 'O').toUpperCase()}
-                          </div>
-                          <span className="absolute bottom-2 right-2 p-1.5 rounded-full bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 text-xs shadow-xs" title="Status: Focus Mode">
-                            ⚡
-                          </span>
-                        </div>
-
-                        {/* User Identity */}
-                        <div>
-                          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-tight">
-                            {previewConfig.settings.user.name || 'Alex Mercer'}
-                          </h2>
-                          <span className="text-sm font-mono text-slate-500 dark:text-slate-400">
-                            @{previewConfig.settings.user.github || 'octocat'}
-                          </span>
-                        </div>
-
-                        {/* Edit Profile Button */}
-                        <button
-                          type="button"
-                          className="w-full py-1.5 px-3 rounded-md bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold border border-slate-300 dark:border-slate-700 transition-colors shadow-2xs cursor-pointer"
-                        >
-                          Edit profile
-                        </button>
-
-                        {/* User Bio */}
-                        <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
-                          {previewConfig.settings.user.bio || 'Building open-source tools and high-performance distributed systems.'}
-                        </p>
-
-                        {/* Followers / Following Stats */}
-                        <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 font-sans">
-                          <span className="flex items-center gap-1 font-semibold text-slate-900 dark:text-white">
-                            👥 814 <span className="font-normal text-slate-500">followers</span>
-                          </span>
-                          <span>&bull;</span>
-                          <span className="font-semibold text-slate-900 dark:text-white">
-                            23 <span className="font-normal text-slate-500">following</span>
-                          </span>
-                        </div>
-
-                        {/* Metadata Details */}
-                        <div className="space-y-1.5 text-xs text-slate-700 dark:text-slate-300 pt-1 font-sans">
-                          <div className="flex items-center gap-2">
-                            <Building className="w-3.5 h-3.5 text-slate-500" />
-                            <span>MonoForge Open Source</span>
-                          </div>
-                          {previewConfig.settings.user.location && (
-                            <div className="flex items-center gap-2">
-                              <MapPin className="w-3.5 h-3.5 text-slate-500" />
-                              <span>{previewConfig.settings.user.location}</span>
-                            </div>
-                          )}
-                          <div className="flex items-center gap-2">
-                            <Mail className="w-3.5 h-3.5 text-slate-500" />
-                            <span className="truncate">{previewConfig.settings.user.github || 'developer'}@monoforge.dev</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <LinkIcon className="w-3.5 h-3.5 text-slate-500" />
-                            <span className="text-blue-600 dark:text-blue-400 truncate">https://monoforge-studio.vercel.app</span>
-                          </div>
-                        </div>
-
-                        {/* Achievements Section */}
-                        <div className="pt-2 border-t border-slate-200 dark:border-slate-800 w-full">
-                          <h4 className="text-xs font-bold text-slate-900 dark:text-white mb-2">Achievements</h4>
-                          <div className="flex items-center gap-2 flex-wrap text-lg">
-                            <span title="Pull Shark (x2)">🦈</span>
-                            <span title="Quickdraw">⚡</span>
-                            <span title="Pair Extraordinaire">👥</span>
-                            <span title="Starstruck">⭐</span>
-                            <span title="Heart On Your Sleeve">💖</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right Column: Pinned Repos + README Container */}
-                    <div className="flex-1 space-y-5 min-w-0">
-                      {/* Pinned Repos Section */}
-                      <div className="space-y-2.5">
-                        <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
-                          <span className="font-semibold text-slate-900 dark:text-white">Pinned</span>
-                          <span className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">Customize your pins</span>
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          {[
-                            { name: 'monoforge-engine', desc: 'Deterministic Camo-compliant SVG animator & profile studio', lang: 'TypeScript', color: '#3178c6', stars: '1.4k', forks: '182' },
-                            { name: 'distributed-raft-kv', desc: 'Zero-allocation distributed consensus log in Rust', lang: 'Rust', color: '#dea584', stars: '890', forks: '64' },
-                            { name: 'neural-mesh-transformer', desc: 'Edge-accelerated vector embedding search in WASM', lang: 'Python', color: '#3572A5', stars: '640', forks: '48' },
-                            { name: 'hyper-kernel-ebpf', desc: 'Real-time network observability driver for high throughput', lang: 'C', color: '#555555', stars: '415', forks: '32' },
-                          ].map((repo, i) => (
-                            <div key={i} className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-1.5 shadow-2xs hover:border-slate-400 transition-colors">
-                              <div className="flex items-center justify-between">
-                                <span className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer truncate">
-                                  {repo.name}
-                                </span>
-                                <span className="text-[10px] px-1.5 py-0.5 rounded-full border border-slate-300 dark:border-slate-700 text-slate-500 font-mono">
-                                  Public
-                                </span>
-                              </div>
-                              <p className="text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">
-                                {repo.desc}
-                              </p>
-                              <div className="flex items-center gap-3 text-[11px] text-slate-500 dark:text-slate-400 pt-1">
-                                <span className="flex items-center gap-1">
-                                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: repo.color }} />
-                                  {repo.lang}
-                                </span>
-                                <span>⭐ {repo.stars}</span>
-                                <span>🍴 {repo.forks}</span>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* GitHub Profile README Container */}
-                      <div className="rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden shadow-sm">
-                        {/* README.md Header Box */}
-                        <div className="flex items-center justify-between px-4 py-2 bg-slate-50 dark:bg-slate-850 border-b border-slate-300 dark:border-slate-700 text-xs font-mono">
-                          <div className="flex items-center gap-2">
-                            <BookOpen className="w-3.5 h-3.5 text-slate-500" />
-                            <span className="font-bold text-slate-900 dark:text-white">
-                              {previewConfig.settings.user.github || 'octocat'} / README.md
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-bold border border-emerald-300 dark:border-emerald-800">
-                              ● Camo Safe
-                            </span>
-                            <span className="text-slate-400">✏️</span>
-                          </div>
-                        </div>
-
-                        {/* README Rendered Content */}
-                        <div className="p-4 sm:p-6 space-y-4">
-                          <div className={`space-y-2 ${previewConfig.settings.align === 'center' ? 'text-center' : 'text-left'}`}>
-                            <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-                              Hi there, I&apos;m {previewConfig.settings.user.name} 👋
-                            </h3>
-                            <span
-                              className="inline-block px-3 py-1 rounded-md text-xs font-bold text-slate-950 shadow-2xs"
-                              style={{ backgroundColor: previewTemplate.accent || '#ffe600' }}
-                            >
-                              {previewConfig.settings.user.role}
-                            </span>
-                            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-mono pt-1">
-                              {previewConfig.settings.user.bio}
-                            </p>
-                          </div>
-
-                          <div className="space-y-3 pt-2">
-                            {previewConfig.sections.map(sec => (
-                              <div key={sec.id}>
-                                {renderModuleVisual(sec, previewConfig.settings.align === 'center', previewConfig.settings.user.github || 'octocat', previewTemplate.accent || '#ffe600')}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* TAB 3: Raw Markdown Source */}
-              {previewTab === 'markdown' && (
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-300">Generated Markdown Output</span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (typeof navigator !== 'undefined' && navigator.clipboard) {
-                          navigator.clipboard.writeText(previewMarkdown);
-                          setCopiedMarkdown(true);
-                          showToast('Markdown copied to clipboard!');
-                          setTimeout(() => setCopiedMarkdown(false), 2200);
-                        }
-                      }}
-                      className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg border-2 border-slate-900 bg-[#ffe600] hover:bg-[#fde047] text-slate-950 font-mono text-xs font-black shadow-xs cursor-pointer"
-                    >
-                      {copiedMarkdown ? (
-                        <>
-                          <Check className="w-3.5 h-3.5" />
-                          <span>Copied Markdown!</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5" />
-                          <span>Copy Markdown</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-                  <pre className="p-5 rounded-2xl bg-[#0a0f1d] border border-slate-800 text-xs text-slate-100 font-mono overflow-x-auto whitespace-pre-wrap max-h-96 select-all leading-relaxed shadow-lg">
-                    {previewMarkdown}
-                  </pre>
-                </div>
-              )}
-
-              {/* TAB 3: AI Prompt */}
-              {previewTab === 'prompt' && (
-                <div className="space-y-4">
-                  <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <Sparkles className="w-4 h-4 text-amber-500" />
-                        <span className="text-xs font-black uppercase text-slate-900 dark:text-white font-mono">
-                          Archetype Specification &amp; Markdown
-                        </span>
-                      </div>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-bold">
-                        Deterministic Camo-Compliant Markdown
-                      </span>
-                    </div>
-
-                    <p className="text-xs text-slate-900 dark:text-slate-200 leading-relaxed font-mono bg-slate-50 dark:bg-[#0a0f1d] p-4 rounded-xl border border-slate-200 dark:border-slate-800 select-all">
-                      {previewTemplate.prompt}
-                    </p>
-
-                    <button
-                      type="button"
-                      onClick={() => handleCopyPrompt(previewTemplate)}
-                      className="flex items-center gap-1.5 px-4 py-2 rounded-xl font-mono font-black text-xs bg-[#ffe600] hover:bg-[#fde047] text-slate-950 border-2 border-slate-900 shadow-[2px_2px_0px_#0f172a] cursor-pointer"
-                    >
-                      {copiedPromptId === previewTemplate.id ? (
-                        <>
-                          <Check className="w-3.5 h-3.5" />
-                          <span>Prompt Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5" />
-                          <span>Copy Archetype Spec</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* TAB 4: Manage Plugins */}
-              {previewTab === 'plugins' && (
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="text-xs font-mono font-black text-slate-900 dark:text-white uppercase">
-                        Active Plugins in this Archetype ({previewConfig.sections.length})
-                      </h4>
-                      <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400">
-                        Remove plugins to customize before applying to your profile.
-                      </p>
-                    </div>
-                    {previewConfig.sections.length < previewTemplate.config.sections.length && (
-                      <button
-                        type="button"
-                        onClick={handleResetPreviewPlugins}
-                        className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-amber-400 text-slate-950 font-mono text-xs font-bold border border-slate-900 shadow-xs hover:bg-amber-300 cursor-pointer"
-                      >
-                        <RefreshCw className="w-3 h-3" />
-                        <span>Restore All Plugins</span>
-                      </button>
-                    )}
-                  </div>
-
-                  {previewConfig.sections.length === 0 ? (
-                    <div className="p-8 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 text-center space-y-3 bg-white dark:bg-slate-800/50">
-                      <p className="text-xs font-mono text-slate-600 dark:text-slate-400">All plugins have been removed from this preview.</p>
-                      <button
-                        type="button"
-                        onClick={handleResetPreviewPlugins}
-                        className="px-4 py-2 rounded-xl bg-[#ffe600] text-slate-950 font-mono text-xs font-bold border-2 border-slate-900 shadow-xs cursor-pointer"
-                      >
-                        Restore Plugins
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="space-y-2">
-                      {previewConfig.sections.map((sec, idx) => (
-                        <div
-                          key={sec.id}
-                          className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xs"
-                        >
-                          <div className="flex items-center gap-3">
-                            <span className="w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-mono text-[11px] text-slate-900 dark:text-slate-100 font-black">
-                              {idx + 1}
-                            </span>
-                            <div>
-                              <span className="text-xs font-black text-slate-900 dark:text-white font-mono uppercase">
-                                {sec.type}
-                              </span>
-                              <p className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
-                                ID: {sec.id}
-                              </p>
-                            </div>
-                          </div>
-
-                          <button
-                            type="button"
-                            onClick={() => handleRemovePluginFromPreview(sec.id)}
-                            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-red-50 dark:bg-red-950/60 hover:bg-red-500 hover:text-white text-red-600 dark:text-red-300 border border-red-200 dark:border-red-900 text-xs font-mono transition-colors shadow-xs cursor-pointer"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                            <span>Remove</span>
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-              </div>
-            </div>
-
-            {/* Modal Footer Actions */}
-            <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleCopyPrompt(previewTemplate)}
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-xs cursor-pointer"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                  <span>Copy Spec</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (typeof navigator !== 'undefined' && navigator.clipboard) {
-                      navigator.clipboard.writeText(previewMarkdown);
-                      setCopiedMarkdown(true);
-                      showToast('Markdown copied to clipboard!');
-                      setTimeout(() => setCopiedMarkdown(false), 2000);
-                    }
-                  }}
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-xs cursor-pointer"
-                >
-                  <Copy className="w-3.5 h-3.5" />
-                  <span>Copy Markdown</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleDownloadMarkdown(previewTemplate.name, previewMarkdown)}
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-xs cursor-pointer"
-                  title="Download README.md"
-                >
-                  <Download className="w-3.5 h-3.5 text-emerald-500" />
-                  <span>Download .md</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleShareTemplate(previewTemplate)}
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-xs cursor-pointer"
-                  title="Share direct link to this archetype"
-                >
-                  <Share2 className="w-3.5 h-3.5 text-amber-500" />
-                  <span>Share</span>
-                </button>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={handleMergeFromPreview}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 font-mono text-xs font-bold border-2 border-slate-900 dark:border-slate-700 shadow-xs cursor-pointer"
-                >
-                  <Layers className="w-3.5 h-3.5" />
-                  <span>Add to My Profile</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleApplyFromPreview}
-                  className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-[#ffe600] hover:bg-[#fde047] text-slate-950 font-mono text-xs font-black border-2 border-slate-900 shadow-[3px_3px_0px_#0f172a] hover:shadow-[4px_4px_0px_#0f172a] hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
-                >
-                  <Check className="w-4 h-4" />
-                  <span>Apply Template</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>,
-        document.body
+      {/* FULL PROFILE DASHBOARD PREVIEW MODAL (100+30 SIGNATURE ARCHETYPES) */}
+      {mounted && previewTemplate && previewConfig && (
+        <FullProfileDashboardModal
+          template={previewTemplate}
+          config={previewConfig}
+          isOpen={Boolean(previewTemplate)}
+          onClose={() => {
+            setPreviewTemplate(null);
+            setPreviewConfig(null);
+          }}
+          onApply={(tpl) => {
+            setEntireConfig(tpl.config);
+            setPreviewTemplate(null);
+            setPreviewConfig(null);
+            showToast(`Applied "${tpl.name}" dashboard to editor!`);
+          }}
+        />
       )}
 
       {/* Floating Compare Dock */}

@@ -13,6 +13,7 @@ import {
   ChevronRight,
   Sparkles,
   LayoutTemplate,
+  FileCode2,
 } from 'lucide-react';
 import { MonoForgeMonkeyIcon } from '#/components/common/MonoForgeLogo';
 import { DocsSearchModal } from '#/components/docs/DocsSearchModal';
@@ -24,6 +25,7 @@ import { AssetLibraryModal } from '#/components/assets/AssetLibraryModal';
 export function TopNav() {
   const pathname = usePathname();
   const isHome = pathname === '/' || pathname === '' || pathname === '/en';
+  const isProjectReadme = Boolean(pathname?.includes('/project-readme'));
   const isTemplates = Boolean(pathname?.includes('/templates'));
   const isVisualizer = Boolean(pathname?.includes('/visualizer'));
   const isDocs = Boolean(pathname?.includes('/docs'));
@@ -91,6 +93,23 @@ export function TopNav() {
               <Home className="w-3.5 h-3.5 text-amber-500" />
               <span className={isHome ? 'text-white dark:text-slate-950' : 'text-slate-800 dark:text-slate-200'}>
                 HOME
+              </span>
+            </Link>
+
+            {/* Project README Studio (Pillar 1) */}
+            <Link
+              href="/project-readme"
+              onClick={() => playClickSound()}
+              data-cursor-label="PROJECT-README"
+              className={`flex items-center gap-1.5 px-3 py-1.5 font-bold rounded-lg border transition-all cursor-pointer ${
+                isProjectReadme
+                  ? 'bg-amber-400 text-slate-950 border-amber-400 font-black shadow-xs'
+                  : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/60 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              <FileCode2 className="w-3.5 h-3.5 text-amber-500" />
+              <span className={isProjectReadme ? 'text-slate-950' : 'text-slate-800 dark:text-slate-200'}>
+                PROJECT README
               </span>
             </Link>
 

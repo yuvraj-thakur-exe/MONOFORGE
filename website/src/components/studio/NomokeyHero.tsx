@@ -11,6 +11,9 @@ import {
   ShieldCheck,
   LayoutTemplate,
   BookOpen,
+  Play,
+  X,
+  Video,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import confetti from 'canvas-confetti';
@@ -32,7 +35,7 @@ const ROTATING_HIGHLIGHTS = [
   '47+ native telemetry engines with zero external tracking calls',
   'Split-screen Monaco IDE with AST Zod validation & live preview',
   'Tactile developer badges & stickers ready for GitHub CDN',
-  '18+ signature design archetypes ready for 1-click apply',
+  '130+ signature design archetypes across 10 official themes',
 ];
 
 export function NomokeyHero() {
@@ -46,6 +49,8 @@ export function NomokeyHero() {
   const [sparkEffect, setSparkEffect] = useState(false);
   const [bananaFuel, setBananaFuel] = useState<number>(75);
   const [highlightIdx, setHighlightIdx] = useState(0);
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [activeVideo, setActiveVideo] = useState<'detailed' | 'short'>('detailed');
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -162,8 +167,9 @@ export function NomokeyHero() {
           {/* Left Column: Bold Typographic Statement (Nomokey + Poulo style) */}
           <div className="lg:col-span-7 space-y-6 text-left">
             <div className="space-y-3">
-              <div className="inline-block px-3 py-1 rounded-lg bg-[#ffe600] text-neutral-950 border-2 border-neutral-900 font-mono text-xs font-black tracking-widest uppercase shadow-[2px_2px_0px_#18181b]">
-                ⚔️ THE NEXT-GEN GITHUB PROFILE ENGINE
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#ffe600] text-neutral-950 border-2 border-neutral-900 font-mono text-xs font-black tracking-widest uppercase shadow-[2px_2px_0px_#18181b]">
+                <Sparkles className="w-3.5 h-3.5 text-neutral-950" />
+                <span>THE NEXT-GEN GITHUB PROFILE ENGINE</span>
               </div>
 
               <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[0.98] uppercase font-sans text-neutral-950">
@@ -243,8 +249,21 @@ export function NomokeyHero() {
                 className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-slate-800 text-neutral-950 dark:text-white font-bold text-sm tracking-wide border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] hover:shadow-[1px_1px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all duration-150 btn-tactile hover:bg-[#ffe600] cursor-pointer"
               >
                 <LayoutTemplate className="w-4 h-4 text-amber-700 dark:text-amber-400" />
-                <span>75+ TEMPLATES</span>
+                <span>130+ TEMPLATES</span>
               </Link>
+
+              {/* Watch Launch Video */}
+              <button
+                type="button"
+                onClick={() => {
+                  playClickSound();
+                  setVideoModalOpen(true);
+                }}
+                className="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-[#ffe600] font-mono text-xs font-bold border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] transition-all btn-tactile cursor-pointer"
+              >
+                <Play className="w-3.5 h-3.5 fill-[#ffe600] text-[#ffe600]" />
+                <span>WATCH FILM</span>
+              </button>
 
               {/* Documentation Website */}
               <Link
@@ -291,22 +310,20 @@ export function NomokeyHero() {
               <button
                 type="button"
                 onClick={() => setCardView('monkey')}
-                className={`px-3 py-1.5 rounded-lg font-mono text-xs font-black border-2 border-neutral-900 dark:border-slate-700 transition-all cursor-pointer btn-tactile ${
-                  cardView === 'monkey'
+                className={`px-3 py-1.5 rounded-lg font-mono text-xs font-black border-2 border-neutral-900 dark:border-slate-700 transition-all cursor-pointer btn-tactile ${cardView === 'monkey'
                     ? 'bg-[#ffe600] text-neutral-950 shadow-[2px_2px_0px_#18181b]'
                     : 'bg-white dark:bg-slate-800 text-neutral-900 dark:text-slate-100 hover:bg-[#ffe600] hover:text-neutral-950 dark:hover:bg-[#ffe600] dark:hover:text-neutral-950'
-                }`}
+                  }`}
               >
                 🐵 MONKEY CORE
               </button>
               <button
                 type="button"
                 onClick={() => setCardView('preview')}
-                className={`px-3 py-1.5 rounded-lg font-mono text-xs font-black border-2 border-neutral-900 dark:border-slate-700 transition-all cursor-pointer btn-tactile ${
-                  cardView === 'preview'
+                className={`px-3 py-1.5 rounded-lg font-mono text-xs font-black border-2 border-neutral-900 dark:border-slate-700 transition-all cursor-pointer btn-tactile ${cardView === 'preview'
                     ? 'bg-[#ffe600] text-neutral-950 shadow-[2px_2px_0px_#18181b]'
                     : 'bg-white dark:bg-slate-800 text-neutral-900 dark:text-slate-100 hover:bg-[#ffe600] hover:text-neutral-950 dark:hover:bg-[#ffe600] dark:hover:text-neutral-950'
-                }`}
+                  }`}
               >
                 ⚡ GENERATED PROFILE
               </button>
@@ -399,170 +416,398 @@ export function NomokeyHero() {
               ) : (
                 /* Interactive Cyber Monkey Workstation View */
                 <>
-              {/* Studio Card Header: Mode Switcher */}
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-neutral-200 dark:border-slate-800">
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-red-500 border border-neutral-900" />
-                  <span className="w-3 h-3 rounded-full bg-[#ffe600] border border-neutral-900" />
-                  <span className="w-3 h-3 rounded-full bg-emerald-500 border border-neutral-900" />
-                  <span className="text-[11px] font-mono font-black text-neutral-950 dark:text-white ml-1">
-                    MONKEY_CORE
-                  </span>
-                </div>
+                  {/* Studio Card Header: Mode Switcher */}
+                  <div className="flex items-center justify-between pb-4 mb-4 border-b border-neutral-200 dark:border-slate-800">
+                    <div className="flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-red-500 border border-neutral-900" />
+                      <span className="w-3 h-3 rounded-full bg-[#ffe600] border border-neutral-900" />
+                      <span className="w-3 h-3 rounded-full bg-emerald-500 border border-neutral-900" />
+                      <span className="text-[11px] font-mono font-black text-neutral-950 dark:text-white ml-1">
+                        MONKEY_CORE
+                      </span>
+                    </div>
 
-                {/* Mode Selector Pills */}
-                <div className="flex items-center gap-1 bg-neutral-100 dark:bg-slate-800 p-1 rounded-lg border-2 border-neutral-900 dark:border-slate-700 text-[10px] font-mono font-bold shadow-2xs">
-                  <button
-                    type="button"
-                    onClick={() => setActiveMode('clean')}
-                    className={`px-2.5 py-1 rounded transition-all cursor-pointer btn-tactile ${
-                      activeMode === 'clean' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-transparent text-neutral-950 dark:text-white font-bold hover:bg-neutral-200 dark:hover:bg-slate-700'
-                    }`}
-                  >
-                    CLEAN
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveMode('cyber')}
-                    className={`px-2.5 py-1 rounded transition-all cursor-pointer btn-tactile ${
-                      activeMode === 'cyber' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-transparent text-neutral-950 dark:text-white font-bold hover:bg-neutral-200 dark:hover:bg-slate-700'
-                    }`}
-                  >
-                    CYBER
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveMode('lofi')}
-                    className={`px-2.5 py-1 rounded transition-all cursor-pointer btn-tactile ${
-                      activeMode === 'lofi' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-transparent text-neutral-950 dark:text-white font-bold hover:bg-neutral-200 dark:hover:bg-slate-700'
-                    }`}
-                  >
-                    LO-FI
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveMode('hyperspeed')}
-                    className={`px-2.5 py-1 rounded transition-all cursor-pointer btn-tactile ${
-                      activeMode === 'hyperspeed' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-transparent text-neutral-950 dark:text-white font-bold hover:bg-neutral-200 dark:hover:bg-slate-700'
-                    }`}
-                  >
-                    WARP
-                  </button>
-                </div>
-              </div>
+                    {/* Mode Selector Pills */}
+                    <div className="flex items-center gap-1 bg-neutral-100 dark:bg-slate-800 p-1 rounded-lg border-2 border-neutral-900 dark:border-slate-700 text-[10px] font-mono font-bold shadow-2xs">
+                      <button
+                        type="button"
+                        onClick={() => setActiveMode('clean')}
+                        className={`px-2.5 py-1 rounded transition-all cursor-pointer btn-tactile ${activeMode === 'clean' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-transparent text-neutral-950 dark:text-white font-bold hover:bg-neutral-200 dark:hover:bg-slate-700'
+                          }`}
+                      >
+                        CLEAN
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setActiveMode('cyber')}
+                        className={`px-2.5 py-1 rounded transition-all cursor-pointer btn-tactile ${activeMode === 'cyber' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-transparent text-neutral-950 dark:text-white font-bold hover:bg-neutral-200 dark:hover:bg-slate-700'
+                          }`}
+                      >
+                        CYBER
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setActiveMode('lofi')}
+                        className={`px-2.5 py-1 rounded transition-all cursor-pointer btn-tactile ${activeMode === 'lofi' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-transparent text-neutral-950 dark:text-white font-bold hover:bg-neutral-200 dark:hover:bg-slate-700'
+                          }`}
+                      >
+                        LO-FI
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setActiveMode('hyperspeed')}
+                        className={`px-2.5 py-1 rounded transition-all cursor-pointer btn-tactile ${activeMode === 'hyperspeed' ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-xs' : 'bg-transparent text-neutral-950 dark:text-white font-bold hover:bg-neutral-200 dark:hover:bg-slate-700'
+                          }`}
+                      >
+                        WARP
+                      </button>
+                    </div>
+                  </div>
 
-              {/* Interactive Banana Battery (Click to Feed & Celebrate!) */}
-              <div
-                onClick={clickBanana}
-                className="cursor-pointer flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border-2 border-neutral-900 dark:border-slate-700 text-xs font-mono font-bold hover:border-[#ffe600] transition-all mb-4 group select-none shadow-[2px_2px_0px_#18181b] active:scale-[0.98]"
-                title="Click to feed monkey & recharge battery!"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-lg group-hover:scale-125 transition-transform">🍌</span>
-                  <span className="text-[11px] font-black uppercase text-neutral-950 dark:text-white">
-                    BANANA BATTERY
-                  </span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-20 h-2.5 rounded-full bg-neutral-100 dark:bg-slate-900 overflow-hidden border-2 border-neutral-900 dark:border-slate-700">
+                  {/* Interactive Banana Battery (Click to Feed & Celebrate!) */}
+                  <div
+                    onClick={clickBanana}
+                    className="cursor-pointer flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border-2 border-neutral-900 dark:border-slate-700 text-xs font-mono font-bold hover:border-[#ffe600] transition-all mb-4 group select-none shadow-[2px_2px_0px_#18181b] active:scale-[0.98]"
+                    title="Click to feed monkey & recharge battery!"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg group-hover:scale-125 transition-transform">🍌</span>
+                      <span className="text-[11px] font-black uppercase text-neutral-950 dark:text-white">
+                        BANANA BATTERY
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-20 h-2.5 rounded-full bg-neutral-100 dark:bg-slate-900 overflow-hidden border-2 border-neutral-900 dark:border-slate-700">
+                        <div
+                          className="h-full bg-[#ffe600] transition-all duration-300"
+                          style={{ width: `${bananaFuel}%` }}
+                        />
+                      </div>
+                      <span className="text-[10px] font-black text-amber-600 dark:text-amber-400">
+                        {bananaFuel}%
+                      </span>
+                      <span className="text-[9px] px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs group-hover:scale-105 transition-transform">
+                        FEED ⚡
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Speech Bubble: Click to cycle quotes */}
+                  <div
+                    onClick={triggerQuote}
+                    className="cursor-pointer mb-5 p-3.5 rounded-xl bg-[#fffde6] border-2 border-neutral-900 text-xs font-mono text-neutral-950 relative group transition-all hover:border-amber-500 shadow-[3px_3px_0px_#18181b]"
+                    title="Click to hear more monkey wisdom"
+                  >
+                    <div className="flex items-start gap-2">
+                      <span className="text-amber-500 font-bold shrink-0">💬</span>
+                      <p className="flex-1 italic tracking-tight select-none font-bold text-neutral-900">
+                        &ldquo;{MONKEY_QUOTES[quoteIdx]}&rdquo;
+                      </p>
+                      <span className="text-[10px] font-black px-1.5 py-0.5 rounded bg-white border border-neutral-900 text-neutral-950 group-hover:bg-[#ffe600] shrink-0">
+                        CLICK ↻
+                      </span>
+                    </div>
+                    {/* Speech Bubble Arrow pointing to the monkey */}
+                    <div className="absolute -bottom-2 left-12 w-3.5 h-3.5 bg-[#fffde6] border-b-2 border-r-2 border-neutral-900 rotate-45" />
+                  </div>
+
+                  {/* The Monkey Companion Canvas */}
+                  <div
+                    className="relative mx-auto flex items-center justify-center p-6 rounded-xl bg-slate-50 dark:bg-slate-950 border-2 border-neutral-900 dark:border-slate-700 select-none overflow-hidden cursor-pointer"
+                    style={{ minHeight: '280px' }}
+                    onClick={triggerQuote}
+                  >
+                    {/* Mode Specific Background Effects */}
+                    {activeMode === 'cyber' && (
+                      <>
+                        <div className="absolute inset-0 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] opacity-10 pointer-events-none" style={{ backgroundSize: '16px 16px' }} />
+                        <div className="absolute top-2 left-2 text-[9px] font-mono text-amber-500/80">HUD // LOCK_ON: TRUE</div>
+                        <div className="absolute top-2 right-2 text-[9px] font-mono text-cyan-500/80">FPS: 60 // CAMO: PASS</div>
+                        <div className="absolute bottom-2 left-2 text-[9px] font-mono text-neutral-400">POS_X: {Math.round(pupilOffset.x * 10)} / POS_Y: {Math.round(pupilOffset.y * 10)}</div>
+                      </>
+                    )}
+
+                    {activeMode === 'hyperspeed' && (
+                      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                        <div className="absolute top-1/4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-amber-400 to-transparent animate-pulse" />
+                        <div className="absolute top-2/4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-pulse delay-100" />
+                        <div className="absolute top-3/4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent animate-pulse delay-200" />
+                      </div>
+                    )}
+
+                    {/* THE GEOMETRIC MONKEY (Official Uploaded Identity) */}
                     <div
-                      className="h-full bg-[#ffe600] transition-all duration-300"
-                      style={{ width: `${bananaFuel}%` }}
-                    />
+                      className="relative transition-transform duration-100 ease-out will-change-transform cursor-pointer"
+                      style={{
+                        transform: `rotate(${headTilt.rotate}deg) translateY(${headTilt.translateY}px) scale(${sparkEffect ? 1.06 : 1})`,
+                      }}
+                    >
+                      {/* The Official Geometric Monkey Logo Image (Responsive 256x256 / 512x512 for Sub-Second LCP) */}
+                      <img
+                        src="/assets/monoforge-monkey-logo-256.jpg"
+                        srcSet="/assets/monoforge-monkey-logo-256.jpg 1x, /assets/monoforge-monkey-logo-512.jpg 2x"
+                        alt="MonoForge Official Logo"
+                        width={220}
+                        height={220}
+                        loading="eager"
+                        decoding="async"
+                        fetchPriority="high"
+                        className="w-48 h-48 sm:w-56 sm:h-56 object-contain rounded-2xl border-2 border-neutral-900 shadow-[4px_4px_0px_#18181b] bg-white select-none pointer-events-none"
+                      />
+                      <span className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-[#ffe600] text-neutral-950 text-[10px] font-mono font-black border border-neutral-900 shadow-xs">
+                        OFFICIAL
+                      </span>
+                    </div>
                   </div>
-                  <span className="text-[10px] font-black text-amber-600 dark:text-amber-400">
-                    {bananaFuel}%
-                  </span>
-                  <span className="text-[9px] px-2 py-0.5 rounded bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs group-hover:scale-105 transition-transform">
-                    FEED ⚡
-                  </span>
-                </div>
-              </div>
 
-              {/* Speech Bubble: Click to cycle quotes */}
-              <div
-                onClick={triggerQuote}
-                className="cursor-pointer mb-5 p-3.5 rounded-xl bg-[#fffde6] border-2 border-neutral-900 text-xs font-mono text-neutral-950 relative group transition-all hover:border-amber-500 shadow-[3px_3px_0px_#18181b]"
-                title="Click to hear more monkey wisdom"
-              >
-                <div className="flex items-start gap-2">
-                  <span className="text-amber-500 font-bold shrink-0">💬</span>
-                  <p className="flex-1 italic tracking-tight select-none font-bold text-neutral-900">
-                    &ldquo;{MONKEY_QUOTES[quoteIdx]}&rdquo;
-                  </p>
-                  <span className="text-[10px] font-black px-1.5 py-0.5 rounded bg-white border border-neutral-900 text-neutral-950 group-hover:bg-[#ffe600] shrink-0">
-                    CLICK ↻
-                  </span>
-                </div>
-                {/* Speech Bubble Arrow pointing to the monkey */}
-                <div className="absolute -bottom-2 left-12 w-3.5 h-3.5 bg-[#fffde6] border-b-2 border-r-2 border-neutral-900 rotate-45" />
-              </div>
-
-              {/* The Monkey Companion Canvas */}
-              <div
-                className="relative mx-auto flex items-center justify-center p-6 rounded-xl bg-slate-50 dark:bg-slate-950 border-2 border-neutral-900 dark:border-slate-700 select-none overflow-hidden cursor-pointer"
-                style={{ minHeight: '280px' }}
-                onClick={triggerQuote}
-              >
-                {/* Mode Specific Background Effects */}
-                {activeMode === 'cyber' && (
-                  <>
-                    <div className="absolute inset-0 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] opacity-10 pointer-events-none" style={{ backgroundSize: '16px 16px' }} />
-                    <div className="absolute top-2 left-2 text-[9px] font-mono text-amber-500/80">HUD // LOCK_ON: TRUE</div>
-                    <div className="absolute top-2 right-2 text-[9px] font-mono text-cyan-500/80">FPS: 60 // CAMO: PASS</div>
-                    <div className="absolute bottom-2 left-2 text-[9px] font-mono text-neutral-400">POS_X: {Math.round(pupilOffset.x * 10)} / POS_Y: {Math.round(pupilOffset.y * 10)}</div>
-                  </>
-                )}
-
-                {activeMode === 'hyperspeed' && (
-                  <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute top-1/4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-amber-400 to-transparent animate-pulse" />
-                    <div className="absolute top-2/4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-pulse delay-100" />
-                    <div className="absolute top-3/4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent animate-pulse delay-200" />
+                  {/* Studio Bottom Bar */}
+                  <div className="flex items-center justify-between pt-4 mt-4 border-t border-neutral-200 dark:border-slate-800 text-[11px] font-mono">
+                    <span className="flex items-center gap-1.5 text-neutral-800 dark:text-slate-200 font-bold">
+                      <span className="w-2 h-2 rounded-full bg-amber-500" />
+                      <span>INTERACTIVE COMPANION</span>
+                    </span>
+                    <span className="font-black text-neutral-950 dark:text-white">
+                      {activeMode.toUpperCase()} MODE ACTIVE
+                    </span>
                   </div>
-                )}
-
-                {/* THE GEOMETRIC MONKEY (Official Uploaded Identity) */}
-                <div
-                  className="relative transition-transform duration-100 ease-out will-change-transform cursor-pointer"
-                  style={{
-                    transform: `rotate(${headTilt.rotate}deg) translateY(${headTilt.translateY}px) scale(${sparkEffect ? 1.06 : 1})`,
-                  }}
-                >
-                  {/* The Official Geometric Monkey Logo Image (Responsive 256x256 / 512x512 for Sub-Second LCP) */}
-                  <img
-                    src="/assets/monoforge-monkey-logo-256.jpg"
-                    srcSet="/assets/monoforge-monkey-logo-256.jpg 1x, /assets/monoforge-monkey-logo-512.jpg 2x"
-                    alt="MonoForge Official Logo"
-                    width={220}
-                    height={220}
-                    loading="eager"
-                    decoding="async"
-                    fetchPriority="high"
-                    className="w-48 h-48 sm:w-56 sm:h-56 object-contain rounded-2xl border-2 border-neutral-900 shadow-[4px_4px_0px_#18181b] bg-white select-none pointer-events-none"
-                  />
-                  <span className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-[#ffe600] text-neutral-950 text-[10px] font-mono font-black border border-neutral-900 shadow-xs">
-                    OFFICIAL
-                  </span>
-                </div>
-              </div>
-
-              {/* Studio Bottom Bar */}
-              <div className="flex items-center justify-between pt-4 mt-4 border-t border-neutral-200 dark:border-slate-800 text-[11px] font-mono">
-                <span className="flex items-center gap-1.5 text-neutral-800 dark:text-slate-200 font-bold">
-                  <span className="w-2 h-2 rounded-full bg-amber-500" />
-                  <span>INTERACTIVE COMPANION</span>
-                </span>
-                <span className="font-black text-neutral-950 dark:text-white">
-                  {activeMode.toUpperCase()} MODE ACTIVE
-                </span>
-              </div>
                 </>
               )}
             </div>
           </div>
         </div>
       </div>
+      {/* Video Launch Modal */}
+      {videoModalOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="MonoForge Launch Video"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fade-in"
+          onClick={() => setVideoModalOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-4xl bg-slate-900 border-2 border-slate-700 rounded-2xl overflow-hidden shadow-2xl p-5 space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#ffe600] p-1 flex items-center justify-center">
+                  <img
+                    src="/assets/logo-icon.svg"
+                    alt="MonoForge Monkey"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div>
+                  <h3 className="text-sm font-black text-white font-sans tracking-wide uppercase flex items-center gap-2">
+                    <span>MONOFORGE LAUNCH FILM</span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#ffe600]/10 text-[#ffe600] border border-[#ffe600]/30">
+                      OFFICIAL 4K
+                    </span>
+                  </h3>
+                  <p className="text-[11px] font-mono text-slate-400">
+                    The Developer Identity &amp; Profile Engineering Studio Walkthrough
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {/* Switcher Buttons */}
+                <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-mono">
+                  <button
+                    type="button"
+                    onClick={() => setActiveVideo('detailed')}
+                    className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${activeVideo === 'detailed'
+                        ? 'bg-[#ffe600] text-slate-950 font-black'
+                        : 'text-slate-400 hover:text-white'
+                      }`}
+                  >
+                    Walkthrough (67s)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveVideo('short')}
+                    className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${activeVideo === 'short'
+                        ? 'bg-[#ffe600] text-slate-950 font-black'
+                        : 'text-slate-400 hover:text-white'
+                      }`}
+                  >
+                    Short (25s)
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setVideoModalOpen(false)}
+                  className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                  aria-label="Close video player"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Video Player Stage */}
+            <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black border border-slate-800 shadow-inner">
+              <video
+                key={activeVideo}
+                controls
+                autoPlay
+                playsInline
+                poster={
+                  activeVideo === 'detailed'
+                    ? '/assets/videos/monoforge-detailed-poster.jpg'
+                    : '/assets/videos/monoforge-short-poster.jpg'
+                }
+                className="w-full h-full object-contain"
+              >
+                <source
+                  src={
+                    activeVideo === 'detailed'
+                      ? '/assets/videos/monoforge-detailed-launch-long.mp4'
+                      : '/assets/videos/monoforge-social-launch-short.mp4'
+                  }
+                  type="video/mp4"
+                />
+                Your browser does not support HTML5 video.
+              </video>
+            </div>
+
+            {/* Modal Footer Meta */}
+            <div className="flex flex-wrap items-center justify-between text-xs font-mono text-slate-400 pt-1">
+              <div className="flex items-center gap-4">
+                <span className="flex items-center gap-1.5 text-emerald-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  130 Master Templates Live
+                </span>
+                <span>&bull;</span>
+                <span className="text-cyan-400">47+ Telemetry Engines</span>
+                <span>&bull;</span>
+                <span>100% Client-Side Compiler</span>
+              </div>
+              <span className="text-slate-400">monoforge-studio.vercel.app</span>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Video Launch Modal */}
+      {videoModalOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="MonoForge Launch Video"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fade-in"
+          onClick={() => setVideoModalOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-4xl bg-slate-900 border-2 border-slate-700 rounded-2xl overflow-hidden shadow-2xl p-5 space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#ffe600] p-1 flex items-center justify-center">
+                  <img
+                    src="/assets/logo-icon.svg"
+                    alt="MonoForge Monkey"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div>
+                  <h3 className="text-sm font-black text-white font-sans tracking-wide uppercase flex items-center gap-2">
+                    <span>MONOFORGE LAUNCH FILM</span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#ffe600]/10 text-[#ffe600] border border-[#ffe600]/30">
+                      OFFICIAL 4K
+                    </span>
+                  </h3>
+                  <p className="text-[11px] font-mono text-slate-400">
+                    The Developer Identity &amp; Profile Engineering Studio Walkthrough
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {/* Switcher Buttons */}
+                <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-mono">
+                  <button
+                    type="button"
+                    onClick={() => setActiveVideo('detailed')}
+                    className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${
+                      activeVideo === 'detailed'
+                        ? 'bg-[#ffe600] text-slate-950 font-black'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    Walkthrough (67s)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveVideo('short')}
+                    className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${
+                      activeVideo === 'short'
+                        ? 'bg-[#ffe600] text-slate-950 font-black'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    Short (25s)
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setVideoModalOpen(false)}
+                  className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                  aria-label="Close video player"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Video Player Stage */}
+            <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black border border-slate-800 shadow-inner">
+              <video
+                key={activeVideo}
+                controls
+                autoPlay
+                playsInline
+                poster={
+                  activeVideo === 'detailed'
+                    ? '/assets/videos/monoforge-detailed-poster.jpg'
+                    : '/assets/videos/monoforge-short-poster.jpg'
+                }
+                className="w-full h-full object-contain"
+              >
+                <source
+                  src={
+                    activeVideo === 'detailed'
+                      ? '/assets/videos/monoforge-detailed-launch-long.mp4'
+                      : '/assets/videos/monoforge-social-launch-short.mp4'
+                  }
+                  type="video/mp4"
+                />
+                Your browser does not support HTML5 video.
+              </video>
+            </div>
+
+            {/* Modal Footer Meta */}
+            <div className="flex flex-wrap items-center justify-between text-xs font-mono text-slate-400 pt-1">
+              <div className="flex items-center gap-4">
+                <span className="flex items-center gap-1.5 text-emerald-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  130 Master Templates Live
+                </span>
+                <span>&bull;</span>
+                <span className="text-cyan-400">47+ Telemetry Engines</span>
+                <span>&bull;</span>
+                <span>100% Client-Side Compiler</span>
+              </div>
+              <span className="text-slate-400">monoforge-studio.vercel.app</span>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

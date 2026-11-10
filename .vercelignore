@@ -1,0 +1,13 @@
+.git
+.github
+node_modules
+.next
+.turbo
+*.mp4
+*.wav
+video-production
+brag-output*
+website-screens
+website-capture
+coverage
+dist
