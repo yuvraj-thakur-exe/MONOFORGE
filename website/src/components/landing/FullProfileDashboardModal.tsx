@@ -79,7 +79,7 @@ export const FullProfileDashboardModal: React.FC<FullProfileDashboardModalProps>
 
   const handleCopy = async () => {
     try {
-      const { buildMarkdown } = await import('#/lib/markdown-builder/generator');
+      const { buildMarkdown } = await import('#/lib/buildMarkdown');
       const md = buildMarkdown(config);
       await navigator.clipboard.writeText(md);
       setCopied(true);
@@ -91,7 +91,7 @@ export const FullProfileDashboardModal: React.FC<FullProfileDashboardModalProps>
 
   const handleDownload = async () => {
     try {
-      const { buildMarkdown } = await import('#/lib/markdown-builder/generator');
+      const { buildMarkdown } = await import('#/lib/buildMarkdown');
       const md = buildMarkdown(config);
       const blob = new Blob([md], { type: 'text/markdown;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
