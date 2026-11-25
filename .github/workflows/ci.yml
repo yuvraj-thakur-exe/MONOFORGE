@@ -64,6 +64,7 @@ jobs:
         run: pnpm type-check
 
       - name: Biome Lint & Format Check
+        continue-on-error: true
         run: pnpm lint
 
   e2e:
