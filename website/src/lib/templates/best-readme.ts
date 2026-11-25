@@ -367,7 +367,8 @@ export const BEST_README_TEMPLATES: TemplateItem[] = [
           props: {
             content: {
               text: 'BEST-README-TEMPLATE',
-              theme: 'cyber-amber',
+              bannerType: 'waving',
+              colorTheme: 'fire',
               height: 220,
             },
             styles: {},
@@ -379,7 +380,7 @@ export const BEST_README_TEMPLATES: TemplateItem[] = [
           type: 'skill-icons',
           props: {
             content: {
-              skills: ['nextjs', 'react', 'typescript', 'tailwind', 'rust', 'docker', 'vitest', 'biome'],
+              icons: 'nextjs,react,typescript,tailwind,rust,docker,vitest,biome',
               perLine: 8,
               theme: 'dark',
             },
@@ -415,7 +416,12 @@ export const BEST_README_TEMPLATES: TemplateItem[] = [
           type: 'socials',
           props: {
             content: {
-              platforms: ['github', 'twitter', 'linkedin', 'discord'],
+              socials: {
+                github: { link: 'https://github.com/octocat' },
+                twitter: { link: 'https://x.com' },
+                linkedin: { link: 'https://linkedin.com' },
+                discord: { link: 'https://discord.com' },
+              },
             },
             styles: {},
             state: 'default',
@@ -457,7 +463,8 @@ export const BEST_README_TEMPLATES: TemplateItem[] = [
           props: {
             content: {
               text: 'FULLSTACK SAAS ENGINE',
-              theme: 'ocean-blue',
+              bannerType: 'waving',
+              colorTheme: 'ocean',
               height: 200,
             },
             styles: {},
@@ -469,7 +476,7 @@ export const BEST_README_TEMPLATES: TemplateItem[] = [
           type: 'skill-icons',
           props: {
             content: {
-              skills: ['nextjs', 'react', 'typescript', 'tailwind', 'postgresql', 'supabase', 'redis', 'playwright'],
+              icons: 'nextjs,react,typescript,tailwind,postgres,supabase,redis,playwright',
               perLine: 8,
               theme: 'dark',
             },
@@ -524,7 +531,7 @@ export const BEST_README_TEMPLATES: TemplateItem[] = [
           type: 'skill-icons',
           props: {
             content: {
-              skills: ['rust', 'go', 'cplusplus', 'docker', 'linux', 'bash'],
+              icons: 'rust,go,cpp,docker,linux,bash',
               perLine: 6,
               theme: 'dark',
             },
@@ -578,7 +585,7 @@ export const BEST_README_TEMPLATES: TemplateItem[] = [
           type: 'skill-icons',
           props: {
             content: {
-              skills: ['kubernetes', 'docker', 'terraform', 'aws', 'gcp', 'prometheus'],
+              icons: 'kubernetes,docker,terraform,aws,gcp,prometheus',
               perLine: 6,
               theme: 'dark',
             },

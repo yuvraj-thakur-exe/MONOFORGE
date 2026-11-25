@@ -1,42 +1,11 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import parse from 'html-react-parser';
-import { unified } from 'unified';
-import remarkParse from 'remark-parse';
-import remarkGfm from 'remark-gfm';
-import remarkRehype from 'remark-rehype';
-import rehypeRaw from 'rehype-raw';
-import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
-import rehypeStringify from 'rehype-stringify';
 import { useReadmeStore } from '#/store/useReadmeStore';
 import { buildMarkdown } from '#/lib/buildMarkdown';
+import { copyToClipboard } from '#/lib/export/clipboard';
+import { ReadmeMarkdownRenderer } from '#/components/common/ReadmeMarkdownRenderer';
 import { Copy, Check, Eye, Code, Monitor, Tablet, Smartphone, Terminal, Sparkles } from 'lucide-react';
-
-const sanitizeSchema = {
-  ...defaultSchema,
-  attributes: {
-    ...defaultSchema.attributes,
-    div: [...(defaultSchema.attributes?.div || []), 'align', 'className', 'class'],
-    p: [...(defaultSchema.attributes?.p || []), 'align', 'className', 'class'],
-    h1: [...(defaultSchema.attributes?.h1 || []), 'align'],
-    h2: [...(defaultSchema.attributes?.h2 || []), 'align'],
-    h3: [...(defaultSchema.attributes?.h3 || []), 'align'],
-    img: [...(defaultSchema.attributes?.img || []), 'src', 'alt', 'height', 'width', 'align'],
-    source: [...(defaultSchema.attributes?.source || []), 'media', 'srcset'],
-    picture: [...(defaultSchema.attributes?.picture || [])],
-    a: [...(defaultSchema.attributes?.a || []), 'href', 'target', 'rel'],
-  },
-  tagNames: [
-    ...(defaultSchema.tagNames || []),
-    'picture',
-    'source',
-    'svg',
-    'path',
-    'circle',
-    'rect',
-  ],
-};
 
 interface LivePreviewProps {
   className?: string;
@@ -58,33 +27,11 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
     }
   }, [config]);
 
-  const renderedContent = useMemo(() => {
-    try {
-      const file = unified()
-        .use(remarkParse)
-        .use(remarkGfm)
-        .use(remarkRehype, { allowDangerousHtml: true })
-        .use(rehypeRaw)
-        .use(rehypeSanitize, sanitizeSchema)
-        .use(rehypeStringify)
-        .processSync(markdown);
-      return parse(String(file));
-    } catch {
-      return (
-        <pre className="font-mono text-xs text-neutral-300 whitespace-pre-wrap leading-relaxed">
-          {markdown}
-        </pre>
-      );
-    }
-  }, [markdown]);
-
   const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(markdown);
+    const result = await copyToClipboard(markdown);
+    if (result.ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Fallback
     }
   };
 
@@ -92,7 +39,8 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
   const charCount = markdown.length;
 
   const rawUser = config.settings?.user?.github?.trim().toLowerCase();
-  const isPlaceholder = !rawUser || rawUser === 'username' || rawUser === 'zusername' || rawUser === 'your-username';
+  const isPlaceholder =
+    !rawUser || rawUser === 'username' || rawUser === 'zusername' || rawUser === 'your-username';
 
   return (
     <div
@@ -251,9 +199,7 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
               </div>
             )}
 
-            <div
-              className="p-5 sm:p-8 bg-white dark:bg-slate-900 rounded-2xl border-2 border-slate-200 dark:border-slate-800 space-y-5 shadow-sm transition-colors"
-            >
+            <div className="p-5 sm:p-8 bg-white dark:bg-slate-900 rounded-2xl border-2 border-slate-200 dark:border-slate-800 space-y-5 shadow-sm transition-colors">
               {/* macOS Style GitHub File Window Header */}
               <div className="flex items-center justify-between pb-3 border-b-2 border-slate-200 dark:border-slate-800 text-xs font-mono">
                 <div className="flex items-center gap-2">
@@ -262,7 +208,10 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
                   <span className="w-3 h-3 rounded-full bg-[#10b981]" />
                   <span
                     className="ml-2 font-mono text-xs font-black px-2.5 py-0.5 rounded-md border border-slate-900 shadow-2xs"
-                    style={{ backgroundColor: accentColor || '#ffe600', color: accentColor && accentColor !== '#ffe600' ? '#ffffff' : '#0f172a' }}
+                    style={{
+                      backgroundColor: accentColor || '#ffe600',
+                      color: accentColor && accentColor !== '#ffe600' ? '#ffffff' : '#0f172a',
+                    }}
                   >
                     README.md
                   </span>
@@ -272,14 +221,15 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
                 </div>
                 <span className="px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 font-mono text-[10px] font-black flex items-center gap-1.5 shadow-2xs">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>● 60FPS CAMO SAFE</span>
+                  <span>60FPS CAMO SAFE</span>
                 </span>
               </div>
 
               {/* Rendered Markdown Body */}
-              <div className="markdown-body prose prose-slate dark:prose-invert max-w-none text-slate-900 dark:text-slate-100 text-sm leading-relaxed overflow-x-auto">
-                {renderedContent}
-              </div>
+              <ReadmeMarkdownRenderer
+                markdown={markdown}
+                theme={viewMode === 'crt' ? 'dark' : undefined}
+              />
             </div>
           </div>
         )}

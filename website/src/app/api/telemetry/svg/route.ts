@@ -31,285 +31,274 @@ import {
   generateUniversalVisualizationSvg,
 } from '#/lib/visualizations/svg-generators';
 import { ALL_VISUALIZATION_IDS } from '#/lib/visualizations/registry';
-import { buildSyntheticDeveloperIdentity } from '#/lib/visualizations/data-engine';
+import { VISUALIZATION_THEMES } from '#/lib/visualizations/themes';
+import {
+  assembleDeveloperIdentity,
+  buildSyntheticDeveloperIdentity,
+  fetchPublicGitHubAccount,
+  isValidGitHubUsername,
+  NormalizedDeveloperIdentityWithProvenance,
+} from '#/lib/visualizations/data-engine';
 import { fetchUserContributions } from '#/lib/github/contributions';
 import { VisualizationTheme } from '#/lib/visualizations/types';
 
 export const runtime = 'nodejs';
 
+const TELEMETRY_PLUGINS = new Set([
+  'isocalendar',
+  'calendar',
+  'iso',
+  'heatmap',
+  'contributions',
+  'matrix',
+  'velocity',
+  'momentum',
+  'languages',
+  'langs',
+  'habits',
+  'rhythm',
+  'achievements',
+  'medals',
+  'trophies',
+  'terminal',
+  'console',
+  'hud',
+  'pagespeed',
+  'speed',
+  'lighthouse',
+  'music',
+  'spotify',
+  'nowplaying',
+  'leetcode',
+  'algorithms',
+  'stamp',
+  'badge',
+  'brand',
+]);
+
+const SIGNATURE_VIZ_ALIASES = new Set([
+  'commitcity',
+  'city',
+  'skyline',
+  'river',
+  'commitriver',
+  'stream',
+  'yearclock',
+  'clock',
+  'radial',
+  'pulse',
+  'codingpulse',
+  'ekg',
+  'developerterminal',
+  'devterminal',
+  'crtshell',
+  'snake',
+  'contributionsnake',
+  'arcadesnake',
+  'galaxy',
+  'repogalaxy',
+  'planets',
+  'dna',
+  'developerdna',
+  'helix',
+  'constellation',
+  'skillconstellation',
+  'starmap',
+  'radar',
+  'engineeringradar',
+  'blueprint',
+  'schematic',
+  'codebaseblueprint',
+  'languageriver',
+  'polyglot',
+  'timeline',
+  'releasetimeline',
+  'roadmap',
+  'solarsystem',
+  'techstack',
+  'techstacksolarsystem',
+  'synthwave',
+  'outrun',
+  'bento',
+  'synthwavebento',
+  'neofetch',
+  'fastfetch',
+  'asciiterminal',
+]);
+
+const NORMALIZED_REGISTRY_IDS = new Set(
+  ALL_VISUALIZATION_IDS.map((id) => id.replace(/[-_]/g, '').toLowerCase())
+);
+
+function isAllowedPlugin(pluginKey: string): boolean {
+  const clean = pluginKey.replace(/[-_]/g, '').toLowerCase();
+  return (
+    TELEMETRY_PLUGINS.has(pluginKey) ||
+    SIGNATURE_VIZ_ALIASES.has(pluginKey) ||
+    SIGNATURE_VIZ_ALIASES.has(clean) ||
+    NORMALIZED_REGISTRY_IDS.has(clean)
+  );
+}
+
+function escapeXml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+function parseOptionalInt(value: string | null): number | undefined {
+  if (value === null || value.trim() === '') return undefined;
+  const parsed = Number.parseInt(value, 10);
+  return Number.isFinite(parsed) ? parsed : undefined;
+}
+
+function parseOptionalFloat(value: string | null): number | undefined {
+  if (value === null || value.trim() === '') return undefined;
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : undefined;
+}
+
+function formatBytes(bytes: number): string {
+  if (!Number.isFinite(bytes) || bytes <= 0) return '0 B';
+  if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+  if (bytes >= 1024) return `${Math.round(bytes / 1024)} KB`;
+  return `${bytes} B`;
+}
+
+function annotateSvgProvenance(
+  svg: string,
+  identity: NormalizedDeveloperIdentityWithProvenance
+): string {
+  const source = identity.source ?? (identity.isRealData ? 'github' : 'unavailable');
+  let label = 'LIVE GITHUB';
+  let fill = '#064e3b';
+  let stroke = '#10b981';
+  let textFill = '#34d399';
+  let badgeWidth = 110;
+
+  if (source === 'sample') {
+    label = 'SAMPLE DATA';
+    fill = '#451a03';
+    stroke = '#f59e0b';
+    textFill = '#fbbf24';
+    badgeWidth = 114;
+  } else if (source === 'partial') {
+    label = 'PARTIAL DATA';
+    fill = '#422006';
+    stroke = '#eab308';
+    textFill = '#fde047';
+    badgeWidth = 118;
+  } else if (source === 'unavailable') {
+    label = identity.rateLimited ? 'RATE LIMITED · DATA UNAVAILABLE' : 'DATA UNAVAILABLE';
+    fill = '#450a0a';
+    stroke = '#ef4444';
+    textFill = '#fca5a5';
+    badgeWidth = identity.rateLimited ? 218 : 138;
+  }
+
+  const badgeSvg = `
+  <g data-provenance="${source}" transform="translate(16, 8)">
+    <rect x="0" y="0" width="${badgeWidth}" height="18" rx="9" fill="${fill}" stroke="${stroke}" stroke-width="1" />
+    <text x="${badgeWidth / 2}" y="12.5" text-anchor="middle" fill="${textFill}" font-family="monospace" font-size="9" font-weight="700">${escapeXml(label)}</text>
+  </g>
+</svg>`;
+
+  const closingIdx = svg.lastIndexOf('</svg>');
+  if (closingIdx === -1) return svg;
+  return `${svg.slice(0, closingIdx)}${badgeSvg}`;
+}
+
+function buildEmptyDnaSvg(
+  identity: NormalizedDeveloperIdentityWithProvenance,
+  themeKey: VisualizationTheme
+): string {
+  const theme = VISUALIZATION_THEMES[themeKey] || VISUALIZATION_THEMES.cyberpunk;
+  const width = 880;
+  const height = 360;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 34)">
+    <text x="0" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">DEVELOPER DNA // BIOMETRIC GENETIC STRAND</text>
+    <text x="0" y="28" fill="${theme.textMuted}" font-family="monospace" font-size="11">Base-Pair Mapping &bull; ${escapeXml(identity.displayName)}</text>
+  </g>
+  <text x="${width / 2}" y="${height / 2}" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="13">0 VERIFIED LANGUAGES &bull; NO REPOSITORY LANGUAGE DATA</text>
+</svg>`;
+}
+
+async function fetchServerNormalizedIdentity(
+  username: string,
+  mode: string | null
+): Promise<NormalizedDeveloperIdentityWithProvenance> {
+  if (mode === 'sample' || (username.toLowerCase() === 'octocat' && mode !== 'live')) {
+    return buildSyntheticDeveloperIdentity(username);
+  }
+
+  const [contribOutcome, accountOutcome] = await Promise.allSettled([
+    fetchUserContributions(username),
+    fetchPublicGitHubAccount(username, { timeoutMs: 4500 }),
+  ]);
+
+  const contribStats =
+    contribOutcome.status === 'fulfilled'
+      ? (contribOutcome.value as unknown as Record<string, unknown>)
+      : null;
+
+  const accountResult =
+    accountOutcome.status === 'fulfilled'
+      ? accountOutcome.value
+      : {
+          ok: false,
+          username,
+          error: 'GitHub user lookup failed',
+        };
+
+  return assembleDeveloperIdentity(username, contribStats, accountResult);
+}
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const plugin = searchParams.get('plugin') || 'isocalendar';
-  const user = searchParams.get('user') || 'octocat';
+  const rawPlugin = searchParams.get('plugin') || 'isocalendar';
+  const pluginKey = rawPlugin.trim().toLowerCase();
 
-  let svgContent = '';
+  if (!isAllowedPlugin(pluginKey)) {
+    return NextResponse.json(
+      { success: false, error: 'Unsupported visualization plugin' },
+      { status: 400 }
+    );
+  }
 
-  switch (plugin.toLowerCase()) {
-    case 'isocalendar':
-    case 'calendar':
-    case 'iso': {
-      const realStats = await fetchUserContributions(user);
-      const streak = searchParams.get('streak') ? parseInt(searchParams.get('streak')!, 10) : realStats.currentStreak;
-      const maxStreak = searchParams.get('max_streak') ? parseInt(searchParams.get('max_streak')!, 10) : realStats.maxStreak;
-      const commits = searchParams.get('commits') ? parseInt(searchParams.get('commits')!, 10) : realStats.totalContributions;
-      const average = searchParams.get('average') ? parseFloat(searchParams.get('average')!) : realStats.dailyAverage;
-      const highestDay = searchParams.get('highest_day') ? parseInt(searchParams.get('highest_day')!, 10) : realStats.highestDay;
-      const weeksData = realStats.weeks.map(w => w.days.map(d => ({ level: d.level, count: d.count })));
+  const rawUser = searchParams.get('user');
+  const user = rawUser === null ? 'octocat' : rawUser.trim();
+  if (!isValidGitHubUsername(user)) {
+    return NextResponse.json(
+      { success: false, error: 'Invalid GitHub username format' },
+      { status: 400 }
+    );
+  }
 
-      svgContent = generateIsocalendarSvg({
-        username: user,
-        streak,
-        maxStreak,
-        commits,
-        average,
-        highestDay,
-        weeksData,
-      });
-      break;
-    }
+  const rawTheme = searchParams.get('theme');
+  if (rawTheme !== null && !(rawTheme in VISUALIZATION_THEMES)) {
+    return NextResponse.json(
+      { success: false, error: 'Invalid visualization theme' },
+      { status: 400 }
+    );
+  }
+  const requestedTheme = rawTheme as VisualizationTheme | null;
 
-    case 'heatmap':
-    case 'contributions':
-    case 'matrix': {
-      const realStats = await fetchUserContributions(user);
-      const streak = searchParams.get('streak') ? parseInt(searchParams.get('streak')!, 10) : realStats.currentStreak;
-      const maxStreak = searchParams.get('max_streak') ? parseInt(searchParams.get('max_streak')!, 10) : realStats.maxStreak;
-      const commits = searchParams.get('commits') ? parseInt(searchParams.get('commits')!, 10) : realStats.totalContributions;
-      const average = searchParams.get('average') ? parseFloat(searchParams.get('average')!) : realStats.dailyAverage;
-      const highestDay = searchParams.get('highest_day') ? parseInt(searchParams.get('highest_day')!, 10) : realStats.highestDay;
-      const weeksData = realStats.weeks.map(w => w.days.map(d => ({ level: d.level, count: d.count, date: d.date })));
+  const rawMode = searchParams.get('mode');
+  if (rawMode !== null && rawMode !== 'sample' && rawMode !== 'live') {
+    return NextResponse.json(
+      { success: false, error: 'Invalid mode parameter' },
+      { status: 400 }
+    );
+  }
 
-      svgContent = generateContributionHeatmapSvg({
-        username: user,
-        commits,
-        streak,
-        maxStreak,
-        average,
-        highestDay,
-        weeksData,
-      });
-      break;
-    }
-
-    case 'velocity':
-    case 'momentum': {
-      const realStats = await fetchUserContributions(user);
-      const streak = searchParams.get('streak') ? parseInt(searchParams.get('streak')!, 10) : realStats.currentStreak;
-      const maxStreak = searchParams.get('max_streak') ? parseInt(searchParams.get('max_streak')!, 10) : realStats.maxStreak;
-      const commits = searchParams.get('commits') ? parseInt(searchParams.get('commits')!, 10) : realStats.totalContributions;
-      const activeDays = realStats.days.filter(d => d.count > 0).length;
-
-      svgContent = generateContributionVelocitySvg({
-        username: user,
-        commits,
-        streak,
-        maxStreak,
-        activeDays,
-      });
-      break;
-    }
-
-    case 'languages':
-    case 'langs': {
-      svgContent = generateLanguagesDonutSvg({ username: user });
-      break;
-    }
-
-    case 'habits':
-    case 'rhythm': {
-      const peakHour = searchParams.get('peak') ? parseInt(searchParams.get('peak')!, 10) : undefined;
-      svgContent = generateHabitsRadarSvg({ username: user, peakHour });
-      break;
-    }
-
-    case 'achievements':
-    case 'medals':
-    case 'trophies': {
-      svgContent = generateAchievementsRackSvg({ username: user });
-      break;
-    }
-
-    case 'terminal':
-    case 'console':
-    case 'hud': {
-      const repos = searchParams.get('repos') ? parseInt(searchParams.get('repos')!, 10) : undefined;
-      const stars = searchParams.get('stars') ? parseInt(searchParams.get('stars')!, 10) : undefined;
-      svgContent = generateTerminalHudSvg({ username: user, repos, stars });
-      break;
-    }
-
-    case 'pagespeed':
-    case 'speed':
-    case 'lighthouse': {
-      const url = searchParams.get('url') || `${user}.github.io`;
-      svgContent = generatePageSpeedAuditSvg({ url });
-      break;
-    }
-
-    case 'music':
-    case 'spotify':
-    case 'nowplaying': {
-      const track = searchParams.get('track') || undefined;
-      const artist = searchParams.get('artist') || undefined;
-      svgContent = generateMusicPlayerSvg({ track, artist });
-      break;
-    }
-
-    case 'leetcode':
-    case 'algorithms': {
-      const solved = searchParams.get('solved') ? parseInt(searchParams.get('solved')!, 10) : undefined;
-      svgContent = generateLeetCodeStatsSvg({ username: user, solved });
-      break;
-    }
-
-    // --- MonoForge 3.0 Signature Visualizations ---
-    case 'commitcity':
-    case 'city':
-    case 'skyline': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'emerald') as VisualizationTheme;
-      svgContent = generateCommitCitySvg(identity, { theme });
-      break;
-    }
-
-    case 'river':
-    case 'commitriver':
-    case 'stream': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'ocean') as VisualizationTheme;
-      svgContent = generateCommitRiverSvg(identity, { theme });
-      break;
-    }
-
-    case 'yearclock':
-    case 'clock':
-    case 'radial': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'amber') as VisualizationTheme;
-      svgContent = generateYearClockSvg(identity, { theme });
-      break;
-    }
-
-    case 'pulse':
-    case 'codingpulse':
-    case 'ekg': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'matrix') as VisualizationTheme;
-      svgContent = generateCodingPulseSvg(identity, { theme });
-      break;
-    }
-
-    case 'developerterminal':
-    case 'devterminal':
-    case 'crtshell': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'matrix') as VisualizationTheme;
-      svgContent = generateDeveloperTerminalSvg(identity, { theme });
-      break;
-    }
-
-    case 'snake':
-    case 'contributionsnake':
-    case 'arcadesnake': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'amber') as VisualizationTheme;
-      svgContent = generateContributionSnakeSvg(identity, { theme });
-      break;
-    }
-
-    case 'galaxy':
-    case 'repogalaxy':
-    case 'planets': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'cyberpunk') as VisualizationTheme;
-      svgContent = generateRepositoryGalaxySvg(identity, { theme });
-      break;
-    }
-
-    case 'dna':
-    case 'developerdna':
-    case 'helix': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'cyberpunk') as VisualizationTheme;
-      svgContent = generateDeveloperDnaSvg(identity, { theme });
-      break;
-    }
-
-    case 'constellation':
-    case 'skillconstellation':
-    case 'starmap': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'tokyonight') as VisualizationTheme;
-      svgContent = generateSkillConstellationSvg(identity, { theme });
-      break;
-    }
-
-    case 'radar':
-    case 'engineeringradar': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'emerald') as VisualizationTheme;
-      svgContent = generateEngineeringRadarSvg(identity, { theme });
-      break;
-    }
-
-    case 'blueprint':
-    case 'schematic':
-    case 'codebaseblueprint': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'emerald') as VisualizationTheme;
-      svgContent = generateCodebaseBlueprintSvg(identity, { theme });
-      break;
-    }
-
-    case 'languageriver':
-    case 'polyglot': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'ocean') as VisualizationTheme;
-      svgContent = generateLanguageRiverSvg(identity, { theme });
-      break;
-    }
-
-    case 'timeline':
-    case 'releasetimeline':
-    case 'roadmap': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'amber') as VisualizationTheme;
-      svgContent = generateReleaseTimelineSvg(identity, { theme });
-      break;
-    }
-
-    case 'solarsystem':
-    case 'techstack':
-    case 'techstacksolarsystem': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'cyberpunk') as VisualizationTheme;
-      svgContent = generateTechStackSolarSystemSvg(identity, { theme });
-      break;
-    }
-
-    case 'synthwave':
-    case 'outrun':
-    case 'bento':
-    case 'synthwavebento': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'cyberpunk') as VisualizationTheme;
-      svgContent = generateSynthwaveBentoSvg(identity, { theme });
-      break;
-    }
-
-    case 'neofetch':
-    case 'fastfetch':
-    case 'asciiterminal': {
-      const identity = buildSyntheticDeveloperIdentity(user);
-      const theme = (searchParams.get('theme') || 'matrix') as VisualizationTheme;
-      svgContent = generateNeofetchTerminalSvg(identity, { theme });
-      break;
-    }
-
-    case 'stamp':
-    case 'badge':
-    case 'brand': {
-      svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 36" width="176" height="36" fill="none" preserveAspectRatio="xMidYMid meet">
+  // Non-GitHub-identity badges / standalone cards
+  if (pluginKey === 'stamp' || pluginKey === 'badge' || pluginKey === 'brand') {
+    const stampSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 36" width="176" height="36" fill="none" preserveAspectRatio="xMidYMid meet">
   <defs>
     <linearGradient id="mfAmber" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#f59e0b" />
@@ -358,31 +347,323 @@ export async function GET(request: NextRequest) {
     CAMO
   </text>
 </svg>`;
+    return new NextResponse(stampSvg, {
+      headers: {
+        'Content-Type': 'image/svg+xml; charset=utf-8',
+        'Cache-Control': 'public, max-age=86400, stale-while-revalidate=604800',
+        'X-Content-Type-Options': 'nosniff',
+      },
+    });
+  }
+
+  if (pluginKey === 'pagespeed' || pluginKey === 'speed' || pluginKey === 'lighthouse') {
+    const rawUrl = searchParams.get('url')?.slice(0, 200);
+    const svgContent = generatePageSpeedAuditSvg({ url: rawUrl || `${user}.github.io` });
+    return new NextResponse(svgContent, {
+      headers: {
+        'Content-Type': 'image/svg+xml; charset=utf-8',
+        'Cache-Control': 'public, max-age=900, stale-while-revalidate=86400',
+        'X-Content-Type-Options': 'nosniff',
+      },
+    });
+  }
+
+  if (pluginKey === 'music' || pluginKey === 'spotify' || pluginKey === 'nowplaying') {
+    const track = searchParams.get('track')?.slice(0, 120) || undefined;
+    const artist = searchParams.get('artist')?.slice(0, 120) || undefined;
+    const svgContent = generateMusicPlayerSvg({ track, artist });
+    return new NextResponse(svgContent, {
+      headers: {
+        'Content-Type': 'image/svg+xml; charset=utf-8',
+        'Cache-Control': 'public, max-age=900, stale-while-revalidate=86400',
+        'X-Content-Type-Options': 'nosniff',
+      },
+    });
+  }
+
+  if (pluginKey === 'leetcode' || pluginKey === 'algorithms') {
+    const solved = parseOptionalInt(searchParams.get('solved'));
+    const svgContent = generateLeetCodeStatsSvg({ username: user, solved });
+    return new NextResponse(svgContent, {
+      headers: {
+        'Content-Type': 'image/svg+xml; charset=utf-8',
+        'Cache-Control': 'public, max-age=900, stale-while-revalidate=86400',
+        'X-Content-Type-Options': 'nosniff',
+      },
+    });
+  }
+
+  // All GitHub-backed telemetry & MonoForge 3.0 visualizations share one normalized identity pipeline
+  const identity = await fetchServerNormalizedIdentity(user, rawMode);
+  let svgContent = '';
+
+  switch (pluginKey) {
+    case 'isocalendar':
+    case 'calendar':
+    case 'iso': {
+      const streak = parseOptionalInt(searchParams.get('streak')) ?? identity.currentStreak;
+      const maxStreak = parseOptionalInt(searchParams.get('max_streak')) ?? identity.maxStreak;
+      const commits = parseOptionalInt(searchParams.get('commits')) ?? identity.totalContributions;
+      const average = parseOptionalFloat(searchParams.get('average')) ?? identity.dailyAverage;
+      const highestDay = parseOptionalInt(searchParams.get('highest_day')) ?? identity.highestDay;
+      const weeksData = identity.weeks.map((w) => w.days.map((d) => ({ level: d.level, count: d.count })));
+
+      svgContent = generateIsocalendarSvg({
+        username: identity.username,
+        streak,
+        maxStreak,
+        commits,
+        average,
+        highestDay,
+        weeksData,
+      });
+      break;
+    }
+
+    case 'heatmap':
+    case 'contributions':
+    case 'matrix': {
+      const streak = parseOptionalInt(searchParams.get('streak')) ?? identity.currentStreak;
+      const maxStreak = parseOptionalInt(searchParams.get('max_streak')) ?? identity.maxStreak;
+      const commits = parseOptionalInt(searchParams.get('commits')) ?? identity.totalContributions;
+      const average = parseOptionalFloat(searchParams.get('average')) ?? identity.dailyAverage;
+      const highestDay = parseOptionalInt(searchParams.get('highest_day')) ?? identity.highestDay;
+      const weeksData = identity.weeks.map((w) =>
+        w.days.map((d) => ({ level: d.level, count: d.count, date: d.date }))
+      );
+
+      svgContent = generateContributionHeatmapSvg({
+        username: identity.username,
+        commits,
+        streak,
+        maxStreak,
+        average,
+        highestDay,
+        weeksData,
+      });
+      break;
+    }
+
+    case 'velocity':
+    case 'momentum': {
+      const streak = parseOptionalInt(searchParams.get('streak')) ?? identity.currentStreak;
+      const maxStreak = parseOptionalInt(searchParams.get('max_streak')) ?? identity.maxStreak;
+      const commits = parseOptionalInt(searchParams.get('commits')) ?? identity.totalContributions;
+      const activeDays = identity.activeDaysCount;
+
+      svgContent = generateContributionVelocitySvg({
+        username: identity.username,
+        commits,
+        streak,
+        maxStreak,
+        activeDays,
+      });
+      break;
+    }
+
+    case 'languages':
+    case 'langs': {
+      const totalBytesNum = identity.languages.reduce((acc, l) => acc + l.bytes, 0);
+      const mappedLangs = identity.languages.slice(0, 5).map((l) => ({
+        name: l.name,
+        color: l.color,
+        percent: l.percentage,
+        bytes: formatBytes(l.bytes),
+      }));
+
+      svgContent = generateLanguagesDonutSvg({
+        username: identity.username,
+        languages: mappedLangs,
+        totalBytes: formatBytes(totalBytesNum),
+        uniqueCount: identity.languages.length || 1,
+      });
+      if (identity.languages.length === 0) {
+        svgContent = svgContent.replace('1 LANGUAGES', '0 LANGUAGES');
+      }
+      break;
+    }
+
+    case 'habits':
+    case 'rhythm': {
+      const peakHour = parseOptionalInt(searchParams.get('peak'));
+      svgContent = generateHabitsRadarSvg({ username: identity.username, peakHour });
+      break;
+    }
+
+    case 'achievements':
+    case 'medals':
+    case 'trophies': {
+      svgContent = generateAchievementsRackSvg({ username: identity.username });
+      break;
+    }
+
+    case 'terminal':
+    case 'console':
+    case 'hud': {
+      const repos = parseOptionalInt(searchParams.get('repos')) ?? identity.repositories.length;
+      const stars =
+        parseOptionalInt(searchParams.get('stars')) ??
+        identity.repositories.reduce((sum, r) => sum + r.stars, 0);
+      const forks = identity.repositories.reduce((sum, r) => sum + r.forks, 0);
+      svgContent = generateTerminalHudSvg({
+        username: identity.username,
+        repos,
+        stars,
+        forks,
+        commits: identity.totalContributions,
+        velocity: `${identity.dailyAverage} commits / day`,
+      });
+      break;
+    }
+
+    // --- MonoForge 3.0 Signature Visualizations ---
+    case 'commitcity':
+    case 'city':
+    case 'skyline': {
+      svgContent = generateCommitCitySvg(identity, { theme: requestedTheme ?? 'emerald' });
+      break;
+    }
+
+    case 'river':
+    case 'commitriver':
+    case 'stream': {
+      svgContent = generateCommitRiverSvg(identity, { theme: requestedTheme ?? 'ocean' });
+      break;
+    }
+
+    case 'yearclock':
+    case 'clock':
+    case 'radial': {
+      svgContent = generateYearClockSvg(identity, { theme: requestedTheme ?? 'amber' });
+      break;
+    }
+
+    case 'pulse':
+    case 'codingpulse':
+    case 'ekg': {
+      svgContent = generateCodingPulseSvg(identity, { theme: requestedTheme ?? 'matrix' });
+      break;
+    }
+
+    case 'developerterminal':
+    case 'devterminal':
+    case 'crtshell': {
+      svgContent = generateDeveloperTerminalSvg(identity, { theme: requestedTheme ?? 'matrix' });
+      break;
+    }
+
+    case 'snake':
+    case 'contributionsnake':
+    case 'arcadesnake': {
+      svgContent = generateContributionSnakeSvg(identity, { theme: requestedTheme ?? 'amber' });
+      break;
+    }
+
+    case 'galaxy':
+    case 'repogalaxy':
+    case 'planets': {
+      svgContent = generateRepositoryGalaxySvg(identity, { theme: requestedTheme ?? 'cyberpunk' });
+      break;
+    }
+
+    case 'dna':
+    case 'developerdna':
+    case 'helix': {
+      const theme = requestedTheme ?? 'cyberpunk';
+      svgContent =
+        identity.languages.length > 0
+          ? generateDeveloperDnaSvg(identity, { theme })
+          : buildEmptyDnaSvg(identity, theme);
+      break;
+    }
+
+    case 'constellation':
+    case 'skillconstellation':
+    case 'starmap': {
+      svgContent = generateSkillConstellationSvg(identity, {
+        theme: requestedTheme ?? 'tokyonight',
+      });
+      break;
+    }
+
+    case 'radar':
+    case 'engineeringradar': {
+      svgContent = generateEngineeringRadarSvg(identity, { theme: requestedTheme ?? 'emerald' });
+      break;
+    }
+
+    case 'blueprint':
+    case 'schematic':
+    case 'codebaseblueprint': {
+      svgContent = generateCodebaseBlueprintSvg(identity, { theme: requestedTheme ?? 'emerald' });
+      break;
+    }
+
+    case 'languageriver':
+    case 'polyglot': {
+      svgContent = generateLanguageRiverSvg(identity, { theme: requestedTheme ?? 'ocean' });
+      break;
+    }
+
+    case 'timeline':
+    case 'releasetimeline':
+    case 'roadmap': {
+      svgContent = generateReleaseTimelineSvg(identity, { theme: requestedTheme ?? 'amber' });
+      break;
+    }
+
+    case 'solarsystem':
+    case 'techstack':
+    case 'techstacksolarsystem': {
+      svgContent = generateTechStackSolarSystemSvg(identity, {
+        theme: requestedTheme ?? 'cyberpunk',
+      });
+      break;
+    }
+
+    case 'synthwave':
+    case 'outrun':
+    case 'bento':
+    case 'synthwavebento': {
+      svgContent = generateSynthwaveBentoSvg(identity, { theme: requestedTheme ?? 'cyberpunk' });
+      break;
+    }
+
+    case 'neofetch':
+    case 'fastfetch':
+    case 'asciiterminal': {
+      svgContent = generateNeofetchTerminalSvg(identity, { theme: requestedTheme ?? 'matrix' });
       break;
     }
 
     default: {
-      const cleanPlugin = plugin.toLowerCase().replace(/[-_]/g, '');
+      const cleanPlugin = pluginKey.replace(/[-_]/g, '');
       const match = ALL_VISUALIZATION_IDS.find(
-        id => id.replace(/[-_]/g, '') === cleanPlugin || id.toLowerCase() === plugin.toLowerCase()
+        (id) => id.replace(/[-_]/g, '').toLowerCase() === cleanPlugin || id.toLowerCase() === pluginKey
       );
-      if (match) {
-        const identity = buildSyntheticDeveloperIdentity(user);
-        const theme = (searchParams.get('theme') || 'emerald') as VisualizationTheme;
-        svgContent = generateUniversalVisualizationSvg(match, identity, { theme });
-      } else {
-        svgContent = generateIsocalendarSvg({ username: user });
+      if (!match) {
+        return NextResponse.json(
+          { success: false, error: 'Unsupported visualization plugin' },
+          { status: 400 }
+        );
       }
+      svgContent = generateUniversalVisualizationSvg(match, identity, {
+        theme: requestedTheme ?? 'emerald',
+      });
       break;
     }
   }
 
-  return new NextResponse(svgContent, {
+  const annotatedSvg = annotateSvgProvenance(svgContent, identity);
+
+  return new NextResponse(annotatedSvg, {
     headers: {
       'Content-Type': 'image/svg+xml; charset=utf-8',
-      'Cache-Control': 'public, max-age=86400, stale-while-revalidate=604800, immutable',
+      'Cache-Control':
+        identity.source === 'unavailable'
+          ? 'no-store'
+          : 'public, max-age=900, stale-while-revalidate=86400',
       'X-Content-Type-Options': 'nosniff',
     },
   });
 }
-

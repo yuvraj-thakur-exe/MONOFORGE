@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "MonoForge — Crie um perfil do GitHub que se destaca",
-    "description": "Crie perfis README incríveis no GitHub com o MonoForge: 350+ arquétipos curados, 30+ visualizações SVG compatíveis com Camo, 22 plugins modulares, prévia ao vivo e sincronização com GitHub.",
+    "description": "Crie perfis README incríveis no GitHub com o MonoForge: 330 arquétipos curados, 9 visualizações SVG em destaque de 30 no total compatíveis com Camo, 22 plugins modulares, prévia ao vivo e sincronização com GitHub.",
     "author": "Contribuidores do MonoForge",
     "keywords": [
       "monoforge",
@@ -19,7 +19,7 @@
     ]
   },
   "privacy-policy": {
-    "content": "<h1>Política de Privacidade</h1>\n<p>Última atualização: 2026</p>\n<p>O MonoForge é um estúdio open-source sob licença MIT voltado para criação de perfis README no GitHub, mantido em <a href=\"https://github.com/yuvraj-thakur-exe/MONOFORGE\" target=\"_blank\" rel=\"noreferrer\">github.com/yuvraj-thakur-exe/MONOFORGE</a>.</p>\n<h2>Armazenamento Local-First</h2>\n<p>Suas configurações de perfil, rascunhos e favoritos permanecem armazenados localmente no seu navegador (localStorage / estado de sessão) e nunca são enviados para bancos de dados de rastreamento.</p>\n<h2>Zero Rastreamento e Zero Anúncios</h2>\n<p>O MonoForge não utiliza redes de publicidade de terceiros, cookies de rastreamento comportamental ou coletores de telemetria pessoal.</p>\n<h2>Tokens Opcionais do GitHub e Endpoints de Servidor</h2>\n<p>Tokens pessoais do GitHub (PAT) informados para pré-visualização de diff remoto e commits confirmados manualmente são mantidos apenas em memória durante a operação ativa e nunca são salvos nos servidores do MonoForge. Os endpoints de SVG de telemetria consultam apenas dados públicos de contribuição do GitHub sob demanda.</p>\n<h2>Contato</h2>\n<p>Para dúvidas sobre privacidade ou relatos de segurança, abra uma issue em <a href=\"https://github.com/yuvraj-thakur-exe/MONOFORGE/issues\" target=\"_blank\" rel=\"noreferrer\">GitHub Issues</a>.</p>"
+    "content": "<h1>Política de Privacidade</h1>\n<p>Última atualização: 2026</p>\n<p>O MonoForge é um estúdio open-source sob licença MIT voltado para criação de perfis README no GitHub, mantido em <a href=\"https://github.com/yuvraj-thakur-exe/MONOFORGE\" target=\"_blank\" rel=\"noreferrer\">github.com/yuvraj-thakur-exe/MONOFORGE</a>.</p>\n<h2>O que Permanece no Navegador</h2>\n<p>Suas configurações de perfil, rascunhos e favoritos permanecem armazenados localmente no seu navegador via <code>useReadmeStore</code> (<code>localStorage</code>) e nunca são enviados para bancos de dados de rastreamento. Tokens pessoais do GitHub (PAT) opcionais, usados para pré-visualização de diff remoto e commits confirmados manualmente, ficam apenas em memória na sessão ativa e nunca são salvos nos servidores do MonoForge.</p>\n<h2>O que Usa Rotas de API no Servidor</h2>\n<p>Dois recursos opcionais utilizam rotas de API Next.js no servidor sob demanda: (1) <code>/api/enrichment/resume</code> extrai texto e campos estruturados de currículos PDF, DOCX ou TXT enviados ao servidor antes de retorná-los para confirmação item a item, sem persistir seu arquivo; e (2) <code>/api/telemetry/*</code> consulta apenas dados públicos de contribuição do GitHub sob demanda para renderizar visualizações SVG.</p>\n<h2>Zero Rastreamento e Zero Anúncios</h2>\n<p>O MonoForge não utiliza redes de publicidade de terceiros, cookies de rastreamento comportamental ou coletores de telemetria pessoal.</p>\n<h2>Contato</h2>\n<p>Para dúvidas sobre privacidade ou relatos de segurança, abra uma issue em <a href=\"https://github.com/yuvraj-thakur-exe/MONOFORGE/issues\" target=\"_blank\" rel=\"noreferrer\">GitHub Issues</a>.</p>"
   },
   "ui": {
     "welcome": {
@@ -497,7 +497,7 @@
     "monoforge": "MonoForge",
     "boost-your-english": "MonoForge Studio",
     "real-devs-debug-in-english-dot": "GFM puro, sem bloqueio.",
-    "get-70-off-your-first-trial-lesson-and-start-to-boost-your-english-with-top-tutors-worldwide-on-preply": "Estúdio open-source de README para GitHub com 350+ arquétipos curados e 30+ visualizações SVG compatíveis com Camo.",
+    "get-70-off-your-first-trial-lesson-and-start-to-boost-your-english-with-top-tutors-worldwide-on-preply": "Estúdio open-source de README para GitHub com 330 arquétipos curados e 9 visualizações SVG em destaque de 30 no total compatíveis com Camo.",
     "get-70-off": "Abrir Estúdio",
     "toffugy": "MonoForge Visualizer",
     "learn-a-language-by-exploring-3-d-places-walk-into-a-room-point-at-things-and-learn-what-they-are-called": "Transforme contribuições reais do GitHub em cidades isométricas 3D, rios de linguagens e SVGs a 60fps.",
@@ -521,7 +521,7 @@
       "wizardTitle": "Assistente Visual em 6 Etapas",
       "wizardDesc": "Guia passo a passo para identidade, estilo visual, stacks, estatísticas, widgets dinâmicos e redes sociais com feedback em tempo real.",
       "monacoTitle": "Arquétipos Curados",
-      "monacoDesc": "350+ modelos de perfil testados em produção com animações SVG Camo-safe e Markdown pronto para copiar.",
+      "monacoDesc": "330 modelos de perfil testados em produção com animações SVG Camo-safe e Markdown pronto para copiar.",
       "pluginsTitle": "22 Plugins Open-Source Modulares",
       "pluginsDesc": "Integração direta com cards de estatísticas do GitHub, jogo da cobrinha, linhas de digitação, troféus, WakaTime e contador de visitas.",
       "enrichmentTitle": "Enriquecimento com Confirmação Obrigatória",
@@ -560,7 +560,7 @@
     },
     "developerMode": {
       "badge": "Rota para Usuários Avançados",
-      "title": "Explorar 350+ Modelos",
+      "title": "Explorar 330 Modelos",
       "subtitle": "Um ambiente IDE dedicado para desenvolvedores que desejam controle total de schema, validação instantânea e Markdown em tempo real.",
       "cta": "Explorar Modelos"
     },

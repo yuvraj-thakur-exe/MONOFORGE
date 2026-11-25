@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: PrivacyPolicyPageProps): Prom
 
   const title = 'Privacy Policy — Local-First Open-Source Architecture | MonoForge';
   const description =
-    'MonoForge is an open-source, local-first GitHub Profile README generator. Profile configurations stay in your browser, with zero tracking and no server-side token storage.';
+    'MonoForge is an open-source, local-first GitHub Profile README generator. Profile configurations stay in your browser localStorage, GitHub PATs stay in memory, and server API routes only handle optional resume parsing and public GitHub telemetry.';
   const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('MonoForge Privacy Policy')}`;
 
   return {

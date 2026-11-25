@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   X,
-  Eye,
   FileText,
   Monitor,
   Tablet,
@@ -14,34 +13,28 @@ import {
   Check,
   Download,
   Sparkles,
-  Github,
-  MapPin,
-  Link as LinkIcon,
-  Twitter,
-  Linkedin,
-  Users,
-  Star,
-  GitFork,
-  BookOpen,
-  Calendar,
-  Flame,
-  Award,
-  Code2,
-  Cpu,
-  Target,
   Share2,
-  Zap,
+  Layers,
+  RefreshCw,
   ShieldCheck,
+  Eye,
 } from 'lucide-react';
 import { TemplateItem } from '#/lib/templates/catalog';
 import { ReadmeConfig } from '#/lib/plugins/types';
+import { buildMarkdown } from '#/lib/buildMarkdown';
+import { getPluginById } from '#/lib/plugins/registry';
+import { useReadmeStore } from '#/store/useReadmeStore';
+import { TemplateReadmePreview } from '#/components/landing/TemplateReadmePreview';
+import { copyToClipboard, downloadTextFile } from '#/lib/export/clipboard';
+import { fetchGitHubPreviewProfile, type PreviewDataStatus } from '#/lib/github/profile-preview';
+import { playClickSound, playTone } from '#/lib/sound/sound-effects';
 
 interface FullProfileDashboardModalProps {
   template: TemplateItem;
   config: ReadmeConfig;
   isOpen: boolean;
   onClose: () => void;
-  onApply: (template: TemplateItem) => void;
+  onApply: (template: TemplateItem, activeConfig?: ReadmeConfig) => void;
   onShare?: (template: TemplateItem) => void;
 }
 
@@ -53,245 +46,421 @@ export const FullProfileDashboardModal: React.FC<FullProfileDashboardModalProps>
   onApply,
   onShare,
 }) => {
-  const [viewMode, setViewMode] = useState<'dashboard' | 'readme' | 'prompt'>('dashboard');
+  const setEntireConfig = useReadmeStore(state => state.setEntireConfig);
+
+  // Active configuration for preview (isolated local state, never directly mutates store)
+  const [activeConfig, setActiveConfig] = useState<ReadmeConfig>(() =>
+    JSON.parse(JSON.stringify(config))
+  );
+
+  const [viewTab, setViewTab] = useState<'rendered' | 'raw' | 'plugins' | 'prompt'>('rendered');
   const [device, setDevice] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
   const [themeMode, setThemeMode] = useState<'dark' | 'light'>(
     config.settings.theme === 'light' ? 'light' : 'dark'
   );
-  const [copied, setCopied] = useState(false);
-  const [copiedPrompt, setCopiedPrompt] = useState(false);
-  const [selectedYear, setSelectedYear] = useState('2026');
 
-  const user = config.settings.user;
-  const accent = template.accent || config.settings.accentColor || '#38bdf8';
+  // Live GitHub Account Preview Bar state
+  const [usernameInput, setUsernameInput] = useState<string>(
+    config.settings.user.github || ''
+  );
+  const [previewStatus, setPreviewStatus] = useState<PreviewDataStatus>('sample');
+  const [isSyncing, setIsSyncing] = useState<boolean>(false);
+  const [statusDetail, setStatusDetail] = useState<string | null>(null);
 
-  const handleCopyPromptText = async () => {
+  // Feedback states
+  const [copiedMd, setCopiedMd] = useState<boolean>(false);
+  const [copiedPrompt, setCopiedPrompt] = useState<boolean>(false);
+  const [appliedFeedback, setAppliedFeedback] = useState<boolean>(false);
+
+  // Reset local state when props change
+  useEffect(() => {
+    setActiveConfig(JSON.parse(JSON.stringify(config)));
+    setUsernameInput(config.settings.user.github || '');
+    setPreviewStatus('sample');
+    setStatusDetail(null);
+  }, [config, template]);
+
+  const accent = template.accent || activeConfig.settings.accentColor || '#f59e0b';
+
+  // Generated pure markdown
+  const rawMarkdown = useMemo(() => {
     try {
-      if (template.prompt && typeof navigator !== 'undefined' && navigator.clipboard) {
-        await navigator.clipboard.writeText(template.prompt);
-        setCopiedPrompt(true);
-        setTimeout(() => setCopiedPrompt(false), 2000);
+      return buildMarkdown(activeConfig);
+    } catch {
+      return '# Error rendering Markdown';
+    }
+  }, [activeConfig]);
+
+  // Sync GitHub user profile info for preview only
+  const handleSyncGitHub = async (e?: React.FormEvent) => {
+    e?.preventDefault();
+    const handle = usernameInput.trim();
+    if (!handle) {
+      setPreviewStatus('invalid_username' as PreviewDataStatus);
+      setStatusDetail('Please enter a valid GitHub username.');
+      return;
+    }
+
+    setIsSyncing(true);
+    setPreviewStatus('fetching' as PreviewDataStatus);
+    setStatusDetail(`Connecting to GitHub API for @${handle}...`);
+    playTone(900, 'sine', 0.05, 0.02);
+
+    try {
+      const res = await fetchGitHubPreviewProfile(handle);
+      setPreviewStatus(res.status);
+      if (res.statusMessage) {
+        setStatusDetail(res.statusMessage);
+      } else {
+        setStatusDetail(null);
+      }
+
+      if (typeof res.applyToConfig === 'function') {
+        setActiveConfig(res.applyToConfig(activeConfig));
+      } else if ((res as any).config) {
+        setActiveConfig((res as any).config);
+      } else if ((res as any).user) {
+        setActiveConfig(prev => ({
+          ...prev,
+          settings: {
+            ...prev.settings,
+            user: {
+              ...prev.settings.user,
+              ...(res as any).user,
+              github: handle,
+            },
+          },
+        }));
       }
     } catch {
-      // fallback
+      setPreviewStatus('unavailable' as PreviewDataStatus);
+      setStatusDetail('Could not complete live preview fetch. Using fallback data.');
+    } finally {
+      setIsSyncing(false);
     }
   };
 
-  const handleCopy = async () => {
-    try {
-      const { buildMarkdown } = await import('#/lib/buildMarkdown');
-      const md = buildMarkdown(config);
-      await navigator.clipboard.writeText(md);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // fallback
+  const handleResetProfile = () => {
+    playClickSound();
+    setActiveConfig(JSON.parse(JSON.stringify(config)));
+    setUsernameInput(config.settings.user.github || '');
+    setPreviewStatus('sample');
+    setStatusDetail(null);
+  };
+
+  const handleCopyMarkdown = async () => {
+    playClickSound();
+    const res = await copyToClipboard(rawMarkdown);
+    if (res.ok) {
+      setCopiedMd(true);
+      setTimeout(() => setCopiedMd(false), 2000);
     }
   };
 
-  const handleDownload = async () => {
-    try {
-      const { buildMarkdown } = await import('#/lib/buildMarkdown');
-      const md = buildMarkdown(config);
-      const blob = new Blob([md], { type: 'text/markdown;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${template.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-README.md`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    } catch {
-      // fallback
+  const handleDownload = () => {
+    playClickSound();
+    const filename = `${template.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-README.md`;
+    downloadTextFile(filename, rawMarkdown);
+  };
+
+  const handleCopyPrompt = async () => {
+    playClickSound();
+    const res = await copyToClipboard(template.prompt);
+    if (res.ok) {
+      setCopiedPrompt(true);
+      setTimeout(() => setCopiedPrompt(false), 2000);
     }
+  };
+
+  const handleToggleSection = (sectionId: string) => {
+    playClickSound();
+    setActiveConfig(prev => ({
+      ...prev,
+      sections: prev.sections.map(s => {
+        if (s.id === sectionId) {
+          const currentlyVisible = s.visible !== false;
+          return { ...s, visible: !currentlyVisible };
+        }
+        return s;
+      }),
+    }));
+  };
+
+  const handleApplyToEditor = () => {
+    playClickSound();
+    setEntireConfig(activeConfig);
+    setAppliedFeedback(true);
+    onApply(template, activeConfig);
+    setTimeout(() => {
+      setAppliedFeedback(false);
+      onClose();
+    }, 400);
   };
 
   if (!isOpen) return null;
 
   const isDark = themeMode === 'dark';
-  const containerBg = isDark ? 'bg-[#0d1117] text-[#c9d1d9]' : 'bg-[#f6f8fa] text-[#24292f]';
-  const cardBg = isDark ? 'bg-[#161b22] border-[#30363d]' : 'bg-white border-[#d0d7de]';
+  const containerBg = isDark ? 'bg-[#0f172a] text-[#f8fafc]' : 'bg-[#fafbfc] text-[#0f172a]';
+  const cardBg = isDark ? 'bg-[#1e293b] border-slate-700' : 'bg-white border-slate-200';
 
-  // Featured Repositories
-  const repos = [
-    {
-      name: `${user.github || 'developer'}/core-engine`,
-      desc: 'High-throughput distributed event streaming and real-time AST compiler.',
-      lang: 'TypeScript',
-      langColor: '#3178c6',
-      stars: 482,
-      forks: 64,
-    },
-    {
-      name: `${user.github || 'developer'}/neural-reasoning`,
-      desc: 'Autonomous multi-agent orchestration framework with vector memory graphs.',
-      lang: 'Python',
-      langColor: '#3572A5',
-      stars: 1240,
-      forks: 189,
-    },
-    {
-      name: `${user.github || 'developer'}/web-gpu-shaders`,
-      desc: 'Hardware-accelerated 60fps WebGL/WebGPU shaders and volumetric rendering.',
-      lang: 'Rust',
-      langColor: '#dea584',
-      stars: 310,
-      forks: 42,
-    },
-    {
-      name: `${user.github || 'developer'}/microservices-mesh`,
-      desc: 'Zero-trust service mesh with automated eBPF observability and TLS mTLS.',
-      lang: 'Go',
-      langColor: '#00ADD8',
-      stars: 620,
-      forks: 88,
-    },
-    {
-      name: `${user.github || 'developer'}/design-system`,
-      desc: 'Accessible WCAG AA design tokens, micro-interactions, and component library.',
-      lang: 'TypeScript',
-      langColor: '#3178c6',
-      stars: 215,
-      forks: 29,
-    },
-    {
-      name: `${user.github || 'developer'}/cloud-infra-cdk`,
-      desc: 'Declarative Terraform and AWS CDK infrastructure as code deployments.',
-      lang: 'HCL',
-      langColor: '#844FBA',
-      stars: 145,
-      forks: 18,
-    },
-  ];
+  // Status badge color, label, and icon
+  const getStatusBadge = () => {
+    const s = String(previewStatus).toLowerCase().replace(/\s+/g, '_');
+    switch (s) {
+      case 'live':
+      case 'live_github_data':
+        return {
+          label: 'Live GitHub data',
+          bg: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
+          dot: 'bg-emerald-400',
+        };
+      case 'partial':
+      case 'partial_data_available':
+        return {
+          label: 'Partial data available',
+          bg: 'bg-sky-500/10 text-sky-400 border-sky-500/30',
+          dot: 'bg-sky-400',
+        };
+      case 'fetching':
+      case 'fetching_github_information':
+        return {
+          label: 'Fetching GitHub information',
+          bg: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
+          dot: 'bg-amber-400 animate-ping',
+        };
+      case 'rate_limited':
+        return {
+          label: 'Rate limited',
+          bg: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
+          dot: 'bg-amber-400',
+        };
+      case 'invalid_username':
+        return {
+          label: 'Invalid username',
+          bg: 'bg-rose-500/10 text-rose-400 border-rose-500/30',
+          dot: 'bg-rose-400',
+        };
+      case 'unavailable':
+      case 'github_data_unavailable':
+        return {
+          label: 'GitHub data unavailable',
+          bg: 'bg-rose-500/10 text-rose-400 border-rose-500/30',
+          dot: 'bg-rose-400',
+        };
+      case 'sample':
+      case 'sample_profile':
+      default:
+        return {
+          label: 'Sample profile',
+          bg: 'bg-slate-500/10 text-slate-400 border-slate-500/30',
+          dot: 'bg-slate-400',
+        };
+    }
+  };
+
+  const statusBadge = getStatusBadge();
+
+  // Classify plugin data sources
+  const classifyDataSource = (type: string): 'static' | 'dynamic' | 'unavailable' => {
+    const dynamicTypes = [
+      'github-readme-stats',
+      'activity-graph',
+      'pie-chart',
+      'waka-readme-stats',
+      'portfolio-contributions',
+      'telemetry-isocalendar',
+      'telemetry-engine',
+      'snk',
+      'visitor-counter',
+      'github-profile-trophy',
+      'github-achievements',
+    ];
+    if (dynamicTypes.includes(type)) {
+      const s = String(previewStatus).toLowerCase();
+      if (s.includes('unavailable')) return 'unavailable';
+      return 'dynamic';
+    }
+    return 'static';
+  };
 
   return (
     <div
       role="dialog"
       aria-modal="true"
-      aria-label={`${template.name} Preview`}
-      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/80 backdrop-blur-md animate-in fade-in"
+      aria-label={`${template.name} README Studio`}
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200"
     >
-      <div className="flex flex-col w-full max-w-[1720px] h-[95vh] rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-900 shadow-2xl">
+      <div className="flex flex-col w-full max-w-[1600px] h-[94vh] rounded-3xl overflow-hidden border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-[#0f172a] shadow-2xl">
         {/* Top Control Bar */}
-        <header className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 border-b border-slate-800 bg-slate-900/90 text-xs font-mono">
+        <header className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3 border-b border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/90 text-xs font-mono">
           {/* Left: Template info */}
           <div className="flex items-center gap-2.5">
             <span
-              className="w-3.5 h-3.5 rounded-full"
+              className="w-3.5 h-3.5 rounded-full border border-slate-900/20"
               style={{ backgroundColor: accent }}
             />
-            <span className="font-bold text-white text-sm tracking-tight">
+            <span className="font-black text-slate-900 dark:text-white text-sm sm:text-base tracking-tight uppercase font-sans">
               {template.name}
             </span>
-            <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 text-[10px]">
+            <span className="px-2.5 py-0.5 rounded-md bg-[#ffe600] text-slate-950 border border-slate-900 text-[10px] font-black uppercase shadow-2xs">
               {template.category}
             </span>
+            {template.difficulty && (
+              <span className="hidden sm:inline-block px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 text-[10px] font-bold capitalize">
+                {template.difficulty}
+              </span>
+            )}
           </div>
 
-          {/* Center: Viewport & Mode Controls */}
-          <div className="flex items-center gap-2 bg-slate-950 p-1 rounded-lg border border-slate-800">
-            {/* View Mode Toggle */}
+          {/* Center: Tabs & Viewport Toggles */}
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 bg-white dark:bg-slate-950 p-1 rounded-xl border border-slate-300 dark:border-slate-800 shadow-xs max-w-full overflow-x-auto">
+            {/* View Mode Tabs */}
             <button
-              onClick={() => setViewMode('dashboard')}
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
-                viewMode === 'dashboard'
-                  ? 'bg-amber-400 text-slate-950 shadow-xs'
-                  : 'text-slate-400 hover:text-white'
+              type="button"
+              onClick={() => {
+                setViewTab('rendered');
+                playClickSound();
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                viewTab === 'rendered'
+                  ? 'bg-[#ffe600] text-slate-950 border border-slate-900 font-black shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <Eye className="w-3.5 h-3.5" />
-              <span>Full Profile</span>
+              <span>Rendered README</span>
             </button>
+
             <button
-              onClick={() => setViewMode('readme')}
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
-                viewMode === 'readme'
-                  ? 'bg-amber-400 text-slate-950 shadow-xs'
-                  : 'text-slate-400 hover:text-white'
+              type="button"
+              onClick={() => {
+                setViewTab('raw');
+                playClickSound();
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                viewTab === 'raw'
+                  ? 'bg-[#ffe600] text-slate-950 border border-slate-900 font-black shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>README Only</span>
+              <span>Raw Markdown</span>
             </button>
+
             <button
-              onClick={() => setViewMode('prompt')}
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
-                viewMode === 'prompt'
-                  ? 'bg-amber-400 text-slate-950 shadow-xs font-black'
-                  : 'text-slate-400 hover:text-white'
+              type="button"
+              onClick={() => {
+                setViewTab('plugins');
+                playClickSound();
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                viewTab === 'plugins'
+                  ? 'bg-[#ffe600] text-slate-950 border border-slate-900 font-black shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5" />
+              <span>Plugin Info ({activeConfig.sections.length})</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setViewTab('prompt');
+                playClickSound();
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                viewTab === 'prompt'
+                  ? 'bg-[#ffe600] text-slate-950 border border-slate-900 font-black shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-500" />
               <span>AI Prompt</span>
             </button>
 
-            <div className="h-4 w-px bg-slate-800 mx-1" />
+            <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 mx-1" />
 
-            {/* Device Toggle */}
-            <button
-              onClick={() => setDevice('desktop')}
-              className={`p-1 rounded transition-colors cursor-pointer ${
-                device === 'desktop' ? 'text-amber-400' : 'text-slate-500 hover:text-white'
-              }`}
-              title="Desktop"
-            >
-              <Monitor className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={() => setDevice('tablet')}
-              className={`p-1 rounded transition-colors cursor-pointer ${
-                device === 'tablet' ? 'text-amber-400' : 'text-slate-500 hover:text-white'
-              }`}
-              title="Tablet"
-            >
-              <Tablet className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={() => setDevice('mobile')}
-              className={`p-1 rounded transition-colors cursor-pointer ${
-                device === 'mobile' ? 'text-amber-400' : 'text-slate-500 hover:text-white'
-              }`}
-              title="Mobile"
-            >
-              <Smartphone className="w-3.5 h-3.5" />
-            </button>
+            {/* Viewport Width Controls */}
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setDevice('desktop')}
+                className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                  device === 'desktop'
+                    ? 'bg-slate-200 dark:bg-slate-800 text-amber-600 dark:text-amber-400'
+                    : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                }`}
+                title="Desktop Viewport"
+                aria-label="Desktop Viewport"
+              >
+                <Monitor className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setDevice('tablet')}
+                className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                  device === 'tablet'
+                    ? 'bg-slate-200 dark:bg-slate-800 text-amber-600 dark:text-amber-400'
+                    : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                }`}
+                title="Tablet Viewport"
+                aria-label="Tablet Viewport"
+              >
+                <Tablet className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setDevice('mobile')}
+                className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                  device === 'mobile'
+                    ? 'bg-slate-200 dark:bg-slate-800 text-amber-600 dark:text-amber-400'
+                    : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                }`}
+                title="Mobile Viewport"
+                aria-label="Mobile Viewport"
+              >
+                <Smartphone className="w-3.5 h-3.5" />
+              </button>
+            </div>
 
-            <div className="h-4 w-px bg-slate-800 mx-1" />
+            <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 mx-1" />
 
             {/* Theme Toggle */}
             <button
+              type="button"
               onClick={() => setThemeMode(isDark ? 'light' : 'dark')}
-              className="p-1 rounded text-slate-400 hover:text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors cursor-pointer"
               title="Toggle theme preview"
+              aria-label="Toggle theme preview"
             >
-              {isDark ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5 text-indigo-400" />}
+              {isDark ? (
+                <Sun className="w-3.5 h-3.5 text-amber-400" />
+              ) : (
+                <Moon className="w-3.5 h-3.5 text-indigo-500" />
+              )}
             </button>
           </div>
 
           {/* Right: Actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
             <button
-              onClick={handleCopyPromptText}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 text-xs font-bold cursor-pointer transition-colors shadow-2xs"
-              title="Copy Master AI Generation Prompt"
+              type="button"
+              onClick={handleCopyMarkdown}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-mono font-bold cursor-pointer transition-colors"
+              title="Copy Rendered Markdown"
             >
-              {copiedPrompt ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Sparkles className="w-3.5 h-3.5 text-amber-400" />}
-              <span>{copiedPrompt ? 'PROMPT COPIED' : 'COPY PROMPT'}</span>
+              {copiedMd ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-slate-400" />}
+              <span>{copiedMd ? 'COPIED' : 'COPY MD'}</span>
             </button>
 
             <button
-              onClick={handleCopy}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800 hover:bg-slate-750 text-slate-200 text-xs font-semibold cursor-pointer"
-            >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-slate-400" />}
-              <span>{copied ? 'COPIED' : 'COPY'}</span>
-            </button>
-
-            <button
+              type="button"
               onClick={handleDownload}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800 hover:bg-slate-750 text-slate-200 text-xs font-semibold cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-mono font-bold cursor-pointer transition-colors"
+              title="Download README.md"
             >
-              <Download className="w-3.5 h-3.5 text-amber-400" />
+              <Download className="w-3.5 h-3.5 text-amber-500" />
               <span>EXPORT</span>
             </button>
 
@@ -299,62 +468,243 @@ export const FullProfileDashboardModal: React.FC<FullProfileDashboardModalProps>
               <button
                 type="button"
                 onClick={() => onShare(template)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800 hover:bg-slate-750 text-slate-200 text-xs font-semibold cursor-pointer"
-                title="Copy direct share link to this archetype"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-mono font-bold cursor-pointer transition-colors"
+                title="Copy share link to this archetype"
               >
-                <Share2 className="w-3.5 h-3.5 text-cyan-400" />
+                <Share2 className="w-3.5 h-3.5 text-cyan-500" />
                 <span>SHARE</span>
               </button>
             )}
 
             <button
-              onClick={() => onApply(template)}
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs cursor-pointer shadow-xs"
+              type="button"
+              onClick={handleApplyToEditor}
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-[#ffe600] hover:bg-[#fde047] text-slate-950 font-black text-xs font-mono cursor-pointer border border-slate-950 shadow-2xs transition-transform active:scale-95"
             >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>APPLY TEMPLATE</span>
+              {appliedFeedback ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-slate-950" />
+                  <span>APPLIED!</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-3.5 h-3.5 text-slate-950" />
+                  <span>APPLY TEMPLATE</span>
+                </>
+              )}
             </button>
 
             <button
+              type="button"
               onClick={onClose}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+              className="p-1.5 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              aria-label="Close README studio modal"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
           </div>
         </header>
 
-        {/* Simulated GitHub Chrome Bar */}
-        <div className="flex items-center justify-between px-6 py-2 border-b border-slate-800 bg-[#161b22] text-xs font-mono text-slate-300">
-          <div className="flex items-center gap-4">
-            <Github className="w-5 h-5 text-white" />
-            <span className="font-bold text-white">github.com/{user.github || 'developer'}</span>
-            <span className="hidden md:inline text-slate-500">•</span>
-            <span className="hidden md:inline text-slate-400">Overview</span>
-            <span className="hidden md:inline text-slate-400">Repositories (38)</span>
-            <span className="hidden md:inline text-slate-400">Projects (4)</span>
-            <span className="hidden md:inline text-slate-400">Packages (2)</span>
-            <span className="hidden md:inline text-slate-400">Stars (412)</span>
+        {/* Live GitHub Profile Sync Bar */}
+        <div className="flex flex-wrap items-center justify-between gap-3 px-3 sm:px-6 py-2 sm:py-2.5 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 text-xs font-mono">
+          <form onSubmit={handleSyncGitHub} className="flex flex-wrap sm:flex-nowrap items-center gap-2 flex-1 max-w-xl w-full">
+            <span className="text-slate-500 font-bold uppercase text-[11px] shrink-0">
+              GitHub Preview Handle:
+            </span>
+            <div className="relative flex-1">
+              <input
+                type="text"
+                value={usernameInput}
+                onChange={e => setUsernameInput(e.target.value)}
+                placeholder="Enter username (e.g. torvalds)..."
+                className="w-full pl-3 pr-8 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-mono text-xs focus:outline-hidden focus:border-amber-400"
+              />
+              {usernameInput && (
+                <button
+                  type="button"
+                  onClick={() => setUsernameInput('')}
+                  className="absolute right-2 top-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-white"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              disabled={isSyncing}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-bold text-xs hover:opacity-90 disabled:opacity-50 cursor-pointer shadow-2xs"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin' : ''}`} />
+              <span>{isSyncing ? 'Fetching...' : 'Sync'}</span>
+            </button>
+
+            {previewStatus !== 'sample' && (
+              <button
+                type="button"
+                onClick={handleResetProfile}
+                className="px-2 py-1.5 text-slate-500 hover:text-slate-900 dark:hover:text-slate-300 underline text-[11px] cursor-pointer"
+              >
+                Reset
+              </button>
+            )}
+          </form>
+
+          {/* Honest Status Label */}
+          <div className="flex items-center gap-2">
+            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold border ${statusBadge.bg}`}>
+              <span className={`w-2 h-2 rounded-full ${statusBadge.dot}`} />
+              <span>{statusBadge.label}</span>
+            </span>
+            {statusDetail && (
+              <span className="text-[11px] text-slate-500 max-w-xs truncate" title={statusDetail}>
+                {statusDetail}
+              </span>
+            )}
           </div>
-          <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-400 border border-emerald-800 font-bold">
-            Simulated GitHub Environment
-          </span>
         </div>
 
         {/* Main Canvas Scroll Area */}
         <div className={`flex-1 overflow-y-auto p-4 sm:p-8 ${containerBg}`}>
           <div
-            className={`mx-auto transition-all duration-300 ${
+            className={`transition-all duration-300 ${
               device === 'mobile'
-                ? 'max-w-[420px]'
+                ? 'max-w-[420px] mx-auto'
                 : device === 'tablet'
-                ? 'max-w-[768px]'
-                : 'max-w-[1440px]'
+                ? 'max-w-[768px] mx-auto'
+                : 'w-full max-w-5xl mx-auto'
             }`}
           >
-            {viewMode === 'prompt' ? (
-              <div className="max-w-5xl mx-auto space-y-6 animate-in fade-in py-2">
-                {/* Prompt Banner */}
+            {/* TAB: Rendered README Preview */}
+            {viewTab === 'rendered' && (
+              <div className="space-y-4 animate-in fade-in">
+                <div className="flex items-center justify-between text-xs font-mono text-slate-500 pb-2 border-b border-slate-200 dark:border-slate-800">
+                  <span>
+                    Rendering <b>{template.name}</b> in <b>{device}</b> view ({isDark ? 'Dark' : 'Light'} theme)
+                  </span>
+                  <span className="text-emerald-500 font-bold">100% Camo Safe Vector README</span>
+                </div>
+
+                <div className={`rounded-2xl border ${cardBg} p-4 sm:p-8 shadow-inner overflow-hidden`}>
+                  <TemplateReadmePreview
+                    config={activeConfig}
+                    templateName={template.name}
+                    mode="full"
+                    device={device}
+                    theme={themeMode}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* TAB: Raw Markdown */}
+            {viewTab === 'raw' && (
+              <div className="space-y-4 animate-in fade-in">
+                <div className="flex items-center justify-between text-xs font-mono text-slate-500 pb-2 border-b border-slate-200 dark:border-slate-800">
+                  <span>
+                    Generated Pure Markdown &bull; <b>{rawMarkdown.length}</b> characters &bull; <b>{rawMarkdown.split('\n').length}</b> lines
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleCopyMarkdown}
+                    className="flex items-center gap-1 text-amber-500 font-bold hover:underline cursor-pointer"
+                  >
+                    <Copy className="w-3.5 h-3.5" />
+                    <span>{copiedMd ? 'Copied to Clipboard' : 'Copy Full Markdown'}</span>
+                  </button>
+                </div>
+
+                <div className="rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-900 text-slate-100 p-5 font-mono text-xs overflow-x-auto shadow-inner leading-relaxed">
+                  <pre className="whitespace-pre-wrap select-text">{rawMarkdown}</pre>
+                </div>
+              </div>
+            )}
+
+            {/* TAB: Plugin Info & Data Source Classification */}
+            {viewTab === 'plugins' && (
+              <div className="space-y-6 animate-in fade-in">
+                <div className="flex items-center justify-between text-xs font-mono text-slate-500 pb-2 border-b border-slate-200 dark:border-slate-800">
+                  <span>
+                    Active Plugin Architecture &bull; <b>{activeConfig.sections.length}</b> configured components
+                  </span>
+                  <span className="text-slate-400">
+                    {activeConfig.sections.filter(s => s.visible !== false).length} Enabled
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs">
+                  {activeConfig.sections.map((section, idx) => {
+                    const pluginDef = getPluginById(section.type);
+                    const isEnabled = section.visible !== false;
+                    const dataSource = classifyDataSource(section.type);
+
+                    return (
+                      <div
+                        key={section.id || idx}
+                        className={`p-4 rounded-xl border transition-all ${
+                          isEnabled
+                            ? cardBg
+                            : 'bg-slate-100 dark:bg-slate-900/40 border-dashed border-slate-300 dark:border-slate-800 opacity-60'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <span className="font-bold text-slate-900 dark:text-white">
+                              {pluginDef?.name || section.title || section.type}
+                            </span>
+                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                              {section.type}
+                            </span>
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => handleToggleSection(section.id)}
+                            className={`px-2 py-0.5 rounded text-[10px] font-bold border cursor-pointer transition-colors ${
+                              isEnabled
+                                ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'
+                                : 'bg-slate-200 dark:bg-slate-800 text-slate-500 border-slate-300 dark:border-slate-700'
+                            }`}
+                          >
+                            {isEnabled ? 'Enabled' : 'Disabled'}
+                          </button>
+                        </div>
+
+                        <p className="text-[11px] text-slate-600 dark:text-slate-400 mb-3 line-clamp-2">
+                          {pluginDef?.description || 'Custom configured profile section.'}
+                        </p>
+
+                        <div className="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-slate-800 text-[10px]">
+                          <span className="text-slate-500">
+                            Category: <b className="text-slate-700 dark:text-slate-300">{pluginDef?.category || 'general'}</b>
+                          </span>
+
+                          <span
+                            className={`px-2 py-0.5 rounded font-bold border ${
+                              dataSource === 'dynamic'
+                                ? 'bg-amber-500/10 text-amber-500 border-amber-500/30'
+                                : dataSource === 'unavailable'
+                                ? 'bg-rose-500/10 text-rose-500 border-rose-500/30'
+                                : 'bg-slate-500/10 text-slate-500 border-slate-500/30'
+                            }`}
+                          >
+                            {dataSource === 'dynamic'
+                              ? 'Dynamic Telemetry'
+                              : dataSource === 'unavailable'
+                              ? 'Telemetry Unavailable'
+                              : 'Static Content'}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* TAB: Master AI Prompt */}
+            {viewTab === 'prompt' && (
+              <div className="space-y-6 animate-in fade-in py-2">
                 <div className={`p-6 sm:p-8 rounded-2xl border ${cardBg} space-y-4`}>
                   <div className="flex flex-wrap items-center justify-between gap-4">
                     <div>
@@ -363,21 +713,22 @@ export const FullProfileDashboardModal: React.FC<FullProfileDashboardModalProps>
                           className="w-3 h-3 rounded-full"
                           style={{ backgroundColor: accent }}
                         />
-                        <span className="font-mono text-xs uppercase tracking-wider text-amber-400 font-bold">
+                        <span className="font-mono text-xs uppercase tracking-wider text-amber-500 font-bold">
                           AI Generation Master Prompt
                         </span>
                       </div>
-                      <h3 className="text-2xl sm:text-3xl font-black text-white mt-1">
+                      <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1 font-sans">
                         {template.name}
                       </h3>
-                      <p className="text-sm font-mono text-slate-400 mt-1">
+                      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1">
                         {template.description}
                       </p>
                     </div>
 
                     <button
-                      onClick={handleCopyPromptText}
-                      className="flex items-center gap-2 px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-sm cursor-pointer shadow-lg transition-transform active:scale-95"
+                      type="button"
+                      onClick={handleCopyPrompt}
+                      className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#ffe600] hover:bg-[#fde047] text-slate-950 font-black text-sm cursor-pointer shadow-md transition-transform active:scale-95"
                     >
                       {copiedPrompt ? (
                         <>
@@ -387,46 +738,37 @@ export const FullProfileDashboardModal: React.FC<FullProfileDashboardModalProps>
                       ) : (
                         <>
                           <Sparkles className="w-4 h-4 text-slate-950 stroke-[2.5]" />
-                          <span>COPY FULL PROMPT</span>
+                          <span>COPY MASTER PROMPT</span>
                         </>
                       )}
                     </button>
                   </div>
 
-                  {/* Target Specs Chips */}
-                  <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-slate-800 text-xs font-mono">
-                    <span className="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700">
-                      Archetype: <b className="text-white">{template.name}</b>
+                  <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-slate-200 dark:border-slate-800 text-xs font-mono">
+                    <span className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700">
+                      Archetype: <b className="text-slate-900 dark:text-white">{template.name}</b>
                     </span>
-                    <span className="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700">
-                      Category: <b className="text-white">{template.category}</b>
+                    <span className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700">
+                      Category: <b className="text-slate-900 dark:text-white">{template.category}</b>
                     </span>
-                    <span className="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700">
+                    <span className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700">
                       Accent: <b style={{ color: accent }}>{accent}</b>
                     </span>
-                    <span className="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700">
-                      Length: <b className="text-white">{template.prompt?.length || 0} characters</b>
-                    </span>
-                    <span className="px-2.5 py-1 rounded-lg bg-emerald-950/60 text-emerald-400 border border-emerald-800 font-bold">
-                      11/11 Dashboard Sections Specified
+                    <span className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700">
+                      Length: <b className="text-slate-900 dark:text-white">{template.prompt?.length || 0} characters</b>
                     </span>
                   </div>
                 </div>
 
-                {/* Prompt Terminal Container */}
-                <div className="rounded-2xl border border-slate-700 bg-[#0d1117] overflow-hidden shadow-2xl">
-                  <div className="flex items-center justify-between px-5 py-3 bg-[#161b22] border-b border-slate-800 text-xs font-mono">
-                    <div className="flex items-center gap-2">
-                      <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-                      <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-                      <span className="w-3 h-3 rounded-full bg-[#27c93f]" />
-                      <span className="ml-2 text-slate-400">master-prompt.md — Ready for Google Antigravity / Claude 3.7 / GPT-4o / Cursor</span>
-                    </div>
+                <div className="rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-900 overflow-hidden shadow-2xl">
+                  <div className="flex items-center justify-between px-5 py-3 bg-slate-950 border-b border-slate-800 text-xs font-mono">
+                    <span className="text-slate-400">master-prompt.md &bull; Ready for Claude / GPT-4o / Antigravity</span>
                     <button
-                      onClick={handleCopyPromptText}
-                      className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono cursor-pointer"
+                      type="button"
+                      onClick={handleCopyPrompt}
+                      className="flex items-center gap-1 text-amber-400 hover:text-amber-300 font-bold cursor-pointer"
                     >
-                      {copiedPrompt ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-slate-400" />}
+                      <Copy className="w-3.5 h-3.5" />
                       <span>{copiedPrompt ? 'Copied' : 'Copy'}</span>
                     </button>
                   </div>
@@ -435,422 +777,35 @@ export const FullProfileDashboardModal: React.FC<FullProfileDashboardModalProps>
                     {template.prompt}
                   </pre>
                 </div>
-
-                {/* How to Use Guidance */}
-                <div className={`p-6 rounded-2xl border ${cardBg} font-mono text-xs space-y-3`}>
-                  <h4 className="text-white font-bold uppercase tracking-wider flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-amber-400" />
-                    <span>How to Use This Archetype Prompt</span>
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 text-slate-300">
-                    <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                      <div className="text-amber-400 font-black mb-1">01. COPY PROMPT</div>
-                      <p className="text-[11px] text-slate-400">Click the copy button above to load the complete specification into your clipboard.</p>
-                    </div>
-                    <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                      <div className="text-sky-400 font-black mb-1">02. PASTE IN AGENT</div>
-                      <p className="text-[11px] text-slate-400">Paste into Google Antigravity, Claude, ChatGPT, Cursor, or MonoForge AI Assistant.</p>
-                    </div>
-                    <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                      <div className="text-emerald-400 font-black mb-1">03. SHIP TO GITHUB</div>
-                      <p className="text-[11px] text-slate-400">Review the generated Camo-compliant SVG assets and sync directly to your profile repository.</p>
-                    </div>
-                  </div>
-                </div>
               </div>
-            ) : (
-            /* Dashboard Layout: Left Sidebar + Main Content */
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* SECTION A: PROFILE SIDEBAR */}
-              {viewMode === 'dashboard' && (
-                <aside className="lg:col-span-3 space-y-6">
-                  {/* Large Avatar */}
-                  <div className="relative group">
-                    <div
-                      className="w-48 h-48 sm:w-64 sm:h-64 rounded-full overflow-hidden border-2 shadow-lg mx-auto lg:mx-0 flex items-center justify-center font-black text-4xl"
-                      style={{
-                        borderColor: accent,
-                        backgroundColor: isDark ? '#1f2937' : '#e5e7eb',
-                        color: isDark ? '#ffffff' : '#111827',
-                      }}
-                    >
-                      {user.name
-                        ? user.name
-                            .split(' ')
-                            .map((n) => n[0])
-                            .join('')
-                            .slice(0, 2)
-                        : 'DEV'}
-                    </div>
-                    {/* Status Pill */}
-                    <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium border shadow-xs"
-                      style={{ borderColor: accent, background: isDark ? '#161b22' : '#ffffff' }}
-                    >
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                      <span>{user.status || 'Focusing on distributed systems'}</span>
-                    </div>
-                  </div>
-
-                  {/* Name & Designation */}
-                  <div>
-                    <h2 className="text-2xl font-black tracking-tight">{user.name || 'Developer Name'}</h2>
-                    <p className="font-mono text-sm text-slate-400">{user.github || 'username'}</p>
-                    <p className="font-mono text-xs font-bold mt-1" style={{ color: accent }}>
-                      {user.role || 'Senior Software Engineer'}
-                    </p>
-                  </div>
-
-                  {/* Bio */}
-                  <p className="text-sm leading-relaxed text-slate-300">
-                    {user.bio || 'Building reliable, high-performance systems for the modern web.'}
-                  </p>
-
-                  {/* Edit profile simulated button */}
-                  <button
-                    disabled
-                    className="w-full py-1.5 rounded-lg border text-xs font-mono font-bold text-slate-400 opacity-60 cursor-not-allowed"
-                    style={{ borderColor: isDark ? '#30363d' : '#d0d7de' }}
-                  >
-                    Edit profile (Preview)
-                  </button>
-
-                  {/* Follower Stats */}
-                  <div className="flex items-center gap-4 text-xs font-mono text-slate-400">
-                    <div className="flex items-center gap-1">
-                      <Users className="w-3.5 h-3.5" />
-                      <strong className="text-white">1.4k</strong> followers
-                    </div>
-                    <span>•</span>
-                    <div>
-                      <strong className="text-white">72</strong> following
-                    </div>
-                  </div>
-
-                  {/* Profile Metadata Links */}
-                  <div className="space-y-2 text-xs font-mono text-slate-300 pt-2 border-t border-slate-800">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                      <span>{user.location || 'San Francisco, CA'}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <LinkIcon className="w-3.5 h-3.5 text-slate-400" />
-                      <a href="https://monoforge-studio.vercel.app" target="_blank" rel="noreferrer" className="text-sky-400 hover:underline">
-                        monoforge-studio.vercel.app
-                      </a>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Twitter className="w-3.5 h-3.5 text-slate-400" />
-                      <span>@{user.github || 'dev'}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Linkedin className="w-3.5 h-3.5 text-slate-400" />
-                      <span>/in/{user.github || 'dev'}</span>
-                    </div>
-                  </div>
-
-                  {/* Achievements */}
-                  <div className="pt-3 border-t border-slate-800 space-y-2">
-                    <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400 block">
-                      Achievements
-                    </span>
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400" title="Pull Shark">
-                        <Award className="w-4 h-4 text-amber-400" />
-                      </div>
-                      <div className="w-8 h-8 rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-400" title="Quickdraw">
-                        <Zap className="w-4 h-4 text-purple-400" />
-                      </div>
-                      <div className="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400" title="Starstruck">
-                        <Star className="w-4 h-4 text-emerald-400 fill-current" />
-                      </div>
-                      <div className="w-8 h-8 rounded-full bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-blue-400" title="Arctic Code Vault">
-                        <ShieldCheck className="w-4 h-4 text-blue-400" />
-                      </div>
-                    </div>
-                  </div>
-                </aside>
-              )}
-
-              {/* MAIN CONTENT AREA */}
-              <main className={viewMode === 'dashboard' ? 'lg:col-span-9 space-y-6' : 'col-span-12 space-y-6'}>
-                {/* SECTION B: MAIN HERO BANNER */}
-                <div
-                  className="rounded-2xl p-6 sm:p-10 relative overflow-hidden border shadow-lg"
-                  style={{
-                    backgroundColor: isDark ? '#0f172a' : '#ffffff',
-                    borderColor: isDark ? '#1e293b' : '#e2e8f0',
-                  }}
-                >
-                  {/* Subtle Accent Glow */}
-                  <div
-                    className="absolute -right-20 -top-20 w-80 h-80 rounded-full blur-3xl opacity-20 pointer-events-none"
-                    style={{ backgroundColor: accent }}
-                  />
-
-                  <div className="relative z-10 space-y-3">
-                    <span
-                      className="inline-block px-3 py-1 rounded-md text-xs font-mono font-bold tracking-wider uppercase text-slate-950"
-                      style={{ backgroundColor: accent }}
-                    >
-                      HI, I&apos;M {user.name?.toUpperCase() || 'DEVELOPER'}
-                    </span>
-                    <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white font-sans">
-                      {user.role || 'Staff Full-Stack Architect'}
-                    </h1>
-                    <p className="text-base sm:text-lg text-slate-300 font-medium max-w-2xl">
-                      {user.bio || 'Designing high-throughput microservices, WebGL shaders, and scalable cloud architectures.'}
-                    </p>
-                  </div>
-                </div>
-
-                {/* SECTION C: DEVELOPER STATISTICS KPI ROW */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-                  {[
-                    { label: 'Public Repos', val: '38', icon: <BookOpen className="w-4 h-4 text-sky-400" /> },
-                    { label: 'Total Stars', val: '1.4k', icon: <Star className="w-4 h-4 text-amber-400" /> },
-                    { label: 'Total Forks', val: '284', icon: <GitFork className="w-4 h-4 text-purple-400" /> },
-                    { label: 'Followers', val: '1.4k', icon: <Users className="w-4 h-4 text-emerald-400" /> },
-                    { label: 'Following', val: '72', icon: <Users className="w-4 h-4 text-blue-400" /> },
-                    { label: 'Contributions', val: '3,842', icon: <Calendar className="w-4 h-4 text-rose-400" /> },
-                  ].map((stat, idx) => (
-                    <div
-                      key={idx}
-                      className={`p-3.5 rounded-xl border flex flex-col justify-between ${cardBg}`}
-                    >
-                      <div className="flex items-center justify-between text-slate-400 mb-1">
-                        {stat.icon}
-                        <span className="font-mono text-[10px] uppercase font-bold">{stat.label}</span>
-                      </div>
-                      <span className="text-xl font-black text-white font-mono">{stat.val}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* SECTION D: POPULAR REPOSITORIES */}
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                      <BookOpen className="w-4 h-4" style={{ color: accent }} />
-                      <span>Popular Repositories</span>
-                    </h3>
-                    <span className="text-xs font-mono text-slate-500">6 featured</span>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {repos.map((repo, idx) => (
-                      <div
-                        key={idx}
-                        className={`p-4 rounded-xl border flex flex-col justify-between space-y-3 ${cardBg} hover:border-slate-500 transition-colors`}
-                      >
-                        <div>
-                          <div className="flex items-center justify-between">
-                            <span className="font-mono text-xs font-bold text-sky-400 hover:underline cursor-pointer truncate">
-                              {repo.name}
-                            </span>
-                            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700 text-slate-400">
-                              Public
-                            </span>
-                          </div>
-                          <p className="text-xs text-slate-300 mt-2 line-clamp-2 leading-relaxed">
-                            {repo.desc}
-                          </p>
-                        </div>
-
-                        <div className="flex items-center justify-between text-xs font-mono text-slate-400 pt-2 border-t border-slate-800">
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: repo.langColor }} />
-                            <span>{repo.lang}</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <span className="flex items-center gap-1">
-                              <Star className="w-3 h-3 text-amber-400" />
-                              <span>{repo.stars}</span>
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <GitFork className="w-3 h-3" />
-                              <span>{repo.forks}</span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* SECTION E: GITHUB CONTRIBUTION ACTIVITY */}
-                <div className={`p-5 rounded-2xl border ${cardBg} space-y-4`}>
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div>
-                      <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-emerald-400" />
-                        <span>3,842 contributions in {selectedYear}</span>
-                      </h3>
-                      <p className="text-xs text-slate-400 font-mono">Continuous delivery &amp; verified commit cadence</p>
-                    </div>
-
-                    <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-lg border border-slate-800 text-xs font-mono">
-                      {['2026', '2025', '2024'].map((yr) => (
-                        <button
-                          key={yr}
-                          onClick={() => setSelectedYear(yr)}
-                          className={`px-2.5 py-0.5 rounded ${
-                            selectedYear === yr ? 'bg-amber-400 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
-                          }`}
-                        >
-                          {yr}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Simulated 52-week Contribution Heatmap */}
-                  <div className="overflow-x-auto pb-2">
-                    <div className="min-w-[680px] grid grid-cols-52 gap-1">
-                      {Array.from({ length: 52 * 7 }).map((_, idx) => {
-                        const level = (idx * 17) % 5;
-                        const colors = isDark
-                          ? ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
-                          : ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
-                        return (
-                          <div
-                            key={idx}
-                            className="w-2.5 h-2.5 rounded-2xs transition-transform hover:scale-125"
-                            style={{ backgroundColor: colors[level] }}
-                            title={`Activity level: ${level}`}
-                          />
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between text-xs font-mono text-slate-400 pt-1">
-                    <span>Learn how we count contributions</span>
-                    <div className="flex items-center gap-1.5">
-                      <span>Less</span>
-                      <span className="w-2.5 h-2.5 rounded-2xs bg-[#161b22]" />
-                      <span className="w-2.5 h-2.5 rounded-2xs bg-[#0e4429]" />
-                      <span className="w-2.5 h-2.5 rounded-2xs bg-[#006d32]" />
-                      <span className="w-2.5 h-2.5 rounded-2xs bg-[#26a641]" />
-                      <span className="w-2.5 h-2.5 rounded-2xs bg-[#39d353]" />
-                      <span>More</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* SECTION F: TECHNOLOGY STACK */}
-                <div className={`p-5 rounded-2xl border ${cardBg} space-y-4`}>
-                  <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
-                    <Cpu className="w-4 h-4" style={{ color: accent }} />
-                    <span>Technology Stack &amp; Toolchain</span>
-                  </h3>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs font-mono">
-                    <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1.5">
-                      <span className="font-bold text-sky-400">Languages</span>
-                      <p className="text-slate-300">TypeScript, Rust, Go, Python, SQL</p>
-                    </div>
-                    <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1.5">
-                      <span className="font-bold text-emerald-400">Frontend</span>
-                      <p className="text-slate-300">Next.js 16, React 19, Tailwind CSS, Three.js</p>
-                    </div>
-                    <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1.5">
-                      <span className="font-bold text-purple-400">Backend &amp; DB</span>
-                      <p className="text-slate-300">Node.js, PostgreSQL, Redis, ClickHouse</p>
-                    </div>
-                    <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1.5">
-                      <span className="font-bold text-amber-400">Cloud &amp; DevOps</span>
-                      <p className="text-slate-300">Docker, Kubernetes, AWS, GitHub Actions</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* SECTION G & H & I: FOCUS, LANGUAGES & STATS */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                  {/* Currently Focusing On */}
-                  <div className={`p-5 rounded-2xl border ${cardBg} space-y-3`}>
-                    <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-white flex items-center gap-2">
-                      <Target className="w-4 h-4 text-rose-400" />
-                      <span>Current Focus</span>
-                    </h4>
-                    <ul className="space-y-2 text-xs font-mono text-slate-300">
-                      <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                        <span>Building: Autonomous Agent Workflows</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
-                        <span>Learning: WebGPU Compute Shaders</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                        <span>Research: Deterministic AST Compilers</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  {/* Top Programming Languages */}
-                  <div className={`p-5 rounded-2xl border ${cardBg} space-y-3`}>
-                    <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-white flex items-center gap-2">
-                      <Code2 className="w-4 h-4 text-sky-400" />
-                      <span>Top Languages</span>
-                    </h4>
-                    <div className="space-y-2 text-xs font-mono">
-                      <div>
-                        <div className="flex justify-between text-slate-300 mb-1">
-                          <span>TypeScript</span>
-                          <span>54%</span>
-                        </div>
-                        <div className="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
-                          <div className="h-full bg-sky-400" style={{ width: '54%' }} />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex justify-between text-slate-300 mb-1">
-                          <span>Rust</span>
-                          <span>28%</span>
-                        </div>
-                        <div className="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
-                          <div className="h-full bg-amber-400" style={{ width: '28%' }} />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex justify-between text-slate-300 mb-1">
-                          <span>Go</span>
-                          <span>18%</span>
-                        </div>
-                        <div className="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
-                          <div className="h-full bg-emerald-400" style={{ width: '18%' }} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Streak Card */}
-                  <div className={`p-5 rounded-2xl border ${cardBg} space-y-3 flex flex-col justify-between`}>
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-white flex items-center gap-2">
-                        <Flame className="w-4 h-4 text-amber-500" />
-                        <span>Commit Streak</span>
-                      </h4>
-                      <span className="text-[10px] font-mono text-emerald-400 font-bold">ACTIVE</span>
-                    </div>
-
-                    <div className="text-center py-2">
-                      <div className="text-4xl font-black font-mono text-amber-400">412</div>
-                      <div className="text-xs font-mono text-slate-400 mt-1">Consecutive Days</div>
-                    </div>
-
-                    <div className="flex justify-between text-[11px] font-mono text-slate-400 pt-2 border-t border-slate-800">
-                      <span>Longest: 580 Days</span>
-                      <span>Total: 3,842 Days</span>
-                    </div>
-                  </div>
-                </div>
-              </main>
-            </div>
             )}
           </div>
         </div>
+
+        {/* Modal Footer */}
+        <footer className="flex flex-wrap items-center justify-between gap-3 px-6 py-3 bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-600 dark:text-slate-400">
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-emerald-500" />
+            <span>Zero fabricated statistics &bull; Real GitHub README preview studio &bull; Camo-safe</span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              onClick={handleApplyToEditor}
+              className="px-5 py-1.5 rounded-xl bg-[#ffe600] hover:bg-[#fde047] text-slate-950 font-black border border-slate-950 shadow-2xs cursor-pointer"
+            >
+              Apply to Workspace
+            </button>
+          </div>
+        </footer>
       </div>
     </div>
   );

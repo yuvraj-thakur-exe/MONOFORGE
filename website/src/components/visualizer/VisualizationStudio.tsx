@@ -1,21 +1,22 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import {
   VisualizationId,
   VisualizationTheme,
   OutputMode,
-  NormalizedDeveloperIdentity,
 } from '#/lib/visualizations/types';
 import { VISUALIZATION_REGISTRY, ALL_VISUALIZATION_IDS } from '#/lib/visualizations/registry';
 import { VISUALIZATION_THEMES } from '#/lib/visualizations/themes';
 import {
   buildSyntheticDeveloperIdentity,
+  buildUnavailableDeveloperIdentity,
   fetchNormalizedDeveloperIdentity,
+  isValidGitHubUsername,
+  NormalizedDeveloperIdentityWithProvenance,
 } from '#/lib/visualizations/data-engine';
-import {
-  generateUniversalVisualizationSvg,
-} from '#/lib/visualizations/svg-generators';
+import { PreviewDataStatus } from '#/lib/github/profile-preview';
+import { generateUniversalVisualizationSvg } from '#/lib/visualizations/svg-generators';
 import { CanvasVisualizer } from './CanvasVisualizer';
 import { ReadmeDoctorModal } from '#/components/studio/ReadmeDoctorModal';
 import {
@@ -32,8 +33,109 @@ import {
   Star,
   Monitor,
   Flame,
+  AlertTriangle,
+  CheckCircle2,
+  Loader2,
+  Info,
 } from 'lucide-react';
 import { toast } from 'sonner';
+
+const FEATURED_ARCHETYPES: Array<{
+  label: string;
+  id: VisualizationId;
+  theme: VisualizationTheme;
+}> = [
+  { label: 'Coding Pulse', id: 'coding-pulse', theme: 'slate' },
+  { label: 'Year Clock', id: 'year-clock', theme: 'cyberpunk' },
+  { label: 'Developer Terminal', id: 'developer-terminal', theme: 'matrix' },
+  { label: 'Tech Solar System', id: 'tech-stack-solar-system', theme: 'cyberpunk' },
+  { label: 'Language River', id: 'language-river', theme: 'ocean' },
+  { label: 'Engineering Radar', id: 'engineering-radar', theme: 'emerald' },
+  { label: 'Release Timeline', id: 'release-timeline', theme: 'amber' },
+  { label: 'Commit City', id: 'commit-city', theme: 'emerald' },
+  { label: 'Repository Galaxy', id: 'repository-galaxy', theme: 'cyberpunk' },
+];
+
+const STATUS_BADGE_MAP: Record<
+  PreviewDataStatus,
+  { label: string; badgeClass: string; bannerClass: string }
+> = {
+  sample: {
+    label: 'Sample data',
+    badgeClass: 'bg-amber-500/15 text-amber-300 border-amber-500/40',
+    bannerClass: 'bg-amber-500/10 border-amber-500/30 text-amber-200',
+  },
+  fetching: {
+    label: 'Fetching GitHub data',
+    badgeClass: 'bg-sky-500/15 text-sky-300 border-sky-500/40',
+    bannerClass: 'bg-sky-500/10 border-sky-500/30 text-sky-200',
+  },
+  live: {
+    label: 'Live GitHub data',
+    badgeClass: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/40',
+    bannerClass: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-200',
+  },
+  partial: {
+    label: 'Partial data available',
+    badgeClass: 'bg-yellow-500/15 text-yellow-300 border-yellow-500/40',
+    bannerClass: 'bg-yellow-500/10 border-yellow-500/30 text-yellow-200',
+  },
+  rate_limited: {
+    label: 'Rate limited',
+    badgeClass: 'bg-orange-500/15 text-orange-300 border-orange-500/40',
+    bannerClass: 'bg-orange-500/10 border-orange-500/30 text-orange-200',
+  },
+  unavailable: {
+    label: 'GitHub data unavailable',
+    badgeClass: 'bg-rose-500/15 text-rose-300 border-rose-500/40',
+    bannerClass: 'bg-rose-500/10 border-rose-500/30 text-rose-200',
+  },
+  invalid_username: {
+    label: 'Invalid GitHub username',
+    badgeClass: 'bg-rose-500/15 text-rose-300 border-rose-500/40',
+    bannerClass: 'bg-rose-500/10 border-rose-500/30 text-rose-200',
+  },
+};
+
+function resolveStatusFromIdentity(
+  data: NormalizedDeveloperIdentityWithProvenance
+): { status: PreviewDataStatus; message: string } {
+  if (data.source === 'sample') {
+    return {
+      status: 'sample',
+      message: 'SAMPLE DATA — Connect a GitHub username to view real activity',
+    };
+  }
+  if (data.rateLimited && data.source === 'unavailable') {
+    return {
+      status: 'rate_limited',
+      message: `Rate limited while fetching GitHub data for @${data.username}.`,
+    };
+  }
+  if (data.source === 'unavailable') {
+    return {
+      status: 'unavailable',
+      message: data.error || `GitHub data unavailable for @${data.username}.`,
+    };
+  }
+  if (data.source === 'partial') {
+    const missing = data.missingFields?.length ? ` (${data.missingFields.join(', ')} unavailable)` : '';
+    return {
+      status: 'partial',
+      message: `Partial GitHub data available for @${data.username}${missing}.`,
+    };
+  }
+  if (data.isRealData && data.source === 'github') {
+    return {
+      status: 'live',
+      message: `Live GitHub data loaded for @${data.username} (${data.totalContributions} contributions).`,
+    };
+  }
+  return {
+    status: 'unavailable',
+    message: `GitHub data unavailable for @${data.username}.`,
+  };
+}
 
 export function VisualizationStudio() {
   const [username, setUsername] = useState('octocat');
@@ -51,14 +153,23 @@ export function VisualizationStudio() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [vizSearchQuery, setVizSearchQuery] = useState<string>('');
 
-  // Identity state
-  const [identity, setIdentity] = useState<NormalizedDeveloperIdentity>(() =>
+  // Identity & provenance state (honest default: octocat sample)
+  const [identity, setIdentity] = useState<NormalizedDeveloperIdentityWithProvenance>(() =>
     buildSyntheticDeveloperIdentity('octocat')
   );
+  const [dataStatus, setDataStatus] = useState<PreviewDataStatus>('sample');
+  const [statusMessage, setStatusMessage] = useState<string>(
+    'SAMPLE DATA — Connect a GitHub username to view real activity'
+  );
 
-  // Filtered visualizations by category & search
+  const fetchSeqRef = useRef<number>(0);
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  const totalVisualizations = ALL_VISUALIZATION_IDS.length;
+  const featuredCount = FEATURED_ARCHETYPES.length;
+
   const filteredVizIds = useMemo(() => {
-    return ALL_VISUALIZATION_IDS.filter(vizId => {
+    return ALL_VISUALIZATION_IDS.filter((vizId) => {
       const manifest = VISUALIZATION_REGISTRY[vizId];
       if (!manifest) return false;
       const matchesCat = selectedCategory === 'all' || manifest.category === selectedCategory;
@@ -74,73 +185,138 @@ export function VisualizationStudio() {
     });
   }, [selectedCategory, vizSearchQuery]);
 
-  // Fetch telemetry whenever username changes
   const handleFetchUser = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    const clean = inputUsername.trim() || 'octocat';
-    setUsername(clean);
-    setIsLoading(true);
-    toast.info(`Fetching live contributor activity for @${clean}...`);
-    try {
-      const data = await fetchNormalizedDeveloperIdentity(clean);
-      setIdentity(data);
-      toast.success(
-        data.isRealData
-          ? `Hydrated ${data.totalContributions} live GitHub contributions for @${clean}!`
-          : `Calibrated real-time developer identity for @${clean}.`
+    const clean = inputUsername.trim();
+
+    abortControllerRef.current?.abort();
+    const requestId = ++fetchSeqRef.current;
+
+    if (!clean) {
+      setUsername('octocat');
+      setInputUsername('octocat');
+      setIdentity(buildSyntheticDeveloperIdentity('octocat'));
+      setDataStatus('sample');
+      setStatusMessage('SAMPLE DATA — Connect a GitHub username to view real activity');
+      setHoverInfo(null);
+      return;
+    }
+
+    if (!isValidGitHubUsername(clean)) {
+      setUsername(clean);
+      setIdentity(
+        buildUnavailableDeveloperIdentity(clean, {
+          error: 'Invalid GitHub username format',
+          missingFields: ['username'],
+        })
       );
+      setDataStatus('invalid_username');
+      setStatusMessage('Invalid GitHub username. Use 1-39 alphanumeric characters or single hyphens.');
+      setHoverInfo(null);
+      toast.error('Invalid GitHub username format.');
+      return;
+    }
+
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
+    setUsername(clean);
+    setIdentity(buildUnavailableDeveloperIdentity(clean));
+    setDataStatus('fetching');
+    setStatusMessage(`Fetching live GitHub telemetry for @${clean}...`);
+    setHoverInfo(null);
+    setIsLoading(true);
+
+    try {
+      const data = await fetchNormalizedDeveloperIdentity(clean, {
+        signal: controller.signal,
+      });
+
+      if (requestId !== fetchSeqRef.current) return;
+
+      setIdentity(data);
+      const resolved = resolveStatusFromIdentity(data);
+      setDataStatus(resolved.status);
+      setStatusMessage(resolved.message);
+
+      if (resolved.status === 'live') {
+        toast.success(resolved.message);
+      } else if (resolved.status === 'partial') {
+        toast.warning(resolved.message);
+      } else {
+        toast.error(resolved.message);
+      }
     } catch {
-      toast.error('Failed to contact GitHub telemetry API. Reverting to local dataset.');
+      if (requestId !== fetchSeqRef.current) return;
+      setIdentity(buildUnavailableDeveloperIdentity(clean, { error: 'GitHub telemetry request failed' }));
+      setDataStatus('unavailable');
+      setStatusMessage(`GitHub data unavailable for @${clean}.`);
+      toast.error('Failed to contact GitHub telemetry API.');
     } finally {
-      setIsLoading(false);
+      if (requestId === fetchSeqRef.current) {
+        setIsLoading(false);
+      }
     }
   };
 
   const activeManifest = VISUALIZATION_REGISTRY[activeVizId];
 
-  // Active SVG content
   const activeSvg = useMemo(() => {
     return generateUniversalVisualizationSvg(activeVizId, identity, { theme });
   }, [activeVizId, identity, theme]);
 
-  // Copy Markdown Embed
-  const handleCopyMarkdown = () => {
+  const embedUrl = useMemo(() => {
     const pluginParam = activeVizId.replace(/-/g, '');
-    const embedUrl = `https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=${pluginParam}&user=${encodeURIComponent(
-      username
-    )}&theme=${theme}`;
+    const safeUser = isValidGitHubUsername(username) ? username : 'octocat';
+    const modeQuery =
+      dataStatus === 'sample'
+        ? '&mode=sample'
+        : safeUser.toLowerCase() === 'octocat' && (dataStatus === 'live' || dataStatus === 'partial')
+        ? '&mode=live'
+        : '';
+    return `https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=${pluginParam}&user=${encodeURIComponent(
+      safeUser
+    )}&theme=${theme}${modeQuery}`;
+  }, [activeVizId, username, theme, dataStatus]);
+
+  const handleCopyMarkdown = async () => {
     const md = `[![${activeManifest.name}](${embedUrl})](https://github.com/yuvraj-thakur-exe/MONOFORGE)`;
-    navigator.clipboard.writeText(md);
-    setCopiedKey('markdown');
-    toast.success('GitHub README Markdown snippet copied to clipboard!');
-    setTimeout(() => setCopiedKey(null), 2000);
+    try {
+      await navigator.clipboard.writeText(md);
+      setCopiedKey('markdown');
+      toast.success('GitHub README Markdown snippet copied to clipboard!');
+      setTimeout(() => setCopiedKey(null), 2000);
+    } catch {
+      toast.error('Failed to copy Markdown snippet to clipboard.');
+    }
   };
 
-  // Copy SVG URL
-  const handleCopyUrl = () => {
-    const pluginParam = activeVizId.replace(/-/g, '');
-    const embedUrl = `https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=${pluginParam}&user=${encodeURIComponent(
-      username
-    )}&theme=${theme}`;
-    navigator.clipboard.writeText(embedUrl);
-    setCopiedKey('url');
-    toast.success('Direct Camo-safe SVG endpoint URL copied!');
-    setTimeout(() => setCopiedKey(null), 2000);
+  const handleCopyUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(embedUrl);
+      setCopiedKey('url');
+      toast.success('Direct Camo-safe SVG endpoint URL copied!');
+      setTimeout(() => setCopiedKey(null), 2000);
+    } catch {
+      toast.error('Failed to copy SVG endpoint URL.');
+    }
   };
 
-  // Download standalone SVG file
   const handleDownloadSvg = () => {
+    const safeUser = isValidGitHubUsername(username) ? username : 'sample';
     const blob = new Blob([activeSvg], { type: 'image/svg+xml;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `monoforge-${activeVizId}-${username}-${theme}.svg`;
+    link.download = `monoforge-${activeVizId}-${safeUser}-${theme}.svg`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
     toast.success(`Downloaded ${link.download}`);
   };
+
+  const statusMeta = STATUS_BADGE_MAP[dataStatus];
 
   return (
     <div className="min-h-screen bg-[#0b0f19] text-slate-100 flex flex-col font-sans">
@@ -155,12 +331,21 @@ export function VisualizationStudio() {
               <h1 className="text-sm sm:text-base font-bold font-mono text-white tracking-wide">
                 MONOFORGE 3.0 // VISUALIZATION STUDIO
               </h1>
-              <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-mono font-black bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
-                P0 ENGINE ACTIVE
+              <span
+                data-testid="studio-data-status-badge"
+                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${statusMeta.badgeClass}`}
+              >
+                {dataStatus === 'fetching' && <Loader2 className="w-3 h-3 animate-spin" />}
+                {dataStatus === 'live' && <CheckCircle2 className="w-3 h-3" />}
+                {(dataStatus === 'sample' || dataStatus === 'partial') && <Info className="w-3 h-3" />}
+                {(dataStatus === 'unavailable' ||
+                  dataStatus === 'rate_limited' ||
+                  dataStatus === 'invalid_username') && <AlertTriangle className="w-3 h-3" />}
+                <span>{statusMeta.label}</span>
               </span>
             </div>
             <p className="text-xs text-slate-400 font-mono hidden md:block">
-              One Real GitHub Dataset &bull; 9 Signature 60fps Visual Experiences
+              {featuredCount} Featured &bull; {totalVisualizations} Total 60fps Visualizations
             </p>
           </div>
         </div>
@@ -172,8 +357,9 @@ export function VisualizationStudio() {
             <input
               type="text"
               value={inputUsername}
-              onChange={e => setInputUsername(e.target.value)}
+              onChange={(e) => setInputUsername(e.target.value)}
               placeholder="github-username"
+              aria-label="GitHub username"
               className="pl-7 pr-3 py-1.5 w-36 sm:w-48 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
             />
           </div>
@@ -183,7 +369,7 @@ export function VisualizationStudio() {
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-[#ffe600] text-slate-950 hover:bg-[#fde047] active:scale-95 transition-all shadow-xs disabled:opacity-50 cursor-pointer"
           >
             <Search className="w-3.5 h-3.5" />
-            <span>{isLoading ? 'Calibrating...' : 'Sync'}</span>
+            <span>{isLoading ? 'Syncing...' : 'Sync'}</span>
           </button>
 
           {/* README Doctor Trigger */}
@@ -201,27 +387,29 @@ export function VisualizationStudio() {
 
       {/* Main Studio Body */}
       <div className="flex-1 flex flex-col lg:flex-row max-w-[1720px] w-full mx-auto p-4 sm:p-6 gap-6">
-        {/* Left Sidebar: 30 Signature Visualizations Selector */}
+        {/* Left Sidebar: Registry Visualizations Selector */}
         <aside className="w-full lg:w-80 shrink-0 space-y-4">
           <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-2">
               <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">
-                Architectures ({filteredVizIds.length})
+                Showing {filteredVizIds.length} / {totalVisualizations}
               </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-bold">
-                REAL DATA
+              <span
+                className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold border ${statusMeta.badgeClass}`}
+              >
+                {statusMeta.label}
               </span>
             </div>
 
             {/* Category Filter Tabs */}
             <div className="flex items-center gap-1 overflow-x-auto pb-1 text-[11px] font-mono scrollbar-none">
               {[
-                { id: 'all', label: `All (${ALL_VISUALIZATION_IDS.length})` },
+                { id: 'all', label: `All (${totalVisualizations})` },
                 { id: 'activity', label: 'Activity' },
                 { id: 'repository', label: 'Repos' },
                 { id: 'skills', label: 'Skills' },
                 { id: 'identity', label: 'Identity' },
-              ].map(cat => (
+              ].map((cat) => (
                 <button
                   key={cat.id}
                   type="button"
@@ -243,15 +431,15 @@ export function VisualizationStudio() {
               <input
                 type="text"
                 value={vizSearchQuery}
-                onChange={e => setVizSearchQuery(e.target.value)}
-                placeholder="Filter 30 visualizations..."
+                onChange={(e) => setVizSearchQuery(e.target.value)}
+                placeholder={`Filter ${totalVisualizations} visualizations...`}
                 className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
               />
             </div>
 
             {/* Visualization Item List */}
             <div className="space-y-1.5 max-h-[380px] overflow-y-auto pr-1">
-              {filteredVizIds.map(vizId => {
+              {filteredVizIds.map((vizId) => {
                 const manifest = VISUALIZATION_REGISTRY[vizId];
                 const isActive = activeVizId === vizId;
 
@@ -296,7 +484,7 @@ export function VisualizationStudio() {
               Visual Theme Spectrum
             </span>
             <div className="grid grid-cols-2 gap-2">
-              {(Object.keys(VISUALIZATION_THEMES) as VisualizationTheme[]).map(tKey => {
+              {(Object.keys(VISUALIZATION_THEMES) as VisualizationTheme[]).map((tKey) => {
                 const tObj = VISUALIZATION_THEMES[tKey];
                 const isSelected = theme === tKey;
 
@@ -345,23 +533,34 @@ export function VisualizationStudio() {
 
         {/* Center Canvas / SVG Studio Preview Stage */}
         <main className="flex-1 flex flex-col space-y-4 min-w-0">
-          {/* Inspiration Archetype Quick Pills */}
+          {/* Honest Provenance Status Banner */}
+          <div
+            data-testid="studio-status-banner"
+            className={`flex items-center justify-between gap-3 px-4 py-2.5 rounded-2xl border text-xs font-mono ${statusMeta.bannerClass}`}
+          >
+            <div className="flex items-center gap-2 min-w-0">
+              {dataStatus === 'live' ? (
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+              ) : dataStatus === 'fetching' ? (
+                <Loader2 className="w-4 h-4 shrink-0 animate-spin" />
+              ) : (
+                <AlertTriangle className="w-4 h-4 shrink-0" />
+              )}
+              <span className="truncate font-semibold">{statusMessage}</span>
+            </div>
+            <span className="shrink-0 text-[10px] uppercase tracking-wider opacity-80">
+              @{identity.username || username}
+            </span>
+          </div>
+
+          {/* Featured Archetype Quick Pills */}
           <div className="flex items-center gap-2 overflow-x-auto p-2.5 rounded-2xl bg-slate-900/60 border border-slate-800 scrollbar-none text-[11px] font-mono">
             <span className="text-slate-500 font-bold shrink-0 text-[10px] uppercase tracking-wider pl-1">
-              ARCHETYPES:
+              FEATURED ({featuredCount}):
             </span>
-            {[
-              { label: '📊 Lowlighter Metrics', id: 'coding-pulse' as VisualizationId, theme: 'slate' as VisualizationTheme },
-              { label: '🌆 Synthwave Bento', id: 'year-clock' as VisualizationId, theme: 'cyberpunk' as VisualizationTheme },
-              { label: '📟 Neofetch Terminal', id: 'developer-terminal' as VisualizationId, theme: 'matrix' as VisualizationTheme },
-              { label: '⚡ Tech Solar System', id: 'tech-stack-solar-system' as VisualizationId, theme: 'cyberpunk' as VisualizationTheme },
-              { label: '🌊 Language River', id: 'language-river' as VisualizationId, theme: 'ocean' as VisualizationTheme },
-              { label: '🎯 Engineering Radar', id: 'engineering-radar' as VisualizationId, theme: 'emerald' as VisualizationTheme },
-              { label: '🚇 Release Timeline', id: 'release-timeline' as VisualizationId, theme: 'amber' as VisualizationTheme },
-              { label: '🏙️ Commit City', id: 'commit-city' as VisualizationId, theme: 'emerald' as VisualizationTheme },
-            ].map(pill => (
+            {FEATURED_ARCHETYPES.map((pill) => (
               <button
-                key={pill.label}
+                key={pill.id}
                 type="button"
                 onClick={() => {
                   setActiveVizId(pill.id);
@@ -414,7 +613,7 @@ export function VisualizationStudio() {
               <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={() => setIsPlaying(prev => !prev)}
+                  onClick={() => setIsPlaying((prev) => !prev)}
                   className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors cursor-pointer"
                   title={isPlaying ? 'Pause' : 'Play'}
                 >
@@ -423,7 +622,7 @@ export function VisualizationStudio() {
 
                 <div className="flex items-center gap-1 bg-slate-950 px-2 py-1 rounded-lg border border-slate-800 text-xs font-mono">
                   <span className="text-slate-400 text-[10px]">SPEED:</span>
-                  {[0.5, 1, 2].map(s => (
+                  {[0.5, 1, 2].map((s) => (
                     <button
                       key={s}
                       type="button"
@@ -447,7 +646,11 @@ export function VisualizationStudio() {
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all cursor-pointer"
                 title="Copy ready-to-paste markdown for your GitHub profile README"
               >
-                {copiedKey === 'markdown' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                {copiedKey === 'markdown' ? (
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+                ) : (
+                  <Copy className="w-3.5 h-3.5" />
+                )}
                 <span>{copiedKey === 'markdown' ? 'Copied MD' : 'Copy MD Snippet'}</span>
               </button>
 
@@ -495,7 +698,7 @@ export function VisualizationStudio() {
 
           {/* Description & Code Embed Panel */}
           <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-2">
               <span className="text-xs font-mono font-bold text-white uppercase">
                 {activeManifest.name} &bull; Architecture Specification
               </span>
@@ -516,10 +719,14 @@ export function VisualizationStudio() {
       <ReadmeDoctorModal
         isOpen={isDoctorOpen}
         onClose={() => setIsDoctorOpen(false)}
-        initialMarkdown={`# ${identity.displayName}\n${identity.bio}\n\n![${activeManifest.name}](https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=${activeVizId.replace(/-/g, '')}&user=${username}&theme=${theme})\n\n## 🚀 Core Technologies\n- Systems Architecture & High-Performance Visualization\n- Open-Source Contributor`}
-        onApplyFix={(fixed) => {
-          navigator.clipboard.writeText(fixed);
-          toast.success('Repaired markdown copied to clipboard!');
+        initialMarkdown={`# ${identity.displayName}\n${identity.bio}\n\n![${activeManifest.name}](${embedUrl})\n\n## Core Technologies\n- Systems Architecture & High-Performance Visualization\n- Open-Source Contributor`}
+        onApplyFix={async (fixed) => {
+          try {
+            await navigator.clipboard.writeText(fixed);
+            toast.success('Repaired markdown copied to clipboard!');
+          } catch {
+            toast.error('Failed to copy repaired markdown.');
+          }
         }}
       />
     </div>

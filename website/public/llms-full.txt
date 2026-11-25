@@ -100,7 +100,7 @@ const url = `https://monoforge-studio.vercel.app/en/developer?config=${encodeURI
 ```
 
 ### Archetype Preview Deep-Link (`/en/templates?template=<id>`)
-Share or open any of the 350+ archetypes directly:
+Share or open any of the 330 archetypes directly:
 ```text
 https://monoforge-studio.vercel.app/en/templates?template=01-minimal-professional
 ```

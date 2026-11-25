@@ -17,7 +17,7 @@ describe('StartupSplash', () => {
     render(<StartupSplash />);
     expect(screen.getByRole('status')).toBeDefined();
     expect(screen.getByText('Forge a GitHub profile that gets noticed.')).toBeDefined();
-    expect(screen.getByText(/Initializing MonoForge/i)).toBeDefined();
+    expect(screen.getByText(/Preparing studio\.\.\./i)).toBeDefined();
   });
 
   it('allows skipping via ESC key', () => {

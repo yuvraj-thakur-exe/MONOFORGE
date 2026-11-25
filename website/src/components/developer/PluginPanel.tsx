@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { pluginRegistry, getAllCategories } from '#/lib/plugins/registry';
 import { Plugin } from '#/lib/plugins/types';
-import { TEMPLATES, TemplateItem } from '#/components/landing/TemplateGallery';
+import { TEMPLATES, TemplateItem } from '#/lib/templates/catalog';
 import { useReadmeStore } from '#/store/useReadmeStore';
 import {
   Search,

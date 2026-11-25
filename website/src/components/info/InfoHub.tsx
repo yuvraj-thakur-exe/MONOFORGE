@@ -35,10 +35,16 @@ import {
 } from 'lucide-react';
 import { useReadmeStore } from '#/store/useReadmeStore';
 import { buildMarkdown } from '#/lib/buildMarkdown';
-import { TEMPLATES, TemplateItem } from '#/components/landing/TemplateGallery';
+import { TEMPLATES, TemplateItem } from '#/lib/templates/catalog';
+import { ALL_VISUALIZATION_IDS } from '#/lib/visualizations/registry';
+import { pluginRegistry } from '#/lib/plugins/registry';
 import { CopyButton } from '#/components/common/CopyButton';
 import { KineticTypewriter, KineticGradientText } from '#/components/common/KineticText';
 import { GitHubStarButton } from '#/components/common/GitHubStarButton';
+
+const VIZ_FEATURED_COUNT = 9;
+const VIZ_TOTAL_COUNT = ALL_VISUALIZATION_IDS.length;
+const PLUGIN_COUNT = pluginRegistry.length;
 
 type TabType = 'install' | 'templates' | 'playground' | 'guide' | 'badges' | 'about';
 type OsType = 'linux' | 'windows' | 'manual' | 'docker' | 'npm';
@@ -69,10 +75,10 @@ export function InfoHub() {
   const [pgShowStreak, setPgShowStreak] = useState<boolean>(true);
   const [pgShowTrophies, setPgShowTrophies] = useState<boolean>(true);
 
-  // Interactive CLI Terminal State
+  // Interactive CLI Simulator State (simulated preview output)
   const [cliOutput, setCliOutput] = useState<string[]>([
-    '🔥 MonoForge Interactive CLI ready.',
-    '💡 Click any quick command chip below or review the installation instructions.',
+    'MonoForge Interactive CLI Simulator ready (simulated preview output).',
+    'Click any quick command chip below to preview simulated CLI output, or copy the real install commands above.',
   ]);
 
   // Badge category state in badges tab
@@ -181,23 +187,27 @@ export function InfoHub() {
   const handleRunCliCommand = (cmd: string) => {
     const newLogs = [...cliOutput, `> ${cmd}`];
     if (cmd.includes('install')) {
-      newLogs.push('⚡ Executing 1-line bootstrap for MonoForge...');
-      newLogs.push('✔ Node.js runtime detected (v20.x+)');
-      newLogs.push('✔ Corepack enabled & pnpm locked dependencies verified');
-      newLogs.push('🚀 Server booted at http://localhost:3000');
+      newLogs.push('[SIMULATED] Previewing 1-line bootstrap for MonoForge:');
+      newLogs.push('  • Verifies Node.js runtime (v20.x+ required)');
+      newLogs.push('  • Enables Corepack & installs locked pnpm dependencies');
+      newLogs.push('  • Starts local studio at http://localhost:3000');
     } else if (cmd.includes('templates')) {
-      newLogs.push(`📦 Available Archetypes (${TEMPLATES.length}):`);
-      TEMPLATES.forEach(t => newLogs.push(`  • [${t.category}] ${t.name}`));
+      newLogs.push(`[SIMULATED] Available Archetypes (${TEMPLATES.length}):`);
+      TEMPLATES.slice(0, 10).forEach(t => newLogs.push(`  • [${t.category}] ${t.name}`));
+      if (TEMPLATES.length > 10) {
+        newLogs.push(`  ... and ${TEMPLATES.length - 10} more in the Archetypes tab.`);
+      }
     } else if (cmd.includes('privacy')) {
-      newLogs.push('🔒 PRIVACY AUDIT: 100% Client-Side Private.');
-      newLogs.push('  • Zero external database stores');
-      newLogs.push('  • Zero persistent token telemetry');
+      newLogs.push('[SIMULATED] PRIVACY & ARCHITECTURE AUDIT:');
+      newLogs.push('  • Profile state stays in browser localStorage (useReadmeStore)');
+      newLogs.push('  • Optional GitHub PATs stay in memory only, never persisted');
+      newLogs.push('  • Server APIs only for /api/enrichment/resume & /api/telemetry/*');
       newLogs.push('  • Mandatory diff review before GitHub writes');
     } else if (cmd.includes('clear')) {
-      setCliOutput(['🔥 MonoForge Interactive CLI ready.']);
+      setCliOutput(['MonoForge Interactive CLI Simulator ready (simulated preview output).']);
       return;
     } else {
-      newLogs.push(`✨ MonoForge: Command '${cmd}' processed successfully.`);
+      newLogs.push(`[SIMULATED] MonoForge: Previewed command '${cmd}'.`);
     }
     setCliOutput(newLogs.slice(-14));
   };
@@ -244,10 +254,10 @@ export function InfoHub() {
   }, [templateFilter, searchQuery]);
 
   // Commands for installer
-  const linuxInstallCmd = 'curl -fsSL /install.sh | bash';
-  const windowsInstallCmd = 'iwr -useb /install.ps1 | iex';
-  const gitCloneCmd = 'git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git\ncd monoforge\ncorepack enable\npnpm install\npnpm dev';
-  const npmCmd = 'git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git\ncd monoforge\nnpm install\nnpm run dev';
+  const linuxInstallCmd = 'curl -fsSL https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/install.sh | bash';
+  const windowsInstallCmd = 'iwr -useb https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/install.ps1 | iex';
+  const gitCloneCmd = 'git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git MONOFORGE\ncd MONOFORGE\ncorepack enable\npnpm install\npnpm dev';
+  const npmCmd = 'git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git MONOFORGE\ncd MONOFORGE\nnpm install\nnpm run dev';
   const dockerCmd = 'docker build -t monoforge .\ndocker run -p 3000:3000 monoforge';
 
   const currentInstallCmd = useMemo(() => {
@@ -355,7 +365,7 @@ export function InfoHub() {
               <KineticTypewriter
                 words={[
                   '60fps Camo-compliant SVG keyframes',
-                  '47+ telemetry engines & shield badges',
+                  `${VIZ_FEATURED_COUNT} featured / ${VIZ_TOTAL_COUNT} total visualizations & ${PLUGIN_COUNT} plugins`,
                   'Deterministic single-store architecture',
                   'Zero external tracking & zero silent writes',
                 ]}
@@ -364,7 +374,7 @@ export function InfoHub() {
             </div>
 
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
-              The comprehensive guide, installation manual, and architectural reference for MonoForge. Explore 10 production developer archetypes, live CLI terminal emulator, 20+ copyable shields badges, and master GitHub profile aesthetics with 100% client-side privacy.
+              The comprehensive guide, installation manual, and architectural reference for MonoForge. Explore {TEMPLATES.length} developer archetypes, an interactive CLI simulator, {PLUGIN_COUNT} modular plugins, and {VIZ_FEATURED_COUNT} featured / {VIZ_TOTAL_COUNT} total SVG visualizations with local-first privacy.
             </p>
 
             {/* Quick KPI Stat Chips */}
@@ -381,7 +391,7 @@ export function InfoHub() {
                 <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
                 <div>
                   <div className="text-[10px] text-slate-500 dark:text-slate-400 font-mono uppercase">Privacy Model</div>
-                  <div className="text-xs font-bold text-slate-900 dark:text-white font-mono">100% Client-Side</div>
+                  <div className="text-xs font-bold text-slate-900 dark:text-white font-mono">Local-First</div>
                 </div>
               </div>
 
@@ -492,7 +502,7 @@ export function InfoHub() {
                   className="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-900 dark:text-white text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <Layers className="w-3.5 h-3.5 text-amber-500" />
-                  <span>Explore 10 Production Archetypes &rarr;</span>
+                  <span>Explore {TEMPLATES.length} Archetypes &rarr;</span>
                 </button>
               </div>
             </div>
@@ -706,7 +716,10 @@ export function InfoHub() {
                 <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-800 text-slate-400 text-xs">
                   <div className="flex items-center gap-2">
                     <Terminal className="w-4 h-4 text-amber-400" />
-                    <span className="font-bold text-white">Interactive CLI Terminal Preview</span>
+                    <span className="font-bold text-white">Interactive CLI Simulator</span>
+                    <span className="px-2 py-0.5 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30 text-[10px]">
+                      Simulated Output
+                    </span>
                   </div>
                   <button
                     type="button"
@@ -971,7 +984,7 @@ export function InfoHub() {
                 <Search className="w-4 h-4 text-slate-400 ml-1 shrink-0" />
                 <input
                   type="text"
-                  placeholder="Search 10 archetypes by title, skill, or role..."
+                  placeholder={`Search ${TEMPLATES.length} archetypes by title, skill, or role...`}
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
                   className="bg-transparent text-sm text-slate-900 dark:text-white font-medium placeholder:text-slate-400 focus:outline-none w-full"
@@ -1572,11 +1585,11 @@ export function InfoHub() {
                 </div>
                 <div>
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">About MonoForge</h2>
-                  <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">Open-Source Profile Studio • 100% Client-Side</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">Open-Source Profile Studio • Local-First Architecture</div>
                 </div>
               </div>
               <p className="text-sm text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed mt-2 font-sans">
-                MonoForge was born to eliminate the frustration of manual profile markdown formatting. Built on Next.js 16 and Monaco, it guarantees 100% client-side privacy, live keystroke markdown rendering, and confirmation-gated GitHub commits.
+                MonoForge was born to eliminate the frustration of manual profile markdown formatting. Built on Next.js 16 and Monaco, it keeps profile state local in your browser, holds optional GitHub PATs in memory, and uses server API routes only for optional resume parsing and public GitHub telemetry.
               </p>
             </div>
 
@@ -1591,10 +1604,10 @@ export function InfoHub() {
                 <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800">
                   <div className="flex items-center gap-2 text-emerald-500 font-bold mb-2">
                     <ShieldCheck className="w-4 h-4" />
-                    <span>100% Client-Side Privacy</span>
+                    <span>Local-First Privacy &amp; Server Boundaries</span>
                   </div>
                   <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
-                    Zero user data is persisted on external servers. All session state remains strictly in your browser local storage.
+                    Profile configurations stay in your browser localStorage (useReadmeStore), and optional GitHub PATs stay in memory only. Server API routes are used strictly on demand for resume parsing (/api/enrichment/resume) and public GitHub telemetry (/api/telemetry/*).
                   </p>
                 </div>
 

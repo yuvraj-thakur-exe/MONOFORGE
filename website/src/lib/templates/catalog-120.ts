@@ -43,12 +43,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "typescript",
-                                              "react",
-                                              "nodejs",
-                                              "tailwind"
-                                      ],
+                                      "icons": "typescript,react,nodejs,tailwind",
                                       "perLine": 6,
                                       "theme": "dark"
                               },
@@ -61,11 +56,17 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "linkedin",
-                                              "twitter"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "linkedin": {
+                                    "link": "https://linkedin.com"
+                                  },
+                                  "twitter": {
+                                    "link": "https://x.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -123,12 +124,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "rust",
-                                              "go",
-                                              "cplusplus",
-                                              "linux"
-                                      ],
+                                      "icons": "rust,go,cpp,linux",
                                       "perLine": 6,
                                       "theme": "dark"
                               },
@@ -188,11 +184,21 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "linkedin",
-                                              "email"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "linkedin": {
+                                    "link": "https://linkedin.com"
+                                  },
+                                  "gmail": {
+                                    "message": "Email",
+                                    "color": "D14836",
+                                    "logo": "gmail",
+                                    "logoColor": "white",
+                                    "link": "mailto:developer@example.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -238,13 +244,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "typescript",
-                                              "react",
-                                              "nextjs",
-                                              "tailwind",
-                                              "figma"
-                                      ],
+                                      "icons": "typescript,react,nextjs,tailwind,figma",
                                       "perLine": 5,
                                       "theme": "light"
                               },
@@ -292,13 +292,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "kubernetes",
-                                              "docker",
-                                              "terraform",
-                                              "aws",
-                                              "go"
-                                      ],
+                                      "icons": "kubernetes,docker,terraform,aws,go",
                                       "perLine": 5,
                                       "theme": "dark"
                               },
@@ -357,12 +351,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "vue",
-                                              "react",
-                                              "svelte",
-                                              "typescript"
-                                      ],
+                                      "icons": "vue,react,svelte,typescript",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -410,11 +399,17 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "twitter",
-                                              "discord"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "twitter": {
+                                    "link": "https://x.com"
+                                  },
+                                  "discord": {
+                                    "link": "https://discord.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -507,12 +502,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "figma",
-                                              "react",
-                                              "typescript",
-                                              "tailwind"
-                                      ],
+                                      "icons": "figma,react,typescript,tailwind",
                                       "perLine": 4,
                                       "theme": "light"
                               },
@@ -560,12 +550,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "rust",
-                                              "python",
-                                              "docker",
-                                              "typescript"
-                                      ],
+                                      "icons": "rust,python,docker,typescript",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -625,7 +610,9 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "capsule-banner",
                       "props": {
                               "content": {
-                                      "text": "SWISS TYPOGRAPHY & CODE",
+                                      "bannerType": "waving",
+                                "colorTheme": "fire",
+                                "text": "SWISS TYPOGRAPHY & CODE",
                                       "theme": "cyber-amber",
                                       "height": 180
                               },
@@ -638,12 +625,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "typescript",
-                                              "react",
-                                              "tailwind",
-                                              "figma"
-                                      ],
+                                      "icons": "typescript,react,tailwind,figma",
                                       "perLine": 6,
                                       "theme": "light"
                               },
@@ -691,7 +673,9 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "capsule-banner",
                       "props": {
                               "content": {
-                                      "text": "SOFTWARE ENGINEER & COMMUNITY ORGANIZER",
+                                      "bannerType": "waving",
+                                "colorTheme": "ocean",
+                                "text": "SOFTWARE ENGINEER & COMMUNITY ORGANIZER",
                                       "theme": "ocean-blue",
                                       "height": 190
                               },
@@ -704,12 +688,24 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "twitter",
-                                              "linkedin",
-                                              "email"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "twitter": {
+                                    "link": "https://x.com"
+                                  },
+                                  "linkedin": {
+                                    "link": "https://linkedin.com"
+                                  },
+                                  "gmail": {
+                                    "message": "Email",
+                                    "color": "D14836",
+                                    "logo": "gmail",
+                                    "logoColor": "white",
+                                    "link": "mailto:developer@example.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -720,12 +716,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "react",
-                                              "typescript",
-                                              "nextjs",
-                                              "graphql"
-                                      ],
+                                      "icons": "react,typescript,nextjs,graphql",
                                       "perLine": 6,
                                       "theme": "light"
                               },
@@ -773,11 +764,17 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "twitter",
-                                              "linkedin"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "twitter": {
+                                    "link": "https://x.com"
+                                  },
+                                  "linkedin": {
+                                    "link": "https://linkedin.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -823,12 +820,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "markdown",
-                                              "nextjs",
-                                              "react",
-                                              "git"
-                                      ],
+                                      "icons": "markdown,nextjs,react,git",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -927,12 +919,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "rust",
-                                              "typescript",
-                                              "wasm",
-                                              "cplusplus"
-                                      ],
+                                      "icons": "rust,typescript,wasm,cpp",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -1031,11 +1018,17 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "linkedin",
-                                              "twitter"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "linkedin": {
+                                    "link": "https://linkedin.com"
+                                  },
+                                  "twitter": {
+                                    "link": "https://x.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -1081,7 +1074,9 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "capsule-banner",
                       "props": {
                               "content": {
-                                      "text": "BUILDING AT THE EDGE",
+                                      "bannerType": "waving",
+                                "colorTheme": "fire",
+                                "text": "BUILDING AT THE EDGE",
                                       "theme": "cyber-amber",
                                       "height": 200
                               },
@@ -1129,12 +1124,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "go",
-                                              "rust",
-                                              "postgresql",
-                                              "docker"
-                                      ],
+                                      "icons": "go,rust,postgres,docker",
                                       "perLine": 4,
                                       "theme": "light"
                               },
@@ -1245,12 +1235,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "bash",
-                                              "linux",
-                                              "docker",
-                                              "python"
-                                      ],
+                                      "icons": "bash,linux,docker,python",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -1345,12 +1330,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "c",
-                                              "cplusplus",
-                                              "linux",
-                                              "bash"
-                                      ],
+                                      "icons": "c,cpp,linux,bash",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -1398,12 +1378,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "git",
-                                              "bash",
-                                              "neovim",
-                                              "rust"
-                                      ],
+                                      "icons": "git,bash,neovim,rust",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -1498,12 +1473,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "lua",
-                                              "neovim",
-                                              "rust",
-                                              "typescript"
-                                      ],
+                                      "icons": "lua,neovim,rust,typescript",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -1597,11 +1567,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "c",
-                                              "assembly",
-                                              "cpp"
-                                      ],
+                                      "icons": "c,assembly,cpp",
                                       "perLine": 3,
                                       "theme": "dark"
                               },
@@ -1754,7 +1720,9 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "capsule-banner",
                       "props": {
                               "content": {
-                                      "text": "HELLO WORLD // WELCOME TO MY PROFILE",
+                                      "bannerType": "waving",
+                                "colorTheme": "fire",
+                                "text": "HELLO WORLD // WELCOME TO MY PROFILE",
                                       "theme": "cyber-amber",
                                       "height": 200
                               },
@@ -1764,10 +1732,12 @@ export const PRESETS_120: TemplateItem[] = [
               },
               {
                       "id": "sec-views",
-                      "type": "profile-views",
+                      "type": "visitor-counter",
                       "props": {
                               "content": {
-                                      "color": "purple"
+                                "provider": "komarev",
+                                "color": "9333ea",
+                                "label": "PROFILE VIEWS"
                               },
                               "styles": {},
                               "state": "default"
@@ -1778,13 +1748,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "python",
-                                              "react",
-                                              "nodejs",
-                                              "django",
-                                              "postgresql"
-                                      ],
+                                      "icons": "python,react,nodejs,django,postgres",
                                       "perLine": 5,
                                       "theme": "dark"
                               },
@@ -1797,12 +1761,24 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "linkedin",
-                                              "twitter",
-                                              "email"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "linkedin": {
+                                    "link": "https://linkedin.com"
+                                  },
+                                  "twitter": {
+                                    "link": "https://x.com"
+                                  },
+                                  "gmail": {
+                                    "message": "Email",
+                                    "color": "D14836",
+                                    "logo": "gmail",
+                                    "logoColor": "white",
+                                    "link": "mailto:developer@example.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -1848,7 +1824,9 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "capsule-banner",
                       "props": {
                               "content": {
-                                      "text": "SYNTHWAVE 80S GRID",
+                                      "bannerType": "waving",
+                                "colorTheme": "fire",
+                                "text": "SYNTHWAVE 80S GRID",
                                       "theme": "cyber-amber",
                                       "height": 210
                               },
@@ -1908,12 +1886,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "typescript",
-                                              "react",
-                                              "nextjs",
-                                              "tailwind"
-                                      ],
+                                      "icons": "typescript,react,nextjs,tailwind",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -2012,12 +1985,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "cplusplus",
-                                              "rust",
-                                              "webaudio",
-                                              "python"
-                                      ],
+                                      "icons": "cpp,rust,webaudio,python",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -2805,12 +2773,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "react",
-                                              "nextjs",
-                                              "typescript",
-                                              "tailwind"
-                                      ],
+                                      "icons": "react,nextjs,typescript,tailwind",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -2858,12 +2821,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "cplusplus",
-                                              "rust",
-                                              "opengl",
-                                              "godot"
-                                      ],
+                                      "icons": "cpp,rust,opengl,godot",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -2911,12 +2869,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "linux",
-                                              "docker",
-                                              "kubernetes",
-                                              "ansible"
-                                      ],
+                                      "icons": "linux,docker,kubernetes,ansible",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -2964,12 +2917,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "python",
-                                              "cplusplus",
-                                              "julia",
-                                              "latex"
-                                      ],
+                                      "icons": "python,cpp,julia,latex",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -3017,12 +2965,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "aws",
-                                              "terraform",
-                                              "kubernetes",
-                                              "docker"
-                                      ],
+                                      "icons": "aws,terraform,kubernetes,docker",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -3070,12 +3013,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "threejs",
-                                              "webgl",
-                                              "react",
-                                              "typescript"
-                                      ],
+                                      "icons": "threejs,webgl,react,typescript",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -3123,12 +3061,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "csharp",
-                                              "unity",
-                                              "blender",
-                                              "python"
-                                      ],
+                                      "icons": "cs,unity,blender,python",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -3176,12 +3109,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "blender",
-                                              "cplusplus",
-                                              "rust",
-                                              "godot"
-                                      ],
+                                      "icons": "blender,cpp,rust,godot",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -3275,7 +3203,9 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "capsule-banner",
                       "props": {
                               "content": {
-                                      "text": "HELLO FELLOW DEVELOPERS!",
+                                      "bannerType": "waving",
+                                "colorTheme": "fire",
+                                "text": "HELLO FELLOW DEVELOPERS!",
                                       "theme": "cyber-amber",
                                       "height": 210
                               },
@@ -3285,10 +3215,12 @@ export const PRESETS_120: TemplateItem[] = [
               },
               {
                       "id": "sec-views",
-                      "type": "profile-views",
+                      "type": "visitor-counter",
                       "props": {
                               "content": {
-                                      "color": "green"
+                                "provider": "komarev",
+                                "color": "10b981",
+                                "label": "PROFILE VIEWS"
                               },
                               "styles": {},
                               "state": "default"
@@ -3299,13 +3231,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "python",
-                                              "react",
-                                              "javascript",
-                                              "cplusplus",
-                                              "docker"
-                                      ],
+                                      "icons": "python,react,javascript,cpp,docker",
                                       "perLine": 5,
                                       "theme": "dark"
                               },
@@ -3318,11 +3244,17 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "linkedin",
-                                              "twitter"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "linkedin": {
+                                    "link": "https://linkedin.com"
+                                  },
+                                  "twitter": {
+                                    "link": "https://x.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -3368,8 +3300,9 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "mascot-bio",
                       "props": {
                               "content": {
-                                      "mascotType": "cyber-monkey",
-                                      "greeting": "LET US FORGE SOMETHING LEGENDARY"
+                                "mascot": "cyber-bot",
+                                "headline": "LET US FORGE SOMETHING LEGENDARY",
+                                "bio": "LET US FORGE SOMETHING LEGENDARY"
                               },
                               "styles": {},
                               "state": "default"
@@ -3380,12 +3313,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "typescript",
-                                              "react",
-                                              "tailwind",
-                                              "rust"
-                                      ],
+                                      "icons": "typescript,react,tailwind,rust",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -3433,12 +3361,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "react",
-                                              "python",
-                                              "vue",
-                                              "tailwind"
-                                      ],
+                                      "icons": "react,python,vue,tailwind",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -3533,12 +3456,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "rust",
-                                              "c",
-                                              "assembly",
-                                              "linux"
-                                      ],
+                                      "icons": "rust,c,assembly,linux",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -3633,12 +3551,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "python",
-                                              "cplusplus",
-                                              "ros",
-                                              "linux"
-                                      ],
+                                      "icons": "python,cpp,ros,linux",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -3686,11 +3599,17 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "youtube",
-                                              "twitter"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "youtube": {
+                                    "link": "https://youtube.com"
+                                  },
+                                  "twitter": {
+                                    "link": "https://x.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -3736,12 +3655,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "c",
-                                              "cplusplus",
-                                              "python",
-                                              "rust"
-                                      ],
+                                      "icons": "c,cpp,python,rust",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -3836,7 +3750,9 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "capsule-banner",
                       "props": {
                               "content": {
-                                      "text": "HEY EVERYONE! LET US CONNECT!",
+                                      "bannerType": "waving",
+                                "colorTheme": "ocean",
+                                "text": "HEY EVERYONE! LET US CONNECT!",
                                       "theme": "ocean-blue",
                                       "height": 200
                               },
@@ -3849,12 +3765,20 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "linkedin",
-                                              "twitter",
-                                              "discord"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "linkedin": {
+                                    "link": "https://linkedin.com"
+                                  },
+                                  "twitter": {
+                                    "link": "https://x.com"
+                                  },
+                                  "discord": {
+                                    "link": "https://discord.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -3865,12 +3789,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "unity",
-                                              "csharp",
-                                              "cplusplus",
-                                              "godot"
-                                      ],
+                                      "icons": "unity,cs,cpp,godot",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -3934,12 +3853,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "typescript",
-                                              "react",
-                                              "nextjs",
-                                              "tailwind"
-                                      ],
+                                      "icons": "typescript,react,nextjs,tailwind",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -3987,12 +3901,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "react",
-                                              "vue",
-                                              "tailwind",
-                                              "javascript"
-                                      ],
+                                      "icons": "react,vue,tailwind,javascript",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -4087,12 +3996,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "html5",
-                                              "css3",
-                                              "javascript",
-                                              "react"
-                                      ],
+                                      "icons": "html5,css3,javascript,react",
                                       "perLine": 4,
                                       "theme": "light"
                               },
@@ -4140,12 +4044,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "css3",
-                                              "react",
-                                              "tailwind",
-                                              "framer"
-                                      ],
+                                      "icons": "css3,react,tailwind,framer",
                                       "perLine": 4,
                                       "theme": "light"
                               },
@@ -4244,10 +4143,14 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "twitter"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "twitter": {
+                                    "link": "https://x.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -4340,11 +4243,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "rust",
-                                              "typescript",
-                                              "figma"
-                                      ],
+                                      "icons": "rust,typescript,figma",
                                       "perLine": 3,
                                       "theme": "dark"
                               },
@@ -4392,12 +4291,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "java",
-                                              "python",
-                                              "c",
-                                              "git"
-                                      ],
+                                      "icons": "java,python,c,git",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -4410,10 +4304,14 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "linkedin"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "linkedin": {
+                                    "link": "https://linkedin.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -4459,12 +4357,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "javascript",
-                                              "react",
-                                              "nodejs",
-                                              "mongodb"
-                                      ],
+                                      "icons": "javascript,react,nodejs,mongodb",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -4559,12 +4452,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "html5",
-                                              "css3",
-                                              "javascript",
-                                              "python"
-                                      ],
+                                      "icons": "html5,css3,javascript,python",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -4612,11 +4500,21 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "linkedin",
-                                              "email"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "linkedin": {
+                                    "link": "https://linkedin.com"
+                                  },
+                                  "gmail": {
+                                    "message": "Email",
+                                    "color": "D14836",
+                                    "logo": "gmail",
+                                    "logoColor": "white",
+                                    "link": "mailto:developer@example.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -4662,11 +4560,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "cplusplus",
-                                              "python",
-                                              "java"
-                                      ],
+                                      "icons": "cpp,python,java",
                                       "perLine": 3,
                                       "theme": "dark"
                               },
@@ -4761,12 +4655,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "aws",
-                                              "docker",
-                                              "linux",
-                                              "python"
-                                      ],
+                                      "icons": "aws,docker,linux,python",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -4814,10 +4703,14 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "twitter"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "twitter": {
+                                    "link": "https://x.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -4863,12 +4756,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "html5",
-                                              "javascript",
-                                              "react",
-                                              "nodejs"
-                                      ],
+                                      "icons": "html5,javascript,react,nodejs",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -4916,7 +4804,9 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "capsule-banner",
                       "props": {
                               "content": {
-                                      "text": "BEST-README-TEMPLATE",
+                                      "bannerType": "waving",
+                                "colorTheme": "fire",
+                                "text": "BEST-README-TEMPLATE",
                                       "theme": "cyber-amber",
                                       "height": 210
                               },
@@ -4929,13 +4819,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "nextjs",
-                                              "react",
-                                              "typescript",
-                                              "tailwind",
-                                              "rust"
-                                      ],
+                                      "icons": "nextjs,react,typescript,tailwind,rust",
                                       "perLine": 5,
                                       "theme": "dark"
                               },
@@ -4995,11 +4879,17 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "discord",
-                                              "twitter"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "discord": {
+                                    "link": "https://discord.com"
+                                  },
+                                  "twitter": {
+                                    "link": "https://x.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -5045,12 +4935,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "typescript",
-                                              "rust",
-                                              "nodejs",
-                                              "jest"
-                                      ],
+                                      "icons": "typescript,rust,nodejs,jest",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -5098,12 +4983,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "typescript",
-                                              "turborepo",
-                                              "docker",
-                                              "pnpm"
-                                      ],
+                                      "icons": "typescript,turborepo,docker,pnpm",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -5151,11 +5031,21 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "linkedin",
-                                              "email"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "linkedin": {
+                                    "link": "https://linkedin.com"
+                                  },
+                                  "gmail": {
+                                    "message": "Email",
+                                    "color": "D14836",
+                                    "logo": "gmail",
+                                    "logoColor": "white",
+                                    "link": "mailto:developer@example.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -5248,11 +5138,21 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "sponsor",
-                                              "twitter"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "sponsor": {
+                                    "message": "Sponsor",
+                                    "color": "EA4AAA",
+                                    "logo": "githubsponsors",
+                                    "logoColor": "white",
+                                    "link": "https://github.com/sponsors/octocat"
+                                  },
+                                  "twitter": {
+                                    "link": "https://x.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -5344,12 +5244,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "markdown",
-                                              "nextjs",
-                                              "typescript",
-                                              "react"
-                                      ],
+                                      "icons": "markdown,nextjs,typescript,react",
                                       "perLine": 4,
                                       "theme": "light"
                               },
@@ -5456,7 +5351,9 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "capsule-banner",
                       "props": {
                               "content": {
-                                      "text": "FULL STACK // GENAI SOLUTIONS ARCHITECT",
+                                      "bannerType": "waving",
+                                "colorTheme": "ocean",
+                                "text": "FULL STACK // GENAI SOLUTIONS ARCHITECT",
                                       "theme": "ocean-blue",
                                       "height": 210
                               },
@@ -5466,10 +5363,12 @@ export const PRESETS_120: TemplateItem[] = [
               },
               {
                       "id": "sec-views",
-                      "type": "profile-views",
+                      "type": "visitor-counter",
                       "props": {
                               "content": {
-                                      "color": "green"
+                                "provider": "komarev",
+                                "color": "10b981",
+                                "label": "PROFILE VIEWS"
                               },
                               "styles": {},
                               "state": "default"
@@ -5480,16 +5379,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "python",
-                                              "django",
-                                              "fastapi",
-                                              "react",
-                                              "angular",
-                                              "docker",
-                                              "postgresql",
-                                              "redis"
-                                      ],
+                                      "icons": "python,django,fastapi,react,angular,docker,postgres,redis",
                                       "perLine": 8,
                                       "theme": "dark"
                               },
@@ -5502,12 +5392,24 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "socials",
                       "props": {
                               "content": {
-                                      "platforms": [
-                                              "github",
-                                              "linkedin",
-                                              "twitter",
-                                              "email"
-                                      ]
+                                      "socials": {
+                                  "github": {
+                                    "link": "https://github.com/octocat"
+                                  },
+                                  "linkedin": {
+                                    "link": "https://linkedin.com"
+                                  },
+                                  "twitter": {
+                                    "link": "https://x.com"
+                                  },
+                                  "gmail": {
+                                    "message": "Email",
+                                    "color": "D14836",
+                                    "logo": "gmail",
+                                    "logoColor": "white",
+                                    "link": "mailto:developer@example.com"
+                                  }
+                                }
                               },
                               "styles": {},
                               "state": "default"
@@ -5553,12 +5455,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "pytorch",
-                                              "python",
-                                              "cuda",
-                                              "cplusplus"
-                                      ],
+                                      "icons": "pytorch,python,cuda,cpp",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -5657,12 +5554,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "python",
-                                              "cplusplus",
-                                              "opencv",
-                                              "pytorch"
-                                      ],
+                                      "icons": "python,cpp,opencv,pytorch",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -5757,12 +5649,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "python",
-                                              "docker",
-                                              "kubernetes",
-                                              "postgresql"
-                                      ],
+                                      "icons": "python,docker,kubernetes,postgres",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -5810,12 +5697,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "python",
-                                              "r",
-                                              "cplusplus",
-                                              "linux"
-                                      ],
+                                      "icons": "python,r,cpp,linux",
                                       "perLine": 4,
                                       "theme": "light"
                               },
@@ -5909,12 +5791,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "cplusplus",
-                                              "python",
-                                              "ros",
-                                              "linux"
-                                      ],
+                                      "icons": "cpp,python,ros,linux",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -6009,12 +5886,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "nextjs",
-                                              "react",
-                                              "typescript",
-                                              "tailwind"
-                                      ],
+                                      "icons": "nextjs,react,typescript,tailwind",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -6074,12 +5946,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "rust",
-                                              "go",
-                                              "grpc",
-                                              "redis"
-                                      ],
+                                      "icons": "rust,go,grpc,redis",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -6127,14 +5994,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "flutter",
-                                              "reactnative",
-                                              "dart",
-                                              "typescript",
-                                              "swift",
-                                              "kotlin"
-                                      ],
+                                      "icons": "flutter,reactnative,dart,typescript,swift,kotlin",
                                       "perLine": 6,
                                       "theme": "dark"
                               },
@@ -6233,12 +6093,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "java",
-                                              "spring",
-                                              "docker",
-                                              "kubernetes"
-                                      ],
+                                      "icons": "java,spring,docker,kubernetes",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -6286,12 +6141,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "graphql",
-                                              "typescript",
-                                              "nodejs",
-                                              "apollo"
-                                      ],
+                                      "icons": "graphql,typescript,nodejs,apollo",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -6339,12 +6189,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "figma",
-                                              "storybook",
-                                              "react",
-                                              "tailwind"
-                                      ],
+                                      "icons": "figma,storybook,react,tailwind",
                                       "perLine": 4,
                                       "theme": "light"
                               },
@@ -6392,12 +6237,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "postgresql",
-                                              "redis",
-                                              "linux",
-                                              "python"
-                                      ],
+                                      "icons": "postgres,redis,linux,python",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -6445,12 +6285,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "nextjs",
-                                              "tailwind",
-                                              "supabase",
-                                              "stripe"
-                                      ],
+                                      "icons": "nextjs,tailwind,supabase,stripe",
                                       "perLine": 4,
                                       "theme": "dark"
                               },
@@ -6498,12 +6333,7 @@ export const PRESETS_120: TemplateItem[] = [
                       "type": "skill-icons",
                       "props": {
                               "content": {
-                                      "skills": [
-                                              "kubernetes",
-                                              "terraform",
-                                              "docker",
-                                              "go"
-                                      ],
+                                      "icons": "kubernetes,terraform,docker,go",
                                       "perLine": 4,
                                       "theme": "dark"
                               },

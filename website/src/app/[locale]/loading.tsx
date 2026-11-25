@@ -10,15 +10,15 @@ export default function Loading() {
       role="status"
       aria-live="polite"
       aria-label="Loading page"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-white/95 dark:bg-[#09090b]/95 backdrop-blur-md p-4 font-sans text-neutral-900 dark:text-neutral-100"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-white/90 dark:bg-slate-900/90 backdrop-blur-md p-4 font-sans text-slate-900 dark:text-slate-100"
     >
       {/* Background Subtle Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#18181b08_1px,transparent_1px),linear-gradient(to_bottom,#18181b08_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#33415508_1px,transparent_1px),linear-gradient(to_bottom,#33415508_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
 
       {/* Branded Loading Box */}
-      <div className="relative w-full max-w-xs p-6 rounded-2xl bg-white dark:bg-[#121216] border-2 border-neutral-900 dark:border-neutral-800 shadow-[6px_6px_0px_#18181b] dark:shadow-[6px_6px_0px_#000] text-center space-y-4 animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-xs p-6 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-800 dark:border-slate-700 shadow-[6px_6px_0px_#334155] dark:shadow-[6px_6px_0px_#1e293b] text-center space-y-4 animate-in fade-in zoom-in-95 duration-200">
         {/* Animated Monkey Badge */}
-        <div className="relative mx-auto w-14 h-14 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center p-2 shadow-inner">
+        <div className="relative mx-auto w-14 h-14 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center p-2 shadow-inner">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1024 1024"

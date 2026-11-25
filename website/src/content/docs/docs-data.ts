@@ -1,3 +1,12 @@
+import { TEMPLATES } from '#/lib/templates/catalog';
+import { ALL_VISUALIZATION_IDS } from '#/lib/visualizations/registry';
+import { pluginRegistry } from '#/lib/plugins/registry';
+
+const TEMPLATE_COUNT = TEMPLATES.length;
+const VIZ_TOTAL_COUNT = ALL_VISUALIZATION_IDS.length;
+const VIZ_FEATURED_COUNT = 9;
+const PLUGIN_COUNT = pluginRegistry.length;
+
 export interface DocHeading {
   id: string;
   title: string;
@@ -73,7 +82,7 @@ MonoForge is built on four core tenets:
 
 - **Visual Studio Mode**: Drag-and-drop block builder, live form controls for avatars, social banners, tech badges, and pinned repositories.
 - **Developer IDE (Monaco Split Mode)**: Split Monaco code editor with live syntax highlighting, keyboard shortcuts (\`Ctrl+S\`, \`Ctrl+K\`), and an AST-safe schema validator.
-- **47+ Telemetry Engines**: ISO contribution calendars, 3D commit cities, WakaTime programming stats, habit radars, and LeetCode cards.
+- **${VIZ_FEATURED_COUNT} Featured / ${VIZ_TOTAL_COUNT} Total Visualizations & ${PLUGIN_COUNT} Modular Plugins**: ISO contribution calendars, 3D commit cities, WakaTime programming stats, habit radars, and LeetCode cards.
 - **SVG Animator Studio**: Vector animation engine featuring Cyber Bot, Pixel Dev at dual-monitor desk, Ninja Coder, and matrix rain backgrounds.
 - **1-Click GitHub Sync**: Authenticated OAuth integration with live remote README diffing before pushing changes directly to your \`username/username\` repository.
 
@@ -146,8 +155,8 @@ http://localhost:3000/en
 
 1. Click **Templates** in the top navigation bar or navigate directly to \`/templates\`.
 2. Select your preferred engine:
-   - **Templates Showcase**: 75+ battle-tested developer archetypes.
-   - **Telemetry Studio**: Configure and drop in any of the 47+ telemetry engines.
+   - **Templates Showcase**: ${TEMPLATE_COUNT} battle-tested developer archetypes.
+   - **Telemetry Studio**: Configure and drop in any of the ${VIZ_FEATURED_COUNT} featured / ${VIZ_TOTAL_COUNT} total visualizations and ${PLUGIN_COUNT} modular plugins.
    - **SVG Animator**: Customize animated vector characters and ambient banners.
 
 ---
@@ -523,7 +532,7 @@ Access the curated starter templates at:
 \`\`\`
 http://localhost:3000/en/templates
 \`\`\`
-Or click **Templates** in the navigation header to browse 75+ production-ready archetypes.
+Or click **Templates** in the top navigation bar to browse ${TEMPLATE_COUNT} production-ready archetypes.
 
 ---
 
@@ -557,21 +566,21 @@ Inside the **Blocks** tab of the side panel:
   {
     slug: 'guides/templates-engine',
     title: 'Curated Templates & Archetypes Engine',
-    description: 'Master the 75+ battle-tested developer profile templates with live Camo SVG animations and 1-click Markdown export.',
+    description: `Master the ${TEMPLATE_COUNT} battle-tested developer profile templates with live Camo SVG animations and 1-click Markdown export.`,
     category: 'Usage Guides',
     categoryOrder: 3,
     order: 2,
-    badge: '75+ Starters',
+    badge: `${TEMPLATE_COUNT} Starters`,
     headings: [
-      { id: 'archetypes-catalog', title: '75+ Archetypes Catalog', level: 2 },
+      { id: 'archetypes-catalog', title: `${TEMPLATE_COUNT} Archetypes Catalog`, level: 2 },
       { id: 'camo-svg-compliance', title: 'GitHub Camo SVG Compliance', level: 2 },
       { id: 'customizing-markdown', title: 'Customizing Markdown Sections', level: 2 },
       { id: 'instant-export', title: 'Instant 1-Click Export', level: 2 },
     ],
     content: `
-## 75+ Archetypes Catalog
+## ${TEMPLATE_COUNT} Archetypes Catalog
 
-MonoForge provides an extensive collection of 75+ production-tested developer profile templates tailored for systems architects, full-stack engineers, cloud specialists, and open-source leads.
+MonoForge provides an extensive collection of ${TEMPLATE_COUNT} production-tested developer profile templates tailored for systems architects, full-stack engineers, cloud specialists, and open-source leads.
 
 Key features:
 - **Tailored Personas**: Handcrafted aesthetic themes from Cyber Terminal HUD to Swiss Typographer.
@@ -596,20 +605,20 @@ Copy the generated markdown or download a ready-to-commit README.md file directl
   },
   {
     slug: 'guides/telemetry',
-    title: 'Telemetry Studio (47+ Engines)',
-    description: 'Configure and embed 47+ modular telemetry engines: GitHub Stats, 3D commit cities, WakaTime, and streak counters.',
+    title: `Telemetry Studio (${VIZ_FEATURED_COUNT} Featured / ${VIZ_TOTAL_COUNT} Total Visualizations)`,
+    description: `Configure and embed ${VIZ_TOTAL_COUNT} SVG visualizations and ${PLUGIN_COUNT} modular plugins: GitHub Stats, 3D commit cities, WakaTime, and streak counters.`,
     category: 'Usage Guides',
     categoryOrder: 3,
     order: 3,
     headings: [
-      { id: 'telemetry-arsenal', title: 'The 47+ Telemetry Arsenal', level: 2 },
+      { id: 'telemetry-arsenal', title: 'The Telemetry & Visualization Arsenal', level: 2 },
       { id: 'popular-telemetry-modules', title: 'Popular Telemetry Modules', level: 2 },
       { id: 'customizing-parameters', title: 'Customizing Engine Parameters', level: 2 },
     ],
     content: `
-## The 47+ Telemetry Arsenal
+## The Telemetry & Visualization Arsenal
 
-MonoForge includes a built-in catalog of 47+ telemetry engines covering every facet of a developer's digital identity. Access the full telemetry gallery at:
+MonoForge includes a built-in catalog of ${VIZ_FEATURED_COUNT} featured / ${VIZ_TOTAL_COUNT} total SVG visualizations and ${PLUGIN_COUNT} modular plugins covering every facet of a developer's digital identity. Access the full telemetry gallery at:
 
 \`\`\`
 http://localhost:3000/en/telemetry
@@ -871,7 +880,7 @@ src/
 ├── lib/                  # Core engines and utilities
 │   ├── buildMarkdown.ts  # Pure markdown compiler (unit tested)
 │   ├── plugins/          # Plugin registry and individual plugin modules
-│   └── forge-telemetry/  # 47+ telemetry engines catalog and SVG builders
+│   └── forge-telemetry/  # ${VIZ_TOTAL_COUNT} SVG visualizations and telemetry builders
 ├── store/                # Unified Zustand store (useReadmeStore.ts)
 └── content/docs/         # Documentation source data and metadata
 \`\`\`
@@ -929,8 +938,8 @@ To register a new plugin:
   },
   {
     slug: 'reference/telemetry-engines',
-    title: 'Telemetry Engines Reference (47+ Catalog)',
-    description: 'Comprehensive catalog of all 47+ telemetry engines, query parameters, themes, and Camo CDN caching headers.',
+    title: `Telemetry Engines Reference (${VIZ_TOTAL_COUNT} Visualizations & ${PLUGIN_COUNT} Plugins)`,
+    description: `Comprehensive catalog of all ${VIZ_TOTAL_COUNT} SVG visualizations (${VIZ_FEATURED_COUNT} featured) and ${PLUGIN_COUNT} modular plugins, query parameters, themes, and Camo CDN caching headers.`,
     category: 'Product Reference',
     categoryOrder: 4,
     order: 3,
@@ -942,7 +951,7 @@ To register a new plugin:
     content: `
 ## Telemetry Categories
 
-The 47+ telemetry engines are organized into 5 functional categories:
+The ${VIZ_TOTAL_COUNT} SVG visualizations (${VIZ_FEATURED_COUNT} featured) and ${PLUGIN_COUNT} modular plugins are organized into 5 functional categories:
 
 1. **GitHub Activity**: Readme stats, streak counters, contribution activity graphs, ISO calendars.
 2. **Coding Metrics**: WakaTime language distributions, daily coding time, commit velocity radars.

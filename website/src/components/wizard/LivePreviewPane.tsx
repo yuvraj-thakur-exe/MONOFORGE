@@ -2,70 +2,25 @@
 
 import { useRef, useEffect, useMemo } from 'react';
 import autoAnimate from '@formkit/auto-animate';
-import parse from 'html-react-parser';
-import { unified } from 'unified';
-import remarkParse from 'remark-parse';
-import remarkGfm from 'remark-gfm';
-import remarkRehype from 'remark-rehype';
-import rehypeRaw from 'rehype-raw';
-import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
-import rehypeStringify from 'rehype-stringify';
 import { useReadmeStore } from '#/store/useReadmeStore';
 import { buildMarkdown } from '#/lib/buildMarkdown';
-import { Eye, Download } from 'lucide-react';
+import { downloadTextFile } from '#/lib/export/clipboard';
+import { ReadmeMarkdownRenderer } from '#/components/common/ReadmeMarkdownRenderer';
+import { Eye, Download, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { CopyButton } from '#/components/common/CopyButton';
-
-const sanitizeSchema = {
-  ...defaultSchema,
-  attributes: {
-    ...defaultSchema.attributes,
-    div: [...(defaultSchema.attributes?.div || []), 'align'],
-    p: [...(defaultSchema.attributes?.p || []), 'align'],
-    h1: [...(defaultSchema.attributes?.h1 || []), 'align'],
-    h2: [...(defaultSchema.attributes?.h2 || []), 'align'],
-    h3: [...(defaultSchema.attributes?.h3 || []), 'align'],
-    img: [...(defaultSchema.attributes?.img || []), 'src', 'alt', 'height', 'width', 'align'],
-    source: [...(defaultSchema.attributes?.source || []), 'media', 'srcset'],
-    picture: [...(defaultSchema.attributes?.picture || [])],
-    a: [...(defaultSchema.attributes?.a || []), 'href', 'target', 'rel'],
-  },
-  tagNames: [
-    ...(defaultSchema.tagNames || []),
-    'picture',
-    'source',
-    'svg',
-    'path',
-    'circle',
-    'rect',
-  ],
-};
 
 export function LivePreviewPane() {
   const config = useReadmeStore(state => state.config);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const markdown = useMemo(() => buildMarkdown(config), [config]);
-
-  const renderedContent = useMemo(() => {
+  const markdown = useMemo(() => {
     try {
-      const file = unified()
-        .use(remarkParse)
-        .use(remarkGfm)
-        .use(remarkRehype, { allowDangerousHtml: true })
-        .use(rehypeRaw)
-        .use(rehypeSanitize, sanitizeSchema)
-        .use(rehypeStringify)
-        .processSync(markdown);
-      return parse(String(file));
+      return buildMarkdown(config);
     } catch {
-      return (
-        <pre className="font-mono text-xs text-palette-contrast/80 whitespace-pre-wrap">
-          {markdown}
-        </pre>
-      );
+      return '<!-- Error generating markdown from configuration -->';
     }
-  }, [markdown]);
+  }, [config]);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -74,18 +29,19 @@ export function LivePreviewPane() {
   }, []);
 
   const handleDownload = () => {
-    const blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'README.md';
-    link.click();
-    URL.revokeObjectURL(url);
-    confetti({ particleCount: 40, spread: 50 });
+    const result = downloadTextFile('README.md', markdown);
+    if (result.ok) {
+      try {
+        confetti({ particleCount: 40, spread: 50 });
+      } catch {
+        // Ignore confetti errors in headless or test environments
+      }
+    }
   };
 
   const rawUser = config.settings?.user?.github?.trim().toLowerCase();
-  const isPlaceholder = !rawUser || rawUser === 'username' || rawUser === 'zusername' || rawUser === 'your-username';
+  const isPlaceholder =
+    !rawUser || rawUser === 'username' || rawUser === 'zusername' || rawUser === 'your-username';
 
   return (
     <div className="flex flex-col h-full rounded-xl border border-palette-line bg-palette-base shadow-lg overflow-hidden">
@@ -126,9 +82,10 @@ export function LivePreviewPane() {
 
       {isPlaceholder && (
         <div className="mx-4 mt-3 mb-1 px-3 py-2 rounded-lg bg-violet-950/40 border border-violet-800/40 text-[11px] text-amber-600 dark:text-amber-300 flex items-center gap-2">
-          <span>💡</span>
+          <Sparkles className="w-4 h-4 text-amber-500 shrink-0" aria-hidden="true" />
           <span>
-            Previewing with active demo account (<strong>octocat</strong>). Set your GitHub username in step 1 to see your real personal trophies and stats!
+            Previewing with active demo account (<strong>octocat</strong>). Set your GitHub username
+            in step 1 to see your real personal trophies and stats!
           </span>
         </div>
       )}
@@ -136,9 +93,9 @@ export function LivePreviewPane() {
       {/* Rendered Preview Body */}
       <div
         ref={containerRef}
-        className="flex-1 p-6 overflow-y-auto scrollbar bg-palette-base text-palette-contrast prose prose-invert max-w-none prose-img:inline-block prose-a:text-cyan-400"
+        className="flex-1 p-6 overflow-y-auto scrollbar bg-palette-base text-palette-contrast"
       >
-        {renderedContent}
+        <ReadmeMarkdownRenderer markdown={markdown} />
       </div>
     </div>
   );

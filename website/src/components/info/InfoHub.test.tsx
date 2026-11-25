@@ -47,17 +47,23 @@ describe('InfoHub Component', () => {
     expect(screen.getByRole('button', { name: /Architecture & Security/i })).toBeDefined();
   });
 
-  it('renders 1-line installation commands for Linux and Windows', () => {
+  it('renders 1-line installation commands for Linux and Windows and marks CLI as simulator', () => {
     render(<InfoHub />);
 
     expect(screen.getByText(/Automated Development Setup/i)).toBeDefined();
-    expect(screen.getAllByText(/curl -fsSL/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Interactive CLI Simulator/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/Simulated Output/i)).toBeDefined();
+    expect(
+      screen.getAllByText(/https:\/\/raw\.githubusercontent\.com\/yuvraj-thakur-exe\/MONOFORGE\/main\/install\.sh/i).length
+    ).toBeGreaterThan(0);
 
     // Click Windows PowerShell button
     const winBtn = screen.getByRole('button', { name: /Windows PowerShell/i });
     fireEvent.click(winBtn);
 
-    expect(screen.getAllByText(/install\.ps1/i).length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/https:\/\/raw\.githubusercontent\.com\/yuvraj-thakur-exe\/MONOFORGE\/main\/install\.ps1/i).length
+    ).toBeGreaterThan(0);
   });
 
   it('switches to Archetypes tab and displays template cards', () => {
@@ -101,7 +107,7 @@ describe('InfoHub Component', () => {
     fireEvent.click(aboutTab);
 
     expect(screen.getAllByText(/About MonoForge/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/100% Client-Side Privacy/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Local-First Privacy & Server Boundaries/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/Confirmation-Gated Operations/i)).toBeDefined();
     expect(screen.getByText(/MonoForge Core Contributors/i)).toBeDefined();
   });

@@ -39,7 +39,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-1-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'MINIMAL PRO // PROFESSIONAL & MINIMAL', color: '3b82f6', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'MINIMAL PRO // PROFESSIONAL & MINIMAL', color: '3b82f6', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -48,7 +48,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-1-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -103,7 +103,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-2-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'CLEAN DEVELOPER // PROFESSIONAL & MINIMAL', color: '1e40af', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "cyber-cylinder", text: 'CLEAN DEVELOPER // PROFESSIONAL & MINIMAL', color: '1e40af', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -112,7 +112,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-2-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -167,7 +167,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-3-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'PORTFOLIO CLASSIC // PROFESSIONAL & MINIMAL', color: '64748b', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'PORTFOLIO CLASSIC // PROFESSIONAL & MINIMAL', color: '64748b', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -176,7 +176,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-3-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -231,7 +231,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-4-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'MODERN BENTO // PROFESSIONAL & MINIMAL', color: '6366f1', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "cyber-cylinder", text: 'MODERN BENTO // PROFESSIONAL & MINIMAL', color: '6366f1', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -240,7 +240,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-4-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -295,7 +295,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-5-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'GLASSMORPHISM // PROFESSIONAL & MINIMAL', color: '8b5cf6', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'GLASSMORPHISM // PROFESSIONAL & MINIMAL', color: '8b5cf6', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -304,7 +304,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-5-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -359,7 +359,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-6-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'APPLE CLEAN // PROFESSIONAL & MINIMAL', color: '64748b', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'APPLE CLEAN // PROFESSIONAL & MINIMAL', color: '64748b', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -368,7 +368,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-6-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -423,7 +423,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-7-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'WINDOWS FLUENT // PROFESSIONAL & MINIMAL', color: '0284c7', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'WINDOWS FLUENT // PROFESSIONAL & MINIMAL', color: '0284c7', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -432,7 +432,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-7-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -487,7 +487,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-8-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'LINUX TERMINAL // PROFESSIONAL & MINIMAL', color: '22c55e', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'LINUX TERMINAL // PROFESSIONAL & MINIMAL', color: '22c55e', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -496,7 +496,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-8-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -551,7 +551,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-9-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'EDITORIAL // PROFESSIONAL & MINIMAL', color: '0f172a', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'EDITORIAL // PROFESSIONAL & MINIMAL', color: '0f172a', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -560,7 +560,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-9-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -615,7 +615,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-10-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'ELITE PROFESSIONAL // PROFESSIONAL & MINIMAL', color: 'eab308', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'ELITE PROFESSIONAL // PROFESSIONAL & MINIMAL', color: 'eab308', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -624,7 +624,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-10-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -679,7 +679,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-11-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'CYBERPUNK CORE // CYBERPUNK & FUTURISTIC', color: 'ec4899', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'CYBERPUNK CORE // CYBERPUNK & FUTURISTIC', color: 'ec4899', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -688,7 +688,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-11-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -743,7 +743,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-12-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'NEON CITY // CYBERPUNK & FUTURISTIC', color: 'a855f7', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'NEON CITY // CYBERPUNK & FUTURISTIC', color: 'a855f7', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -752,7 +752,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-12-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -807,7 +807,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-13-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'HACKER MATRIX // CYBERPUNK & FUTURISTIC', color: '10b981', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'HACKER MATRIX // CYBERPUNK & FUTURISTIC', color: '10b981', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -816,7 +816,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-13-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -871,7 +871,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-14-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'SYNTHWAVE // CYBERPUNK & FUTURISTIC', color: 'f43f5e', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'SYNTHWAVE // CYBERPUNK & FUTURISTIC', color: 'f43f5e', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -880,7 +880,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-14-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -935,7 +935,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-15-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'AI TERMINAL // CYBERPUNK & FUTURISTIC', color: '8b5cf6', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'AI TERMINAL // CYBERPUNK & FUTURISTIC', color: '8b5cf6', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -944,7 +944,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-15-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -999,7 +999,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-16-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'QUANTUM // CYBERPUNK & FUTURISTIC', color: '06b6d4', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'QUANTUM // CYBERPUNK & FUTURISTIC', color: '06b6d4', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1008,7 +1008,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-16-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -1063,7 +1063,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-17-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'HOLOGRAPHIC // CYBERPUNK & FUTURISTIC', color: '38bdf8', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'HOLOGRAPHIC // CYBERPUNK & FUTURISTIC', color: '38bdf8', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1072,7 +1072,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-17-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -1127,7 +1127,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-18-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'MECHA TECH // CYBERPUNK & FUTURISTIC', color: '0284c7', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'MECHA TECH // CYBERPUNK & FUTURISTIC', color: '0284c7', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1136,7 +1136,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-18-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -1191,7 +1191,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-19-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'CIRCUIT BOARD // CYBERPUNK & FUTURISTIC', color: '22c55e', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'CIRCUIT BOARD // CYBERPUNK & FUTURISTIC', color: '22c55e', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1200,7 +1200,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-19-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -1255,7 +1255,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-20-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'FUTURE OS // CYBERPUNK & FUTURISTIC', color: '6366f1', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "cyber-cylinder", text: 'FUTURE OS // CYBERPUNK & FUTURISTIC', color: '6366f1', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1264,7 +1264,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-20-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -1319,7 +1319,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-21-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'FOREST DEVELOPER // NATURE & AESTHETIC', color: '15803d', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'FOREST DEVELOPER // NATURE & AESTHETIC', color: '15803d', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1328,7 +1328,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-21-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -1383,7 +1383,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-22-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'MOUNTAIN DEV // NATURE & AESTHETIC', color: '0369a1', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'MOUNTAIN DEV // NATURE & AESTHETIC', color: '0369a1', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1392,7 +1392,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-22-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -1447,7 +1447,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-23-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'OCEAN BREEZE // NATURE & AESTHETIC', color: '0d9488', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'OCEAN BREEZE // NATURE & AESTHETIC', color: '0d9488', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1456,7 +1456,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-23-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -1511,7 +1511,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-24-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'SAKURA THEME // NATURE & AESTHETIC', color: 'f472b6', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'SAKURA THEME // NATURE & AESTHETIC', color: 'f472b6', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1520,7 +1520,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-24-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -1575,7 +1575,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-25-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'MONSOON CALM // NATURE & AESTHETIC', color: '475569', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'MONSOON CALM // NATURE & AESTHETIC', color: '475569', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1584,7 +1584,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-25-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -1639,7 +1639,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-26-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'DESERT NOMAD // NATURE & AESTHETIC', color: 'ea580c', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'DESERT NOMAD // NATURE & AESTHETIC', color: 'ea580c', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1648,7 +1648,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-26-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -1703,7 +1703,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-27-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'NORDIC SNOW // NATURE & AESTHETIC', color: '38bdf8', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'NORDIC SNOW // NATURE & AESTHETIC', color: '38bdf8', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1712,7 +1712,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-27-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -1767,7 +1767,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-28-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'JUNGLE EXPLORER // NATURE & AESTHETIC', color: '16a34a', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'JUNGLE EXPLORER // NATURE & AESTHETIC', color: '16a34a', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1776,7 +1776,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-28-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -1831,7 +1831,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-29-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'COTTAGE DEV // NATURE & AESTHETIC', color: 'ca8a04', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'COTTAGE DEV // NATURE & AESTHETIC', color: 'ca8a04', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1840,7 +1840,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-29-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -1895,7 +1895,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-30-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'ZEN GARDEN // NATURE & AESTHETIC', color: 'dc2626', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'ZEN GARDEN // NATURE & AESTHETIC', color: 'dc2626', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1904,7 +1904,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-30-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -1959,7 +1959,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-31-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'ANIME DEV // ANIME & CREATIVE', color: 'ec4899', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'ANIME DEV // ANIME & CREATIVE', color: 'ec4899', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1968,7 +1968,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-31-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -2023,7 +2023,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-32-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'GHIBLI INSPIRED // ANIME & CREATIVE', color: '65a30d', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'GHIBLI INSPIRED // ANIME & CREATIVE', color: '65a30d', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2032,7 +2032,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-32-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -2087,7 +2087,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-33-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'MANGA UI // ANIME & CREATIVE', color: '18181b', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'MANGA UI // ANIME & CREATIVE', color: '18181b', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2096,7 +2096,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-33-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -2151,7 +2151,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-34-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'ANIME DARK // ANIME & CREATIVE', color: '9333ea', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'ANIME DARK // ANIME & CREATIVE', color: '9333ea', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2160,7 +2160,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-34-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -2215,7 +2215,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-35-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'KAWAII TECH // ANIME & CREATIVE', color: 'f472b6', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'KAWAII TECH // ANIME & CREATIVE', color: 'f472b6', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2224,7 +2224,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-35-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -2279,7 +2279,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-36-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'CHIBI CODER // ANIME & CREATIVE', color: '818cf8', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "cyber-cylinder", text: 'CHIBI CODER // ANIME & CREATIVE', color: '818cf8', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2288,7 +2288,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-36-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -2343,7 +2343,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-37-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'OTAKU DEV // ANIME & CREATIVE', color: 'c084fc', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'OTAKU DEV // ANIME & CREATIVE', color: 'c084fc', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2352,7 +2352,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-37-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -2407,7 +2407,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-38-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'STUDIO ANIME // ANIME & CREATIVE', color: '2563eb', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "cyber-cylinder", text: 'STUDIO ANIME // ANIME & CREATIVE', color: '2563eb', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2416,7 +2416,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-38-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -2471,7 +2471,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-39-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'NEO ANIME // ANIME & CREATIVE', color: '38bdf8', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'NEO ANIME // ANIME & CREATIVE', color: '38bdf8', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2480,7 +2480,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-39-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -2535,7 +2535,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-40-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'ANIME MINIMAL // ANIME & CREATIVE', color: 'f43f5e', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'ANIME MINIMAL // ANIME & CREATIVE', color: 'f43f5e', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2544,7 +2544,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-40-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -2599,7 +2599,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-41-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'AI/ML ENGINEER // TECH & AI', color: '8b5cf6', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'AI/ML ENGINEER // TECH & AI', color: '8b5cf6', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2608,7 +2608,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-41-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -2663,7 +2663,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-42-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'LLM RESEARCHER // TECH & AI', color: '4f46e5', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "cyber-cylinder", text: 'LLM RESEARCHER // TECH & AI', color: '4f46e5', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2672,7 +2672,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-42-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -2727,7 +2727,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-43-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'DATA SCIENTIST // TECH & AI', color: '059669', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'DATA SCIENTIST // TECH & AI', color: '059669', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2736,7 +2736,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-43-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -2791,7 +2791,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-44-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'ROBOTICS & IOT // TECH & AI', color: '0284c7', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'ROBOTICS & IOT // TECH & AI', color: '0284c7', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2800,7 +2800,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-44-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -2855,7 +2855,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-45-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'COMPUTER VISION // TECH & AI', color: '7c3aed', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'COMPUTER VISION // TECH & AI', color: '7c3aed', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2864,7 +2864,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-45-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -2919,7 +2919,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-46-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'NLP EXPERT // TECH & AI', color: 'db2777', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'NLP EXPERT // TECH & AI', color: 'db2777', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2928,7 +2928,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-46-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -2983,7 +2983,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-47-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'MLOPS // TECH & AI', color: '6366f1', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "cyber-cylinder", text: 'MLOPS // TECH & AI', color: '6366f1', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -2992,7 +2992,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-47-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -3047,7 +3047,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-48-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'AI AGENT BUILDER // TECH & AI', color: '06b6d4', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'AI AGENT BUILDER // TECH & AI', color: '06b6d4', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -3056,7 +3056,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-48-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -3111,7 +3111,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-49-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'RAG ARCHITECT // TECH & AI', color: 'a855f7', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'RAG ARCHITECT // TECH & AI', color: 'a855f7', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -3120,7 +3120,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-49-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -3175,7 +3175,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-50-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'GENAI CREATOR // TECH & AI', color: 'f43f5e', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'GENAI CREATOR // TECH & AI', color: 'f43f5e', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -3184,7 +3184,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-50-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -3239,7 +3239,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-51-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'GAMER DEV // GAMING & RETRO', color: 'ef4444', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'GAMER DEV // GAMING & RETRO', color: 'ef4444', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -3248,7 +3248,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-51-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -3303,7 +3303,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-52-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'PIXEL WORLD // GAMING & RETRO', color: '10b981', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'PIXEL WORLD // GAMING & RETRO', color: '10b981', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -3312,7 +3312,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-52-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -3367,7 +3367,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-53-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: '8-BIT RETRO // GAMING & RETRO', color: 'eab308', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: '8-BIT RETRO // GAMING & RETRO', color: 'eab308', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -3376,7 +3376,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-53-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -3431,7 +3431,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-54-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'RPG STYLE // GAMING & RETRO', color: 'f97316', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'RPG STYLE // GAMING & RETRO', color: 'f97316', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -3440,7 +3440,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-54-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -3495,7 +3495,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-55-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'FPS HUD // GAMING & RETRO', color: '06b6d4', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'FPS HUD // GAMING & RETRO', color: '06b6d4', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -3504,7 +3504,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-55-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -3559,7 +3559,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-56-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'BATTLE STATION // GAMING & RETRO', color: '8b5cf6', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'BATTLE STATION // GAMING & RETRO', color: '8b5cf6', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -3568,7 +3568,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-56-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -3623,7 +3623,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-57-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'CONSOLE DEV // GAMING & RETRO', color: '3b82f6', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'CONSOLE DEV // GAMING & RETRO', color: '3b82f6', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -3632,7 +3632,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-57-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -3687,7 +3687,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-58-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'ARCADE NEON // GAMING & RETRO', color: 'ec4899', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'ARCADE NEON // GAMING & RETRO', color: 'ec4899', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -3696,7 +3696,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-58-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -3751,7 +3751,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-59-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'RETRO DOS // GAMING & RETRO', color: '22c55e', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'RETRO DOS // GAMING & RETRO', color: '22c55e', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -3760,7 +3760,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-59-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -3815,7 +3815,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-60-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'GAME STUDIO // GAMING & RETRO', color: 'eab308', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'GAME STUDIO // GAMING & RETRO', color: 'eab308', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -3824,7 +3824,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-60-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -3879,7 +3879,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-61-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'SPACE EXPLORER // SPACE & SCIENCE', color: '38bdf8', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'SPACE EXPLORER // SPACE & SCIENCE', color: '38bdf8', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -3888,7 +3888,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-61-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -3943,7 +3943,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-62-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'ASTRONAUT DEV // SPACE & SCIENCE', color: '818cf8', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "cyber-cylinder", text: 'ASTRONAUT DEV // SPACE & SCIENCE', color: '818cf8', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -3952,7 +3952,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-62-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -4007,7 +4007,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-63-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'GALAXY THEME // SPACE & SCIENCE', color: 'c084fc', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'GALAXY THEME // SPACE & SCIENCE', color: 'c084fc', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4016,7 +4016,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-63-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -4071,7 +4071,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-64-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'BLACK HOLE // SPACE & SCIENCE', color: 'f97316', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'BLACK HOLE // SPACE & SCIENCE', color: 'f97316', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4080,7 +4080,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-64-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -4135,7 +4135,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-65-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'PLANETARY // SPACE & SCIENCE', color: '60a5fa', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'PLANETARY // SPACE & SCIENCE', color: '60a5fa', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4144,7 +4144,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-65-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -4199,7 +4199,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-66-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'INTERSTELLAR // SPACE & SCIENCE', color: '2563eb', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "cyber-cylinder", text: 'INTERSTELLAR // SPACE & SCIENCE', color: '2563eb', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4208,7 +4208,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-66-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -4263,7 +4263,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-67-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'ROCKET LAUNCH // SPACE & SCIENCE', color: 'ea580c', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'ROCKET LAUNCH // SPACE & SCIENCE', color: 'ea580c', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4272,7 +4272,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-67-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -4327,7 +4327,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-68-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'NASA INSPIRED // SPACE & SCIENCE', color: 'ef4444', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'NASA INSPIRED // SPACE & SCIENCE', color: 'ef4444', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4336,7 +4336,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-68-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -4391,7 +4391,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-69-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'SCI-FI LAB // SPACE & SCIENCE', color: '06b6d4', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'SCI-FI LAB // SPACE & SCIENCE', color: '06b6d4', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4400,7 +4400,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-69-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -4455,7 +4455,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-70-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'COSMIC MINIMAL // SPACE & SCIENCE', color: 'a855f7', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'COSMIC MINIMAL // SPACE & SCIENCE', color: 'a855f7', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4464,7 +4464,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-70-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -4519,7 +4519,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-71-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'BOOKWORM DEV // DEVELOPER LIFESTYLE', color: 'd97706', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'BOOKWORM DEV // DEVELOPER LIFESTYLE', color: 'd97706', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4528,7 +4528,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-71-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -4583,7 +4583,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-72-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'MUSIC CODER // DEVELOPER LIFESTYLE', color: 'd946ef', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'MUSIC CODER // DEVELOPER LIFESTYLE', color: 'd946ef', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4592,7 +4592,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-72-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -4647,7 +4647,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-73-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'PHOTOGRAPHER // DEVELOPER LIFESTYLE', color: '64748b', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'PHOTOGRAPHER // DEVELOPER LIFESTYLE', color: '64748b', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4656,7 +4656,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-73-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -4711,7 +4711,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-74-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'TRAVELER DEV // DEVELOPER LIFESTYLE', color: 'f97316', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'TRAVELER DEV // DEVELOPER LIFESTYLE', color: 'f97316', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4720,7 +4720,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-74-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -4775,7 +4775,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-75-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'FITNESS & CODE // DEVELOPER LIFESTYLE', color: 'dc2626', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'FITNESS & CODE // DEVELOPER LIFESTYLE', color: 'dc2626', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4784,7 +4784,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-75-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -4839,7 +4839,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-76-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'COFFEE CODER // DEVELOPER LIFESTYLE', color: 'b45309', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'COFFEE CODER // DEVELOPER LIFESTYLE', color: 'b45309', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4848,7 +4848,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-76-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -4903,7 +4903,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-77-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'NIGHT OWL // DEVELOPER LIFESTYLE', color: '6366f1', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "cyber-cylinder", text: 'NIGHT OWL // DEVELOPER LIFESTYLE', color: '6366f1', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4912,7 +4912,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-77-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -4967,7 +4967,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-78-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'WEEKEND BUILDER // DEVELOPER LIFESTYLE', color: '16a34a', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'WEEKEND BUILDER // DEVELOPER LIFESTYLE', color: '16a34a', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -4976,7 +4976,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-78-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -5031,7 +5031,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-79-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'CREATOR / YOUTUBER // DEVELOPER LIFESTYLE', color: 'ef4444', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'CREATOR / YOUTUBER // DEVELOPER LIFESTYLE', color: 'ef4444', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -5040,7 +5040,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-79-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -5095,7 +5095,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-80-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'WRITER DEVELOPER // DEVELOPER LIFESTYLE', color: '78716c', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'WRITER DEVELOPER // DEVELOPER LIFESTYLE', color: '78716c', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -5104,7 +5104,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-80-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -5159,7 +5159,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-81-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'CLOUD ENGINEER // DATA, CLOUD & SECURITY', color: '0284c7', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'CLOUD ENGINEER // DATA, CLOUD & SECURITY', color: '0284c7', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -5168,7 +5168,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-81-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -5223,7 +5223,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-82-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'DEVOPS // DATA, CLOUD & SECURITY', color: '6366f1', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "cyber-cylinder", text: 'DEVOPS // DATA, CLOUD & SECURITY', color: '6366f1', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -5232,7 +5232,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-82-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -5287,7 +5287,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-83-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'SRE ENGINEER // DATA, CLOUD & SECURITY', color: '059669', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'SRE ENGINEER // DATA, CLOUD & SECURITY', color: '059669', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -5296,7 +5296,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-83-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -5351,7 +5351,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-84-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'BACKEND PRO // DATA, CLOUD & SECURITY', color: '8b5cf6', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'BACKEND PRO // DATA, CLOUD & SECURITY', color: '8b5cf6', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -5360,7 +5360,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-84-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -5415,7 +5415,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-85-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'FULL-STACK // DATA, CLOUD & SECURITY', color: '3b82f6', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'FULL-STACK // DATA, CLOUD & SECURITY', color: '3b82f6', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -5424,7 +5424,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-85-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -5479,7 +5479,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-86-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'MOBILE DEVELOPER // DATA, CLOUD & SECURITY', color: '0ea5e9', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'MOBILE DEVELOPER // DATA, CLOUD & SECURITY', color: '0ea5e9', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -5488,7 +5488,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-86-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -5543,7 +5543,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-87-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'CYBERSECURITY // DATA, CLOUD & SECURITY', color: 'dc2626', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'CYBERSECURITY // DATA, CLOUD & SECURITY', color: 'dc2626', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -5552,7 +5552,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-87-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -5607,7 +5607,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-88-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'PENTESTER // DATA, CLOUD & SECURITY', color: '16a34a', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'PENTESTER // DATA, CLOUD & SECURITY', color: '16a34a', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -5616,7 +5616,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-88-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -5671,7 +5671,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-89-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'BLOCKCHAIN DEV // DATA, CLOUD & SECURITY', color: '8b5cf6', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'BLOCKCHAIN DEV // DATA, CLOUD & SECURITY', color: '8b5cf6', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -5680,7 +5680,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-89-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -5735,7 +5735,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-90-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'FINTECH BUILDER // DATA, CLOUD & SECURITY', color: '059669', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "dark-constellation", text: 'FINTECH BUILDER // DATA, CLOUD & SECURITY', color: '059669', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -5744,7 +5744,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-90-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -5799,7 +5799,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-91-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'ABSTRACT ART // EXPERIMENTAL & ART', color: 'f97316', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'ABSTRACT ART // EXPERIMENTAL & ART', color: 'f97316', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -5808,7 +5808,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-91-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -5863,7 +5863,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-92-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'GRADIENT FLOW // EXPERIMENTAL & ART', color: 'f43f5e', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'GRADIENT FLOW // EXPERIMENTAL & ART', color: 'f43f5e', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -5872,7 +5872,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-92-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -5927,7 +5927,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-93-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'LIQUID UI // EXPERIMENTAL & ART', color: '06b6d4', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'LIQUID UI // EXPERIMENTAL & ART', color: '06b6d4', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -5936,7 +5936,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-93-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -5991,7 +5991,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-94-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'GLASS NEON // EXPERIMENTAL & ART', color: '8b5cf6', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'GLASS NEON // EXPERIMENTAL & ART', color: '8b5cf6', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -6000,7 +6000,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-94-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -6055,7 +6055,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-95-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: '3D ISOMETRIC // EXPERIMENTAL & ART', color: '6366f1', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "cyber-cylinder", text: '3D ISOMETRIC // EXPERIMENTAL & ART', color: '6366f1', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -6064,7 +6064,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-95-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -6119,7 +6119,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-96-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'CLAY 3D // EXPERIMENTAL & ART', color: '38bdf8', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'CLAY 3D // EXPERIMENTAL & ART', color: '38bdf8', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -6128,7 +6128,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-96-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'light' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -6183,7 +6183,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-97-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'GEOMETRY // EXPERIMENTAL & ART', color: 'a855f7', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'GEOMETRY // EXPERIMENTAL & ART', color: 'a855f7', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -6192,7 +6192,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-97-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -6247,7 +6247,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-98-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'PARTICLE WAVE // EXPERIMENTAL & ART', color: '06b6d4', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "ocean", text: 'PARTICLE WAVE // EXPERIMENTAL & ART', color: '06b6d4', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -6256,7 +6256,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-98-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -6311,7 +6311,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-99-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'HOLOGRAM GRID // EXPERIMENTAL & ART', color: '9333ea', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'HOLOGRAM GRID // EXPERIMENTAL & ART', color: '9333ea', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -6320,7 +6320,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-99-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -6375,7 +6375,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-100-banner',
           type: 'capsule-banner',
           props: {
-            content: { text: 'ULTRA PREMIUM // EXPERIMENTAL & ART', color: 'eab308', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'ULTRA PREMIUM // EXPERIMENTAL & ART', color: 'eab308', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -6384,7 +6384,7 @@ export const TEMPLATES_100: Template100Item[] = [
           id: 'sec-100-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'docker', 'python'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,docker,python", theme: 'dark' },
             styles: {},
             state: 'default',
           },

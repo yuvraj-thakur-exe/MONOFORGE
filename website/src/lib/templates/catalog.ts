@@ -495,7 +495,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
       sections: [
         {
           id: 'telemetry-pagespeed',
-          type: 'custom',
+          type: 'custom-html',
           props: {
             content: {
               markdown: `<div align="center">\n  <img src="https://img.shields.io/badge/Performance-97%25-10B981?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Performance" />\n  <img src="https://img.shields.io/badge/Accessibility-100%25-10B981?style=for-the-badge&logo=w3c&logoColor=white" alt="Accessibility" />\n  <img src="https://img.shields.io/badge/Best_Practices-100%25-10B981?style=for-the-badge&logo=lighthouse&logoColor=white" alt="Best Practices" />\n  <img src="https://img.shields.io/badge/SEO-100%25-10B981?style=for-the-badge&logo=google&logoColor=white" alt="SEO" />\n</div>`,
@@ -649,7 +649,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
       sections: [
         {
           id: 'socials-unicorn',
-          type: 'custom',
+          type: 'custom-html',
           props: {
             content: {
               markdown: `<div align="center">\n  <a href="https://linkedin.com"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>\n  <a href="https://dev.to"><img src="https://img.shields.io/badge/Dev.to-0A0A0A?style=flat&logo=devdotto&logoColor=white" alt="Dev.to" /></a>\n  <a href="https://leetcode.com"><img src="https://img.shields.io/badge/LeetCode-FFA116?style=flat&logo=leetcode&logoColor=black" alt="LeetCode" /></a>\n  <a href="https://medium.com"><img src="https://img.shields.io/badge/Medium-12100E?style=flat&logo=medium&logoColor=white" alt="Medium" /></a>\n  <a href="https://github.com/octocat"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" alt="GitHub" /></a>\n</div>`,
@@ -830,7 +830,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
         },
         {
           id: 'connect-socials',
-          type: 'custom',
+          type: 'custom-html',
           props: {
             content: {
               markdown: `<div align="center">\n  <h3>Let's Connect and have a Chat! 💭</h3>\n  <a href="https://github.com/octocat"><img src="https://img.shields.io/badge/Portfolio-2563EB?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Portfolio" /></a>\n  <a href="https://linkedin.com"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>\n  <a href="https://dev.to"><img src="https://img.shields.io/badge/DEV.TO-0A0A0A?style=for-the-badge&logo=devdotto&logoColor=white" alt="Dev.to" /></a>\n  <a href="https://twitter.com"><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" /></a>\n  <a href="https://instagram.com"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" /></a>\n</div>`,
@@ -899,7 +899,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
       sections: [
         {
           id: 'peeking-cat-hero',
-          type: 'custom',
+          type: 'custom-html',
           props: {
             content: {
               markdown: `<div align="center">\n  <img src="/assets/wow-profile-full.svg" width="100%" alt="#1 Wow Profile 3D City & Peeking Cat" />\n</div>`,
@@ -968,7 +968,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
       sections: [
         {
           id: 'bento-hero-banner',
-          type: 'custom',
+          type: 'custom-html',
           props: {
             content: {
               markdown: `<div align="center">\n  <img src="/assets/bento-dashboard-full.svg" width="100%" alt="#5 Signal Dashboard Bento Grid" />\n</div>`,
@@ -1117,6 +1117,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "ocean",
               type: 'waving',
               height: 170,
               text: 'Data Platform & Distributed Systems',
@@ -1136,7 +1138,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'python,kafka,apache,spark,postgres,docker,aws,linux,git,bash',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -1202,6 +1204,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "purple-neon",
               type: 'waving',
               height: 170,
               text: '3D Graphics & Game Engine Architecture',
@@ -1221,7 +1225,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'cpp,rust,unity,unreal,blender,js,webgl,git,linux',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -1287,6 +1291,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "dark-constellation",
               type: 'waving',
               height: 170,
               text: 'Bare-Metal & Real-Time Firmware',
@@ -1306,7 +1312,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'c,cpp,rust,linux,arduino,raspberrypi,git,bash',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -1372,6 +1378,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "fire",
               type: 'waving',
               height: 170,
               text: 'Interactive Motion & Generative Systems',
@@ -1391,7 +1399,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'react,ts,threejs,figma,tailwind,css,html,git,nextjs',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -1457,6 +1465,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "cyber-cylinder",
               type: 'waving',
               height: 170,
               text: 'Quantum Information & Superposition',
@@ -1476,7 +1486,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'python,julia,c,linux,git,latex,bash',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -1542,6 +1552,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "fire",
               type: 'waving',
               height: 170,
               text: 'Five-Nines Uptime & Chaos Engineering',
@@ -1561,7 +1573,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'kubernetes,docker,prometheus,grafana,linux,bash,go,python,terraform',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -1627,6 +1639,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "fire",
               type: 'waving',
               height: 170,
               text: 'Optimal Algorithms & Sub-Millisecond Speed',
@@ -1646,7 +1660,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'cpp,java,python,c,linux,git,bash',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -1712,6 +1726,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "dark-constellation",
               type: 'waving',
               height: 170,
               text: 'Building in Public & Bootstrapping SaaS',
@@ -1731,7 +1747,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'nextjs,react,ts,tailwind,postgres,supabase,git,html,css',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -1797,6 +1813,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "ocean",
               type: 'waving',
               height: 170,
               text: 'Genomic Big Data & Molecular Discovery',
@@ -1816,7 +1834,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'python,r,linux,bash,docker,git',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -1882,6 +1900,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "purple-neon",
               type: 'waving',
               height: 170,
               text: 'Digital Signal Processing & Acoustics',
@@ -1901,7 +1921,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'cpp,c,rust,python,linux,git',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -1967,6 +1987,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "fire",
               type: 'waving',
               height: 170,
               text: 'Zero-Cost Abstractions & Concurrency',
@@ -1986,7 +2008,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'rust,go,redis,postgres,docker,linux,git,bash',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -2052,6 +2074,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "fire",
               type: 'waving',
               height: 170,
               text: 'Enterprise Resilience & Event Sourcing',
@@ -2071,7 +2095,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'java,spring,docker,kubernetes,postgres,aws,git,linux',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -2137,6 +2161,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "ocean",
               type: 'waving',
               height: 170,
               text: 'High-Performance Cross-Platform Mobile',
@@ -2156,7 +2182,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'flutter,dart,react,ts,swift,kotlin,git,figma',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -2222,6 +2248,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "fire",
               type: 'waving',
               height: 170,
               text: 'Offensive Security & Binary Exploitation',
@@ -2241,7 +2269,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'python,bash,linux,c,git',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -2307,6 +2335,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "purple-neon",
               type: 'waving',
               height: 170,
               text: 'Neon Outrun & Retro Synth Aesthetics',
@@ -2326,7 +2356,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'vue,ts,tailwind,vite,pinia,git,html,css',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -2392,6 +2422,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "dark-constellation",
               type: 'waving',
               height: 170,
               text: 'Phosphor Green Matrix Terminal',
@@ -2411,7 +2443,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'c,bash,linux,git,python',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -2477,6 +2509,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "ocean",
               type: 'waving',
               height: 170,
               text: 'Accessible Design Systems & Tokens',
@@ -2496,7 +2530,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'react,ts,tailwind,nextjs,figma,html,css,git',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -2575,6 +2609,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "purple-neon",
               type: 'waving',
               height: 170,
               text: 'Spatial Vision & Neural Representations',
@@ -2594,7 +2630,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'pytorch,python,opencv,linux,docker,git,bash',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -2660,6 +2696,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "ocean",
               type: 'waving',
               height: 170,
               text: 'Internal Developer Platforms & GitOps',
@@ -2679,7 +2717,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'kubernetes,docker,terraform,go,linux,bash,git,aws',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -2745,6 +2783,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "fire",
               type: 'waving',
               height: 170,
               text: 'Federated Graph Architecture & Gateway',
@@ -2764,7 +2804,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'nodejs,ts,graphql,postgres,redis,docker,git,linux',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -2830,6 +2870,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "ocean",
               type: 'waving',
               height: 170,
               text: 'High-Throughput Relational & Vector Storage',
@@ -2849,7 +2891,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'postgres,redis,linux,bash,python,docker,git',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -2915,6 +2957,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "ocean",
               type: 'waving',
               height: 170,
               text: 'Defensive Perimeter & Threat Detection',
@@ -2934,7 +2978,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'python,bash,linux,docker,git',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -3000,6 +3044,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "fire",
               type: 'waving',
               height: 170,
               text: 'Autonomous Navigation & Sensor Fusion',
@@ -3019,7 +3065,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'cpp,python,linux,ros,git,docker,bash',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -3085,6 +3131,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "cyber-cylinder",
               type: 'waving',
               height: 170,
               text: 'Spatial Computing & Volumetric Realities',
@@ -3104,7 +3152,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'swift,apple,unity,blender,git,figma',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -3170,6 +3218,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "fire",
               type: 'waving',
               height: 170,
               text: 'Open Knowledge & Developer Mentorship',
@@ -3189,7 +3239,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'js,ts,react,python,git,markdown,html,css',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -3255,6 +3305,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "dark-constellation",
               type: 'waving',
               height: 170,
               text: 'Kernel Internals & Memory Architecture',
@@ -3274,7 +3326,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'c,linux,bash,git',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -3340,6 +3392,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "dark-constellation",
               type: 'waving',
               height: 170,
               text: 'Sub-Microsecond Quantitative Systems',
@@ -3359,7 +3413,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'cpp,python,linux,git,bash',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -3425,6 +3479,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "purple-neon",
               type: 'waving',
               height: 170,
               text: 'Interactive STEM Simulations',
@@ -3444,7 +3500,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'js,react,ts,html,css,git',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -3510,6 +3566,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "fire",
               type: 'waving',
               height: 170,
               text: '16-Bit Nostalgia & Handcrafted Games',
@@ -3529,7 +3587,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'godot,blender,git,linux,python',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -3595,6 +3653,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "fire",
               type: 'waving',
               height: 170,
               text: 'True Serverless & Event Choreography',
@@ -3614,7 +3674,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'aws,ts,nodejs,docker,git,linux,bash',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -3680,6 +3740,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           type: 'capsule-banner',
           props: {
             content: {
+              "bannerType": "waving",
+              "colorTheme": "dark-constellation",
               type: 'waving',
               height: 170,
               text: 'Zero-Friction Developer Experience',
@@ -3699,7 +3761,7 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
             content: {
               icons: 'astro,react,ts,tailwind,markdown,git,nextjs',
               theme: 'dark',
-              perline: 10,
+              perLine: 10,
             },
             styles: {},
             state: 'default',
@@ -3764,6 +3826,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "waving",
+              "colorTheme": "purple-neon",
               "text": "AUTONOMOUS AGENTS // MCP ENGINE",
               "color": "8b5cf6",
               "style": "waving",
@@ -3778,9 +3842,9 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "mascot-bio",
           "props": {
             "content": {
-              "theme": "cyber-bot",
-              "greeting": "Systems operational. Multi-agent swarms standing by.",
-              "speed": "normal"
+              "mascot": "cyber-bot",
+              "headline": "Systems operational. Multi-agent swarms standing by.",
+              "bio": "Systems operational. Multi-agent swarms standing by."
             },
             "styles": {},
             "state": "default"
@@ -3832,6 +3896,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "slice",
+              "colorTheme": "ocean",
               "text": "VECTOR SEARCH // HYBRID RAG ENGINE",
               "color": "06b6d4",
               "style": "geometric",
@@ -3901,11 +3967,14 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
         },
         {
           "id": "sec-wasm-streak",
-          "type": "github-readme-streak-stats",
+          "type": "github-readme-stats",
           "props": {
             "content": {
+              "showStats": false,
+              "showStreak": true,
+              "showLanguages": false,
               "theme": "tokyonight",
-              hideBorder: false
+              "hideBorder": false
             },
             "styles": {},
             "state": "default"
@@ -3944,6 +4013,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "waving",
+              "colorTheme": "fire",
               "text": "DEV ADVOCACY // COMMUNITY & CODE",
               "color": "f59e0b",
               "style": "waving",
@@ -4057,6 +4128,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "waving",
+              "colorTheme": "purple-neon",
               "text": "SPATIAL AR/VR // REALITYKIT & WEBXR",
               "color": "a855f7",
               "style": "waving",
@@ -4121,11 +4194,14 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
         },
         {
           "id": "sec-quant-streak",
-          "type": "github-readme-streak-stats",
+          "type": "github-readme-stats",
           "props": {
             "content": {
+              "showStats": false,
+              "showStreak": true,
+              "showLanguages": false,
               "theme": "tokyonight",
-              hideBorder: false
+              "hideBorder": false
             },
             "styles": {},
             "state": "default"
@@ -4164,6 +4240,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "waving",
+              "colorTheme": "dark-constellation",
               "text": "FINOPS ARCHITECT // CLUSTER COST OPTIMIZER",
               "color": "22c55e",
               "style": "waving",
@@ -4175,11 +4253,14 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
         },
         {
           "id": "sec-finops-streak",
-          "type": "github-readme-streak-stats",
+          "type": "github-readme-stats",
           "props": {
             "content": {
+              "showStats": false,
+              "showStreak": true,
+              "showLanguages": false,
               "theme": "radical",
-              hideBorder: false
+              "hideBorder": false
             },
             "styles": {},
             "state": "default"
@@ -4276,6 +4357,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "slice",
+              "colorTheme": "fire",
               "text": "AUTOSAR // ASIL-D AUTOMOTIVE SAFETY",
               "color": "ea580c",
               "style": "geometric",
@@ -4331,6 +4414,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "waving",
+              "colorTheme": "purple-neon",
               "text": "AUDIO DSP // JUCE VST3 SYNTHESIZERS",
               "color": "ec4899",
               "style": "waving",
@@ -4439,6 +4524,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "slice",
+              "colorTheme": "ocean",
               "text": "ZERO-TRUST // WORKLOAD IDENTITY & WEBAUTHN",
               "color": "0284c7",
               "style": "geometric",
@@ -4450,11 +4537,14 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
         },
         {
           "id": "sec-iam-streak",
-          "type": "github-readme-streak-stats",
+          "type": "github-readme-stats",
           "props": {
             "content": {
+              "showStats": false,
+              "showStreak": true,
+              "showLanguages": false,
               "theme": "tokyonight",
-              hideBorder: false
+              "hideBorder": false
             },
             "styles": {},
             "state": "default"
@@ -4551,6 +4641,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "slice",
+              "colorTheme": "dark-constellation",
               "text": "FORMAL VERIFICATION // LEAN 4 & COQ",
               "color": "475569",
               "style": "geometric",
@@ -4606,6 +4698,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "slice",
+              "colorTheme": "ocean",
               "text": "PEER-TO-PEER // LIBP2P & IPFS PROTOCOLS",
               "color": "0ea5e9",
               "style": "geometric",
@@ -4617,11 +4711,14 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
         },
         {
           "id": "sec-p2p-streak",
-          "type": "github-readme-streak-stats",
+          "type": "github-readme-stats",
           "props": {
             "content": {
+              "showStats": false,
+              "showStreak": true,
+              "showLanguages": false,
               "theme": "tokyonight",
-              hideBorder: false
+              "hideBorder": false
             },
             "styles": {},
             "state": "default"
@@ -4718,6 +4815,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "slice",
+              "colorTheme": "dark-constellation",
               "text": "GITOPS // ARGOCD DECLARATIVE INFRASTRUCTURE",
               "color": "059669",
               "style": "geometric",
@@ -4729,11 +4828,14 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
         },
         {
           "id": "sec-gitops-streak",
-          "type": "github-readme-streak-stats",
+          "type": "github-readme-stats",
           "props": {
             "content": {
+              "showStats": false,
+              "showStreak": true,
+              "showLanguages": false,
               "theme": "tokyonight",
-              hideBorder: false
+              "hideBorder": false
             },
             "styles": {},
             "state": "default"
@@ -4830,6 +4932,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "waving",
+              "colorTheme": "purple-neon",
               "text": "MICRO-FRONTENDS // MODULE FEDERATION 2.0",
               "color": "7c3aed",
               "style": "waving",
@@ -4885,6 +4989,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "slice",
+              "colorTheme": "fire",
               "text": "DATABASE INTERNALS // LSM-TREES & RAFT",
               "color": "b45309",
               "style": "geometric",
@@ -4940,6 +5046,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "waving",
+              "colorTheme": "ocean",
               "text": "MLOPS ENGINE // FEATURE STORE & SERVING",
               "color": "0d9488",
               "style": "waving",
@@ -4995,9 +5103,9 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "mascot-bio",
           "props": {
             "content": {
-              "theme": "cyber-dj",
-              "greeting": "Dropping the beat. 100% Camo safe 60fps audio stream.",
-              "speed": "normal"
+              "mascot": "owl-confetti",
+              "headline": "Dropping the beat. 100% Camo safe 60fps audio stream.",
+              "bio": "Dropping the beat. 100% Camo safe 60fps audio stream."
             },
             "styles": {},
             "state": "default"
@@ -5048,6 +5156,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "waving",
+              "colorTheme": "dark-constellation",
               "text": "COZY PIXEL DESK // ESPRESSO & CODE",
               "color": "10b981",
               "style": "waving",
@@ -5103,6 +5213,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "slice",
+              "colorTheme": "fire",
               "text": "MONOFORGE // PRECISION CODE CRAFTING",
               "color": "f59e0b",
               "style": "geometric",
@@ -5114,11 +5226,14 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
         },
         {
           "id": "sec-builder-streak",
-          "type": "github-readme-streak-stats",
+          "type": "github-readme-stats",
           "props": {
             "content": {
+              "showStats": false,
+              "showStreak": true,
+              "showLanguages": false,
               "theme": "tokyonight",
-              hideBorder: false
+              "hideBorder": false
             },
             "styles": {},
             "state": "default"
@@ -5215,6 +5330,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "waving",
+              "colorTheme": "fire",
               "text": "OUTRUN 1984 // SYNTHWAVE & NEON GRIDS",
               "color": "f43f5e",
               "style": "waving",
@@ -5270,6 +5387,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "slice",
+              "colorTheme": "dark-constellation",
               "text": "SOLARPUNK // CLEAN ENERGY & MICROGRIDS",
               "color": "84cc16",
               "style": "geometric",
@@ -5325,6 +5444,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "slice",
+              "colorTheme": "ocean",
               "text": "AEROSPACE // SATELLITE ORBITAL TELEMETRY",
               "color": "38bdf8",
               "style": "geometric",
@@ -5336,11 +5457,14 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
         },
         {
           "id": "sec-space-streak",
-          "type": "github-readme-streak-stats",
+          "type": "github-readme-stats",
           "props": {
             "content": {
+              "showStats": false,
+              "showStreak": true,
+              "showLanguages": false,
               "theme": "tokyonight",
-              hideBorder: false
+              "hideBorder": false
             },
             "styles": {},
             "state": "default"
@@ -5379,6 +5503,8 @@ const RAW_TEMPLATES: (Omit<TemplateItem, 'prompt'> & { prompt?: string })[] = [
           "type": "capsule-banner",
           "props": {
             "content": {
+              "bannerType": "slice",
+              "colorTheme": "cyber-cylinder",
               "text": "POST-QUANTUM CRYPTOGRAPHY // ML-KEM & ML-DSA",
               "color": "6366f1",
               "style": "geometric",

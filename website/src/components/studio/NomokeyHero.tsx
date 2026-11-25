@@ -17,13 +17,21 @@ import {
 import { toast } from 'sonner';
 import confetti from 'canvas-confetti';
 import { playClickSound } from '#/lib/sound/sound-effects';
+import { TEMPLATES } from '#/lib/templates/catalog';
+import { ALL_VISUALIZATION_IDS } from '#/lib/visualizations/registry';
+import { pluginRegistry } from '#/lib/plugins/registry';
+
+const TEMPLATE_COUNT = TEMPLATES.length;
+const VIZ_TOTAL_COUNT = ALL_VISUALIZATION_IDS.length;
+const VIZ_FEATURED_COUNT = 9;
+const PLUGIN_COUNT = pluginRegistry.length;
 
 const MONKEY_QUOTES = [
   'Zero monkey business. Pure precision profile engineering.',
   'Compiling 60fps Camo SVGs directly for GitHub Camo CDN.',
   'Monaco IDE split-preview ready. AST-safe schema enforced.',
-  '30+ SVG visualizations & 22 modular plugins loaded: 3D commit spheres, habit radars, leetcode.',
-  'Zero external server dependency. 100% self-hosted & open-source.',
+  `${VIZ_FEATURED_COUNT} featured / ${VIZ_TOTAL_COUNT} total SVG visualizations & ${PLUGIN_COUNT} modular plugins loaded: 3D commit spheres, habit radars, leetcode.`,
+  'Zero external tracking. Open-source & self-hostable.',
   'Banana battery charged to 100%. Ready to deploy.',
 ];
 
@@ -31,10 +39,10 @@ type StudioMode = 'clean' | 'cyber' | 'lofi' | 'hyperspeed';
 
 const ROTATING_HIGHLIGHTS = [
   '60fps Camo Safe SVG vectors & animated characters',
-  '30+ SVG visualizations & 22 modular plugins with zero external tracking',
+  `${VIZ_FEATURED_COUNT} featured / ${VIZ_TOTAL_COUNT} total SVG visualizations & ${PLUGIN_COUNT} modular plugins with zero external tracking`,
   'Split-screen Monaco IDE with AST Zod validation & live preview',
   '47 verified social icons & tactile badges ready for GitHub CDN',
-  '350+ signature design archetypes across 12 disciplines',
+  `${TEMPLATE_COUNT} signature design archetypes across 12 disciplines`,
 ];
 
 export function NomokeyHero() {
@@ -248,7 +256,7 @@ export function NomokeyHero() {
                 className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-slate-800 text-neutral-950 dark:text-white font-bold text-sm tracking-wide border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] hover:shadow-[1px_1px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all duration-150 btn-tactile hover:bg-[#ffe600] cursor-pointer"
               >
                 <LayoutTemplate className="w-4 h-4 text-amber-700 dark:text-amber-400" />
-                <span>350+ TEMPLATES</span>
+                <span>{TEMPLATE_COUNT} TEMPLATES</span>
               </Link>
 
               {/* Watch Launch Video */}
@@ -678,12 +686,14 @@ export function NomokeyHero() {
               <div className="flex items-center gap-4">
                 <span className="flex items-center gap-1.5 text-emerald-400">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  350+ Templates Live
+                  {TEMPLATE_COUNT} Templates Live
                 </span>
                 <span>&bull;</span>
-                <span className="text-cyan-400">30+ SVG Visualizations &bull; 22 Plugins</span>
+                <span className="text-cyan-400">
+                  {VIZ_FEATURED_COUNT} Featured / {VIZ_TOTAL_COUNT} Total Visualizations &bull; {PLUGIN_COUNT} Modular Plugins
+                </span>
                 <span>&bull;</span>
-                <span>100% Client-Side Compiler</span>
+                <span>Local-First Profile Compiler</span>
               </div>
               <span className="text-slate-400">monoforge-studio.vercel.app</span>
             </div>

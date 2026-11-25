@@ -38,7 +38,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-01-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'go', 'react', 'nextjs', 'docker', 'postgres'], theme: 'light' },
+            content: { "icons": "ts,go,react,nextjs,docker,postgres", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -102,7 +102,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-02-capsule',
           type: 'capsule-banner',
           props: {
-            content: { text: '> HELLO, I\'M KAI_ // CYBER_DEV', color: 'ec4899', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: '> HELLO, I\'M KAI_ // CYBER_DEV', color: 'ec4899', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -166,7 +166,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-03-telemetry',
           type: 'telemetry-engine',
           props: {
-            content: { engineType: 'radar', period: 'monthly' },
+            content: { template: 'classic', outputMode: 'direct_svg', isocalendar: true, languages: true, habits: true, engineType: 'radar', period: 'monthly' },
             styles: {},
             state: 'default',
           },
@@ -184,7 +184,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-03-pie',
           type: 'pie-chart',
           props: {
-            content: { languages: ['TypeScript', 'Rust', 'Python', 'Tailwind'] },
+            content: { chartMode: 'top-langs-donut', title: 'Top Languages Breakdown', theme: 'tokyonight', languages: ['TypeScript', 'Rust', 'Python', 'Tailwind'] },
             styles: {},
             state: 'default',
           },
@@ -230,7 +230,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-04-capsule',
           type: 'capsule-banner',
           props: {
-            content: { text: 'HEY, I\'M NOVA // CREATIVE TECH', color: '8b5cf6', style: 'soft', animation: 'fadeIn' },
+            content: { "bannerType": "soft", "colorTheme": "purple-neon", text: 'HEY, I\'M NOVA // CREATIVE TECH', color: '8b5cf6', style: 'soft', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -303,7 +303,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-05-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['go', 'rust', 'c', 'linux', 'docker', 'postgres'], theme: 'dark' },
+            content: { "icons": "go,rust,c,linux,docker,postgres", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -349,7 +349,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-06-capsule',
           type: 'capsule-banner',
           props: {
-            content: { text: 'KOHARU // FRONTEND ARTISAN', color: 'f472b6', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'KOHARU // FRONTEND ARTISAN', color: 'f472b6', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -404,7 +404,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-07-capsule',
           type: 'capsule-banner',
           props: {
-            content: { text: 'ORION VANCE // ORBITAL SYSTEMS', color: '38bdf8', style: 'geometric', animation: 'fadeIn' },
+            content: { "bannerType": "slice", "colorTheme": "ocean", text: 'ORION VANCE // ORBITAL SYSTEMS', color: '38bdf8', style: 'geometric', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -615,7 +615,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-11-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['cs', 'dotnet', 'azure', 'ts', 'react'], theme: 'light' },
+            content: { "icons": "cs,dotnet,azure,ts,react", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -725,7 +725,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-13-capsule',
           type: 'capsule-banner',
           props: {
-            content: { text: 'AARI THORNE // AUTONOMOUS AI & NEURAL SYSTEMS', color: '8b5cf6', style: 'geometric', animation: 'fadeIn' },
+            content: { "bannerType": "slice", "colorTheme": "purple-neon", text: 'AARI THORNE // AUTONOMOUS AI & NEURAL SYSTEMS', color: '8b5cf6', style: 'geometric', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -734,7 +734,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-13-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['py', 'pytorch', 'tensorflow', 'cuda', 'docker'], theme: 'dark' },
+            content: { "icons": "py,pytorch,tensorflow,cuda,docker", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -844,7 +844,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-15-capsule',
           type: 'capsule-banner',
           props: {
-            content: { text: 'PLAYER 1 // READY // LEVEL 99 GAMEDEV', color: 'ef4444', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'PLAYER 1 // READY // LEVEL 99 GAMEDEV', color: 'ef4444', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1037,7 +1037,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-19-capsule',
           type: 'capsule-banner',
           props: {
-            content: { text: 'PRISM // VIBRANT EXPERIMENTAL CREATIVE', color: 'f43f5e', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "fire", text: 'PRISM // VIBRANT EXPERIMENTAL CREATIVE', color: 'f43f5e', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1092,7 +1092,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-20-telemetry',
           type: 'telemetry-engine',
           props: {
-            content: { engineType: 'radar', period: 'weekly' },
+            content: { template: 'classic', outputMode: 'direct_svg', isocalendar: true, languages: true, habits: true, engineType: 'radar', period: 'weekly' },
             styles: {},
             state: 'default',
           },
@@ -1248,7 +1248,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-23-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['aws', 'gcp', 'k8s', 'docker', 'terraform', 'githubactions'], theme: 'dark' },
+            content: { "icons": "aws,gcp,k8s,docker,terraform,githubactions", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -1303,7 +1303,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-24-capsule',
           type: 'capsule-banner',
           props: {
-            content: { text: 'CIPHER // APPARATUS DEFENSE // SEC-OPS', color: 'ef4444', style: 'geometric', animation: 'fadeIn' },
+            content: { "bannerType": "slice", "colorTheme": "fire", text: 'CIPHER // APPARATUS DEFENSE // SEC-OPS', color: 'ef4444', style: 'geometric', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1358,7 +1358,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-25-pie',
           type: 'pie-chart',
           props: {
-            content: { languages: ['Python', 'SQL', 'Scala', 'R', 'Rust'] },
+            content: { chartMode: 'top-langs-donut', title: 'Top Languages Breakdown', theme: 'tokyonight', languages: ['Python', 'SQL', 'Scala', 'R', 'Rust'] },
             styles: {},
             state: 'default',
           },
@@ -1422,7 +1422,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-26-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['figma', 'react', 'tailwind', 'ts', 'nextjs'], theme: 'light' },
+            content: { "icons": "figma,react,tailwind,ts,nextjs", theme: 'light' },
             styles: {},
             state: 'default',
           },
@@ -1468,7 +1468,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-27-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['cpp', 'c', 'rust', 'raspberrypi', 'arduino', 'linux'], theme: 'dark' },
+            content: { "icons": "cpp,c,rust,raspberrypi,arduino,linux", theme: 'dark' },
             styles: {},
             state: 'default',
           },
@@ -1523,7 +1523,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-28-capsule',
           type: 'capsule-banner',
           props: {
-            content: { text: 'BEAT HARMON // AUDIO DSP & SYNTHESIS', color: 'd946ef', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "purple-neon", text: 'BEAT HARMON // AUDIO DSP & SYNTHESIS', color: 'd946ef', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1578,7 +1578,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-29-capsule',
           type: 'capsule-banner',
           props: {
-            content: { text: 'COSMOS DRAKE // COMPUTATIONAL ASTROPHYSICS', color: 'a855f7', style: 'geometric', animation: 'fadeIn' },
+            content: { "bannerType": "slice", "colorTheme": "purple-neon", text: 'COSMOS DRAKE // COMPUTATIONAL ASTROPHYSICS', color: 'a855f7', style: 'geometric', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1633,7 +1633,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-30-capsule',
           type: 'capsule-banner',
           props: {
-            content: { text: 'MULTIDEV PRO // PRINCIPAL SYSTEMS ARCHITECT', color: '6366f1', style: 'waving', animation: 'fadeIn' },
+            content: { "bannerType": "waving", "colorTheme": "cyber-cylinder", text: 'MULTIDEV PRO // PRINCIPAL SYSTEMS ARCHITECT', color: '6366f1', style: 'waving', animation: 'fadeIn' },
             styles: {},
             state: 'default',
           },
@@ -1642,7 +1642,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-30-telemetry',
           type: 'telemetry-engine',
           props: {
-            content: { engineType: 'radar', period: 'monthly' },
+            content: { template: 'classic', outputMode: 'direct_svg', isocalendar: true, languages: true, habits: true, engineType: 'radar', period: 'monthly' },
             styles: {},
             state: 'default',
           },
@@ -1651,7 +1651,7 @@ export const SHOWCASE_30_TEMPLATES: TemplateItem[] = [
           id: 'sec-30-skills',
           type: 'skill-icons',
           props: {
-            content: { skills: ['ts', 'react', 'nextjs', 'rust', 'go', 'py', 'docker', 'postgres'], theme: 'dark' },
+            content: { "icons": "ts,react,nextjs,rust,go,py,docker,postgres", theme: 'dark' },
             styles: {},
             state: 'default',
           },

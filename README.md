@@ -11,7 +11,7 @@
   <h1>MONOFORGE</h1>
 
   <p>
-    <strong>Forge iconic GitHub profile READMEs with a visual studio, Monaco IDE split-preview, 60fps Camo-safe SVG animations, 30+ live telemetry visualizations, and confirmation-gated GitHub sync.</strong>
+    <strong>Forge iconic GitHub profile READMEs with a visual studio, Monaco IDE split-preview, 60fps Camo-safe SVG animations, 9 featured / 30 total live telemetry visualizations, and confirmation-gated GitHub sync.</strong>
   </p>
 
   <p>
@@ -42,8 +42,8 @@
   <p>
     <a href="https://monoforge-studio.vercel.app/en"><strong>Launch Live Studio »</strong></a> •
     <a href="https://monoforge-studio.vercel.app/en/developer"><strong>Monaco Developer IDE »</strong></a> •
-    <a href="https://monoforge-studio.vercel.app/en/templates"><strong>350+ Archetypes »</strong></a> •
-    <a href="https://monoforge-studio.vercel.app/en/visualizer"><strong>30+ SVG Visualizations »</strong></a> •
+    <a href="https://monoforge-studio.vercel.app/en/templates"><strong>330 Archetypes »</strong></a> •
+    <a href="https://monoforge-studio.vercel.app/en/visualizer"><strong>30 SVG Visualizations »</strong></a> •
     <a href="https://monoforge-studio.vercel.app/en/docs"><strong>Documentation »</strong></a>
   </p>
 
@@ -62,7 +62,7 @@
 
 Pick your fastest path to a production-ready GitHub Profile README:
 
-- **1-Click Live Studio**: Open [monoforge-studio.vercel.app/en](https://monoforge-studio.vercel.app/en) to browse **350+ Profile Archetypes** and customize visually with zero setup.
+- **1-Click Live Studio**: Open [monoforge-studio.vercel.app/en](https://monoforge-studio.vercel.app/en) to browse **330 Profile Archetypes** and customize visually with zero setup.
 - **Monaco Developer IDE**: Jump straight into [monoforge-studio.vercel.app/en/developer](https://monoforge-studio.vercel.app/en/developer) for split-screen JSON editing, live Zod schema diagnostics, and instant Markdown export.
 - **1-Command CLI** *(zero install, runs directly from GitHub)*:
 
@@ -78,10 +78,10 @@ npx github:yuvraj-thakur-exe/MONOFORGE generate -u <your-github-username> -a wow
 | Capability | MonoForge | Legacy README Generators |
 | :--- | :--- | :--- |
 | **Camo-Safe 60fps SVGs** | Pure CSS `@keyframes`, zero `<script>`, zero `<foreignObject>`, `prefers-reduced-motion` | Static images or fragile external embeds |
-| **Real GitHub Telemetry** | 30+ SVG visualizations & 20 telemetry engines powered by real contributor data | Hardcoded static counters or dead third-party links |
+| **Real GitHub Telemetry** | 9 featured / 30 total SVG visualizations & 22 modular plugins powered by real contributor data | Hardcoded static counters or dead third-party links |
 | **Monaco JSON IDE** | Full split-screen Monaco editor synced bidirectionally with Zustand + Zod schema | Form-only inputs with no raw AST/JSON control |
 | **Confirmation-Gated Sync** | Side-by-side remote diff preview + explicit per-item confirmation before any write | Blind overwrite or manual copy-paste |
-| **Archetype Library** | **350+ Profile Archetypes**, **22 Modular Plugins**, **47 Verified Social Icons** | Small handful of generic layouts |
+| **Archetype Library** | **330 Profile Archetypes**, **22 Modular Plugins**, **47 Verified Social Icons** | Small handful of generic layouts |
 | **Local-First Privacy** | Runs locally in your browser; optional tokens stay in memory and are never stored | Server-hosted sessions or tracking scripts |
 
 <div align="center">
@@ -101,7 +101,7 @@ npx github:yuvraj-thakur-exe/MONOFORGE generate -u <your-github-username> -a wow
   - [Developer Raw Mode IDE](#2-developer-raw-mode-ide-developer)
   - [Telemetry & Visualization Engine](#3-telemetry--visualization-engine-telemetry--visualizer)
   - [60fps Camo Vector & Mascot System](#4-60fps-camo-vector--mascot-system)
-  - [350+ Curated Profile Archetypes](#5-350-curated-profile-archetypes-templates)
+  - [330 Curated Profile Archetypes](#5-330-curated-profile-archetypes-templates)
   - [Confirmation-Gated GitHub Synchronization](#6-confirmation-gated-github-synchronization)
   - [Resume Import & Web Enrichment](#7-resume-import--web-enrichment)
   - [CLI & AI Agent MCP Server](#8-cli--ai-agent-mcp-server)
@@ -126,7 +126,7 @@ npx github:yuvraj-thakur-exe/MONOFORGE generate -u <your-github-username> -a wow
 
 ### What is MonoForge?
 
-**MonoForge** is an open-source GitHub profile README engineering platform. It pairs a guided visual studio with a Monaco-powered raw JSON IDE, **350+ profile archetypes**, **22 modular plugins**, **30+ SVG telemetry visualizations**, **47 verified social icons**, and a 60fps GPU-accelerated SVG motion system.
+**MonoForge** is an open-source GitHub profile README engineering platform. It pairs a guided visual studio with a Monaco-powered raw JSON IDE, **330 profile archetypes**, **22 modular plugins**, **9 featured / 30 total SVG telemetry visualizations**, **47 verified social icons**, and a 60fps GPU-accelerated SVG motion system.
 
 ### What Problem Does It Solve?
 
@@ -205,7 +205,7 @@ MonoForge provides both individual developer profile components and full bento d
 - **Design Tokens**: Switch badge styles (`for-the-badge`, `flat`, `flat-square`) and attribution settings with a single click.
 
 ### 3. Telemetry & Visualization Engine (`/telemetry` & `/visualizer`)
-Real dynamic contributor activity powered by **30+ SVG visualizations** and **20 telemetry plugins** via `/api/telemetry/svg`:
+Real dynamic contributor activity powered by **9 featured / 30 total SVG visualizations** and **22 modular plugins** via `/api/telemetry/svg`:
 - **3D Isometric Calendar**: `/api/telemetry/svg?plugin=isocalendar&user=<username>`
 - **3D Isometric Skyline**: `/api/telemetry/svg?plugin=city&user=<username>`
 - **Harmonic Language River**: `/api/telemetry/svg?plugin=river&user=<username>`
@@ -221,8 +221,8 @@ Real dynamic contributor activity powered by **30+ SVG visualizations** and **20
 - **Atmospheric Banners**: Matrix digital rain, waving neon gradients, starfield constellations, and CRT scanlines.
 - **Accessibility**: Built-in `@media (prefers-reduced-motion: reduce)` fallbacks across all animated SVGs.
 
-### 5. 350+ Curated Profile Archetypes (`/templates`)
-Choose from **350+ profile archetypes** in the Web Studio (`359` curated catalog templates) plus **40 standalone CLI archetypes**:
+### 5. 330 Curated Profile Archetypes (`/templates`)
+Choose from **330 profile archetypes** in the Web Studio plus **40 standalone CLI archetypes**:
 - `wow-3d-city-cat`: 3D contribution city, retro pixel-art avatar, and glowing stack badges.
 - `bento-signal-dashboard`: High-density bento grid featuring live metrics and contribution graphs.
 - `forge-telemetry-dashboard`: Dark-mode systems engineering dashboard.
@@ -379,7 +379,7 @@ flowchart LR
 ```
 
 1. **Select an Archetype or Start from Scratch**:
-   - Browse **350+ starter templates** at `/en/templates`.
+   - Browse **330 starter templates** at `/en/templates`.
    - Click **Use Template** to populate the central Zustand store.
 2. **Customize in Studio or Raw IDE (`/en/developer`)**:
    - Edit sections visually in the Studio or edit raw JSON directly in Monaco with live `/api/schema` validation.
@@ -582,7 +582,7 @@ All verified scripts available in [`package.json`](package.json):
 - [x] Pure function `buildMarkdown(config)` compiler with comprehensive Vitest suite.
 - [x] 30+ SVG telemetry visualizations & 20 telemetry engine plugins.
 - [x] 60fps Camo-compliant SVG character kinematics with zero JavaScript.
-- [x] 350+ curated profile archetypes with 1-click customization.
+- [x] 330 curated profile archetypes with 1-click customization.
 - [x] Confirmation-gated direct GitHub push sync with side-by-side diff review.
 - [x] Standalone CLI (`bin/monoforge.js`) and Model Context Protocol (MCP) stdio server.
 - [x] Internationalization (i18n) support for English and Portuguese (`pt-BR`).

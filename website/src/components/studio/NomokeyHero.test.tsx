@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { NomokeyHero } from './NomokeyHero';
+import { TEMPLATES } from '#/lib/templates/catalog';
 
 vi.mock('#/i18n/navigation', () => ({
   Link: ({ children, href, onClick, className }: any) => (
@@ -27,7 +28,7 @@ describe('NomokeyHero', () => {
     // Check headline and primary actions
     expect(screen.getByText(/YOUR GITHUB PROFILE/i)).toBeDefined();
     expect(screen.getByText(/BUILD MY PROFILE/i)).toBeDefined();
-    expect(screen.getByText(/350\+ TEMPLATES/i)).toBeDefined();
+    expect(screen.getByText(new RegExp(`${TEMPLATES.length} TEMPLATES`, 'i'))).toBeDefined();
   });
 
   it('switches between monkey core and generated preview views', () => {

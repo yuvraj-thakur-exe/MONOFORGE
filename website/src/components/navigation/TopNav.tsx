@@ -78,7 +78,7 @@ export function TopNav() {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-1.5 sm:gap-2 font-mono text-xs">
+          <nav aria-label="Main Navigation" className="hidden xl:flex items-center gap-1.5 sm:gap-2 font-mono text-xs">
             {/* Home Navigation Button */}
             <Link
               href="/"
@@ -218,7 +218,7 @@ export function TopNav() {
           </nav>
 
           {/* Mobile Right Controls: Search + Hamburger Toggle */}
-          <div className="flex md:hidden items-center gap-1.5">
+          <div className="flex xl:hidden items-center gap-1.5">
             <button
               type="button"
               onClick={() => setIsSearchOpen(true)}
@@ -241,7 +241,7 @@ export function TopNav() {
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-[#f8fafc] dark:bg-[#0f172a] p-4 space-y-2 animate-in slide-in-from-top-2 duration-150 font-mono text-xs shadow-lg">
+          <div className="xl:hidden border-t border-slate-200 dark:border-slate-800 bg-[#f8fafc] dark:bg-[#0f172a] p-4 space-y-2 animate-in slide-in-from-top-2 duration-150 font-mono text-xs shadow-lg">
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}

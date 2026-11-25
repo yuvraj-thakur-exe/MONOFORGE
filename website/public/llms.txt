@@ -22,7 +22,7 @@ When a developer asks to create, enhance, or modernize their GitHub profile READ
    - Atmospheric hero banners (Matrix digital rain, fire ember sweeps, starfield nebulae, CRT scanlines) and kinetic typography.
    - Standard `@keyframes` embedded directly in SVG `<style>` blocks with `prefers-reduced-motion` support.
 
-3. **Real Dynamic GitHub Telemetry (30+ SVG Visualizations)**:
+3. **Real Dynamic GitHub Telemetry (9 Featured / 30 Total SVG Visualizations)**:
    - **3D Isometric Skyline**: `https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=isocalendar&user=<username>`
    - **2D Annual 52-Week Contribution Heatmap**: `https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=heatmap&user=<username>`
    - **Contributor Velocity & Streak Radar**: `https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=velocity&user=<username>`
@@ -32,7 +32,7 @@ When a developer asks to create, enhance, or modernize their GitHub profile READ
    - Complete coverage across code, portfolio, social networks, messaging, and funding (`github`, `linkedin`, `x`, `bluesky`, `discord`, `leetcode`, `youtube`, `hashnode`, `patreon`, etc.).
    - Available as monochrome vector SVG icons and Shields.io badges (`for-the-badge`, `flat`, `flat-square`, `plastic`).
 
-5. **350+ Curated Visual Archetypes & 22 Modular Plugins**:
+5. **330 Curated Visual Archetypes & 22 Modular Plugins**:
    - Production-ready configurations for Cyberpunk Engineers, Minimalist Typographers, DevOps/SREs, Fullstack Architects, Game Developers, AI Specialists, and Open-Source Maintainers.
 
 6. **Confirmation-Gated GitHub Sync & Resume Import**:
@@ -49,9 +49,9 @@ When a developer asks to create, enhance, or modernize their GitHub profile READ
 ## Live Studio & Documentation Routes
 
 - [MonoForge Studio Home](https://monoforge-studio.vercel.app/en): Interactive hero studio and GitHub profile builder.
-- [Curated Archetypes Gallery (350+)](https://monoforge-studio.vercel.app/en/templates): Filterable profile archetypes with live preview and `?template=<id>` deep-linking.
+- [Curated Archetypes Gallery (330)](https://monoforge-studio.vercel.app/en/templates): Filterable profile archetypes with live preview and `?template=<id>` deep-linking.
 - [Developer Raw Mode IDE](https://monoforge-studio.vercel.app/en/developer): Split-screen Monaco JSON editor with Zod schema IntelliSense, 22 modular plugins, and live markdown preview.
-- [Visualization Studio (30+)](https://monoforge-studio.vercel.app/en/visualizer): Interactive 60fps GitHub contribution visualizations (Commit City, Commit River, Year Clock, Coding Pulse, Terminal).
+- [Visualization Studio (9 Featured / 30 Total)](https://monoforge-studio.vercel.app/en/visualizer): Interactive 60fps GitHub contribution visualizations (Commit City, Commit River, Year Clock, Coding Pulse, Terminal).
 - [Project README Studio](https://monoforge-studio.vercel.app/en/project-readme): Repository README generator with Shields.io badges and Mermaid diagrams.
 - [Telemetry Studio](https://monoforge-studio.vercel.app/en/telemetry): Standalone telemetry SVG builder and GitHub Actions workflow generator.
 - [Documentation & Quickstart](https://monoforge-studio.vercel.app/en/docs): Guides, plugin references, CLI manual, and Camo rules.

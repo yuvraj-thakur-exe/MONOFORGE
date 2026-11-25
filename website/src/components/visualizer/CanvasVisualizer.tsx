@@ -5,7 +5,9 @@ import {
   NormalizedDeveloperIdentity,
   VisualizationId,
   VisualizationTheme,
+  ThemeColors,
 } from '#/lib/visualizations/types';
+import { NormalizedDeveloperIdentityWithProvenance } from '#/lib/visualizations/data-engine';
 import { VISUALIZATION_THEMES } from '#/lib/visualizations/themes';
 
 interface CanvasVisualizerProps {
@@ -33,6 +35,7 @@ export function CanvasVisualizer({
   const theme = VISUALIZATION_THEMES[themeKey] || VISUALIZATION_THEMES.emerald;
 
   useEffect(() => {
+    onHoverInfo?.(null);
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -55,7 +58,6 @@ export function CanvasVisualizer({
     resize();
     window.addEventListener('resize', resize);
 
-    // Mouse tracking
     const onMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       mouseRef.current = {
@@ -73,7 +75,6 @@ export function CanvasVisualizer({
     canvas.addEventListener('mousemove', onMouseMove);
     canvas.addEventListener('mouseleave', onMouseLeave);
 
-    // Animation loop
     let lastTimestamp = performance.now();
 
     const render = (now: number) => {
@@ -85,11 +86,9 @@ export function CanvasVisualizer({
       }
       const t = timeRef.current;
 
-      // Clear Canvas
       ctx.fillStyle = theme.bg;
       ctx.fillRect(0, 0, width, height);
 
-      // Render Active Visualization
       switch (id) {
         case 'commit-city':
           drawCommitCity(ctx, width, height, t, data, theme, mouseRef.current, onHoverInfo);
@@ -152,6 +151,7 @@ export function CanvasVisualizer({
           break;
       }
 
+      drawProvenanceBadge(ctx, width, height, data as NormalizedDeveloperIdentityWithProvenance, theme);
       animFrameRef.current = requestAnimationFrame(render);
     };
 
@@ -162,8 +162,9 @@ export function CanvasVisualizer({
       canvas.removeEventListener('mousemove', onMouseMove);
       canvas.removeEventListener('mouseleave', onMouseLeave);
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+      onHoverInfo?.(null);
     };
-  }, [id, data, themeKey, speed, isPlaying, onHoverInfo]);
+  }, [id, data, themeKey, theme, speed, isPlaying, onHoverInfo]);
 
   return (
     <canvas
@@ -172,6 +173,75 @@ export function CanvasVisualizer({
       style={{ touchAction: 'none' }}
     />
   );
+}
+
+function drawProvenanceBadge(
+  ctx: CanvasRenderingContext2D,
+  w: number,
+  _h: number,
+  data: NormalizedDeveloperIdentityWithProvenance,
+  theme: ThemeColors
+) {
+  if (w < 200) return;
+  const source = data.source ?? (data.isRealData ? 'github' : 'sample');
+  let label = 'LIVE GITHUB';
+  let stroke = '#10b981';
+  let text = '#34d399';
+
+  if (source === 'sample') {
+    label = 'SAMPLE DATA';
+    stroke = '#f59e0b';
+    text = '#fbbf24';
+  } else if (source === 'partial') {
+    label = 'PARTIAL DATA';
+    stroke = '#eab308';
+    text = '#fde047';
+  } else if (source === 'unavailable') {
+    label = data.rateLimited ? 'RATE LIMITED' : 'DATA UNAVAILABLE';
+    stroke = '#ef4444';
+    text = '#fca5a5';
+  }
+
+  ctx.save();
+  ctx.font = 'bold 10px monospace';
+  const paddingX = 10;
+  const tw = ctx.measureText(label).width;
+  const boxW = tw + paddingX * 2;
+  const bx = w - boxW - 14;
+  const by = 12;
+
+  ctx.fillStyle = theme.cardBg;
+  ctx.strokeStyle = stroke;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.roundRect(bx, by, boxW, 20, 10);
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.fillStyle = text;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(label, bx + boxW / 2, by + 10.5);
+  ctx.restore();
+}
+
+function drawEmptyNotice(
+  ctx: CanvasRenderingContext2D,
+  w: number,
+  h: number,
+  theme: ThemeColors,
+  title: string,
+  subtitle: string
+) {
+  ctx.save();
+  ctx.fillStyle = theme.textPrimary;
+  ctx.font = 'bold 13px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText(title, w / 2, h / 2 - 8);
+  ctx.fillStyle = theme.textMuted;
+  ctx.font = '11px monospace';
+  ctx.fillText(subtitle, w / 2, h / 2 + 14);
+  ctx.restore();
 }
 
 /* =========================================================================
@@ -184,7 +254,7 @@ function drawCommitCity(
   h: number,
   t: number,
   data: NormalizedDeveloperIdentity,
-  theme: any,
+  theme: ThemeColors,
   mouse: { x: number; y: number; active: boolean },
   onHover?: (info: string | null) => void
 ) {
@@ -194,7 +264,12 @@ function drawCommitCity(
   const cubeH = 10;
   const recentWeeks = data.weeks.slice(-24);
 
-  let hoveredDay: any = null;
+  if (recentWeeks.length === 0) {
+    drawEmptyNotice(ctx, w, h, theme, 'COMMIT CITY', 'No contribution calendar data available');
+    return;
+  }
+
+  let hoveredDay: { date: string; count: number; level: number } | null = null;
 
   recentWeeks.forEach((week, wIdx) => {
     week.days.forEach((day, dIdx) => {
@@ -203,15 +278,13 @@ function drawCommitCity(
       const isoX = originX + (x - y) * (cubeW * 0.95);
       const isoY = originY + (x + y) * (cubeH * 0.95);
 
-      const wave = Math.sin(t * 2 + wIdx * 0.2 + dIdx * 0.3) * 2;
+      const wave = day.count > 0 ? Math.sin(t * 2 + wIdx * 0.2 + dIdx * 0.3) * 2 : 0;
       const bHeight = day.count > 0 ? Math.min(105, day.count * 8 + 10 + wave) : 4;
 
-      // Mouse detection
       if (mouse.active && Math.hypot(mouse.x - isoX, mouse.y - (isoY - bHeight / 2)) < 14) {
         hoveredDay = day;
       }
 
-      // Left Face
       ctx.fillStyle = theme.levels[day.level];
       ctx.beginPath();
       ctx.moveTo(isoX, isoY);
@@ -224,7 +297,6 @@ function drawCommitCity(
       ctx.lineWidth = 0.5;
       ctx.stroke();
 
-      // Right Face
       ctx.fillStyle = day.count > 0 ? theme.secondary : theme.border;
       ctx.beginPath();
       ctx.moveTo(isoX + cubeW / 2, isoY + cubeH / 2);
@@ -235,7 +307,6 @@ function drawCommitCity(
       ctx.fill();
       ctx.stroke();
 
-      // Roof Face
       ctx.fillStyle = day.count > 0 ? theme.primary : theme.levels[0];
       ctx.beginPath();
       ctx.moveTo(isoX, isoY - bHeight);
@@ -251,7 +322,8 @@ function drawCommitCity(
   });
 
   if (hoveredDay) {
-    onHover?.(`📅 ${hoveredDay.date}: ${hoveredDay.count} commits (Level ${hoveredDay.level})`);
+    const hd = hoveredDay as { date: string; count: number; level: number };
+    onHover?.(`${hd.date}: ${hd.count} commits (Level ${hd.level})`);
   } else if (mouse.active) {
     onHover?.(null);
   }
@@ -263,33 +335,32 @@ function drawCommitRiver(
   h: number,
   t: number,
   data: NormalizedDeveloperIdentity,
-  theme: any,
+  theme: ThemeColors,
   _mouse: { x: number; y: number; active: boolean },
   onHover?: (info: string | null) => void
 ) {
   const startY = h / 2;
-  const numParticles = 65;
+  const hasActivity = data.totalContributions > 0;
+  const numParticles = hasActivity ? Math.min(65, Math.max(12, Math.round(data.dailyAverage * 10))) : 0;
 
-  // Draw River Gradient Stream
-  ctx.strokeStyle = theme.primary;
-  ctx.lineWidth = 32;
+  ctx.strokeStyle = hasActivity ? theme.primary : theme.border;
+  ctx.lineWidth = hasActivity ? 32 : 12;
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
   ctx.beginPath();
   ctx.moveTo(40, startY);
 
   for (let x = 40; x <= w - 40; x += 30) {
-    const wave = Math.sin((x / w) * Math.PI * 3 + t * 1.5) * 40;
+    const wave = hasActivity ? Math.sin((x / w) * Math.PI * 3 + t * 1.5) * 40 : 0;
     ctx.lineTo(x, startY + wave);
   }
   ctx.stroke();
 
-  // Floating Particles
   for (let p = 0; p < numParticles; p++) {
-    const progress = ((t * 0.15 + p / numParticles) % 1);
+    const progress = (t * 0.15 + p / numParticles) % 1;
     const x = 50 + progress * (w - 100);
     const wave = Math.sin((x / w) * Math.PI * 3 + t * 1.5) * 40;
-    const y = startY + wave + (Math.sin(p * 99) * 12);
+    const y = startY + wave + Math.sin(p * 99) * 12;
 
     ctx.fillStyle = p % 2 === 0 ? theme.secondary : theme.accent;
     ctx.beginPath();
@@ -297,7 +368,7 @@ function drawCommitRiver(
     ctx.fill();
   }
 
-  onHover?.(`🌊 Flow Velocity: ${data.dailyAverage} commits/day (${data.totalContributions} total)`);
+  onHover?.(`Flow Velocity: ${data.dailyAverage} commits/day (${data.totalContributions} total)`);
 }
 
 function drawYearClock(
@@ -306,7 +377,7 @@ function drawYearClock(
   h: number,
   t: number,
   data: NormalizedDeveloperIdentity,
-  theme: any,
+  theme: ThemeColors,
   _mouse?: { x: number; y: number; active: boolean },
   _onHover?: (info: string | null) => void
 ) {
@@ -314,16 +385,27 @@ function drawYearClock(
   const cy = h / 2;
   const radius = Math.min(w, h) * 0.38;
 
-  // Draw 12 Concentric Radial Wedges
+  const monthlyTotals = Array(12).fill(0) as number[];
+  data.days.forEach((d) => {
+    const parts = d.date.split('-');
+    const m = Number.parseInt(parts[1] ?? '', 10);
+    if (m >= 1 && m <= 12) {
+      monthlyTotals[m - 1] += d.count;
+    }
+  });
+  const maxMonth = Math.max(...monthlyTotals, 1);
+
   for (let m = 0; m < 12; m++) {
     const startA = ((m * 30 - 90) * Math.PI) / 180;
     const endA = (((m + 1) * 30 - 92) * Math.PI) / 180;
-    const color = theme.levels[(m % 4) + 1];
+    const ratio = monthlyTotals[m] > 0 ? monthlyTotals[m] / maxMonth : 0;
+    const levelIdx = ratio === 0 ? 0 : ratio > 0.75 ? 4 : ratio > 0.5 ? 3 : ratio > 0.25 ? 2 : 1;
+    const color = theme.levels[levelIdx];
 
     ctx.fillStyle = color;
     ctx.beginPath();
     ctx.moveTo(cx, cy);
-    ctx.arc(cx, cy, radius * (0.6 + ((m % 5) * 0.08)), startA, endA);
+    ctx.arc(cx, cy, radius * (0.45 + ratio * 0.55), startA, endA);
     ctx.closePath();
     ctx.fill();
     ctx.strokeStyle = theme.bg;
@@ -331,7 +413,6 @@ function drawYearClock(
     ctx.stroke();
   }
 
-  // Rotating Radar Scanner
   const sweepAngle = (t * 0.8) % (Math.PI * 2);
   ctx.strokeStyle = theme.primary;
   ctx.lineWidth = 2;
@@ -340,7 +421,6 @@ function drawYearClock(
   ctx.lineTo(cx + Math.cos(sweepAngle) * radius, cy + Math.sin(sweepAngle) * radius);
   ctx.stroke();
 
-  // Center Hub
   ctx.fillStyle = theme.cardBg;
   ctx.beginPath();
   ctx.arc(cx, cy, 32, 0, Math.PI * 2);
@@ -363,14 +443,13 @@ function drawCodingPulse(
   w: number,
   h: number,
   t: number,
-  _data: NormalizedDeveloperIdentity,
-  theme: any
+  data: NormalizedDeveloperIdentity,
+  theme: ThemeColors
 ) {
   const midY = h / 2;
   const startX = 40;
   const endX = w - 40;
 
-  // Background Oscilloscope Grid
   ctx.strokeStyle = theme.border;
   ctx.lineWidth = 0.5;
   for (let x = startX; x <= endX; x += 40) {
@@ -386,20 +465,24 @@ function drawCodingPulse(
     ctx.stroke();
   }
 
-  // Waveform
-  ctx.strokeStyle = theme.primary;
+  const weeklyCounts = data.weeks.map((wk) => wk.days.reduce((s, d) => s + d.count, 0));
+  const maxWeek = Math.max(...weeklyCounts, 1);
+  const hasActivity = data.totalContributions > 0;
+
+  ctx.strokeStyle = hasActivity ? theme.primary : theme.textMuted;
   ctx.lineWidth = 2.5;
   ctx.beginPath();
   ctx.moveTo(startX, midY);
 
-  const step = (endX - startX) / 50;
-  for (let i = 0; i <= 50; i++) {
+  const points = Math.max(20, weeklyCounts.length || 50);
+  const step = (endX - startX) / points;
+  for (let i = 0; i <= points; i++) {
     const x = startX + i * step;
-    const progress = (i / 50 + t * 0.3) % 1;
     let spike = 0;
-
-    if (progress > 0.45 && progress < 0.55) {
-      spike = Math.sin((progress - 0.45) * Math.PI * 10) * 80;
+    if (hasActivity && weeklyCounts.length > 0) {
+      const idx = Math.floor((i + Math.floor(t * 6)) % weeklyCounts.length);
+      const norm = weeklyCounts[idx] / maxWeek;
+      spike = norm * 85 * Math.sin((i / points) * Math.PI * 8 + t * 2);
     }
     ctx.lineTo(x, midY - spike);
   }
@@ -412,7 +495,7 @@ function drawDeveloperTerminal(
   h: number,
   t: number,
   data: NormalizedDeveloperIdentity,
-  theme: any
+  theme: ThemeColors
 ) {
   ctx.fillStyle = theme.cardBg;
   ctx.fillRect(30, 30, w - 60, h - 60);
@@ -420,31 +503,30 @@ function drawDeveloperTerminal(
   ctx.lineWidth = 1;
   ctx.strokeRect(30, 30, w - 60, h - 60);
 
-  // Shell Title
   ctx.fillStyle = theme.primary;
   ctx.font = 'bold 12px monospace';
   ctx.textAlign = 'left';
-  ctx.fillText(`bash • ${data.username}@monoforge:~$ git log --stat`, 50, 60);
+  ctx.fillText(`bash • ${data.username}@monoforge:~$ telemetry --summary`, 50, 60);
 
-  // Commits
-  const commits = [
-    { hash: '7f2a9d1', msg: 'feat(engine): deploy 60fps vector animation runtime' },
-    { hash: '4e8b11c', msg: 'perf(canvas): optimize isometric skyline rasterization' },
-    { hash: '9c02d84', msg: 'chore(deps): synchronize Camo sanitizer invariants' },
+  const topLangs = data.languages.slice(0, 3).map((l) => `${l.name} (${l.percentage}%)`).join(', ') || 'None detected';
+  const lines = [
+    { key: 'CONTRIBUTIONS', val: `${data.totalContributions.toLocaleString()} annual commits (${data.dailyAverage}/day avg)` },
+    { key: 'STREAKS', val: `${data.currentStreak}d current • ${data.maxStreak}d longest • ${data.highestDay} peak day` },
+    { key: 'REPOSITORIES', val: `${data.repositories.length} tracked public repos` },
+    { key: 'LANGUAGES', val: topLangs },
   ];
 
-  commits.forEach((c, idx) => {
+  lines.forEach((line, idx) => {
     ctx.fillStyle = theme.secondary;
-    ctx.fillText(`* ${c.hash}`, 50, 95 + idx * 30);
+    ctx.fillText(`[${line.key}]`, 50, 95 + idx * 28);
     ctx.fillStyle = theme.textPrimary;
-    ctx.fillText(c.msg, 130, 95 + idx * 30);
+    ctx.fillText(line.val, 190, 95 + idx * 28);
   });
 
-  // Prompt Cursor
   const cursorBlink = Math.floor(t * 2) % 2 === 0;
   if (cursorBlink) {
     ctx.fillStyle = theme.primary;
-    ctx.fillRect(50, 200, 8, 14);
+    ctx.fillRect(50, 220, 8, 14);
   }
 }
 
@@ -454,14 +536,18 @@ function drawContributionSnake(
   h: number,
   t: number,
   data: NormalizedDeveloperIdentity,
-  theme: any
+  theme: ThemeColors
 ) {
+  if (data.weeks.length === 0) {
+    drawEmptyNotice(ctx, w, h, theme, 'CONTRIBUTION SNAKE', 'No contribution calendar data available');
+    return;
+  }
+
   const cellSize = 11;
   const gap = 3;
   const startX = (w - 52 * (cellSize + gap)) / 2;
   const startY = (h - 7 * (cellSize + gap)) / 2;
 
-  // 52 x 7 Grid
   data.weeks.forEach((week, wi) => {
     week.days.forEach((day, di) => {
       const x = startX + wi * (cellSize + gap);
@@ -471,7 +557,6 @@ function drawContributionSnake(
     });
   });
 
-  // Snake Position
   const snakeProgress = (t * 0.1) % 1;
   const snakeX = startX + snakeProgress * (52 * (cellSize + gap));
   const snakeY = startY + (Math.sin(t * 4) * 0.5 + 0.5) * (7 * (cellSize + gap));
@@ -488,20 +573,28 @@ function drawRepositoryGalaxy(
   h: number,
   t: number,
   data: NormalizedDeveloperIdentity,
-  theme: any,
+  theme: ThemeColors,
   mouse: { x: number; y: number; active: boolean },
   onHover?: (info: string | null) => void
 ) {
   const cx = w / 2;
   const cy = h / 2;
 
-  // Central Sun
   ctx.fillStyle = theme.primary;
   ctx.beginPath();
   ctx.arc(cx, cy, 24, 0, Math.PI * 2);
   ctx.fill();
 
-  let hoveredRepo: any = null;
+  if (data.repositories.length === 0) {
+    ctx.fillStyle = theme.textMuted;
+    ctx.font = '11px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('0 public repositories available', cx, cy + 56);
+    if (mouse.active) onHover?.(null);
+    return;
+  }
+
+  let hoveredRepo: { name: string; stars: number; language: string } | null = null;
 
   data.repositories.slice(0, 5).forEach((repo, idx) => {
     const rx = 65 + idx * 45;
@@ -510,14 +603,12 @@ function drawRepositoryGalaxy(
     const px = cx + Math.cos(angle) * rx;
     const py = cy + Math.sin(angle) * ry;
 
-    // Orbit ellipse
     ctx.strokeStyle = theme.border;
     ctx.lineWidth = 0.5;
     ctx.beginPath();
     ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
     ctx.stroke();
 
-    // Planet
     ctx.fillStyle = repo.color;
     ctx.beginPath();
     ctx.arc(px, py, 9, 0, Math.PI * 2);
@@ -529,7 +620,8 @@ function drawRepositoryGalaxy(
   });
 
   if (hoveredRepo) {
-    onHover?.(`🪐 ${hoveredRepo.name}: ${hoveredRepo.stars}★ (${hoveredRepo.language})`);
+    const hr = hoveredRepo as { name: string; stars: number; language: string };
+    onHover?.(`${hr.name}: ${hr.stars} stars (${hr.language})`);
   } else if (mouse.active) {
     onHover?.(null);
   }
@@ -541,7 +633,7 @@ function drawDeveloperDna(
   h: number,
   t: number,
   data: NormalizedDeveloperIdentity,
-  theme: any
+  theme: ThemeColors
 ) {
   const startX = 60;
   const endX = w - 60;
@@ -555,8 +647,11 @@ function drawDeveloperDna(
     const y1 = midY + Math.sin(phase) * 50;
     const y2 = midY - Math.sin(phase) * 50;
 
-    const lang = data.languages[i % data.languages.length];
-    ctx.strokeStyle = lang.color;
+    const langColor =
+      data.languages.length > 0
+        ? data.languages[i % data.languages.length].color
+        : theme.border;
+    ctx.strokeStyle = langColor;
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(x, y1);
@@ -573,6 +668,13 @@ function drawDeveloperDna(
     ctx.arc(x, y2, 4, 0, Math.PI * 2);
     ctx.fill();
   }
+
+  if (data.languages.length === 0) {
+    ctx.fillStyle = theme.textMuted;
+    ctx.font = '11px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('0 verified language profiles available', w / 2, h - 36);
+  }
 }
 
 function drawSkillConstellation(
@@ -581,10 +683,16 @@ function drawSkillConstellation(
   h: number,
   t: number,
   data: NormalizedDeveloperIdentity,
-  theme: any,
+  theme: ThemeColors,
   mouse: { x: number; y: number; active: boolean },
   onHover?: (info: string | null) => void
 ) {
+  if (data.skills.length === 0) {
+    drawEmptyNotice(ctx, w, h, theme, 'SKILL CONSTELLATION', 'No verified language or skill nodes available');
+    if (mouse.active) onHover?.(null);
+    return;
+  }
+
   const cx = w / 2;
   const cy = h / 2;
 
@@ -598,13 +706,12 @@ function drawSkillConstellation(
     };
   });
 
-  // Lines
-  const map = new Map(nodes.map(n => [n.id, n]));
+  const map = new Map(nodes.map((n) => [n.id, n]));
   ctx.strokeStyle = theme.border;
   ctx.lineWidth = 1;
 
-  nodes.forEach(n => {
-    n.connectedTo.forEach(targetId => {
+  nodes.forEach((n) => {
+    n.connectedTo.forEach((targetId) => {
       const target = map.get(targetId);
       if (target) {
         ctx.beginPath();
@@ -615,9 +722,8 @@ function drawSkillConstellation(
     });
   });
 
-  // Nodes
-  let hoveredSkill: any = null;
-  nodes.forEach(n => {
+  let hoveredSkill: { name: string; level: number; category: string } | null = null;
+  nodes.forEach((n) => {
     ctx.fillStyle = theme.primary;
     ctx.beginPath();
     ctx.arc(n.x, n.y, n.level * 1.8 + 2, 0, Math.PI * 2);
@@ -629,7 +735,8 @@ function drawSkillConstellation(
   });
 
   if (hoveredSkill) {
-    onHover?.(`✨ Skill: ${hoveredSkill.name} (Level ${hoveredSkill.level}/5, ${hoveredSkill.category})`);
+    const hs = hoveredSkill as { name: string; level: number; category: string };
+    onHover?.(`Skill: ${hs.name} (Level ${hs.level}/5, ${hs.category})`);
   } else if (mouse.active) {
     onHover?.(null);
   }
@@ -640,8 +747,8 @@ function drawEngineeringRadar(
   w: number,
   h: number,
   t: number,
-  _data: NormalizedDeveloperIdentity,
-  theme: any,
+  data: NormalizedDeveloperIdentity,
+  theme: ThemeColors,
   mouse: { x: number; y: number; active: boolean },
   onHover?: (info: string | null) => void
 ) {
@@ -649,17 +756,28 @@ function drawEngineeringRadar(
   const cy = h / 2 + 10;
   const radius = Math.min(w, h) * 0.32;
 
+  const scoreForCategory = (cat: string) => {
+    const matching = data.skills.filter((s) => s.category === cat);
+    if (matching.length === 0) return 0;
+    const avg = matching.reduce((sum, s) => sum + s.level, 0) / matching.length;
+    return Math.min(1, Math.max(0.15, avg / 5));
+  };
+
+  const hasData = data.skills.length > 0 || data.totalContributions > 0;
   const axes = [
-    { label: 'Frontend', val: 0.92, detail: 'React / Next.js / TypeScript' },
-    { label: 'Backend', val: 0.88, detail: 'Node.js / Python / REST & GraphQL' },
-    { label: 'Systems', val: 0.76, detail: 'Linux / Rust / Memory & Performance' },
-    { label: 'DevOps', val: 0.82, detail: 'Docker / CI/CD / Cloud Architecture' },
-    { label: 'AI & Data', val: 0.72, detail: 'PyTorch / LLMs / Vector Embeddings' },
-    { label: 'Tooling', val: 0.95, detail: 'Git / Antigravity / Testing / Build Tools' },
+    { label: 'Frontend', val: scoreForCategory('frontend'), detail: 'UI & client stack' },
+    { label: 'Backend', val: scoreForCategory('backend'), detail: 'APIs & services' },
+    { label: 'Systems', val: scoreForCategory('systems'), detail: 'Low-level & runtime' },
+    { label: 'DevOps', val: scoreForCategory('devops'), detail: 'Tooling & infra' },
+    { label: 'AI & Data', val: scoreForCategory('ai'), detail: 'ML & scripting' },
+    {
+      label: 'Activity',
+      val: data.totalContributions > 0 ? Math.min(1, Math.max(0.2, data.activeDaysCount / 260)) : 0,
+      detail: `${data.totalContributions} commits (${data.activeDaysCount} active days)`,
+    },
   ];
   const numAxes = axes.length;
 
-  // Background Concentric Rings (Web)
   const rings = [0.25, 0.5, 0.75, 1.0];
   rings.forEach((r, idx) => {
     ctx.strokeStyle = theme.border;
@@ -678,7 +796,6 @@ function drawEngineeringRadar(
   });
   ctx.setLineDash([]);
 
-  // Axis Spokes & Labels
   axes.forEach((axis, i) => {
     const angle = (i / numAxes) * Math.PI * 2 - Math.PI / 2;
     const px = cx + Math.cos(angle) * radius;
@@ -700,7 +817,12 @@ function drawEngineeringRadar(
     ctx.fillText(axis.label, lx, ly);
   });
 
-  // Radar Rotating Sonar Beam
+  if (!hasData) {
+    drawEmptyNotice(ctx, w, h, theme, 'ENGINEERING RADAR', 'No verified skill or activity metrics available');
+    if (mouse.active) onHover?.(null);
+    return;
+  }
+
   const sweepAngle = (t * 1.5) % (Math.PI * 2);
   const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
   grad.addColorStop(0, `${theme.primary}00`);
@@ -712,14 +834,13 @@ function drawEngineeringRadar(
   ctx.closePath();
   ctx.fill();
 
-  // Skill Value Polygon with Breathing Motion
-  const breath = Math.sin(t * 2) * 3;
+  const breath = Math.sin(t * 2) * 2;
   ctx.beginPath();
-  let hoveredAxis: any = null;
+  let hoveredAxis: { label: string; val: number; detail: string } | null = null;
 
   axes.forEach((axis, i) => {
     const angle = (i / numAxes) * Math.PI * 2 - Math.PI / 2;
-    const r = (axis.val * radius) + breath;
+    const r = Math.max(0, axis.val * radius + (axis.val > 0 ? breath : 0));
     const px = cx + Math.cos(angle) * r;
     const py = cy + Math.sin(angle) * r;
 
@@ -737,10 +858,9 @@ function drawEngineeringRadar(
   ctx.lineWidth = 2.5;
   ctx.stroke();
 
-  // Vertex Markers
   axes.forEach((axis, i) => {
     const angle = (i / numAxes) * Math.PI * 2 - Math.PI / 2;
-    const r = (axis.val * radius) + breath;
+    const r = Math.max(0, axis.val * radius + (axis.val > 0 ? breath : 0));
     const px = cx + Math.cos(angle) * r;
     const py = cy + Math.sin(angle) * r;
 
@@ -754,7 +874,8 @@ function drawEngineeringRadar(
   });
 
   if (hoveredAxis) {
-    onHover?.(`📊 ${hoveredAxis.label}: ${Math.round(hoveredAxis.val * 100)}% Proficiency — ${hoveredAxis.detail}`);
+    const ha = hoveredAxis as { label: string; val: number; detail: string };
+    onHover?.(`${ha.label}: ${Math.round(ha.val * 100)}% — ${ha.detail}`);
   } else if (mouse.active) {
     onHover?.(null);
   }
@@ -766,11 +887,10 @@ function drawCodebaseBlueprint(
   h: number,
   t: number,
   data: NormalizedDeveloperIdentity,
-  theme: any,
+  theme: ThemeColors,
   mouse: { x: number; y: number; active: boolean },
   onHover?: (info: string | null) => void
 ) {
-  // CAD Grid lines
   ctx.strokeStyle = `${theme.border}44`;
   ctx.lineWidth = 0.5;
   const gridSize = 24;
@@ -787,16 +907,14 @@ function drawCodebaseBlueprint(
     ctx.stroke();
   }
 
-  // Header Title
   ctx.fillStyle = theme.primary;
   ctx.font = 'bold 12px monospace';
   ctx.textAlign = 'left';
   ctx.fillText(`ARCHITECTURAL SCHEMATIC // ${data.username.toUpperCase()}`, 28, 30);
   ctx.fillStyle = theme.textMuted;
   ctx.font = '10px monospace';
-  ctx.fillText(`Kernel Modules: ${data.repositories.length} | Commits: ${data.totalContributions} | Streak: ${data.currentStreak}D`, 28, 46);
+  ctx.fillText(`Modules: ${data.repositories.length} | Commits: ${data.totalContributions} | Streak: ${data.currentStreak}D`, 28, 46);
 
-  // Central Hub
   const hubX = w * 0.22;
   const hubY = h / 2;
   ctx.fillStyle = theme.cardBg;
@@ -810,19 +928,27 @@ function drawCodebaseBlueprint(
   ctx.fillStyle = theme.textPrimary;
   ctx.font = 'bold 11px monospace';
   ctx.textAlign = 'center';
-  ctx.fillText('CORE ENGINE', hubX, hubY - 6);
+  ctx.fillText('PROFILE CORE', hubX, hubY - 6);
   ctx.fillStyle = theme.accent;
   ctx.font = 'bold 10px monospace';
   ctx.fillText(`${data.totalContributions} commits`, hubX, hubY + 12);
 
-  // Repository Module Cards on the right
   const repos = data.repositories.slice(0, 3);
-  let hoveredRepo: any = null;
+  if (repos.length === 0) {
+    ctx.fillStyle = theme.textMuted;
+    ctx.font = '11px monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText('0 public repository modules available', w * 0.45, h / 2);
+    if (mouse.active) onHover?.(null);
+    return;
+  }
+
+  let hoveredRepo: { name: string; language: string; stars: number; activityScore: number } | null = null;
 
   repos.forEach((repo, idx) => {
     const rx = w * 0.54;
     const ry = 80 + idx * 105;
-    const rw = w * 0.40;
+    const rw = w * 0.4;
     const rh = 84;
 
     ctx.strokeStyle = theme.border;
@@ -835,7 +961,7 @@ function drawCodebaseBlueprint(
     ctx.lineTo(rx, ry + rh / 2);
     ctx.stroke();
 
-    const packetProgress = ((t * 0.8 + idx * 0.33) % 1);
+    const packetProgress = (t * 0.8 + idx * 0.33) % 1;
     let px = hubX + 50;
     let py = hubY;
     if (packetProgress < 0.33) {
@@ -871,7 +997,8 @@ function drawCodebaseBlueprint(
 
     ctx.fillStyle = theme.textMuted;
     ctx.font = '10px monospace';
-    ctx.fillText(repo.description.substring(0, 36) + '...', rx + 16, ry + 46);
+    const desc = repo.description ? `${repo.description.substring(0, 36)}...` : 'No repository description';
+    ctx.fillText(desc, rx + 16, ry + 46);
 
     ctx.fillStyle = theme.bg;
     ctx.strokeStyle = theme.primary;
@@ -889,11 +1016,12 @@ function drawCodebaseBlueprint(
     ctx.fillStyle = theme.accent;
     ctx.font = 'bold 11px monospace';
     ctx.textAlign = 'right';
-    ctx.fillText(`${repo.stars} ★`, rx + rw - 16, ry + 28);
+    ctx.fillText(`${repo.stars} stars`, rx + rw - 16, ry + 28);
   });
 
   if (hoveredRepo) {
-    onHover?.(`📦 Module: ${hoveredRepo.name} (${hoveredRepo.language}) • ${hoveredRepo.stars} Stars • Score: ${hoveredRepo.activityScore}/100`);
+    const hr = hoveredRepo as { name: string; language: string; stars: number; activityScore: number };
+    onHover?.(`Module: ${hr.name} (${hr.language}) • ${hr.stars} Stars • Score: ${hr.activityScore}/100`);
   } else if (mouse.active) {
     onHover?.(null);
   }
@@ -905,31 +1033,31 @@ function drawLanguageRiver(
   h: number,
   t: number,
   data: NormalizedDeveloperIdentity,
-  theme: any,
+  theme: ThemeColors,
   mouse: { x: number; y: number; active: boolean },
   onHover?: (info: string | null) => void
 ) {
-  const languages = data.languages.length > 0 ? data.languages : [
-    { name: 'TypeScript', percentage: 48, color: '#3178c6', bytes: 120000 },
-    { name: 'JavaScript', percentage: 22, color: '#f7df1e', bytes: 55000 },
-    { name: 'Python', percentage: 18, color: '#3776ab', bytes: 45000 },
-    { name: 'Rust', percentage: 8, color: '#dea584', bytes: 20000 },
-    { name: 'CSS/HTML', percentage: 4, color: '#e34c26', bytes: 10000 },
-  ];
+  const languages = data.languages;
 
   ctx.fillStyle = theme.primary;
   ctx.font = 'bold 13px monospace';
   ctx.textAlign = 'left';
-  ctx.fillText(`LANGUAGE RIVER // HARMONIC STREAM GRAPH`, 36, 32);
+  ctx.fillText('LANGUAGE RIVER // HARMONIC STREAM GRAPH', 36, 32);
   ctx.fillStyle = theme.textMuted;
   ctx.font = '10px monospace';
-  ctx.fillText(`${data.username} • Polyglot Flow • ${languages.length} Active Stacks`, 36, 48);
+  ctx.fillText(`${data.username} • ${languages.length} Active Stacks`, 36, 48);
+
+  if (languages.length === 0) {
+    drawEmptyNotice(ctx, w, h, theme, 'NO LANGUAGE DATA', 'No repository language composition available');
+    if (mouse.active) onHover?.(null);
+    return;
+  }
 
   const riverTop = 90;
   const riverH = h * 0.55;
   let currentY = riverTop;
 
-  let hoveredLang: any = null;
+  let hoveredLang: { name: string; percentage: number; bytes: number } | null = null;
 
   languages.forEach((lang, idx) => {
     const bandH = Math.max(14, (lang.percentage / 100) * riverH);
@@ -992,7 +1120,8 @@ function drawLanguageRiver(
   });
 
   if (hoveredLang) {
-    onHover?.(`🌊 ${hoveredLang.name}: ${hoveredLang.percentage}% share • ${hoveredLang.bytes ? hoveredLang.bytes.toLocaleString() : 'N/A'} bytes`);
+    const hl = hoveredLang as { name: string; percentage: number; bytes: number };
+    onHover?.(`${hl.name}: ${hl.percentage}% share • ${hl.bytes ? hl.bytes.toLocaleString() : '0'} bytes`);
   } else if (mouse.active) {
     onHover?.(null);
   }
@@ -1004,17 +1133,17 @@ function drawReleaseTimeline(
   h: number,
   t: number,
   data: NormalizedDeveloperIdentity,
-  theme: any,
+  theme: ThemeColors,
   mouse: { x: number; y: number; active: boolean },
   onHover?: (info: string | null) => void
 ) {
   ctx.fillStyle = theme.primary;
   ctx.font = 'bold 13px monospace';
   ctx.textAlign = 'left';
-  ctx.fillText(`RELEASE TIMELINE // TRANSIT ROADMAP`, 36, 32);
+  ctx.fillText('RELEASE TIMELINE // ACTIVITY QUARTERS', 36, 32);
   ctx.fillStyle = theme.textMuted;
   ctx.font = '10px monospace';
-  ctx.fillText(`${data.username} • Epoch Pipeline • ${data.totalContributions} Verified Commits`, 36, 48);
+  ctx.fillText(`${data.username} • Annual Pipeline • ${data.totalContributions} Commits`, 36, 48);
 
   const trackY = h * 0.54;
   const startX = 60;
@@ -1042,14 +1171,20 @@ function drawReleaseTimeline(
   ctx.arc(trainX, trackY, 6, 0, Math.PI * 2);
   ctx.fill();
 
+  const chunk = Math.max(1, Math.floor(data.days.length / 4));
+  const quarterCommits = [0, 1, 2, 3].map((q) => {
+    const slice = data.days.slice(q * chunk, q === 3 ? data.days.length : (q + 1) * chunk);
+    return slice.reduce((sum, d) => sum + d.count, 0);
+  });
+
   const milestones = [
-    { tag: 'v1.0.0', title: 'Architecture & Engine', status: 'RELEASED', commits: 142, date: 'Q1' },
-    { tag: 'v1.5.0', title: 'Telemetry & Git Sync', status: 'VERIFIED', commits: 284, date: 'Q2' },
-    { tag: 'v2.0.0', title: 'Camo Vector Studio', status: 'STABLE', commits: 512, date: 'Q3' },
-    { tag: 'v3.0.0', title: 'Developer Identity', status: 'PRODUCTION', commits: data.totalContributions, date: 'CURRENT' },
+    { tag: 'Q1', title: 'Quarter 1 Activity', status: `${quarterCommits[0]} commits`, commits: quarterCommits[0], date: '90D' },
+    { tag: 'Q2', title: 'Quarter 2 Activity', status: `${quarterCommits[1]} commits`, commits: quarterCommits[1], date: '180D' },
+    { tag: 'Q3', title: 'Quarter 3 Activity', status: `${quarterCommits[2]} commits`, commits: quarterCommits[2], date: '270D' },
+    { tag: 'Q4', title: 'Current Quarter', status: `${data.currentStreak}D streak`, commits: quarterCommits[3], date: 'NOW' },
   ];
 
-  let hoveredMilestone: any = null;
+  let hoveredMilestone: { tag: string; title: string; status: string; commits: number } | null = null;
 
   milestones.forEach((m, idx) => {
     const sx = startX + (idx / (milestones.length - 1)) * (endX - startX);
@@ -1116,7 +1251,8 @@ function drawReleaseTimeline(
   });
 
   if (hoveredMilestone) {
-    onHover?.(`🚀 Release: ${hoveredMilestone.tag} - ${hoveredMilestone.title} (${hoveredMilestone.status}) • ${hoveredMilestone.commits} commits`);
+    const hm = hoveredMilestone as { tag: string; title: string; status: string; commits: number };
+    onHover?.(`${hm.tag} - ${hm.title} (${hm.status}) • ${hm.commits} commits`);
   } else if (mouse.active) {
     onHover?.(null);
   }
@@ -1128,11 +1264,11 @@ function drawRetroSynthwave(
   h: number,
   t: number,
   data: NormalizedDeveloperIdentity,
-  _theme: any,
+  _theme: ThemeColors,
   mouse: { x: number; y: number; active: boolean },
   onHover?: (info: string | null) => void
 ) {
-  ctx.fillStyle = '#0a0714';
+  ctx.fillStyle = '#0f172a';
   ctx.fillRect(0, 0, w, h);
 
   const sunX = w / 2;
@@ -1148,7 +1284,7 @@ function drawRetroSynthwave(
   ctx.arc(sunX, sunY, sunR, 0, Math.PI * 2);
   ctx.fill();
 
-  ctx.fillStyle = '#0a0714';
+  ctx.fillStyle = '#0f172a';
   [-6, 8, 22, 34].forEach((sy, i) => {
     ctx.fillRect(sunX - sunR, sunY + sy, sunR * 2, (i + 1) * 2);
   });
@@ -1185,15 +1321,15 @@ function drawRetroSynthwave(
   ctx.fillText(`SYNTHWAVE 80S BENTO // ${data.username.toUpperCase()}`, 28, 28);
   ctx.fillStyle = '#94a3b8';
   ctx.font = '10px monospace';
-  ctx.fillText('Outrun Telemetry • Grade A+ Contributor', 28, 44);
+  ctx.fillText(`Outrun Telemetry • ${data.activeDaysCount} Active Days`, 28, 44);
 
   const cards = [
-    { label: 'TOTAL COMMITS', val: data.totalContributions.toLocaleString(), color: '#ff007f', icon: '★' },
-    { label: 'CURRENT STREAK', val: `${data.currentStreak}D`, color: '#ffe600', icon: '⚡' },
-    { label: 'LONGEST STREAK', val: `${data.maxStreak}D`, color: '#00f0ff', icon: '🔥' },
+    { label: 'TOTAL COMMITS', val: data.totalContributions.toLocaleString(), color: '#ff007f' },
+    { label: 'CURRENT STREAK', val: `${data.currentStreak}D`, color: '#ffe600' },
+    { label: 'LONGEST STREAK', val: `${data.maxStreak}D`, color: '#00f0ff' },
   ];
 
-  let hoveredCard: any = null;
+  let hoveredCard: { label: string; val: string } | null = null;
   const cw = 140;
   const ch = 52;
 
@@ -1203,7 +1339,7 @@ function drawRetroSynthwave(
     const isHovered = mouse.active && mouse.x >= cx && mouse.x <= cx + cw && mouse.y >= cy && mouse.y <= cy + ch;
     if (isHovered) hoveredCard = card;
 
-    ctx.fillStyle = '#151024';
+    ctx.fillStyle = '#1e293b';
     ctx.strokeStyle = isHovered ? '#ffffff' : card.color;
     ctx.lineWidth = isHovered ? 2 : 1;
     ctx.beginPath();
@@ -1214,7 +1350,7 @@ function drawRetroSynthwave(
     ctx.fillStyle = card.color;
     ctx.font = 'bold 16px monospace';
     ctx.textAlign = 'left';
-    ctx.fillText(`${card.icon} ${card.val}`, cx + 10, cy + 24);
+    ctx.fillText(card.val, cx + 12, cy + 24);
 
     ctx.fillStyle = '#94a3b8';
     ctx.font = '9px monospace';
@@ -1222,7 +1358,8 @@ function drawRetroSynthwave(
   });
 
   if (hoveredCard) {
-    onHover?.(`⚡ ${hoveredCard.label}: ${hoveredCard.val} Verified Telemetry`);
+    const hc = hoveredCard as { label: string; val: string };
+    onHover?.(`${hc.label}: ${hc.val}`);
   } else if (mouse.active) {
     onHover?.(null);
   }

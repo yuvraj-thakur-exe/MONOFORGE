@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "MonoForge – GitHub Profile README Builder",
-    "description": "Create stunning GitHub profile READMEs with MonoForge. Customize developer profiles, 350+ curated archetypes, 30+ Camo-safe SVG visualizations, 22 modular plugins, live previews, and GitHub sync.",
+    "description": "Create stunning GitHub profile READMEs with MonoForge. Customize developer profiles, 330 curated archetypes, 9 featured / 30 total Camo-safe SVG visualizations, 22 modular plugins, live previews, and GitHub sync.",
     "author": "MonoForge Contributors",
     "keywords": [
       "monoforge",
@@ -24,7 +24,7 @@
     ]
   },
   "privacy-policy": {
-    "content": "<h1>Privacy Policy</h1>\n<p>Last updated: 2026</p>\n<p>\nMonoForge is an open-source, local-first GitHub Profile README studio operated under the MIT License at <a href=\"https://github.com/yuvraj-thakur-exe/MONOFORGE\" target=\"_blank\" rel=\"noreferrer\">github.com/yuvraj-thakur-exe/MONOFORGE</a>.\n</p>\n<h2>Local-First Storage</h2>\n<p>\nYour profile configurations, drafts, and favorites are stored locally in your browser (localStorage / session state) and are never uploaded to third-party tracking databases.\n</p>\n<h2>Zero Tracking &amp; Zero Ads</h2>\n<p>\nMonoForge does not embed third-party ad networks, behavioral tracking cookies, or analytics harvesters.\n</p>\n<h2>Optional GitHub Tokens &amp; Server Endpoints</h2>\n<p>\nOptional GitHub Personal Access Tokens used for remote diff preview and confirmation-gated commits are held strictly in memory for the active request and are never stored on MonoForge servers. Telemetry SVG endpoints fetch public GitHub contribution data on demand.\n</p>\n<h2>Contact</h2>\n<p>\nFor privacy questions or security reports, please open an issue on <a href=\"https://github.com/yuvraj-thakur-exe/MONOFORGE/issues\" target=\"_blank\" rel=\"noreferrer\">GitHub Issues</a>.\n</p>"
+    "content": "<h1>Privacy Policy</h1>\n<p>Last updated: 2026</p>\n<p>\nMonoForge is an open-source, local-first GitHub Profile README studio operated under the MIT License at <a href=\"https://github.com/yuvraj-thakur-exe/MONOFORGE\" target=\"_blank\" rel=\"noreferrer\">github.com/yuvraj-thakur-exe/MONOFORGE</a>.\n</p>\n<h2>What Stays in Your Browser</h2>\n<p>\nYour profile configurations, drafts, and favorites are stored locally in your browser via <code>useReadmeStore</code> (<code>localStorage</code>) and are never persisted in external tracking databases. Optional GitHub Personal Access Tokens used for remote diff preview and confirmation-gated commits stay strictly in memory for the active session and are never stored on MonoForge servers.\n</p>\n<h2>What Uses Server API Routes</h2>\n<p>\nTwo optional features use Next.js server API routes on demand: (1) <code>/api/enrichment/resume</code> extracts text and structured fields from uploaded PDF, DOCX, or TXT resumes on the server before returning suggestions to the confirmation gate without persisting your file; and (2) <code>/api/telemetry/*</code> fetches public GitHub contribution data on demand to render SVG visualizations.\n</p>\n<h2>Zero Tracking &amp; Zero Ads</h2>\n<p>\nMonoForge does not embed third-party ad networks, behavioral tracking cookies, or analytics harvesters.\n</p>\n<h2>Contact</h2>\n<p>\nFor privacy questions or security reports, please open an issue on <a href=\"https://github.com/yuvraj-thakur-exe/MONOFORGE/issues\" target=\"_blank\" rel=\"noreferrer\">GitHub Issues</a>.\n</p>"
   },
   "ui": {
     "welcome": {
@@ -502,7 +502,7 @@
     "monoforge": "MonoForge",
     "boost-your-english": "MonoForge Studio",
     "real-devs-debug-in-english-dot": "Pure GFM, zero lock-in.",
-    "get-70-off-your-first-trial-lesson-and-start-to-boost-your-english-with-top-tutors-worldwide-on-preply": "Open-source GitHub Profile README studio with 350+ curated archetypes and 30+ Camo-safe SVG visualizations.",
+    "get-70-off-your-first-trial-lesson-and-start-to-boost-your-english-with-top-tutors-worldwide-on-preply": "Open-source GitHub Profile README studio with 330 curated archetypes and 9 featured / 30 total Camo-safe SVG visualizations.",
     "get-70-off": "Open Studio",
     "toffugy": "MonoForge Visualizer",
     "learn-a-language-by-exploring-3-d-places-walk-into-a-room-point-at-things-and-learn-what-they-are-called": "Turn live GitHub contributions into 3D isometric skylines, language rivers, and 60fps Camo-safe SVGs.",
@@ -526,7 +526,7 @@
       "wizardTitle": "6-Step Interactive Wizard",
       "wizardDesc": "Step-by-step guidance for identity, vibe, tech stacks, stats, dynamic widgets, and socials with real-time feedback.",
       "monacoTitle": "Curated Archetypes",
-      "monacoDesc": "350+ production-tested developer profile templates with live Camo SVG animations and instant copy-paste markdown.",
+      "monacoDesc": "330 production-tested developer profile templates with live Camo SVG animations and instant copy-paste markdown.",
       "pluginsTitle": "22 Modular OSS Plugins",
       "pluginsDesc": "Zero-friction integration with GitHub stats cards, contribution snakes, typing lines, trophies, WakaTime, and visitor counters.",
       "enrichmentTitle": "Confirmation-Gated Enrichment",
@@ -565,7 +565,7 @@
     },
     "developerMode": {
       "badge": "Power-User Route",
-      "title": "Explore 350+ Templates",
+      "title": "Explore 330 Templates",
       "subtitle": "A dedicated IDE workspace for developers who want full schema control, instant syntax validation, and live Markdown output.",
       "cta": "Browse Templates"
     },

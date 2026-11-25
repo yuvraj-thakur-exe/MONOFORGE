@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import type { TemplateItem } from '#/lib/templates/catalog';
 import { useReadmeStore } from '#/store/useReadmeStore';
 import confetti from 'canvas-confetti';
-import { X, ArrowRight } from 'lucide-react';
+import { X, ArrowRight, GitCompare } from 'lucide-react';
 import { playClickSound } from '#/lib/sound/sound-effects';
 
 interface TemplateCompareModalProps {
@@ -13,6 +13,7 @@ interface TemplateCompareModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSelectTemplate: (tmpl: TemplateItem) => void;
+  onRemoveTemplate?: (id: string) => void;
 }
 
 export const TemplateCompareModal: React.FC<TemplateCompareModalProps> = ({
@@ -20,6 +21,7 @@ export const TemplateCompareModal: React.FC<TemplateCompareModalProps> = ({
   isOpen,
   onClose,
   onSelectTemplate,
+  onRemoveTemplate,
 }) => {
   const setEntireConfig = useReadmeStore(state => state.setEntireConfig);
 
@@ -36,21 +38,29 @@ export const TemplateCompareModal: React.FC<TemplateCompareModalProps> = ({
     }
   };
 
+  const gridColsClass =
+    templates.length === 1
+      ? 'grid-cols-1 max-w-xl mx-auto'
+      : templates.length === 2
+      ? 'grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto'
+      : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
+
   return createPortal(
     <div
       role="dialog"
       aria-modal="true"
+      aria-label="Archetype Comparison Matrix"
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200"
     >
-      <div className="relative w-full max-w-5xl max-h-[92vh] bg-white dark:bg-[#0f172a] border-2 border-slate-300 dark:border-slate-700 rounded-3xl flex flex-col overflow-hidden text-slate-900 dark:text-slate-100 shadow-2xl">
+      <div className="relative w-full max-w-6xl max-h-[92vh] bg-white dark:bg-[#0f172a] border-2 border-slate-300 dark:border-slate-700 rounded-3xl flex flex-col overflow-hidden text-slate-900 dark:text-slate-100 shadow-2xl">
         {/* Top Accent Strip */}
         <div className="h-2 w-full shrink-0 bg-gradient-to-r from-amber-400 via-emerald-400 to-cyan-400" />
 
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 bg-slate-100 dark:bg-slate-900 border-b-2 border-slate-300 dark:border-slate-800">
           <div className="flex items-center gap-3">
-            <span className="w-8 h-8 rounded-xl bg-[#ffe600] text-slate-950 flex items-center justify-center border-2 border-slate-900 shadow-2xs font-black text-sm">
-              ⚖️
+            <span className="w-8 h-8 rounded-xl bg-[#ffe600] text-slate-950 flex items-center justify-center border-2 border-slate-900 shadow-2xs">
+              <GitCompare className="w-4 h-4 text-slate-950" />
             </span>
             <div>
               <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white uppercase font-sans tracking-tight">
@@ -74,10 +84,11 @@ export const TemplateCompareModal: React.FC<TemplateCompareModalProps> = ({
 
         {/* Comparison Grid Scroll Area */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-          <div className={`grid grid-cols-1 md:grid-cols-${templates.length} gap-4 sm:gap-6`}>
+          <div className={`grid ${gridColsClass} gap-4 sm:gap-6`}>
             {templates.map(tmpl => {
               const sections = tmpl.config.sections;
               const uniqueModules = Array.from(new Set(sections.map(s => s.type)));
+              const accent = tmpl.accent || tmpl.config.settings.accentColor || '#f59e0b';
 
               return (
                 <div
@@ -90,9 +101,21 @@ export const TemplateCompareModal: React.FC<TemplateCompareModalProps> = ({
                       <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-md font-black border bg-[#ffe600] text-slate-950 border-slate-900 shadow-2xs">
                         {tmpl.category}
                       </span>
-                      <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: tmpl.accent }} />
-                        <span className="text-[10px] font-mono font-bold">{tmpl.accent}</span>
+                      <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                          <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: accent }} />
+                          <span className="text-[10px] font-mono font-bold">{accent}</span>
+                        </div>
+                        {onRemoveTemplate && (
+                          <button
+                            type="button"
+                            onClick={() => onRemoveTemplate(tmpl.id)}
+                            className="p-1 rounded-md text-slate-400 hover:text-rose-500 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
+                            title="Remove from comparison"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        )}
                       </div>
                     </div>
 
@@ -116,9 +139,13 @@ export const TemplateCompareModal: React.FC<TemplateCompareModalProps> = ({
                         <span className="font-bold capitalize">{tmpl.config.settings.align}</span>
                       </div>
                       <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-800">
+                        <span className="text-slate-500">Badge Style:</span>
+                        <span className="font-bold capitalize">{tmpl.config.settings.badgeStyle || 'for-the-badge'}</span>
+                      </div>
+                      <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-800">
                         <span className="text-slate-500">Difficulty:</span>
                         <span className="font-bold capitalize text-amber-600 dark:text-amber-400">
-                          {tmpl.difficulty || 'Intermediate'}
+                          {tmpl.difficulty || 'Standard'}
                         </span>
                       </div>
                       <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-800">
@@ -127,12 +154,18 @@ export const TemplateCompareModal: React.FC<TemplateCompareModalProps> = ({
                           {sections.length} Components
                         </span>
                       </div>
+                      {tmpl.visualStyle && (
+                        <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-800">
+                          <span className="text-slate-500">Visual Style:</span>
+                          <span className="font-bold capitalize">{tmpl.visualStyle}</span>
+                        </div>
+                      )}
                     </div>
 
                     {/* Module Badges */}
                     <div className="space-y-1.5 pt-1">
                       <span className="text-[10px] font-mono uppercase font-bold text-slate-500 block">
-                        Included Plugins:
+                        Included Plugins ({uniqueModules.length}):
                       </span>
                       <div className="flex flex-wrap gap-1">
                         {uniqueModules.slice(0, 8).map(mod => (
@@ -175,7 +208,7 @@ export const TemplateCompareModal: React.FC<TemplateCompareModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold hover:bg-slate-200 cursor-pointer"
+            className="px-4 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer"
           >
             Close
           </button>

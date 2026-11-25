@@ -16,7 +16,7 @@ describe('InitialPageLoader', () => {
     render(<InitialPageLoader />);
     expect(screen.getByRole('status')).toBeDefined();
     expect(screen.getByText('Forge a GitHub profile that gets noticed.')).toBeDefined();
-    expect(screen.getByText(/Initializing MonoForge/i)).toBeDefined();
+    expect(screen.getByText(/Preparing studio\.\.\./i)).toBeDefined();
   });
 
   it('allows fast launching via Escape key press', () => {
