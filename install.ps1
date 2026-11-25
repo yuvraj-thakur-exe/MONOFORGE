@@ -1,5 +1,5 @@
-# MonoForge 1-Line Installer for Windows PowerShell
-# Usage: iwr -useb https://raw.githubusercontent.com/monoforge/MONOFORGE/main/install.ps1 | iex
+﻿# MonoForge 1-Line Installer for Windows PowerShell
+# Usage: iwr -useb https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/install.ps1 | iex
 
 $ErrorActionPreference = "Stop"
 

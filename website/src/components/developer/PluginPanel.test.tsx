@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import { PluginPanel } from './PluginPanel';
 import { useReadmeStore } from '#/store/useReadmeStore';
+import { getPluginById } from '#/lib/plugins/registry';
 
 describe('PluginPanel Developer Component', () => {
   beforeEach(() => {
@@ -19,6 +20,8 @@ describe('PluginPanel Developer Component', () => {
         },
         sections: [],
       },
+      history: [],
+      future: [],
     });
   });
 
@@ -45,7 +48,7 @@ describe('PluginPanel Developer Component', () => {
     expect(screen.getByText(/github profile trophy/i)).toBeDefined();
   });
 
-  it('inserts plugin into store and invokes callback on click', () => {
+  it('inserts plugin with defaultConfig wrapped in props.content and invokes callback', () => {
     const handleInserted = vi.fn();
     render(<PluginPanel onPluginInserted={handleInserted} />);
 
@@ -57,22 +60,27 @@ describe('PluginPanel Developer Component', () => {
 
     expect(handleInserted).toHaveBeenCalledWith('readme-typing-svg');
     const sections = useReadmeStore.getState().config.sections;
-    expect(sections.some(s => s.type === 'readme-typing-svg')).toBe(true);
+    const inserted = sections.find(s => s.type === 'readme-typing-svg');
+    expect(inserted).toBeDefined();
+
+    const expectedDefaults = getPluginById('readme-typing-svg')?.defaultConfig ?? {};
+    expect(inserted?.props?.content).toEqual(expectedDefaults);
   });
 
-  it('switches to Templates tab and applies archetype', () => {
+  it('switches to Templates tab, preserves search, and applies archetype', () => {
     render(<PluginPanel />);
 
     const templatesTab = screen.getByRole('button', { name: /templates/i });
     fireEvent.click(templatesTab);
 
-    expect(screen.getByText(/minimalist clean/i)).toBeDefined();
+    expect(screen.getByRole('heading', { name: /minimal professional/i })).toBeDefined();
     const loadButtons = screen.getAllByRole('button', { name: /load preset/i });
     expect(loadButtons.length).toBeGreaterThan(0);
     fireEvent.click(loadButtons[0]);
 
     const title = useReadmeStore.getState().config.title;
-    expect(title).toBe('Minimalist Clean Profile');
+    expect(title).toBe('Minimal Professional Profile');
+    expect(screen.getByRole('button', { name: /undo/i })).toBeDefined();
   }, 15000);
 
   it('switches to Schema & API tab and triggers copy json', () => {

@@ -13,7 +13,6 @@ import {
   BookOpen,
   Play,
   X,
-  Video,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import confetti from 'canvas-confetti';
@@ -23,7 +22,7 @@ const MONKEY_QUOTES = [
   'Zero monkey business. Pure precision profile engineering.',
   'Compiling 60fps Camo SVGs directly for GitHub Camo CDN.',
   'Monaco IDE split-preview ready. AST-safe schema enforced.',
-  '47+ telemetry engines loaded: 3D commit spheres, habit radars, leetcode.',
+  '30+ SVG visualizations & 22 modular plugins loaded: 3D commit spheres, habit radars, leetcode.',
   'Zero external server dependency. 100% self-hosted & open-source.',
   'Banana battery charged to 100%. Ready to deploy.',
 ];
@@ -32,10 +31,10 @@ type StudioMode = 'clean' | 'cyber' | 'lofi' | 'hyperspeed';
 
 const ROTATING_HIGHLIGHTS = [
   '60fps Camo Safe SVG vectors & animated characters',
-  '47+ native telemetry engines with zero external tracking calls',
+  '30+ SVG visualizations & 22 modular plugins with zero external tracking',
   'Split-screen Monaco IDE with AST Zod validation & live preview',
-  'Tactile developer badges & stickers ready for GitHub CDN',
-  '130+ signature design archetypes across 10 official themes',
+  '47 verified social icons & tactile badges ready for GitHub CDN',
+  '350+ signature design archetypes across 12 disciplines',
 ];
 
 export function NomokeyHero() {
@@ -121,7 +120,7 @@ export function NomokeyHero() {
   };
 
   const copyCliCommand = () => {
-    navigator.clipboard.writeText('npx monoforge generate --username octocat');
+    navigator.clipboard.writeText('npx github:yuvraj-thakur-exe/MONOFORGE generate --username octocat');
     setCopiedCli(true);
     toast.success('CLI command copied to clipboard!');
     setTimeout(() => setCopiedCli(false), 2000);
@@ -249,7 +248,7 @@ export function NomokeyHero() {
                 className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-slate-800 text-neutral-950 dark:text-white font-bold text-sm tracking-wide border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] hover:shadow-[1px_1px_0px_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all duration-150 btn-tactile hover:bg-[#ffe600] cursor-pointer"
               >
                 <LayoutTemplate className="w-4 h-4 text-amber-700 dark:text-amber-400" />
-                <span>130+ TEMPLATES</span>
+                <span>350+ TEMPLATES</span>
               </Link>
 
               {/* Watch Launch Video */}
@@ -282,7 +281,7 @@ export function NomokeyHero() {
               <div className="inline-flex items-center gap-2 p-1.5 pl-3 rounded-lg bg-neutral-900 border-2 border-neutral-900 text-xs font-mono text-white max-w-full overflow-hidden shadow-[2px_2px_0px_#18181b]">
                 <Terminal className="w-3.5 h-3.5 text-amber-500 shrink-0" />
                 <span className="text-neutral-400 select-none">$</span>
-                <span className="truncate font-semibold text-neutral-200">npx monoforge generate --username &lt;you&gt;</span>
+                <span className="truncate font-semibold text-neutral-200">npx github:yuvraj-thakur-exe/MONOFORGE generate -u &lt;you&gt;</span>
                 <button
                   type="button"
                   onClick={copyCliCommand}
@@ -406,7 +405,7 @@ export function NomokeyHero() {
                   <div className="flex items-center justify-between pt-2 border-t-2 border-neutral-900 dark:border-slate-800 text-[11px] font-mono">
                     <span className="text-neutral-500 dark:text-slate-400 font-bold">100% CAMO CDN SAFE</span>
                     <Link
-                      href="/wizard"
+                      href="/templates"
                       className="inline-flex items-center gap-1 font-black text-amber-700 dark:text-amber-400 hover:text-amber-600 underline"
                     >
                       <span>CUSTOMIZE THIS &rarr;</span>
@@ -649,7 +648,7 @@ export function NomokeyHero() {
             </div>
 
             {/* Video Player Stage */}
-            <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black border border-slate-800 shadow-inner">
+            <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-slate-900 border border-slate-800 shadow-inner">
               <video
                 key={activeVideo}
                 controls
@@ -679,127 +678,10 @@ export function NomokeyHero() {
               <div className="flex items-center gap-4">
                 <span className="flex items-center gap-1.5 text-emerald-400">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  130 Master Templates Live
+                  350+ Templates Live
                 </span>
                 <span>&bull;</span>
-                <span className="text-cyan-400">47+ Telemetry Engines</span>
-                <span>&bull;</span>
-                <span>100% Client-Side Compiler</span>
-              </div>
-              <span className="text-slate-400">monoforge-studio.vercel.app</span>
-            </div>
-          </div>
-        </div>
-      )}
-      {/* Video Launch Modal */}
-      {videoModalOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="MonoForge Launch Video"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fade-in"
-          onClick={() => setVideoModalOpen(false)}
-        >
-          <div
-            className="relative w-full max-w-4xl bg-slate-900 border-2 border-slate-700 rounded-2xl overflow-hidden shadow-2xl p-5 space-y-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[#ffe600] p-1 flex items-center justify-center">
-                  <img
-                    src="/assets/logo-icon.svg"
-                    alt="MonoForge Monkey"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <div>
-                  <h3 className="text-sm font-black text-white font-sans tracking-wide uppercase flex items-center gap-2">
-                    <span>MONOFORGE LAUNCH FILM</span>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#ffe600]/10 text-[#ffe600] border border-[#ffe600]/30">
-                      OFFICIAL 4K
-                    </span>
-                  </h3>
-                  <p className="text-[11px] font-mono text-slate-400">
-                    The Developer Identity &amp; Profile Engineering Studio Walkthrough
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                {/* Switcher Buttons */}
-                <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-mono">
-                  <button
-                    type="button"
-                    onClick={() => setActiveVideo('detailed')}
-                    className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${
-                      activeVideo === 'detailed'
-                        ? 'bg-[#ffe600] text-slate-950 font-black'
-                        : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    Walkthrough (67s)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveVideo('short')}
-                    className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${
-                      activeVideo === 'short'
-                        ? 'bg-[#ffe600] text-slate-950 font-black'
-                        : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    Short (25s)
-                  </button>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setVideoModalOpen(false)}
-                  className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
-                  aria-label="Close video player"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Video Player Stage */}
-            <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black border border-slate-800 shadow-inner">
-              <video
-                key={activeVideo}
-                controls
-                autoPlay
-                playsInline
-                poster={
-                  activeVideo === 'detailed'
-                    ? '/assets/videos/monoforge-detailed-poster.jpg'
-                    : '/assets/videos/monoforge-short-poster.jpg'
-                }
-                className="w-full h-full object-contain"
-              >
-                <source
-                  src={
-                    activeVideo === 'detailed'
-                      ? '/assets/videos/monoforge-detailed-launch-long.mp4'
-                      : '/assets/videos/monoforge-social-launch-short.mp4'
-                  }
-                  type="video/mp4"
-                />
-                Your browser does not support HTML5 video.
-              </video>
-            </div>
-
-            {/* Modal Footer Meta */}
-            <div className="flex flex-wrap items-center justify-between text-xs font-mono text-slate-400 pt-1">
-              <div className="flex items-center gap-4">
-                <span className="flex items-center gap-1.5 text-emerald-400">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  130 Master Templates Live
-                </span>
-                <span>&bull;</span>
-                <span className="text-cyan-400">47+ Telemetry Engines</span>
+                <span className="text-cyan-400">30+ SVG Visualizations &bull; 22 Plugins</span>
                 <span>&bull;</span>
                 <span>100% Client-Side Compiler</span>
               </div>

@@ -67,9 +67,14 @@ export const REUSABLE_BLOCKS: ReusableBlockDefinition[] = [
     description: 'Personal mission statement, current focus, and developer location badges.',
     iconName: 'user',
     defaultProps: {
+      mascot: 'cyber-bot',
+      headline: "⚡ I'm a Digital Craftsman!",
+      subtitle: 'Staff Software Engineer & Open-Source Architect',
       bio: 'Architecting resilient cloud-native infrastructures and developer productivity tools.',
-      focus: 'Distributed consensus & WebAssembly runtimes',
-      mascot: 'bot',
+      bullets:
+        '🔭 Currently focusing on distributed consensus & WebAssembly runtimes\n🌱 Exploring high-throughput telemetry & type-safe tooling\n👨‍💻 Passionate open-source maintainer & mentor',
+      showViewsBadge: true,
+      viewsBadgeColor: '9333ea',
     },
     createSection: (ctx) => ({
       id: uuidv4(),
@@ -78,10 +83,14 @@ export const REUSABLE_BLOCKS: ReusableBlockDefinition[] = [
       props: {
         styles: {},
         content: {
-          name: ctx?.name || 'Lead Architect',
+          mascot: 'cyber-bot',
+          headline: `⚡ Hi, I'm ${ctx?.name || 'Lead Architect'}!`,
+          subtitle: ctx?.role || 'Staff Software Engineer & Open-Source Architect',
           bio: 'Passionate about distributed systems, type safety, and 60fps web interfaces.',
-          focus: 'Zero-downtime deployments & telemetry',
-          mascot: 'bot',
+          bullets:
+            '🔭 Zero-downtime deployments & telemetry\n🌱 Distributed consensus & WebAssembly runtimes\n👨‍💻 Open-source developer tooling',
+          showViewsBadge: true,
+          viewsBadgeColor: '9333ea',
         },
       },
     }),
@@ -96,24 +105,73 @@ export const REUSABLE_BLOCKS: ReusableBlockDefinition[] = [
     description: 'Curated links to GitHub, LinkedIn, Twitter/X, Discord, and personal portfolio.',
     iconName: 'share-2',
     defaultProps: {
-      github: 'octocat',
-      linkedin: 'in/octocat',
-      twitter: 'octocat',
-    },
-    createSection: (ctx) => ({
-      id: uuidv4(),
-      type: 'socials',
-      visible: true,
-      props: {
-        styles: {},
-        content: {
-          github: ctx?.github || 'octocat',
-          linkedin: ctx?.github || 'octocat',
-          twitter: ctx?.github || 'octocat',
-          email: `${ctx?.github || 'developer'}@example.com`,
+      socials: {
+        github: {
+          message: 'GitHub',
+          color: '181717',
+          logo: 'github',
+          logoColor: 'white',
+          link: 'https://github.com/octocat',
+        },
+        linkedin: {
+          message: 'LinkedIn',
+          color: '0077B5',
+          logo: 'linkedin',
+          logoColor: 'white',
+          link: 'https://linkedin.com/in/octocat',
+        },
+        twitter: {
+          message: 'X',
+          color: '000000',
+          logo: 'x',
+          logoColor: 'white',
+          link: 'https://x.com/octocat',
         },
       },
-    }),
+    },
+    createSection: (ctx) => {
+      const handle = ctx?.github || 'octocat';
+      return {
+        id: uuidv4(),
+        type: 'socials',
+        visible: true,
+        props: {
+          styles: {},
+          content: {
+            socials: {
+              github: {
+                message: 'GitHub',
+                color: '181717',
+                logo: 'github',
+                logoColor: 'white',
+                link: `https://github.com/${handle}`,
+              },
+              linkedin: {
+                message: 'LinkedIn',
+                color: '0077B5',
+                logo: 'linkedin',
+                logoColor: 'white',
+                link: `https://linkedin.com/in/${handle}`,
+              },
+              twitter: {
+                message: 'X',
+                color: '000000',
+                logo: 'x',
+                logoColor: 'white',
+                link: `https://x.com/${handle}`,
+              },
+              gmail: {
+                message: 'Email',
+                color: 'D14836',
+                logo: 'gmail',
+                logoColor: 'white',
+                link: `mailto:${handle}@example.com`,
+              },
+            },
+          },
+        },
+      };
+    },
   },
 
   // 4. Skills Block
@@ -125,8 +183,8 @@ export const REUSABLE_BLOCKS: ReusableBlockDefinition[] = [
     description: 'Categorized shield badges covering frontend, backend, devops, and cloud.',
     iconName: 'award',
     defaultProps: {
-      badges: ['TypeScript', 'Rust', 'Go', 'React', 'Docker', 'Kubernetes', 'PostgreSQL'],
-      style: 'for-the-badge',
+      selectedBadges: ['typescript', 'rust', 'go', 'react', 'docker', 'kubernetes', 'postgres'],
+      badgeStyle: 'for-the-badge',
     },
     createSection: () => ({
       id: uuidv4(),
@@ -135,8 +193,8 @@ export const REUSABLE_BLOCKS: ReusableBlockDefinition[] = [
       props: {
         styles: {},
         content: {
-          badges: ['TypeScript', 'Rust', 'Go', 'React', 'Docker', 'Kubernetes', 'PostgreSQL', 'Tailwind CSS'],
-          style: 'for-the-badge',
+          selectedBadges: ['typescript', 'rust', 'go', 'react', 'docker', 'kubernetes', 'postgres', 'tailwind'],
+          badgeStyle: 'for-the-badge',
         },
       },
     }),

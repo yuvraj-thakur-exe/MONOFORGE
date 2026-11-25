@@ -68,6 +68,7 @@ export const UserSettingsSchema = z.object({
   accentColor: z.string().default('#8b5cf6'),
   badgeStyle: z.enum(['flat', 'flat-square', 'plastic', 'for-the-badge']).default('for-the-badge'),
   align: z.enum(['left', 'center', 'right']).default('left'),
+  includeAttribution: z.boolean().optional(),
 });
 
 export type UserSettings = z.infer<typeof UserSettingsSchema>;

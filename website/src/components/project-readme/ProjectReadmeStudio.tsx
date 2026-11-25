@@ -4,7 +4,6 @@ import React, { useState, useMemo } from 'react';
 import {
   Github,
   Sparkles,
-  Layers,
   Terminal,
   Cpu,
   Copy,
@@ -18,9 +17,6 @@ import {
   ExternalLink,
   Plus,
   Trash2,
-  CheckCircle2,
-  ShieldAlert,
-  ArrowRight,
   GitBranch,
   Boxes,
 } from 'lucide-react';
@@ -42,7 +38,6 @@ export const ProjectReadmeStudio: React.FC = () => {
     addFeature,
     removeFeature,
     getCompiledMarkdown,
-    resetToDefault,
   } = useProjectReadmeStore();
 
   const [repoInput, setRepoInput] = useState(config.repositoryUrl || 'https://github.com/yuvraj-thakur-exe/MONOFORGE');

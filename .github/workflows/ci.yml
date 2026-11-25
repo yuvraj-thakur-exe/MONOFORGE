@@ -33,6 +33,9 @@ jobs:
       - name: Unit Tests
         run: pnpm test
 
+      - name: CLI Smoke Test
+        run: node bin/monoforge.js generate -u octocat -a wow-3d-city-cat -o - > /dev/null
+
       - name: Production Build
         run: pnpm build
 
@@ -57,8 +60,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Strict Type-check
+        run: pnpm type-check
+
       - name: Biome Lint & Format Check
-        run: pnpm lint || true
+        continue-on-error: true
+        run: pnpm lint
 
   e2e:
     name: End-to-End Tests
@@ -82,7 +89,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Install Playwright Browsers
-        run: pnpm exec playwright install chromium
+        run: pnpm exec playwright install --with-deps chromium
 
       - name: Run E2E tests
         run: pnpm test:e2e

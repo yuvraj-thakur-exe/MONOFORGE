@@ -1,5 +1,5 @@
 # MonoForge — Complete AI Agent Technical Reference (llms-full.txt)
-> https://monoforge-studio.vercel.app | Comprehensive schema, types, plugins, official social platforms, and integration instructions.
+> https://monoforge-studio.vercel.app | Comprehensive schema, 22 modular plugins, 30+ SVG visualizations, 47 verified social platforms, and URL hydration instructions.
 
 ## 1. Zod Schema Specification (TypeScript)
 
@@ -19,14 +19,17 @@ export const UserSettingsSchema = z.object({
 export const SettingsSchema = z.object({
   user: UserSettingsSchema.default({ github: '' }),
   theme: z.enum(['dark', 'light', 'auto']).default('dark'),
-  accentColor: z.string().default('#8b5cf6'),
+  accentColor: z.string().default('#f59e0b'),
   badgeStyle: z.enum(['for-the-badge', 'flat', 'flat-square', 'plastic']).default('for-the-badge'),
   align: z.enum(['left', 'center', 'right']).default('left'),
+  includeAttribution: z.boolean().optional(),
 });
 
 export const SectionConfigSchema = z.object({
   id: z.string(),
   type: z.string(),
+  title: z.string().optional(),
+  visible: z.boolean().optional().default(true),
   props: z.object({
     content: z.record(z.unknown()).default({}),
     styles: z.record(z.unknown()).default({}),
@@ -46,7 +49,7 @@ export type ReadmeConfig = z.infer<typeof ReadmeConfigSchema>;
 
 ## 2. 47 Official Verified Social Platforms
 
-MonoForge features 47 verified official brand SVG assets in `public/assets/icons/social/<platform>/default.svg`:
+MonoForge includes 47 verified official brand SVG assets in `public/assets/icons/social/<platform>/default.svg`:
 - **Development & Code**: `github`, `gitlab`, `codesandbox`, `codepen`, `devto`, `stackoverflow`, `visualstudio`, `leetcode`, `codeforces`, `codechef`, `tryhackme`, `kaggle`, `hashnode`
 - **Design & Portfolio**: `behance`, `dribbble`, `unsplash`, `itch`
 - **Networking & Socials**: `linkedin`, `twitter`, `x`, `bluesky`, `threads`, `mastodon`, `facebook`, `instagram`, `reddit`, `tiktok`, `linktree`, `medium`
@@ -58,110 +61,49 @@ MonoForge features 47 verified official brand SVG assets in `public/assets/icons
 
 Each badge supports both icon mode (`format: "icon"`) and badge mode (`format: "badge"` with `for-the-badge`, `flat`, `flat-square`, or `plastic`).
 
-## 3. Plugins Reference
+## 3. Registered Plugins (22 Modular Plugins)
 
-### `header-bio`
-- **Category**: `header`
-- **Props**:
-  - `title`: string (headline greeting)
-  - `subtitle`: string (primary role/focus)
-  - `status`: string (current active status)
-  - `showAvatar`: boolean
-  - `avatarUrl`: string (optional custom image)
+Fetch the live JSON schema and field definitions from `https://monoforge-studio.vercel.app/api/schema`.
+Registered plugin IDs in `website/src/lib/plugins/registry.ts`:
+- `socials` — Verified social & sponsor pills
+- `capsule-banner` — Animated SVG hero header banner
+- `mascot-bio` — Animated character mascot + developer bio block
+- `pinterest-image` — Visual moodboard showcase
+- `figma-design` — Figma showcase card
+- `projects-showcase` — Featured repositories grid
+- `custom-html` — Sanitized Camo-safe HTML block
+- `footer-block` — Custom footer emblem & attribution
+- `telemetry-engine` — Native telemetry card suite
+- `telemetry-isocalendar` — 3D isometric contribution calendar
+- `readme-typing-svg` — Kinetic typewriter SVG headline
+- `github-readme-stats` — Developer statistics card
+- `pie-chart` — Language distribution donut chart
+- `activity-graph` — Annual contribution activity wave
+- `github-profile-trophy` — Achievement trophy rack
+- `github-achievements` — Official GitHub achievement badges
+- `snk` — Contribution grid snake animation
+- `skill-icons` — Tech stack icon matrix
+- `markdown-badges` — Shields.io badge strip
+- `waka-readme-stats` — WakaTime coding metrics
+- `visitor-counter` — Profile view counter badge
+- `portfolio-contributions` — 3D/2D contribution heatmap
 
-### `capsule-render`
-- **Category**: `header`
-- **Props**:
-  - `type`: `'wave'` | `'waving'` | `'slice'` | `'rect'` | `'soft'` | `'cylinder'`
-  - `color`: string (gradient name or hex)
-  - `text`: string
-  - `height`: number
+## 4. URL Hydration & Deep-Linking
 
-### `readme-typing-svg`
-- **Category**: `animation`
-- **Props**:
-  - `lines`: string[] (array of rotating text phrases)
-  - `color`: string (hex color without `#`)
-  - `font`: string (e.g. `'Fira Code'`)
-  - `duration`: number (milliseconds)
-
-### `markdown-badges`
-- **Category**: `badges`
-- **Props**:
-  - `badges`: Array<{ name: string; logo: string; color: string; category?: string }>
-  - `style`: `'for-the-badge'` | `'flat'` | `'flat-square'` | `'plastic'`
-
-### `github-readme-stats`
-- **Category**: `stats`
-- **Props**:
-  - `showIcons`: boolean
-  - `includeAllCommits`: boolean
-  - `countPrivate`: boolean
-  - `hideTitle`: boolean
-  - `theme`: string (e.g. `'tokyonight'`, `'radical'`)
-
-### `streak-stats`
-- **Category**: `stats`
-- **Props**:
-  - `theme`: string (e.g. `'tokyonight'`)
-  - `hideBorder`: boolean
-
-### `activity-graph`
-- **Category**: `activity`
-- **Props**:
-  - `theme`: string
-  - `area`: boolean
-  - `customTitle`: string
-
-### `github-profile-trophy`
-- **Category**: `trophy`
-- **Props**:
-  - `theme`: string (e.g. `'onedark'`, `'flat'`)
-  - `noFrame`: boolean
-  - `row`: number
-  - `column`: number
-
-### `pie-chart`
-- **Category**: `languages`
-- **Props**:
-  - `layout`: `'compact'` | `'donut'` | `'pie'`
-  - `hideProgress`: boolean
-
-### `figma-showcase`
-- **Category**: `design`
-- **Props**:
-  - `fileKey`: string
-  - `title`: string
-  - `previewUrl`: string
-
-### `pinterest-showcase`
-- **Category**: `showcase`
-- **Props**:
-  - `boardUrl`: string
-  - `columns`: number
-
-### `visitor-counter`
-- **Category**: `stats`
-- **Props**:
-  - `style`: string
-  - `color`: string
-
-### `snk` (Snake Contribution Game)
-- **Category**: `animation`
-- **Props**:
-  - `username`: string
-  - `theme`: `'dark'` | `'light'` | `'matrix'`
-
-### `social-links`
-- **Category**: `social`
-- **Props**:
-  - `links`: Array<{ platform: string; url: string; label?: string; style?: string }>
-
-## 4. URL Hydration & Deep-linking
-Any full profile configuration can be encoded into a shareable URL:
+### Full Profile Config Hydration (`/en/developer?config=...`)
+Encode a `ReadmeConfig` JSON payload using UTF-8 safe base64:
 ```javascript
-const jsonString = JSON.stringify(config);
-const encoded = btoa(unescape(encodeURIComponent(jsonString)));
-const url = `https://monoforge-studio.vercel.app/en/developer?config=${encoded}`;
+const bytes = new TextEncoder().encode(JSON.stringify(config));
+const binString = Array.from(bytes, (b) => String.fromCodePoint(b)).join('');
+const encoded = btoa(binString);
+const url = `https://monoforge-studio.vercel.app/en/developer?config=${encodeURIComponent(encoded)}`;
 ```
-Navigating to this URL automatically hydrates the store, populates the Monaco editor, and renders the markdown preview.
+
+### Archetype Preview Deep-Link (`/en/templates?template=<id>`)
+Share or open any of the 350+ archetypes directly:
+```text
+https://monoforge-studio.vercel.app/en/templates?template=01-minimal-professional
+```
+
+### Live User Personalization (`?user=<github_handle>`)
+Pass `?user=<handle>` to `/en/developer?user=<handle>` or `/en/visualizer?user=<handle>` to pre-populate the target GitHub handle.

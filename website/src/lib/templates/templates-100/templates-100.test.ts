@@ -32,7 +32,8 @@ describe('100 GitHub Profile Templates System', () => {
       expect(tpl.accent).toMatch(/^#[0-9a-fA-F]{6}$/);
       expect(tpl.category).toBeTruthy();
       expect(tpl.categoryGroup).toBeTruthy();
-      expect(tpl.tags.length).toBeGreaterThan(0);
+      expect(tpl.tags).toBeDefined();
+      expect(tpl.tags?.length).toBeGreaterThan(0);
       expect(tpl.config).toBeDefined();
       expect(tpl.config.settings.user.name).toBeTruthy();
       expect(tpl.config.sections.length).toBeGreaterThan(0);

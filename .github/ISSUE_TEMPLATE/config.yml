@@ -1,5 +1,11 @@
 blank_issues_enabled: false
 contact_links:
-  - name: ❤ Support
-    url: https://www.paypal.com/donate/?hosted_button_id=FR3A2DGVYKGJS
-    about: Loved the tool? Please consider donating 💸 to help it improve!
+  - name: GitHub Discussions
+    url: https://github.com/yuvraj-thakur-exe/MONOFORGE/discussions
+    about: Ask questions, share your forged profile, or brainstorm ideas with the community.
+  - name: MonoForge Live Studio
+    url: https://monoforge-studio.vercel.app/en
+    about: Launch the visual builder, Monaco Developer IDE, and 350+ profile archetypes online.
+  - name: Documentation
+    url: https://monoforge-studio.vercel.app/en/docs
+    about: Read MonoForge guides, Camo SVG rules, and telemetry documentation.

@@ -75,19 +75,19 @@ export const OptimizeModal: React.FC<OptimizeModalProps> = ({ isOpen, onClose })
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-100 rounded-2xl shadow-[8px_8px_0px_#18181b] dark:shadow-[8px_8px_0px_#f4f4f5] overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
+      <div className="relative w-full max-w-2xl bg-[#fafbfc] dark:bg-[#1e293b] border-2 border-slate-700 dark:border-slate-500 rounded-2xl shadow-[8px_8px_0px_#334155] dark:shadow-[8px_8px_0px_#475569] overflow-hidden flex flex-col max-h-[90vh]">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-5 py-4 bg-[#ffe600] border-b-2 border-neutral-900 text-neutral-950">
+        <div className="flex items-center justify-between px-5 py-4 bg-[#ffe600] border-b-2 border-slate-700 text-slate-900">
           <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-lg bg-neutral-950 text-[#ffe600] border border-neutral-900 shadow-xs">
+            <div className="p-1.5 rounded-lg bg-slate-900 text-[#ffe600] border border-slate-700 shadow-xs">
               <Zap className="w-5 h-5 fill-current" />
             </div>
             <div>
               <h2 className="text-base font-black tracking-tight font-mono uppercase">
                 MONOFORGE Telemetry Optimizer
               </h2>
-              <p className="text-xs font-mono font-bold text-neutral-800">
+              <p className="text-xs font-mono font-bold text-slate-800">
                 100% GitHub Camo CDN Ready • Zero-Lag Output
               </p>
             </div>
@@ -95,7 +95,7 @@ export const OptimizeModal: React.FC<OptimizeModalProps> = ({ isOpen, onClose })
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-white/80 hover:bg-white text-neutral-950 border border-neutral-900 transition-all hover:scale-105"
+            className="p-1.5 rounded-lg bg-white/80 hover:bg-white text-slate-900 border border-slate-700 transition-all hover:scale-105 cursor-pointer"
             title="Close"
           >
             <X className="w-4 h-4" />
@@ -103,38 +103,38 @@ export const OptimizeModal: React.FC<OptimizeModalProps> = ({ isOpen, onClose })
         </div>
 
         {/* Content Body */}
-        <div className="p-5 overflow-y-auto space-y-5 text-neutral-900 dark:text-neutral-100">
+        <div className="p-5 overflow-y-auto space-y-5 text-slate-900 dark:text-slate-100">
           {/* Key Metrics Bento */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border-2 border-neutral-900 dark:border-neutral-700 shadow-[2px_2px_0px_#18181b]">
-              <span className="text-[10px] font-mono font-bold text-neutral-500 uppercase block">Camo Score</span>
+            <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-600 shadow-[2px_2px_0px_#334155]">
+              <span className="text-[10px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase block">Camo Score</span>
               <div className="flex items-center gap-1.5 mt-1">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 <span className="text-lg font-black font-mono text-emerald-600">{result.stats.camoScore}%</span>
               </div>
             </div>
 
-            <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border-2 border-neutral-900 dark:border-neutral-700 shadow-[2px_2px_0px_#18181b]">
-              <span className="text-[10px] font-mono font-bold text-neutral-500 uppercase block">Payload Savings</span>
+            <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-600 shadow-[2px_2px_0px_#334155]">
+              <span className="text-[10px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase block">Payload Savings</span>
               <div className="flex items-center gap-1.5 mt-1">
                 <Flame className="w-4 h-4 text-amber-500" />
                 <span className="text-lg font-black font-mono text-amber-500">{result.stats.percentSaved}%</span>
               </div>
             </div>
 
-            <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border-2 border-neutral-900 dark:border-neutral-700 shadow-[2px_2px_0px_#18181b]">
-              <span className="text-[10px] font-mono font-bold text-neutral-500 uppercase block">Edge Cache Latency</span>
+            <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-600 shadow-[2px_2px_0px_#334155]">
+              <span className="text-[10px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase block">Edge Cache Latency</span>
               <div className="flex items-center gap-1.5 mt-1">
-                <Gauge className="w-4 h-4 text-blue-500" />
-                <span className="text-sm font-black font-mono text-blue-500">{result.stats.latencyEstimate}</span>
+                <Gauge className="w-4 h-4 text-sky-500" />
+                <span className="text-sm font-black font-mono text-sky-500">{result.stats.latencyEstimate}</span>
               </div>
             </div>
 
-            <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border-2 border-neutral-900 dark:border-neutral-700 shadow-[2px_2px_0px_#18181b]">
-              <span className="text-[10px] font-mono font-bold text-neutral-500 uppercase block">Optimized Size</span>
+            <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-600 shadow-[2px_2px_0px_#334155]">
+              <span className="text-[10px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase block">Optimized Size</span>
               <div className="flex items-center gap-1.5 mt-1">
-                <Sparkles className="w-4 h-4 text-purple-500" />
-                <span className="text-sm font-black font-mono text-neutral-900 dark:text-neutral-100">
+                <Sparkles className="w-4 h-4 text-amber-500" />
+                <span className="text-sm font-black font-mono text-slate-900 dark:text-slate-100">
                   {result.stats.optimizedBytes} bytes
                 </span>
               </div>
@@ -142,14 +142,14 @@ export const OptimizeModal: React.FC<OptimizeModalProps> = ({ isOpen, onClose })
           </div>
 
           {/* Checklist of Optimizations Applied */}
-          <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 border-2 border-neutral-900 dark:border-neutral-700 space-y-2">
-            <h3 className="text-xs font-mono font-black uppercase text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
+          <div className="p-4 rounded-xl bg-white dark:bg-slate-800/80 border-2 border-slate-300 dark:border-slate-600 space-y-2">
+            <h3 className="text-xs font-mono font-black uppercase text-slate-900 dark:text-slate-100 flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600" />
               Verified Telemetry &amp; Camo Rules
             </h3>
             <ul className="space-y-1.5 pt-1 text-xs font-mono">
               {result.stats.improvements.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-neutral-700 dark:text-neutral-300">
+                <li key={idx} className="flex items-start gap-2 text-slate-700 dark:text-slate-300">
                   <span className="text-emerald-500 font-bold shrink-0">✓</span>
                   <span>{item}</span>
                 </li>
@@ -158,26 +158,26 @@ export const OptimizeModal: React.FC<OptimizeModalProps> = ({ isOpen, onClose })
           </div>
 
           {/* Preview Box */}
-          <div className="relative rounded-xl border-2 border-neutral-900 dark:border-neutral-700 bg-neutral-950 p-3 max-h-40 overflow-y-auto">
-            <span className="text-[10px] font-mono font-bold text-neutral-400 uppercase mb-1 block">
+          <div className="relative rounded-xl border-2 border-slate-700 bg-slate-900 p-3 max-h-40 overflow-y-auto">
+            <span className="text-[10px] font-mono font-bold text-slate-400 uppercase mb-1 block">
               Optimized Output Stream:
             </span>
-            <pre className="text-[11px] font-mono text-neutral-300 whitespace-pre-wrap select-all">
+            <pre className="text-[11px] font-mono text-slate-200 whitespace-pre-wrap select-all">
               {result.optimizedMarkdown.slice(0, 500)}...
             </pre>
           </div>
         </div>
 
         {/* Modal Action Bar */}
-        <div className="flex flex-wrap items-center justify-between px-5 py-3.5 bg-neutral-100 dark:bg-neutral-800 border-t-2 border-neutral-900 dark:border-neutral-700 gap-3">
-          <div className="text-xs font-mono font-bold text-neutral-600 dark:text-neutral-400">
+        <div className="flex flex-wrap items-center justify-between px-5 py-3.5 bg-[#f8fafc] dark:bg-slate-800 border-t-2 border-slate-300 dark:border-slate-700 gap-3">
+          <div className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">
             Saved {result.stats.bytesSaved} bytes across {result.stats.imageCount} telemetry blocks
           </div>
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={handleDownloadOptimized}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white dark:bg-neutral-700 border-2 border-neutral-900 text-neutral-950 dark:text-neutral-100 font-mono text-xs font-bold shadow-[2px_2px_0px_#18181b] hover:bg-neutral-50 transition-all"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white dark:bg-slate-700 border-2 border-slate-700 text-slate-900 dark:text-slate-100 font-mono text-xs font-bold shadow-[2px_2px_0px_#334155] hover:bg-slate-50 transition-all cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download</span>
@@ -186,7 +186,7 @@ export const OptimizeModal: React.FC<OptimizeModalProps> = ({ isOpen, onClose })
             <button
               type="button"
               onClick={handleCopyOptimized}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#ffe600] hover:bg-[#ffd900] text-neutral-950 font-mono text-xs font-black border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_#18181b] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#ffe600] hover:bg-amber-300 text-slate-900 font-mono text-xs font-black border-2 border-slate-700 shadow-[3px_3px_0px_#334155] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_#334155] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer"
             >
               {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
               <span>{copied ? 'COPIED TO CLIPBOARD!' : 'COPY OPTIMIZED README'}</span>

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # MonoForge 1-Line Installer & Quickstart
-# Usage: curl -fsSL https://raw.githubusercontent.com/monoforge/MONOFORGE/main/install.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/install.sh | bash
 
 set -e
 

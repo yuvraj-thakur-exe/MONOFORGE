@@ -1,37 +1,20 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { createPortal } from 'react-dom';
 import { useReadmeStore } from '#/store/useReadmeStore';
 import { ReadmeConfig } from '#/lib/plugins/types';
-import { buildMarkdown } from '#/lib/buildMarkdown';
 import confetti from 'canvas-confetti';
 import {
-  Check,
   LayoutTemplate,
   Sparkles,
-  Copy,
   Eye,
   X,
   Search,
-  Code,
   CheckCheck,
-  RefreshCw,
-  Trash2,
   Layers,
-  Share2,
-  Download,
   Star,
   GitCompare,
-  Smartphone,
-  Tablet,
-  Monitor,
   ArrowUpDown,
-  BookOpen,
-  MapPin,
-  Mail,
-  Link as LinkIcon,
-  Building,
 } from 'lucide-react';
 import { playClickSound, playTone } from '#/lib/sound/sound-effects';
 import { TemplateCompareModal } from '#/components/landing/TemplateCompareModal';
@@ -251,7 +234,7 @@ export const InteractiveArchetypeCardPreview: React.FC<{
       >
         {/* If user toggled static art and an image exists, show the artwork */}
         {showStatic && staticImage ? (
-          <div className="relative rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 max-h-48 group-hover/preview:scale-[1.01] transition-transform bg-white dark:bg-[#060913]">
+          <div className="relative rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 max-h-48 group-hover/preview:scale-[1.01] transition-transform bg-white dark:bg-slate-900">
             <img
               src={staticImage}
               alt={`${tmpl.name} Visual Preview`}
@@ -429,391 +412,10 @@ export const InteractiveArchetypeCardPreview: React.FC<{
   );
 };
 
-function renderProceduralPreview(tmpl: TemplateItem) {
-  const accent = tmpl.accent || '#ffe600';
-  const gh = tmpl.config.settings.user.github || 'developer';
-  const role = tmpl.config.settings.user.role || 'Software Craftsman';
-  const initial = (tmpl.config.settings.user.name?.[0] || gh?.[0] || 'D').toUpperCase();
-
-  return (
-    <div
-      className="w-full h-40 p-3 rounded-lg border-2 border-slate-900 dark:border-slate-700 flex flex-col justify-between overflow-hidden relative shadow-inner select-none transition-transform group-hover/preview:scale-[1.01]"
-      style={{
-        background: `radial-gradient(circle at 85% 15%, ${accent}30, transparent 65%), #0f172a`,
-      }}
-    >
-      {/* Top Bar with Mini Mascot / Avatar & User */}
-      <div className="flex items-center justify-between pb-1.5 border-b border-slate-700/60">
-        <div className="flex items-center gap-2">
-          <div
-            className="w-7 h-7 rounded-lg flex items-center justify-center font-black text-xs text-slate-950 border border-slate-900 shadow-2xs"
-            style={{ backgroundColor: accent }}
-          >
-            {initial}
-          </div>
-          <div className="leading-tight">
-            <span className="text-xs font-mono font-black text-white block truncate max-w-[150px]">
-              @{gh}
-            </span>
-            <span className="text-[10px] font-mono font-bold text-slate-300 block truncate max-w-[150px]">
-              {role}
-            </span>
-          </div>
-        </div>
-
-        <span
-          className="text-[9px] font-mono font-black px-2 py-0.5 rounded-md border border-slate-900 shadow-2xs"
-          style={{ backgroundColor: accent, color: '#0f172a' }}
-        >
-          {tmpl.category}
-        </span>
-      </div>
-
-      {/* Simulated Bento / Metric Badges */}
-      <div className="grid grid-cols-3 gap-1.5 py-1">
-        <div className="p-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 text-center">
-          <span className="text-[8px] font-mono text-slate-400 uppercase block font-bold">COMMITS</span>
-          <span className="text-xs font-mono font-black text-emerald-400">2,840+</span>
-        </div>
-        <div className="p-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 text-center">
-          <span className="text-[8px] font-mono text-slate-400 uppercase block font-bold">STREAK</span>
-          <span className="text-xs font-mono font-black flex items-center justify-center gap-0.5" style={{ color: accent }}>
-            🔥 42d
-          </span>
-        </div>
-        <div className="p-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 text-center">
-          <span className="text-[8px] font-mono text-slate-400 uppercase block font-bold">GLOBAL</span>
-          <span className="text-xs font-mono font-black text-cyan-400">Top 1%</span>
-        </div>
-      </div>
-
-      {/* Activity Wave Line Strip */}
-      <div className="flex items-end gap-1 h-5 px-1.5 pt-1 bg-slate-950/90 rounded-md border border-slate-800">
-        {[25, 45, 80, 40, 100, 65, 30, 90, 75, 50, 85, 95, 60, 70, 85, 100].map((h, i) => (
-          <div
-            key={i}
-            className="flex-1 rounded-t-xs"
-            style={{
-              height: `${h}%`,
-              backgroundColor: i % 2 === 0 ? accent : '#10b981',
-            }}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function renderModuleVisual(
-  sec: { id: string; type: string; props?: Record<string, any> },
-  isCentered: boolean = false,
-  username: string = 'octocat',
-  accentColor: string = '#ec4899',
-) {
-  switch (sec.type) {
-    case 'snk':
-      return (
-        <div
-          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${isCentered ? 'text-center' : 'text-left'
-            }`}
-        >
-          <div
-            className={`flex items-center justify-between text-xs font-mono font-bold text-slate-900 dark:text-white ${isCentered ? 'flex-col sm:flex-row gap-2' : ''
-              }`}
-          >
-            <span className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="font-mono text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white">
-                github contribution grid snake animation
-              </span>
-            </span>
-            <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-emerald-400 text-slate-950 border border-slate-900 font-black shadow-2xs">
-              ● 60FPS CAMO SAFE
-            </span>
-          </div>
-
-          {/* Snake Grid Graphic */}
-          <div className="rounded-xl bg-slate-950 p-3 sm:p-4 border-2 border-slate-800 overflow-x-auto shadow-inner">
-            <div className={`flex items-center justify-between gap-4 min-w-[320px] ${isCentered ? 'mx-auto' : ''}`}>
-              <div className="flex gap-1.5">
-                {[...Array(18)].map((_, col) => (
-                  <div key={col} className="flex flex-col gap-1.5">
-                    {[...Array(5)].map((_, row) => {
-                      const isSnakeHead = col === 12 && row === 2;
-                      const isSnakeBody =
-                        (col === 11 && row === 2) ||
-                        (col === 10 && row === 2) ||
-                        (col === 9 && row === 2) ||
-                        (col === 9 && row === 3) ||
-                        (col === 8 && row === 3);
-                      const isFood = (col === 13 && row === 2) || (col === 16 && row === 1);
-                      const isCommit =
-                        (col + row) % 3 === 0
-                          ? '#216e39'
-                          : (col * 2 + row) % 5 === 0
-                            ? '#30a14e'
-                            : (col + row * 3) % 4 === 0
-                              ? '#9be9a8'
-                              : '#161b22';
-
-                      return (
-                        <div
-                          key={row}
-                          className={`w-3 h-3 rounded-xs relative ${isSnakeHead
-                              ? 'bg-[#ffe600] scale-110 shadow-[0_0_8px_#ffe600] z-10'
-                              : isSnakeBody
-                                ? 'bg-[#40c463]'
-                                : isFood
-                                  ? 'bg-[#ec4899] animate-ping'
-                                  : ''
-                            }`}
-                          style={{
-                            backgroundColor: isSnakeHead
-                              ? '#ffe600'
-                              : isSnakeBody
-                                ? '#40c463'
-                                : isFood
-                                  ? '#ec4899'
-                                  : isCommit,
-                          }}
-                          title={`Col ${col}, Row ${row}`}
-                        >
-                          {isSnakeHead && (
-                            <span className="absolute inset-0 flex items-center justify-center text-[7px] text-slate-950 font-black">
-                              ••
-                            </span>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                ))}
-              </div>
-              <div className="text-right shrink-0">
-                <span className="text-xs font-mono font-black text-[#ffe600] block">
-                  🐍 eating commits
-                </span>
-                <span className="text-[10px] font-mono text-slate-400 block">
-                  60fps Camo CDN Loop
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-
-    case 'pie-chart':
-      return (
-        <div
-          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${isCentered ? 'text-center' : 'text-left'
-            }`}
-        >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-1 border-b border-slate-200 dark:border-slate-700">
-            <div>
-              <h5 className="font-mono text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white">
-                Top Languages Breakdown
-              </h5>
-              <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400 font-bold">
-                {username}&apos;s Language Donut Chart
-              </p>
-            </div>
-            <span className="self-start sm:self-auto text-[10px] px-2.5 py-0.5 rounded-lg bg-cyan-100 dark:bg-cyan-950/60 text-cyan-950 dark:text-cyan-300 border border-slate-900 dark:border-cyan-700 font-black shadow-2xs">
-              DONUT CHART
-            </span>
-          </div>
-
-          <div className={`flex flex-col sm:flex-row items-center gap-4 pt-1 ${isCentered ? 'justify-center' : ''}`}>
-            {/* Donut SVG */}
-            <div className="relative w-16 h-16 shrink-0">
-              <svg viewBox="0 0 36 36" className="w-16 h-16 transform -rotate-90">
-                <circle cx="18" cy="18" r="14" fill="none" stroke="#e2e8f0" strokeWidth="4.5" />
-                <circle
-                  cx="18"
-                  cy="18"
-                  r="14"
-                  fill="none"
-                  stroke="#3178c6"
-                  strokeWidth="4.5"
-                  strokeDasharray="51 88"
-                  strokeDashoffset="0"
-                />
-                <circle
-                  cx="18"
-                  cy="18"
-                  r="14"
-                  fill="none"
-                  stroke="#dea584"
-                  strokeWidth="4.5"
-                  strokeDasharray="21 88"
-                  strokeDashoffset="-51"
-                />
-                <circle
-                  cx="18"
-                  cy="18"
-                  r="14"
-                  fill="none"
-                  stroke="#ec4899"
-                  strokeWidth="4.5"
-                  strokeDasharray="16 88"
-                  strokeDashoffset="-72"
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center font-mono text-[10px] font-black text-slate-900 dark:text-white">
-                100%
-              </div>
-            </div>
-
-            {/* Language Breakdown Pills */}
-            <div className="flex flex-wrap gap-2 text-xs font-mono">
-              <span className="px-2.5 py-1 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 shadow-2xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#3178c6] border border-slate-900" />
-                TypeScript <b className="text-slate-950 dark:text-white font-black">58.4%</b>
-              </span>
-              <span className="px-2.5 py-1 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 shadow-2xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#dea584] border border-slate-900" />
-                Rust <b className="text-slate-950 dark:text-white font-black">23.6%</b>
-              </span>
-              <span className="px-2.5 py-1 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 shadow-2xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#ec4899] border border-slate-900" />
-                WebGL / GLSL <b className="text-slate-950 dark:text-white font-black">18.0%</b>
-              </span>
-            </div>
-          </div>
-        </div>
-      );
-
-    case 'activity-graph':
-      return (
-        <div
-          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${isCentered ? 'text-center' : 'text-left'
-            }`}
-        >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-1 border-b border-slate-200 dark:border-slate-700">
-            <div>
-              <h5 className="font-mono text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white">
-                Annual Contribution Activity
-              </h5>
-              <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400 font-bold">
-                {username}&apos;s Contribution Activity Graph
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-[#ffe600] text-slate-950 border border-slate-900 font-black shadow-2xs">
-                🔥 42 DAYS STREAK
-              </span>
-              <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-emerald-100 dark:bg-emerald-950/60 text-emerald-950 dark:text-emerald-300 border border-slate-900 dark:border-emerald-700 font-bold">
-                2,847 COMMITS
-              </span>
-            </div>
-          </div>
-
-          {/* Activity Graph Wave Bars */}
-          <div className="h-16 flex items-end gap-1.5 pt-2 px-1 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
-            {[35, 60, 25, 80, 95, 55, 40, 75, 100, 68, 88, 48, 72, 85, 92, 64].map((h, i) => (
-              <div
-                key={i}
-                className="flex-1 rounded-t-xs border border-slate-900 dark:border-slate-700 transition-all hover:opacity-80"
-                style={{
-                  height: `${h}%`,
-                  backgroundColor: i % 3 === 0 ? (accentColor || '#ec4899') : '#ffe600',
-                }}
-                title={`Week ${i + 1}: ${h * 3} actions`}
-              />
-            ))}
-          </div>
-        </div>
-      );
-
-    case 'github-profile-trophy':
-      return (
-        <div
-          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${isCentered ? 'text-center' : 'text-left'
-            }`}
-        >
-          <div className="flex items-center justify-between text-xs font-mono font-bold text-slate-900 dark:text-white">
-            <span className="font-mono text-xs font-black uppercase tracking-wider">
-              🏆 GitHub Achievements &amp; Trophies
-            </span>
-            <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-amber-100 dark:bg-amber-950/60 text-amber-950 dark:text-amber-300 border border-slate-900 dark:border-amber-700 font-black">
-              RANK AAA
-            </span>
-          </div>
-          <div className={`flex items-center gap-2 pt-1 overflow-x-auto ${isCentered ? 'justify-center' : ''}`}>
-            {[
-              { icon: '🥇', label: 'Multi-Language Polyglot', rank: 'AAA' },
-              { icon: '⚡', label: 'Fast PR Master', rank: 'S' },
-              { icon: '⭐', label: '1K Stars Earned', rank: 'Gold' },
-              { icon: '🔥', label: '365 Streak Active', rank: 'AAA' },
-            ].map((trophy, i) => (
-              <span
-                key={i}
-                className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 text-xs font-mono font-black text-slate-900 dark:text-white shadow-2xs whitespace-nowrap flex items-center gap-1.5"
-              >
-                <span>{trophy.icon}</span>
-                <span>{trophy.label}</span>
-                <span className="text-[9px] px-1 rounded bg-[#ffe600] text-slate-950 ml-1">
-                  {trophy.rank}
-                </span>
-              </span>
-            ))}
-          </div>
-        </div>
-      );
-
-    case 'github-readme-stats':
-      return (
-        <div
-          className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[3px_3px_0px_#334155] dark:shadow-[3px_3px_0px_#0f172a] space-y-3 ${isCentered ? 'text-center' : 'text-left'
-            }`}
-        >
-          <div className="flex items-center justify-between text-xs font-mono font-bold text-slate-900 dark:text-white">
-            <span className="font-mono text-xs font-black uppercase tracking-wider">
-              📊 Verified GitHub Statistics
-            </span>
-            <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-[#ffe600] text-slate-950 border border-slate-900 font-black">
-              LIVE TELEMETRY
-            </span>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1 font-mono text-xs">
-            <div className="p-2 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 shadow-2xs text-center">
-              <span className="text-[10px] text-slate-600 dark:text-slate-400 block font-bold">TOTAL COMMITS</span>
-              <span className="font-black text-lg text-slate-900 dark:text-white">2,847</span>
-            </div>
-            <div className="p-2 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 shadow-2xs text-center">
-              <span className="text-[10px] text-slate-600 dark:text-slate-400 block font-bold">PULL REQUESTS</span>
-              <span className="font-black text-lg text-amber-600 dark:text-amber-400">142</span>
-            </div>
-            <div className="p-2 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 shadow-2xs text-center">
-              <span className="text-[10px] text-slate-600 dark:text-slate-400 block font-bold">STARS EARNED</span>
-              <span className="font-black text-lg text-emerald-600 dark:text-emerald-400">890</span>
-            </div>
-            <div className="p-2 rounded-xl bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 shadow-2xs text-center">
-              <span className="text-[10px] text-slate-600 dark:text-slate-400 block font-bold">REPOSITORIES</span>
-              <span className="font-black text-lg text-cyan-600 dark:text-cyan-400">38</span>
-            </div>
-          </div>
-        </div>
-      );
-    default:
-      return (
-        <div className="p-4 rounded-xl bg-white dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 shadow-[2px_2px_0px_#334155] flex items-center justify-between">
-          <div className="space-y-0.5">
-            <span className="font-mono text-xs font-black text-slate-900 dark:text-white uppercase">{sec.type}</span>
-            <p className="text-[10px] text-slate-600 dark:text-slate-400 font-mono">Module ID: {sec.id}</p>
-          </div>
-          <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 font-mono font-bold">
-            Configured
-          </span>
-        </div>
-      );
-  }
-}
-
 export const TemplateGallery: React.FC = () => {
   const setEntireConfig = useReadmeStore(state => state.setEntireConfig);
 
   const [copiedPromptId, setCopiedPromptId] = useState<string | null>(null);
-  const [copiedMarkdown, setCopiedMarkdown] = useState<boolean>(false);
   const [activeCollection, setActiveCollection] = useState<'all' | 'showcase-30' | 'catalog-100'>('all');
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -821,8 +423,6 @@ export const TemplateGallery: React.FC = () => {
   // Interactive Preview & Customize Modal State
   const [previewTemplate, setPreviewTemplate] = useState<TemplateItem | null>(null);
   const [previewConfig, setPreviewConfig] = useState<ReadmeConfig | null>(null);
-  const [previewTab, setPreviewTab] = useState<'visual' | 'github' | 'markdown' | 'prompt' | 'plugins'>('visual');
-  const [previewDevice, setPreviewDevice] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [mounted, setMounted] = useState<boolean>(false);
 
@@ -845,6 +445,25 @@ export const TemplateGallery: React.FC = () => {
       }
     } catch {
       // Ignored
+    }
+
+    // Hydrate ?template=<id> or #template=<id> shared URLs on mount
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      let sharedId = params.get('template');
+      if (!sharedId && window.location.hash) {
+        const hashMatch = window.location.hash.match(/^#template=([^&]+)/);
+        if (hashMatch?.[1]) {
+          sharedId = decodeURIComponent(hashMatch[1]);
+        }
+      }
+      if (sharedId) {
+        const match = TEMPLATES.find(t => t.id === sharedId);
+        if (match) {
+          setPreviewTemplate(match);
+          setPreviewConfig(JSON.parse(JSON.stringify(match.config)));
+        }
+      }
     }
   }, []);
 
@@ -1030,34 +649,10 @@ export const TemplateGallery: React.FC = () => {
   };
 
 
-  // Download generated markdown file
-  const handleDownloadMarkdown = (tmplName: string, markdownContent: string) => {
-    try {
-      const blob = new Blob([markdownContent], { type: 'text/markdown;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `${tmplName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-README.md`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-      showToast(`Downloaded ${link.download}!`);
-      try {
-        confetti({ particleCount: 30, spread: 50, origin: { y: 0.7 } });
-      } catch {
-        // Ignored
-      }
-    } catch {
-      showToast('Download failed, copying markdown to clipboard instead.');
-      navigator.clipboard?.writeText(markdownContent);
-    }
-  };
-
   // Share archetype via direct URL
   const handleShareTemplate = (tmpl: TemplateItem) => {
     if (typeof window !== 'undefined') {
-      const shareUrl = `${window.location.origin}${window.location.pathname}#template=${tmpl.id}`;
+      const shareUrl = `${window.location.origin}${window.location.pathname}?template=${encodeURIComponent(tmpl.id)}`;
       navigator.clipboard?.writeText(shareUrl);
       showToast(`Direct link to "${tmpl.name}" copied!`);
       try {
@@ -1072,73 +667,7 @@ export const TemplateGallery: React.FC = () => {
   const handleOpenPreview = (template: TemplateItem) => {
     setPreviewTemplate(template);
     setPreviewConfig(JSON.parse(JSON.stringify(template.config)));
-    setPreviewTab('visual');
   };
-
-  // Remove a plugin from the active preview
-  const handleRemovePluginFromPreview = (sectionId: string) => {
-    if (!previewConfig) return;
-    setPreviewConfig({
-      ...previewConfig,
-      sections: previewConfig.sections.filter(s => s.id !== sectionId),
-    });
-    showToast('Plugin removed from preview');
-  };
-
-  // Reset plugins in preview to original template state
-  const handleResetPreviewPlugins = () => {
-    if (!previewTemplate) return;
-    setPreviewConfig(JSON.parse(JSON.stringify(previewTemplate.config)));
-    showToast('All plugins restored to template default');
-  };
-
-  // Apply directly from preview modal
-  const handleApplyFromPreview = () => {
-    if (!previewConfig || !previewTemplate) return;
-    setEntireConfig(previewConfig);
-    const md = buildMarkdown(previewConfig);
-    setPreviewTemplate(null);
-    setPreviewConfig(null);
-    if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(md);
-      showToast(`Customized "${previewTemplate.name}" applied & Markdown copied!`);
-    } else {
-      showToast(`Customized "${previewTemplate.name}" applied to profile!`);
-    }
-    try {
-      confetti({ particleCount: 50, spread: 70, origin: { y: 0.6 } });
-    } catch {
-      // Ignored
-    }
-  };
-
-  // Merge directly from preview modal
-  const handleMergeFromPreview = () => {
-    if (!previewConfig || !previewTemplate) return;
-    const current = useReadmeStore.getState().config;
-    setEntireConfig({
-      ...current,
-      sections: [...current.sections, ...previewConfig.sections],
-    });
-    setPreviewTemplate(null);
-    setPreviewConfig(null);
-    showToast(`Plugins from "${previewTemplate.name}" merged into your profile!`);
-    try {
-      confetti({ particleCount: 40, spread: 60, origin: { y: 0.6 } });
-    } catch {
-      // Ignored
-    }
-  };
-
-  // Generated Markdown for preview
-  const previewMarkdown = useMemo(() => {
-    if (!previewConfig) return '';
-    try {
-      return buildMarkdown(previewConfig);
-    } catch {
-      return '# README Preview';
-    }
-  }, [previewConfig]);
 
   return (
     <section className="py-12 px-4 max-w-7xl mx-auto space-y-8 relative font-sans text-slate-900 dark:text-slate-100">
@@ -1184,7 +713,7 @@ export const TemplateGallery: React.FC = () => {
           />
           <div className="absolute bottom-3 left-4 right-4 flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-950/80 backdrop-blur-md border border-slate-700/60 text-xs font-mono">
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-black text-[10px]">100 ARCHETYPES</span>
+              <span className="px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-black text-[10px]">{TEMPLATES.length} ARCHETYPES</span>
               <span className="text-slate-300 font-bold hidden sm:inline">From Minimal to Cyberpunk, Anime to AI</span>
             </div>
             <div className="flex items-center gap-3 text-slate-400 text-[11px]">
@@ -1239,7 +768,7 @@ export const TemplateGallery: React.FC = () => {
         >
           <span>All Templates</span>
           <span className="px-1.5 py-0.5 rounded-md bg-amber-400 text-slate-950 text-[10px] font-black">
-            130
+            {TEMPLATES.length}
           </span>
         </button>
 
@@ -1256,9 +785,9 @@ export const TemplateGallery: React.FC = () => {
           }`}
         >
           <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-          <span>30 Master Showcase</span>
+          <span>Master Showcase</span>
           <span className="px-1.5 py-0.5 rounded-md bg-slate-900 text-amber-400 text-[10px] font-black">
-            30
+            {TEMPLATES.filter(t => /^\d{2}-/.test(t.id)).length}
           </span>
         </button>
 
@@ -1277,7 +806,7 @@ export const TemplateGallery: React.FC = () => {
           <Layers className="w-3.5 h-3.5 text-sky-500" />
           <span>100 Profile Catalog</span>
           <span className="px-1.5 py-0.5 rounded-md bg-slate-900 text-sky-400 text-[10px] font-black">
-            100
+            {TEMPLATES.filter(t => t.id.startsWith('tpl-')).length}
           </span>
         </button>
       </div>
@@ -1292,6 +821,8 @@ export const TemplateGallery: React.FC = () => {
             <button
               key={cat}
               type="button"
+              data-category={cat}
+              aria-pressed={isActive}
               onClick={() => setActiveCategory(cat)}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-mono transition-all cursor-pointer ${isActive
                   ? 'bg-[#ffe600] text-slate-950 border-2 border-slate-900 shadow-[2px_2px_0px_#0f172a] font-black'
@@ -1656,6 +1187,7 @@ export const TemplateGallery: React.FC = () => {
             setPreviewConfig(null);
             showToast(`Applied "${tpl.name}" dashboard to editor!`);
           }}
+          onShare={handleShareTemplate}
         />
       )}
 

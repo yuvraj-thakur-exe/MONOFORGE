@@ -3,10 +3,7 @@ import { persist } from 'zustand/middleware';
 import {
   ProjectReadmeConfig,
   ProjectTemplateType,
-  ProjectBadge,
   ProjectFeature,
-  TechStackItem,
-  InstallStep,
 } from '#/lib/project-readme/types';
 import { PROJECT_TEMPLATES } from '#/lib/project-readme/templates';
 import { buildProjectMarkdown } from '#/lib/project-readme/generator';

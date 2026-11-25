@@ -6,6 +6,30 @@ import type {
 import { getAllAssets, getAssetById, searchAssets } from './registry';
 import { analyzeSvg, sanitizeSvg } from './svg-sanitizer';
 
+function readServerAssetFile(assetPath: string): string | null {
+  if (typeof window !== 'undefined' || typeof process === 'undefined') {
+    return null;
+  }
+  const getBuiltinModule = (process as unknown as {
+    getBuiltinModule?: (id: string) => unknown;
+  }).getBuiltinModule;
+  if (typeof getBuiltinModule !== 'function') {
+    return null;
+  }
+  try {
+    const nodeFs = getBuiltinModule('fs') as typeof import('fs') | undefined;
+    const nodePath = getBuiltinModule('path') as typeof import('path') | undefined;
+    if (!nodeFs || !nodePath) return null;
+    const fullPath = nodePath.resolve(process.cwd(), assetPath);
+    if (nodeFs.existsSync(fullPath)) {
+      return nodeFs.readFileSync(fullPath, 'utf-8');
+    }
+  } catch {
+    // Fallback gracefully in edge/client runtimes
+  }
+  return null;
+}
+
 export interface AssetInspectionResult {
   asset: AssetDefinition;
   viewBox?: string;
@@ -46,18 +70,10 @@ export function inspect_asset(id: string): AssetInspectionResult | null {
   let svgReport: SvgAnalysisReport | undefined;
 
   // If in Node.js server context and format is SVG, attempt dynamic read for comprehensive report
-  if (typeof window === 'undefined' && asset.format === 'svg') {
-    try {
-      // Dynamic require to prevent client-side bundling of node built-ins
-      const nodeFs = eval('require("fs")');
-      const nodePath = eval('require("path")');
-      const fullPath = nodePath.resolve(process.cwd(), asset.path);
-      if (nodeFs.existsSync(fullPath)) {
-        const content = nodeFs.readFileSync(fullPath, 'utf-8');
-        svgReport = analyzeSvg(content);
-      }
-    } catch {
-      // Fallback
+  if (asset.format === 'svg') {
+    const content = readServerAssetFile(asset.path);
+    if (content) {
+      svgReport = analyzeSvg(content);
     }
   }
 
@@ -132,17 +148,9 @@ export function import_asset(
     case 'url':
       return asset.publicUrl;
     case 'raw': {
-      if (typeof window === 'undefined') {
-        try {
-          const nodeFs = eval('require("fs")');
-          const nodePath = eval('require("path")');
-          const fullPath = nodePath.resolve(process.cwd(), asset.path);
-          if (nodeFs.existsSync(fullPath)) {
-            return sanitizeSvg(nodeFs.readFileSync(fullPath, 'utf-8'));
-          }
-        } catch {
-          // Fallback
-        }
+      const content = readServerAssetFile(asset.path);
+      if (content) {
+        return sanitizeSvg(content);
       }
       return asset.publicUrl;
     }

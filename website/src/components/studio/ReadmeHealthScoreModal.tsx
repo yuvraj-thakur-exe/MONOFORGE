@@ -30,20 +30,48 @@ export const ReadmeHealthScoreModal: React.FC<ReadmeHealthScoreModalProps> = ({
   const report = calculateProfileQualityScore(config);
 
   const handleApplyQuickFix = (type: string) => {
+    const ghUser = config.settings.user.github || 'octocat';
     if (type === 'telemetry') {
-      addSection('telemetry-isocalendar', { content: { username: config.settings.user.github || 'octocat' } });
+      addSection('telemetry-isocalendar', {
+        content: { username: ghUser, format: 'isocalendar', duration: 'half-year' },
+      });
     } else if (type === 'techs') {
-      addSection('techs', {
+      addSection('skill-icons', {
         content: {
-          icons: ['typescript', 'react', 'nextjs', 'tailwind', 'nodejs', 'python', 'docker', 'git'],
+          icons: ['ts', 'react', 'nextjs', 'tailwind', 'nodejs', 'py', 'docker', 'git'],
+          theme: config.settings.theme === 'light' ? 'light' : 'dark',
+          perLine: 15,
         },
       });
     } else if (type === 'socials') {
       addSection('socials', {
         content: {
-          github: config.settings.user.github || 'octocat',
-          twitter: config.settings.user.github || 'octocat',
-          linkedin: config.settings.user.github || 'octocat',
+          socials: {
+            github: {
+              message: 'GitHub',
+              color: '334155',
+              logo: 'github',
+              logoColor: 'white',
+              link: `https://github.com/${ghUser}`,
+            },
+            linkedin: {
+              message: 'LinkedIn',
+              color: '0077B5',
+              logo: 'linkedin',
+              logoColor: 'white',
+              link: `https://linkedin.com/in/${ghUser}`,
+            },
+            twitter: {
+              message: 'X',
+              color: '1e293b',
+              logo: 'x',
+              logoColor: 'white',
+              link: `https://x.com/${ghUser}`,
+            },
+          },
+          styles: {
+            style: config.settings.badgeStyle || 'for-the-badge',
+          },
         },
       });
     }

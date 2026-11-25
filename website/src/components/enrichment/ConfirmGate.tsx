@@ -40,6 +40,7 @@ export const ConfirmGate: React.FC<ConfirmGateProps> = ({
   });
 
   const updateSettings = useReadmeStore(state => state.updateSettings);
+  const addSection = useReadmeStore(state => state.addSection);
 
   const toggleSelect = (id: string) => {
     setSelectedIds(prev => {
@@ -58,7 +59,8 @@ export const ConfirmGate: React.FC<ConfirmGateProps> = ({
 
     // Explicit confirmation gate: only write confirmed items
     for (const item of accepted) {
-      const finalValue = editedValues[item.id] ?? item.proposedValue;
+      const rawValue = editedValues[item.id] ?? item.proposedValue;
+      const finalValue = Array.isArray(rawValue) ? rawValue.join(', ') : String(rawValue);
 
       if (item.field === 'user.name') {
         updateSettings(s => ({
@@ -85,6 +87,25 @@ export const ConfirmGate: React.FC<ConfirmGateProps> = ({
           ...s,
           user: { ...s.user, github: finalValue },
         }));
+      } else if (
+        item.category === 'skills' ||
+        item.field === 'skills' ||
+        item.field === 'techs'
+      ) {
+        const skillSlugs = finalValue
+          .split(',')
+          .map(s => s.trim().toLowerCase())
+          .filter(Boolean);
+
+        if (skillSlugs.length > 0) {
+          addSection('skill-icons', {
+            content: {
+              icons: skillSlugs,
+              theme: 'dark',
+              perLine: 15,
+            },
+          });
+        }
       }
     }
 
@@ -92,15 +113,15 @@ export const ConfirmGate: React.FC<ConfirmGateProps> = ({
   };
 
   return (
-    <div className="p-5 bg-neutral-900 border border-neutral-800 rounded-xl space-y-5 max-w-2xl mx-auto shadow-xl">
+    <div className="p-5 bg-[#fafbfc] dark:bg-[#1e293b] border-2 border-slate-300 dark:border-slate-700 rounded-xl space-y-5 max-w-2xl mx-auto shadow-xl">
       {/* Header Guard Banner */}
-      <div className="flex items-start gap-3 p-3.5 bg-amber-500/10 border border-amber-500/20 rounded-lg">
-        <ShieldCheck className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+      <div className="flex items-start gap-3 p-3.5 bg-amber-500/15 border border-amber-500/40 rounded-lg">
+        <ShieldCheck className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
         <div>
-          <h3 className="text-sm font-semibold text-amber-800 dark:text-amber-200">
+          <h3 className="text-sm font-semibold text-amber-900 dark:text-amber-200">
             Explicit Confirmation Gate
           </h3>
-          <p className="text-xs text-neutral-300 mt-0.5">
+          <p className="text-xs text-slate-700 dark:text-slate-300 mt-0.5">
             Nothing from resume parsing or web enrichment writes to your profile configuration without your review and approval.
           </p>
         </div>
@@ -116,8 +137,8 @@ export const ConfirmGate: React.FC<ConfirmGateProps> = ({
               key={item.id}
               className={`p-3.5 rounded-lg border transition-all ${
                 isSelected
-                  ? 'bg-neutral-950 border-violet-600/50'
-                  : 'bg-neutral-950/50 border-neutral-800 opacity-60'
+                  ? 'bg-white dark:bg-slate-900 border-amber-500/60 shadow-2xs'
+                  : 'bg-slate-100/80 dark:bg-slate-900/50 border-slate-300 dark:border-slate-700 opacity-60'
               }`}
             >
               <div className="flex items-center justify-between gap-2 mb-2">
@@ -126,32 +147,32 @@ export const ConfirmGate: React.FC<ConfirmGateProps> = ({
                     type="checkbox"
                     checked={isSelected}
                     onChange={() => toggleSelect(item.id)}
-                    className="rounded border-neutral-700 text-violet-600 focus:ring-violet-500"
+                    className="rounded border-slate-400 dark:border-slate-600 text-amber-500 focus:ring-amber-500"
                   />
-                  <span className="text-xs font-semibold text-neutral-200">
+                  <span className="text-xs font-semibold text-slate-900 dark:text-slate-100">
                     {item.label}
                   </span>
                 </label>
-                <span className="text-[10px] font-mono px-2 py-0.5 bg-neutral-800 text-neutral-400 rounded">
+                <span className="text-[10px] font-mono px-2 py-0.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded">
                   {item.category}
                 </span>
               </div>
 
               {/* Current vs Proposed Diff */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                <div className="p-2 bg-neutral-900 rounded border border-neutral-800/80">
-                  <span className="text-[10px] font-semibold uppercase text-neutral-500 block mb-1">
+                <div className="p-2 bg-slate-50 dark:bg-slate-800/80 rounded border border-slate-200 dark:border-slate-700">
+                  <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 block mb-1">
                     Current Value
                   </span>
-                  <span className="text-neutral-400">
+                  <span className="text-slate-700 dark:text-slate-300">
                     {Array.isArray(item.currentValue)
                       ? item.currentValue.join(', ') || '(empty)'
                       : item.currentValue || '(empty)'}
                   </span>
                 </div>
 
-                <div className="p-2 bg-amber-500/10 rounded border border-amber-500/20">
-                  <span className="text-[10px] font-semibold uppercase text-amber-500 block mb-1 flex items-center gap-1">
+                <div className="p-2 bg-amber-500/10 rounded border border-amber-500/30">
+                  <span className="text-[10px] font-semibold uppercase text-amber-800 dark:text-amber-300 mb-1 flex items-center gap-1">
                     <Sparkles className="w-3 h-3" /> Proposed Value (Editable)
                   </span>
                   <input
@@ -164,7 +185,7 @@ export const ConfirmGate: React.FC<ConfirmGateProps> = ({
                         [item.id]: e.target.value,
                       }))
                     }
-                    className="w-full bg-neutral-900 border border-neutral-700 rounded px-2 py-1 text-xs text-neutral-200 focus:outline-none focus:border-amber-500"
+                    className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded px-2 py-1 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-amber-500"
                   />
                 </div>
               </div>
@@ -174,20 +195,20 @@ export const ConfirmGate: React.FC<ConfirmGateProps> = ({
       </div>
 
       {/* Action Footer */}
-      <div className="flex items-center justify-between pt-3 border-t border-neutral-800 text-xs">
+      <div className="flex items-center justify-between pt-3 border-t border-slate-300 dark:border-slate-700 text-xs">
         <button
           type="button"
           onClick={onCancel}
-          className="flex items-center gap-1 px-3 py-1.5 rounded text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800 transition-colors"
+          className="flex items-center gap-1 px-3 py-1.5 rounded text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-slate-800 transition-colors cursor-pointer"
         >
-          <X className="w-4 h-4" /> Cancel & Discard
+          <X className="w-4 h-4" /> Cancel &amp; Discard
         </button>
 
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => setSelectedIds(new Set(items.map(i => i.id)))}
-            className="px-2.5 py-1 text-neutral-400 hover:text-neutral-200"
+            className="px-2.5 py-1 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white cursor-pointer"
           >
             Select All
           </button>
@@ -195,7 +216,7 @@ export const ConfirmGate: React.FC<ConfirmGateProps> = ({
             type="button"
             onClick={handleApply}
             disabled={selectedIds.size === 0}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-neutral-950 font-bold disabled:opacity-40 shadow-sm transition-all"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#ffe600] hover:bg-amber-300 text-slate-900 font-bold border border-slate-700 disabled:opacity-40 shadow-sm transition-all cursor-pointer"
           >
             <Check className="w-4 h-4" /> Apply {selectedIds.size} Selected Changes
           </button>

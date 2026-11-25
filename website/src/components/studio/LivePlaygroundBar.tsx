@@ -41,6 +41,16 @@ export function LivePlaygroundBar() {
 
   const addSection = useReadmeStore((state) => state.addSection);
 
+  // Hydrate ?user=<handle> on mount if provided in URL
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const userParam = new URLSearchParams(window.location.search).get('user')?.trim();
+    if (userParam && GITHUB_USERNAME_REGEX.test(userParam)) {
+      setInputVal(userParam);
+      setDebouncedUsername(userParam);
+    }
+  }, []);
+
   // Debounce input updates (~350ms) to avoid request spamming and fetch real contributions
   useEffect(() => {
     let isCancelled = false;
@@ -86,11 +96,33 @@ export function LivePlaygroundBar() {
   const handleAddToProfile = () => {
     playClickSound();
     playTone(940, 'sine', 0.15, 0.05);
-    addSection('telemetry-isocalendar', {
-      username: effectiveUsername,
-      format: activePlugin === 'heatmap' ? 'heatmap' : activePlugin === 'velocity' ? 'velocity' : 'isocalendar',
-      duration: 'half-year',
-    });
+
+    if (activePlugin === 'habits' || activePlugin === 'languages') {
+      addSection('telemetry-engine', {
+        content: {
+          username: effectiveUsername,
+          outputMode: 'direct_svg',
+          isocalendar: false,
+          languages: activePlugin === 'languages',
+          habits: activePlugin === 'habits',
+          achievements: false,
+        },
+      });
+    } else {
+      addSection('telemetry-isocalendar', {
+        content: {
+          username: effectiveUsername,
+          format:
+            activePlugin === 'heatmap'
+              ? 'heatmap'
+              : activePlugin === 'velocity'
+              ? 'velocity'
+              : 'isocalendar',
+          duration: 'half-year',
+        },
+      });
+    }
+
     setAdded(true);
     toast.success(`Added ${activePlugin.toUpperCase()} to your profile README!`, {
       description: 'Your contribution widget has been saved to your active profile config.',

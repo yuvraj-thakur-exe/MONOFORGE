@@ -18,9 +18,7 @@ export function analyzeRepositoryUrl(rawUrl: string): RepositoryAnalysisResult {
   const cleanUrl = rawUrl.trim().replace(/\/$/, '');
   const urlParts = cleanUrl.split('/');
   const repoName = urlParts[urlParts.length - 1] || 'MyProject';
-  const orgName = urlParts[urlParts.length - 2] || 'Developer';
 
-  const isMonoForge = repoName.toLowerCase().includes('monoforge');
   const isAi = repoName.toLowerCase().includes('agent') || repoName.toLowerCase().includes('ai') || repoName.toLowerCase().includes('llm');
   const isCli = repoName.toLowerCase().includes('cli') || repoName.toLowerCase().includes('tool');
 

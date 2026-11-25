@@ -29,6 +29,7 @@ export interface PushReadmeResult {
   repoUrl: string;
   error?: string;
   createdWorkflows?: string[];
+  workflowWarnings?: string[];
 }
 
 const GITHUB_NAME_REGEX = /^[a-zA-Z0-9_.-]+$/;
@@ -327,6 +328,7 @@ export async function pushReadmeToGitHub(params: PushReadmeParams): Promise<Push
     const resData = await res.json();
     const commitUrl = resData?.commit?.html_url || repoUrl;
     const createdWorkflows: string[] = [];
+    const workflowWarnings: string[] = [];
 
     // 2. Commit companion workflows if provided
     if (workflows && Object.keys(workflows).length > 0) {
@@ -362,9 +364,14 @@ export async function pushReadmeToGitHub(params: PushReadmeParams): Promise<Push
 
           if (wfRes.ok) {
             createdWorkflows.push(filePath);
+          } else {
+            const wfErrData = await wfRes.json().catch(() => ({}));
+            const rawWfMsg = wfErrData.message || `HTTP ${wfRes.status}`;
+            workflowWarnings.push(`${filePath}: ${sanitizeErrorMessage(rawWfMsg, cleanToken)}`);
           }
-        } catch {
-          // Continue processing remaining companion workflow files
+        } catch (wfErr: unknown) {
+          const rawMsg = wfErr instanceof Error ? wfErr.message : 'Failed to commit workflow';
+          workflowWarnings.push(`${filePath}: ${sanitizeErrorMessage(rawMsg, cleanToken)}`);
         }
       }
     }
@@ -374,6 +381,7 @@ export async function pushReadmeToGitHub(params: PushReadmeParams): Promise<Push
       commitUrl,
       repoUrl,
       createdWorkflows,
+      ...(workflowWarnings.length > 0 ? { workflowWarnings } : {}),
     };
   } catch (err: unknown) {
     const isTimeout = err instanceof Error && (err.name === 'TimeoutError' || err.name === 'AbortError');

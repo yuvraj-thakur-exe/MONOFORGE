@@ -3,8 +3,13 @@
 
 User-agent: *
 Allow: /
-Disallow: /api/auth/
-Disallow: /api/github/sync
+Allow: /assets/
+Allow: /api/og
+Allow: /api/telemetry/
+Allow: /api/schema
+Allow: /api/agent/skill
+Allow: /llms.txt
+Allow: /llms-full.txt
 
 # Google Search Engine Crawler
 User-agent: Googlebot
@@ -12,7 +17,8 @@ Allow: /
 
 User-agent: Googlebot-Image
 Allow: /assets/
-Allow: /
+Allow: /api/telemetry/
+Allow: /api/og
 
 # Microsoft Bing
 User-agent: Bingbot
@@ -52,11 +58,11 @@ Allow: /
 User-agent: FacebookBot
 Allow: /
 
-# Sitemaps
+# Sitemap
 Sitemap: https://monoforge-studio.vercel.app/sitemap.xml
-Sitemap: https://monoforge-studio.vercel.app/sitemap
 
 # AI Agent Context & API Schemas
 # llms.txt: https://monoforge-studio.vercel.app/llms.txt
+# llms-full.txt: https://monoforge-studio.vercel.app/llms-full.txt
 # AI Skill manifest: https://monoforge-studio.vercel.app/api/agent/skill
 # Config schema: https://monoforge-studio.vercel.app/api/schema

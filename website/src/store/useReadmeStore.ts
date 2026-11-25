@@ -50,6 +50,7 @@ const DEFAULT_CONFIG: ReadmeConfig = {
     accentColor: '#8b5cf6',
     badgeStyle: 'for-the-badge',
     align: 'left',
+    includeAttribution: true,
   },
   sections: [],
 };
@@ -104,13 +105,30 @@ export const useReadmeStore = create<ReadmeStoreState>()(
 
       addSection: (type, initialProps = {}) => {
         const id = uuidv4();
+        const hasContentWrapper =
+          typeof initialProps.content === 'object' &&
+          initialProps.content !== null &&
+          !Array.isArray(initialProps.content);
+
+        const content = hasContentWrapper
+          ? (initialProps.content as Record<string, unknown>)
+          : { ...initialProps };
+
+        const styles =
+          hasContentWrapper &&
+          typeof initialProps.styles === 'object' &&
+          initialProps.styles !== null &&
+          !Array.isArray(initialProps.styles)
+            ? (initialProps.styles as Record<string, unknown>)
+            : {};
+
         const newSection: SectionConfig = {
           id,
           type,
           props: {
-            content: (initialProps.content as Record<string, unknown>) ?? {},
-            styles: (initialProps.styles as Record<string, unknown>) ?? {},
-            state: 'default',
+            content,
+            styles,
+            state: typeof initialProps.state === 'string' ? initialProps.state : 'default',
           },
         };
 

@@ -96,22 +96,22 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
 
   return (
     <div
-      className={`flex flex-col h-full bg-white dark:bg-[#111827] rounded-2xl border-2 border-slate-300 dark:border-slate-800 overflow-hidden shadow-lg transition-colors ${className}`}
+      className={`flex flex-col h-full bg-[#fafbfc] dark:bg-[#1e293b] rounded-2xl border-2 border-slate-300 dark:border-slate-700 overflow-hidden shadow-[4px_4px_0px_#334155] dark:shadow-[4px_4px_0px_#475569] transition-colors ${className}`}
     >
       {/* Dynamic Accent Color Banner */}
       <div className="h-1.5 w-full shrink-0" style={{ backgroundColor: accentColor }} />
 
       {/* Header Bar */}
-      <div className="flex flex-wrap items-center justify-between px-4 py-2.5 bg-slate-100 dark:bg-slate-900 border-b-2 border-slate-300 dark:border-slate-800 text-xs gap-2">
+      <div className="flex flex-wrap items-center justify-between px-4 py-2.5 bg-[#f8fafc] dark:bg-slate-800 border-b-2 border-slate-300 dark:border-slate-700 text-xs gap-2">
         <div className="flex items-center gap-2">
           {/* Rendered vs Raw Markdown */}
-          <div className="flex items-center bg-white dark:bg-slate-950 rounded-lg p-0.5 border-2 border-slate-300 dark:border-slate-700 shadow-2xs">
+          <div className="flex items-center bg-white dark:bg-slate-900 rounded-lg p-0.5 border-2 border-slate-300 dark:border-slate-700 shadow-2xs">
             <button
               type="button"
               onClick={() => setTab('preview')}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono font-bold transition-all cursor-pointer ${
                 tab === 'preview'
-                  ? 'bg-[#ffe600] text-slate-950 border border-slate-900 font-black shadow-xs'
+                  ? 'bg-[#ffe600] text-slate-900 border border-slate-700 font-black shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
@@ -122,7 +122,7 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
               onClick={() => setTab('raw')}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono font-bold transition-all cursor-pointer ${
                 tab === 'raw'
-                  ? 'bg-[#ffe600] text-slate-950 border border-slate-900 font-black shadow-xs'
+                  ? 'bg-[#ffe600] text-slate-900 border border-slate-700 font-black shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
@@ -132,7 +132,7 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
 
           {/* Viewport Frame Switcher */}
           {tab === 'preview' && (
-            <div className="hidden sm:flex items-center bg-white dark:bg-slate-950 rounded-lg p-0.5 border-2 border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 shadow-2xs">
+            <div className="hidden sm:flex items-center bg-white dark:bg-slate-900 rounded-lg p-0.5 border-2 border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 shadow-2xs">
               <button
                 type="button"
                 onClick={() => setViewMode('desktop')}
@@ -221,20 +221,20 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ className = '' }) => {
       </div>
 
       {/* Content Area */}
-      <div className="flex-1 overflow-y-auto p-3 sm:p-5 bg-slate-50 dark:bg-slate-950 flex justify-center transition-colors">
+      <div className="flex-1 overflow-y-auto p-3 sm:p-5 bg-[#fafbfc] dark:bg-[#0f172a] flex justify-center transition-colors">
         {tab === 'raw' ? (
-          <pre className="w-full font-mono text-xs text-slate-100 bg-[#0a0f1d] p-5 rounded-2xl border border-slate-800 shadow-lg whitespace-pre-wrap break-words leading-relaxed select-all">
+          <pre className="w-full font-mono text-xs text-slate-100 bg-slate-900 p-5 rounded-2xl border border-slate-700 shadow-lg whitespace-pre-wrap break-words leading-relaxed select-all">
             {markdown}
           </pre>
         ) : (
           <div
             className={`w-full transition-all duration-300 ${
               viewMode === 'mobile'
-                ? 'max-w-[390px] border-4 border-slate-300 dark:border-slate-700 rounded-3xl p-3 bg-white dark:bg-slate-900 shadow-2xl my-2'
+                ? 'max-w-[390px] border-4 border-slate-300 dark:border-slate-700 rounded-3xl p-3 bg-white dark:bg-slate-800 shadow-2xl my-2'
                 : viewMode === 'tablet'
-                ? 'max-w-[768px] border-4 border-slate-300 dark:border-slate-700 rounded-2xl p-4 bg-white dark:bg-slate-900 shadow-xl my-2'
+                ? 'max-w-[768px] border-4 border-slate-300 dark:border-slate-700 rounded-2xl p-4 bg-white dark:bg-slate-800 shadow-xl my-2'
                 : viewMode === 'crt'
-                ? 'max-w-4xl border-2 border-emerald-500/40 rounded-xl p-4 bg-[#0a100d] text-emerald-300 font-mono shadow-[0_0_20px_rgba(16,185,129,0.15)] scanline-overlay'
+                ? 'max-w-4xl border-2 border-emerald-500/40 rounded-xl p-4 bg-slate-900 text-emerald-300 font-mono shadow-[0_0_20px_rgba(16,185,129,0.15)] scanline-overlay'
                 : 'max-w-4xl'
             }`}
           >

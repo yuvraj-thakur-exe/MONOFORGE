@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "MonoForge – GitHub Profile README Builder",
-    "description": "Create stunning GitHub profile READMEs with MonoForge. Customize developer profiles, animated SVG mascots, 47+ telemetry plugins, live previews, and GitHub sync.",
+    "description": "Create stunning GitHub profile READMEs with MonoForge. Customize developer profiles, 350+ curated archetypes, 30+ Camo-safe SVG visualizations, 22 modular plugins, live previews, and GitHub sync.",
     "author": "MonoForge Contributors",
     "keywords": [
       "monoforge",
@@ -24,7 +24,7 @@
     ]
   },
   "privacy-policy": {
-    "content": "<h1>Privacy Policy</h1>\n<p>Last updated: 2026</p>\n<p>\nThis Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the MonoForge Service.\n</p>\n<p>\nMonoForge operates as a client-side open-source application and respects your privacy. For inquiries, contact support@monoforge-studio.vercel.app.\n</p>"
+    "content": "<h1>Privacy Policy</h1>\n<p>Last updated: 2026</p>\n<p>\nMonoForge is an open-source, local-first GitHub Profile README studio operated under the MIT License at <a href=\"https://github.com/yuvraj-thakur-exe/MONOFORGE\" target=\"_blank\" rel=\"noreferrer\">github.com/yuvraj-thakur-exe/MONOFORGE</a>.\n</p>\n<h2>Local-First Storage</h2>\n<p>\nYour profile configurations, drafts, and favorites are stored locally in your browser (localStorage / session state) and are never uploaded to third-party tracking databases.\n</p>\n<h2>Zero Tracking &amp; Zero Ads</h2>\n<p>\nMonoForge does not embed third-party ad networks, behavioral tracking cookies, or analytics harvesters.\n</p>\n<h2>Optional GitHub Tokens &amp; Server Endpoints</h2>\n<p>\nOptional GitHub Personal Access Tokens used for remote diff preview and confirmation-gated commits are held strictly in memory for the active request and are never stored on MonoForge servers. Telemetry SVG endpoints fetch public GitHub contribution data on demand.\n</p>\n<h2>Contact</h2>\n<p>\nFor privacy questions or security reports, please open an issue on <a href=\"https://github.com/yuvraj-thakur-exe/MONOFORGE/issues\" target=\"_blank\" rel=\"noreferrer\">GitHub Issues</a>.\n</p>"
   },
   "ui": {
     "welcome": {
@@ -500,16 +500,16 @@
     "activity-graph": "Activity Graph",
     "dot-github-workflows": ".github/workflows",
     "monoforge": "MonoForge",
-    "boost-your-english": "Boost Your English",
-    "real-devs-debug-in-english-dot": "Real devs debug in English.",
-    "get-70-off-your-first-trial-lesson-and-start-to-boost-your-english-with-top-tutors-worldwide-on-preply": "💰 Get 70% OFF your first trial lesson and start to boost your english with top tutors worldwide on Preply 🚀",
-    "get-70-off": "👉 Get 70% OFF 👈",
-    "toffugy": "Toffugy",
-    "learn-a-language-by-exploring-3-d-places-walk-into-a-room-point-at-things-and-learn-what-they-are-called": "🌍 Learn a language by exploring 3D places — walk into a room, point at things and learn what they are called 🚀",
-    "start-learning": "👉 Start learning 👈",
-    "fragiola": "Fragiola",
-    "an-ecosystem-of-headless-components-behavior-state-and-accessibility-built-in-the-look-is-yours": "🧩 An ecosystem of headless components — behavior, state and accessibility built in, the look is yours 🚀",
-    "explore-the-projects": "👉 Explore the projects 👈"
+    "boost-your-english": "MonoForge Studio",
+    "real-devs-debug-in-english-dot": "Pure GFM, zero lock-in.",
+    "get-70-off-your-first-trial-lesson-and-start-to-boost-your-english-with-top-tutors-worldwide-on-preply": "Open-source GitHub Profile README studio with 350+ curated archetypes and 30+ Camo-safe SVG visualizations.",
+    "get-70-off": "Open Studio",
+    "toffugy": "MonoForge Visualizer",
+    "learn-a-language-by-exploring-3-d-places-walk-into-a-room-point-at-things-and-learn-what-they-are-called": "Turn live GitHub contributions into 3D isometric skylines, language rivers, and 60fps Camo-safe SVGs.",
+    "start-learning": "Launch Visualizer",
+    "fragiola": "MonoForge Developer IDE",
+    "an-ecosystem-of-headless-components-behavior-state-and-accessibility-built-in-the-look-is-yours": "Split-screen Monaco JSON IDE with Zod schema IntelliSense, 22 modular plugins, and live markdown preview.",
+    "explore-the-projects": "Open Developer IDE"
   },
   "landing": {
     "preview": {
@@ -526,8 +526,8 @@
       "wizardTitle": "6-Step Interactive Wizard",
       "wizardDesc": "Step-by-step guidance for identity, vibe, tech stacks, stats, dynamic widgets, and socials with real-time feedback.",
       "monacoTitle": "Curated Archetypes",
-      "monacoDesc": "75+ production-tested developer profile templates with live Camo SVG animations and instant copy-paste markdown.",
-      "pluginsTitle": "8+ Curated OSS Plugins",
+      "monacoDesc": "350+ production-tested developer profile templates with live Camo SVG animations and instant copy-paste markdown.",
+      "pluginsTitle": "22 Modular OSS Plugins",
       "pluginsDesc": "Zero-friction integration with GitHub stats cards, contribution snakes, typing lines, trophies, WakaTime, and visitor counters.",
       "enrichmentTitle": "Confirmation-Gated Enrichment",
       "enrichmentDesc": "Upload PDF, DOCX, or TXT resumes. Server-side extraction with confidence ratings and per-field confirmation before applying.",
@@ -565,7 +565,7 @@
     },
     "developerMode": {
       "badge": "Power-User Route",
-      "title": "Explore 75+ Templates",
+      "title": "Explore 350+ Templates",
       "subtitle": "A dedicated IDE workspace for developers who want full schema control, instant syntax validation, and live Markdown output.",
       "cta": "Browse Templates"
     },

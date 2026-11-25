@@ -36,7 +36,7 @@ describe('MonoForge Telemetry Studio Page', () => {
     // Click Terminal template
     const terminalBtn = screen.getByText('Terminal');
     fireEvent.click(terminalBtn);
-    expect(terminalBtn.parentElement?.className).toContain('text-amber-300');
+    expect(terminalBtn.parentElement?.className).toContain('border-amber-500');
   });
 
   it('switches between Live Preview, Markdown, Action, and URL tabs', () => {
@@ -74,7 +74,7 @@ describe('MonoForge Telemetry Studio Page', () => {
 
   it('allows filtering plugins by category and search term', () => {
     render(<TelemetryStudioPage />);
-    const searchInput = screen.getByPlaceholderText(/Search 47\+ plugins/);
+    const searchInput = screen.getByPlaceholderText(/Search telemetry modules/i);
     fireEvent.change(searchInput, { target: { value: 'isocalendar' } });
     expect(screen.getByText('3D Isometric Calendar')).toBeDefined();
 

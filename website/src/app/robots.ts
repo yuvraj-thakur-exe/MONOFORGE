@@ -8,8 +8,16 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
-        disallow: ['/api/auth/', '/api/github/sync'],
+        allow: [
+          '/',
+          '/assets/',
+          '/api/og',
+          '/api/telemetry/',
+          '/api/schema',
+          '/api/agent/skill',
+          '/llms.txt',
+          '/llms-full.txt',
+        ],
       },
       {
         userAgent: 'Googlebot',
@@ -36,7 +44,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
     ],
-    sitemap: [`${baseUrl}/sitemap.xml`, `${baseUrl}/sitemap`],
+    sitemap: [`${baseUrl}/sitemap.xml`],
     host: baseUrl,
   };
 }

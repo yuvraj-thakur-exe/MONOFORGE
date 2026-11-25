@@ -8,6 +8,7 @@ import {
   Terminal,
   Layers,
   Check,
+  Copy,
   Sparkles,
   ExternalLink,
   Flame,
@@ -53,6 +54,7 @@ export function InfoHub() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [previewMode, setPreviewMode] = useState<'card' | 'markdown'>('card');
   const [expandedPreviewId, setExpandedPreviewId] = useState<string | null>(null);
+  const [visibleTemplateCount, setVisibleTemplateCount] = useState<number>(24);
 
   // Copy feedback state
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
@@ -201,7 +203,7 @@ export function InfoHub() {
   };
 
   const filteredTemplates = useMemo(() => {
-    return TEMPLATES.filter(item => {
+    const matches = TEMPLATES.filter(item => {
       const matchesFilter =
         templateFilter === 'all' ||
         item.category.toLowerCase().includes(templateFilter.toLowerCase()) ||
@@ -221,6 +223,23 @@ export function InfoHub() {
         item.category.toLowerCase().includes(searchQuery.toLowerCase());
 
       return matchesFilter && matchesSearch;
+    });
+
+    // Prioritize signature core archetypes first so users see them immediately on page 1
+    const coreIds = new Set([
+      'minimalist',
+      'cyberpunk',
+      'fullstack',
+      'cloud-architect',
+      'oss-maintainer',
+      'mobile-dev',
+      'creative-frontend',
+    ]);
+
+    return [...matches].sort((a, b) => {
+      const aCore = coreIds.has(a.id) ? 0 : 1;
+      const bCore = coreIds.has(b.id) ? 0 : 1;
+      return aCore - bCore;
     });
   }, [templateFilter, searchQuery]);
 
@@ -991,7 +1010,7 @@ export function InfoHub() {
             {/* Filter Pills */}
             <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1">
               {[
-                { id: 'all', label: 'All Archetypes (10)' },
+                { id: 'all', label: `All Archetypes (${TEMPLATES.length})` },
                 { id: 'minimal', label: 'Minimalist' },
                 { id: 'gaming', label: 'Cyberpunk' },
                 { id: 'fullstack', label: 'Full-Stack' },
@@ -1006,7 +1025,10 @@ export function InfoHub() {
                 <button
                   key={cat.id}
                   type="button"
-                  onClick={() => setTemplateFilter(cat.id)}
+                  onClick={() => {
+                    setTemplateFilter(cat.id);
+                    setVisibleTemplateCount(24);
+                  }}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                     templateFilter === cat.id
                       ? 'bg-amber-400 text-slate-950 shadow-xs'
@@ -1020,9 +1042,10 @@ export function InfoHub() {
 
             {/* Archetypes Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredTemplates.map(template => {
-                const markdownPreview = buildMarkdown(template.config);
+              {filteredTemplates.slice(0, visibleTemplateCount).map(template => {
                 const isExpanded = expandedPreviewId === template.id;
+                const markdownPreview =
+                  previewMode === 'markdown' || isExpanded ? buildMarkdown(template.config) : null;
                 const { user, accentColor = template.accent } = template.config.settings;
 
                 return (
@@ -1092,8 +1115,8 @@ export function InfoHub() {
                           </div>
                         </div>
                       ) : (
-                        <div className="mb-6 p-3.5 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[10px] text-emerald-400 max-h-36 overflow-y-auto whitespace-pre leading-relaxed">
-                          {markdownPreview.slice(0, 320)}...
+                        <div className="mb-6 p-3.5 rounded-xl bg-slate-900 border border-slate-700 font-mono text-[10px] text-emerald-400 max-h-36 overflow-y-auto whitespace-pre leading-relaxed">
+                          {(markdownPreview ?? '').slice(0, 320)}...
                         </div>
                       )}
                     </div>
@@ -1123,15 +1146,27 @@ export function InfoHub() {
                       </button>
 
                       <div className="flex items-center justify-between gap-2">
-                        <CopyButton
-                          textToCopy={markdownPreview}
-                          label="Copy Markdown"
-                          copiedLabel="Copied Markdown!"
-                          variant="secondary"
-                          size="sm"
-                          showConfetti={false}
-                          className="flex-1"
-                        />
+                        <button
+                          type="button"
+                          onClick={() => copyToClipboard(markdownPreview ?? buildMarkdown(template.config), `copy-${template.id}`)}
+                          className={`flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono font-bold transition-colors cursor-pointer ${
+                            copiedKey === `copy-${template.id}`
+                              ? 'bg-emerald-900/90 border-emerald-400 text-emerald-200'
+                              : 'bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100'
+                          }`}
+                        >
+                          {copiedKey === `copy-${template.id}` ? (
+                            <>
+                              <Check className="w-3.5 h-3.5 text-emerald-300" />
+                              <span>Copied Markdown!</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-3.5 h-3.5" />
+                              <span>Copy Markdown</span>
+                            </>
+                          )}
+                        </button>
 
                         <button
                           type="button"
@@ -1144,7 +1179,7 @@ export function InfoHub() {
                       </div>
 
                       {isExpanded && (
-                        <div className="mt-3 p-3.5 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[11px] text-emerald-400 max-h-52 overflow-y-auto whitespace-pre-wrap leading-relaxed animate-fadeIn">
+                        <div className="mt-3 p-3.5 rounded-xl bg-slate-900 border border-slate-700 font-mono text-[11px] text-emerald-400 max-h-52 overflow-y-auto whitespace-pre-wrap leading-relaxed animate-fadeIn">
                           {markdownPreview}
                         </div>
                       )}
@@ -1153,6 +1188,18 @@ export function InfoHub() {
                 );
               })}
             </div>
+
+            {filteredTemplates.length > visibleTemplateCount && (
+              <div className="flex justify-center pt-2">
+                <button
+                  type="button"
+                  onClick={() => setVisibleTemplateCount(prev => prev + 24)}
+                  className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700 text-xs font-mono font-bold transition-colors cursor-pointer"
+                >
+                  Load More Archetypes ({filteredTemplates.length - visibleTemplateCount} remaining)
+                </button>
+              </div>
+            )}
           </div>
         )}
 

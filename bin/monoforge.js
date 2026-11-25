@@ -1477,18 +1477,23 @@ function parseArgs(args) {
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
     if (arg.startsWith('--')) {
-      const key = arg.slice(2);
-      const next = args[i + 1];
-      if (next && !next.startsWith('--')) {
-        result[key] = next;
-        i++;
+      const raw = arg.slice(2);
+      const eqIdx = raw.indexOf('=');
+      if (eqIdx !== -1) {
+        result[raw.slice(0, eqIdx)] = raw.slice(eqIdx + 1);
       } else {
-        result[key] = true;
+        const next = args[i + 1];
+        if (next && (next === '-' || !next.startsWith('-'))) {
+          result[raw] = next;
+          i++;
+        } else {
+          result[raw] = true;
+        }
       }
-    } else if (arg.startsWith('-')) {
+    } else if (arg.startsWith('-') && arg.length > 1) {
       const key = arg.slice(1);
       const next = args[i + 1];
-      if (next && !next.startsWith('-')) {
+      if (next && (next === '-' || !next.startsWith('-'))) {
         result[key] = next;
         i++;
       } else {
@@ -1506,12 +1511,16 @@ function showHelp() {
   console.log(`
 MonoForge — Forge a GitHub profile that gets noticed.
 Autonomous Profile Generator, AI Agent Skill, and MCP Server.
+Web Studio: https://monoforge-studio.vercel.app
+Repository: https://github.com/yuvraj-thakur-exe/MONOFORGE
 
 USAGE:
-  npx monoforge generate --username <handle> [options]
-  npx monoforge list
-  npx monoforge skill-install [--target <dir>]
-  npx monoforge mcp
+  npx github:yuvraj-thakur-exe/MONOFORGE generate --username <handle> [options]
+  npx github:yuvraj-thakur-exe/MONOFORGE list
+  npx github:yuvraj-thakur-exe/MONOFORGE skill-install [--target <dir>]
+  npx github:yuvraj-thakur-exe/MONOFORGE mcp
+
+  (Or locally after cloning: node bin/monoforge.js <command> [options])
 
 COMMANDS:
   generate          Forge a complete GitHub profile README.md
@@ -1529,13 +1538,13 @@ OPTIONS:
 
 EXAMPLES:
   # 1-Liner: Generate #1 Wow Profile for your GitHub username
-  npx monoforge generate --username octocat --archetype wow-3d-city-cat
+  npx github:yuvraj-thakur-exe/MONOFORGE generate --username octocat --archetype wow-3d-city-cat
 
-  # Generate Bento Signal Dashboard
-  npx monoforge generate --username octocat --archetype bento-signal-dashboard
+  # Stream generated Markdown directly to stdout
+  npx github:yuvraj-thakur-exe/MONOFORGE generate -u octocat -a bento-signal-dashboard -o -
 
   # Install AI Agent Skill into current workspace
-  npx monoforge skill-install
+  npx github:yuvraj-thakur-exe/MONOFORGE skill-install
 `);
 }
 
@@ -1565,7 +1574,7 @@ Use this skill whenever asked to create, revamp, or forge a developer's GitHub p
 
 ## CLI Execution
 \`\`\`bash
-npx monoforge generate --username <github-username> --archetype <archetype-id>
+npx github:yuvraj-thakur-exe/MONOFORGE generate --username <github-username> --archetype <archetype-id>
 \`\`\`
 `;
 
@@ -1713,7 +1722,7 @@ async function main() {
           a.name
       );
     }
-    console.log('\nRun "npx monoforge generate --archetype <id>" to forge any archetype!\n');
+    console.log('\nRun "npx github:yuvraj-thakur-exe/MONOFORGE generate --archetype <id>" to forge any archetype!\n');
     return;
   }
 

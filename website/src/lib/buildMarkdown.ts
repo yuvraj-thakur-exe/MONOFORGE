@@ -16,7 +16,7 @@ export function sanitizeInputText(str: string): string {
     .replace(/<(?:script|iframe|object|embed|applet|style)[\s\S]*?<\/(?:script|iframe|object|embed|applet|style)>/gi, '')
     .replace(/<\/?(?:script|iframe|object|embed|applet|style|base|form)[\s\S]*?>/gi, '')
     .replace(/on\w+\s*=\s*(?:["'][^"']*["']|[^\s>]+)/gi, '')
-    .replace(/javascript:/gi, '');
+    .replace(/(?:javascript|vbscript|data)\s*:/gi, '');
 }
 
 export function buildMarkdown(config: ReadmeConfig): string {
@@ -114,9 +114,19 @@ export function buildMarkdownWithWorkflows(config: ReadmeConfig): BuildMarkdownR
     }
   }
 
-  // Footer attribution with visual stamp
-  const footer = `\n---\n<p align="center">\n  <sub>⚡ Powered by <a href="https://monoforge-studio.vercel.app/en"><b>MonoForge</b></a> — Forge a GitHub profile that gets noticed.</sub>\n</p>\n\n<div align="right">\n  <a href="https://monoforge-studio.vercel.app/en" target="_blank" rel="noopener noreferrer">\n    <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/public/assets/monoforge-stamp.svg" alt="Built with MonoForge" height="28" />\n  </a>\n</div>`;
-  markdownParts.push(footer);
+  // Footer attribution with visual stamp (opt-in by default, deduplicated when a visible footer-block is present)
+  const hasVisibleFooterBlock = sections.some(
+    (section) =>
+      section &&
+      section.type === 'footer-block' &&
+      section.visible !== false &&
+      (section.props as { visible?: boolean } | undefined)?.visible !== false
+  );
+
+  if (settings?.includeAttribution !== false && !hasVisibleFooterBlock) {
+    const footer = `\n---\n<p align="center">\n  <sub>⚡ Powered by <a href="https://monoforge-studio.vercel.app/en?ref=badge"><b>MonoForge</b></a> — Forge a GitHub profile that gets noticed.</sub>\n</p>\n\n<div align="right">\n  <a href="https://monoforge-studio.vercel.app/en?ref=badge" target="_blank" rel="noopener noreferrer">\n    <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/public/assets/monoforge-stamp.svg" alt="Built with MonoForge" height="28" />\n  </a>\n</div>`;
+    markdownParts.push(footer);
+  }
 
   const fullMarkdown = markdownParts.join('\n\n<br/>\n\n');
 

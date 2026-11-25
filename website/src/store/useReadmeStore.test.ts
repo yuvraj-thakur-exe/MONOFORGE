@@ -123,4 +123,38 @@ describe('useReadmeStore', () => {
     store.moveSection(id2, 'down');
     expect(useReadmeStore.getState().config.sections[1].id).toBe(id2);
   });
+
+  it('accepts both wrapped { content, styles } and flat config objects in addSection', () => {
+    const store = useReadmeStore.getState();
+
+    const wrappedId = store.addSection('github-readme-stats', {
+      content: { theme: 'tokyonight', showStats: true },
+      styles: { align: 'center' },
+    });
+    const flatId = store.addSection('skill-icons', {
+      icons: 'ts,react,docker',
+      theme: 'dark',
+    });
+    const customHtmlId = store.addSection('custom-html', {
+      content: '<p>Hello</p>',
+      align: 'center',
+    });
+
+    const sections = useReadmeStore.getState().config.sections;
+    expect(sections.find(s => s.id === wrappedId)?.props).toEqual({
+      content: { theme: 'tokyonight', showStats: true },
+      styles: { align: 'center' },
+      state: 'default',
+    });
+    expect(sections.find(s => s.id === flatId)?.props).toEqual({
+      content: { icons: 'ts,react,docker', theme: 'dark' },
+      styles: {},
+      state: 'default',
+    });
+    expect(sections.find(s => s.id === customHtmlId)?.props).toEqual({
+      content: { content: '<p>Hello</p>', align: 'center' },
+      styles: {},
+      state: 'default',
+    });
+  });
 });

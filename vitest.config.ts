@@ -23,9 +23,6 @@ export default defineConfig({
       'website/src/**/test.ts',
       'website/src/**/test.tsx',
       'website/src/**/*.{test,spec}.{ts,tsx}',
-      'src/**/test.ts',
-      'src/**/test.tsx',
-      'src/**/*.{test,spec}.{ts,tsx}',
     ],
     coverage: {
       enabled: false,

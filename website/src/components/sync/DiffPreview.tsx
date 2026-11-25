@@ -8,7 +8,7 @@ interface DiffPreviewProps {
   currentContent: string;
   newContent: string;
   repoName: string;
-  onConfirmPush: () => Promise<void> | void;
+  onConfirmPush: (commitMessage: string) => Promise<void> | void;
   onCancel: () => void;
   className?: string;
   workflows?: Record<string, string>;
@@ -55,7 +55,8 @@ export const DiffPreview: React.FC<DiffPreviewProps> = ({
   const handlePush = async () => {
     setIsPushing(true);
     try {
-      await onConfirmPush();
+      const finalMessage = commitMessage.trim() || 'docs: update profile README via MonoForge';
+      await onConfirmPush(finalMessage);
     } finally {
       setIsPushing(false);
     }
@@ -65,38 +66,38 @@ export const DiffPreview: React.FC<DiffPreviewProps> = ({
   const workflowHasWritePermission = isWorkflow && (activeNewContent.includes('contents: write') || activeNewContent.includes('permissions: write-all'));
 
   return (
-    <div className={`flex flex-col bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden shadow-2xl ${className}`}>
+    <div className={`flex flex-col bg-[#1e293b] border border-slate-700 rounded-xl overflow-hidden shadow-2xl ${className}`}>
       {/* Safety Gate Alert */}
-      <div className="flex items-center justify-between px-5 py-3.5 bg-neutral-950 border-b border-neutral-800">
+      <div className="flex items-center justify-between px-5 py-3.5 bg-slate-900 border-b border-slate-700">
         <div className="flex items-center gap-2">
           <ShieldAlert className="w-4 h-4 text-amber-400" />
-          <h3 className="text-sm font-semibold text-neutral-200">
+          <h3 className="text-sm font-semibold text-slate-100">
             Mandatory Diff Review Before Push
           </h3>
         </div>
         <div className="flex items-center gap-3 text-xs font-mono">
           <span className="text-emerald-400">+{stats.additions}</span>
           <span className="text-rose-400">-{stats.deletions}</span>
-          <span className="text-neutral-500">{repoName}</span>
+          <span className="text-slate-400">{repoName}</span>
         </div>
       </div>
 
       {/* Companion File Tabs */}
       {fileList.length > 1 && (
-        <div className="flex items-center gap-2 px-5 py-2 bg-neutral-950/70 border-b border-neutral-800 overflow-x-auto text-xs">
-          <span className="text-neutral-500 font-medium mr-1">Files to push ({fileList.length}):</span>
+        <div className="flex items-center gap-2 px-5 py-2 bg-slate-900/70 border-b border-slate-700 overflow-x-auto text-xs">
+          <span className="text-slate-400 font-medium mr-1">Files to push ({fileList.length}):</span>
           {fileList.map(filePath => (
             <button
               key={filePath}
               type="button"
               onClick={() => setSelectedFile(filePath)}
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-colors ${
+              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
                 selectedFile === filePath
-                  ? 'bg-violet-600/30 text-violet-200 border border-violet-500/40 font-semibold'
-                  : 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800'
+                  ? 'bg-amber-500/20 text-amber-200 border border-amber-500/40 font-semibold'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
               }`}
             >
-              <FileCode className="w-3.5 h-3.5 text-neutral-400" />
+              <FileCode className="w-3.5 h-3.5 text-slate-400" />
               <span>{filePath}</span>
             </button>
           ))}
@@ -105,7 +106,7 @@ export const DiffPreview: React.FC<DiffPreviewProps> = ({
 
       {/* Workflow Permission Warning */}
       {workflowHasWritePermission && (
-        <div className="px-5 py-2.5 bg-amber-950/40 border-b border-amber-800/60 flex items-start gap-2.5 text-xs text-amber-300">
+        <div className="px-5 py-2.5 bg-amber-950/40 border-b border-amber-700/60 flex items-start gap-2.5 text-xs text-amber-200">
           <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
           <div>
             <span className="font-semibold">Workflow Security Notice: </span>
@@ -115,27 +116,30 @@ export const DiffPreview: React.FC<DiffPreviewProps> = ({
       )}
 
       {/* Target Repo Info */}
-      <div className="px-5 py-2.5 bg-neutral-900 border-b border-neutral-800 flex items-center justify-between text-xs text-neutral-400">
+      <div className="px-5 py-2.5 bg-[#1e293b] border-b border-slate-700 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-300">
         <span>Target: <strong>{repoName}/{selectedFile}</strong></span>
         <div className="flex items-center gap-2">
-          <span className="text-neutral-500">Commit message:</span>
+          <label htmlFor="commit-message-input" className="text-slate-400">
+            Commit message:
+          </label>
           <input
+            id="commit-message-input"
             type="text"
             value={commitMessage}
             onChange={e => setCommitMessage(e.target.value)}
-            className="px-2 py-1 bg-neutral-950 border border-neutral-800 rounded text-neutral-200 text-xs w-64 focus:outline-none focus:border-violet-500"
+            className="px-2 py-1 bg-slate-900 border border-slate-600 rounded text-slate-100 text-xs w-64 focus:outline-none focus:border-amber-500"
           />
         </div>
       </div>
 
       {/* Diff View Container */}
-      <div className="flex-1 max-h-[420px] overflow-y-auto p-4 font-mono text-xs bg-neutral-950 space-y-0.5">
+      <div className="flex-1 max-h-[420px] overflow-y-auto p-4 font-mono text-xs bg-slate-900 space-y-0.5">
         {changes.map((part, index) => {
           const colorClass = part.added
-            ? 'bg-emerald-950/40 text-emerald-300 border-l-2 border-emerald-500'
+            ? 'bg-emerald-950/50 text-emerald-300 border-l-2 border-emerald-500'
             : part.removed
-            ? 'bg-rose-950/40 text-rose-300 border-l-2 border-rose-500 line-through'
-            : 'text-neutral-400';
+            ? 'bg-rose-950/50 text-rose-300 border-l-2 border-rose-500 line-through'
+            : 'text-slate-400';
 
           const prefix = part.added ? '+ ' : part.removed ? '- ' : '  ';
 
@@ -156,12 +160,12 @@ export const DiffPreview: React.FC<DiffPreviewProps> = ({
       </div>
 
       {/* Confirmation Action Footer */}
-      <div className="flex items-center justify-between px-5 py-3.5 bg-neutral-950 border-t border-neutral-800 text-xs">
+      <div className="flex items-center justify-between px-5 py-3.5 bg-slate-900 border-t border-slate-700 text-xs">
         <button
           type="button"
           onClick={onCancel}
           disabled={isPushing}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800 transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded text-slate-300 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
         >
           <X className="w-4 h-4" /> Cancel
         </button>
@@ -170,7 +174,7 @@ export const DiffPreview: React.FC<DiffPreviewProps> = ({
           type="button"
           onClick={handlePush}
           disabled={isPushing}
-          className="flex items-center gap-2 px-5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-medium shadow-md transition-all"
+          className="flex items-center gap-2 px-5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-medium shadow-md transition-all cursor-pointer"
         >
           {isPushing ? (
             <>
@@ -178,7 +182,7 @@ export const DiffPreview: React.FC<DiffPreviewProps> = ({
             </>
           ) : (
             <>
-              <GitCommit className="w-4 h-4" /> Confirm & Push Changes
+              <GitCommit className="w-4 h-4" /> Confirm &amp; Push Changes
             </>
           )}
         </button>
@@ -188,4 +192,3 @@ export const DiffPreview: React.FC<DiffPreviewProps> = ({
 };
 
 export default DiffPreview;
-

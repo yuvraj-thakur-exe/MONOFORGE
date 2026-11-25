@@ -20,6 +20,65 @@ describe('buildMarkdown', () => {
     const output = buildMarkdown(config);
     expect(output).toContain('MonoForge');
     expect(output).toContain('Forge a GitHub profile that gets noticed');
+    expect(output).toContain('https://monoforge-studio.vercel.app/en?ref=badge');
+  });
+
+  it('omits automatic attribution footer when includeAttribution is false or a visible footer-block is present', () => {
+    const baseSettings: ReadmeConfig['settings'] = {
+      user: { github: 'dev-user', name: 'Dev User' },
+      theme: 'dark',
+      accentColor: '#8b5cf6',
+      badgeStyle: 'for-the-badge',
+      align: 'left',
+    };
+
+    const optOutOutput = buildMarkdown({
+      version: '1.0.0',
+      title: 'No Attribution',
+      settings: { ...baseSettings, includeAttribution: false },
+      sections: [],
+    });
+    expect(optOutOutput).not.toContain('monoforge-stamp.svg');
+    expect(optOutOutput).not.toContain('Powered by');
+
+    const withFooterBlock = buildMarkdown({
+      version: '1.0.0',
+      title: 'With Footer Block',
+      settings: baseSettings,
+      sections: [
+        {
+          id: 'footer-1',
+          type: 'footer-block',
+          visible: true,
+          props: {
+            content: { tagline: 'Custom footer', showBackToTop: false, showAttribution: true },
+            styles: {},
+          },
+        },
+      ],
+    });
+    expect(withFooterBlock).toContain('Custom footer');
+    expect(withFooterBlock).not.toContain('Forge a GitHub profile that gets noticed');
+    expect(withFooterBlock.match(/monoforge-stamp\.svg/g)).toHaveLength(1);
+
+    const withHiddenFooterBlock = buildMarkdown({
+      version: '1.0.0',
+      title: 'Hidden Footer Block',
+      settings: baseSettings,
+      sections: [
+        {
+          id: 'footer-hidden',
+          type: 'footer-block',
+          visible: false,
+          props: {
+            content: { tagline: 'Hidden footer', showBackToTop: false, showAttribution: true },
+            styles: {},
+          },
+        },
+      ],
+    });
+    expect(withHiddenFooterBlock).not.toContain('Hidden footer');
+    expect(withHiddenFooterBlock).toContain('Forge a GitHub profile that gets noticed');
   });
 
   it('renders user bio and metadata header when provided', () => {
@@ -120,7 +179,7 @@ describe('buildMarkdown', () => {
             github: 'hacker',
             name: 'Alex <script>alert("xss")</script>',
             role: 'Engineer <iframe src="https://evil.com"></iframe>',
-            bio: 'Bio with <img src=x onerror=alert(1)> and javascript:void(0)',
+            bio: 'Bio with <img src=x onerror=alert(1)> and javascript:void(0) and data:text/html,<svg/onload=alert(1)> and vbscript:msgbox(1)',
           },
           theme: 'dark',
           accentColor: '#8b5cf6',
@@ -136,6 +195,8 @@ describe('buildMarkdown', () => {
       expect(output).not.toContain('<iframe');
       expect(output).not.toContain('onerror=');
       expect(output).not.toContain('javascript:');
+      expect(output).not.toContain('data:');
+      expect(output).not.toContain('vbscript:');
       expect(output).toContain('Alex');
       expect(output).toContain('Engineer');
     });

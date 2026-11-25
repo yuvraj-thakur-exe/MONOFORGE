@@ -1,9 +1,61 @@
-'use client';
-
+import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { TopNav } from '#/components/navigation/TopNav';
 import { InfoHub } from '#/components/info/InfoHub';
 import { GeometricLoader } from '#/components/common/GeometricLoader';
+import { config } from '#/config';
+import { routing } from '#/i18n/routing';
+
+type InfoPageProps = {
+  params: Promise<{ locale: string }>;
+};
+
+export async function generateMetadata({ params }: InfoPageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = config.general.urls.app;
+
+  const languages: Record<string, string> = {
+    'x-default': `${baseUrl}/en/info`,
+  };
+  for (const loc of routing.locales) {
+    languages[loc] = `${baseUrl}/${loc}/info`;
+  }
+
+  const title = 'Architecture, Manual & Info Hub | MonoForge';
+  const description =
+    'Explore MonoForge architecture, Camo CDN compliance rules, telemetry engines, CLI usage, and open-source contributor guidelines.';
+  const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('MonoForge Architecture & Info Hub')}`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${baseUrl}/${locale}/info`,
+      languages,
+    },
+    openGraph: {
+      type: 'website',
+      title,
+      description,
+      url: `${baseUrl}/${locale}/info`,
+      siteName: 'MONOFORGE',
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
+    },
+  };
+}
 
 export default function LocalizedInfoPage() {
   return (

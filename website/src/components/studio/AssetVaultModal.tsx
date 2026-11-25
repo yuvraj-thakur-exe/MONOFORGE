@@ -133,9 +133,11 @@ export const AssetVaultModal: React.FC<AssetVaultModalProps> = ({
 
   const handleInsertSection = (asset: VaultAsset) => {
     try {
-      addSection('custom', {
+      addSection('custom-html', {
         content: {
-          rawMarkdown: asset.markdown,
+          content: asset.markdown,
+          raw: asset.markdown,
+          align: 'center',
           title: asset.title,
         },
       });
@@ -147,19 +149,19 @@ export const AssetVaultModal: React.FC<AssetVaultModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/65 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="relative w-full max-w-3xl bg-white border-2 border-neutral-900 rounded-2xl shadow-[8px_8px_0px_#18181b] overflow-hidden flex flex-col max-h-[85vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/65 backdrop-blur-xs animate-in fade-in duration-150">
+      <div className="relative w-full max-w-3xl bg-[#fafbfc] dark:bg-[#1e293b] border-2 border-slate-700 rounded-2xl shadow-[8px_8px_0px_#334155] overflow-hidden flex flex-col max-h-[85vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 bg-[#ffe600] border-b-2 border-neutral-900 text-neutral-950">
+        <div className="flex items-center justify-between px-5 py-4 bg-[#ffe600] border-b-2 border-slate-700 text-slate-900">
           <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-lg bg-neutral-950 text-[#ffe600] border border-neutral-900 shadow-xs">
+            <div className="p-1.5 rounded-lg bg-slate-900 text-[#ffe600] border border-slate-700 shadow-xs">
               <Package className="w-5 h-5" />
             </div>
             <div>
               <h2 className="text-base font-black tracking-tight font-mono uppercase">
                 Curated Asset Vault &amp; Dividers
               </h2>
-              <p className="text-xs font-mono font-bold text-neutral-800">
+              <p className="text-xs font-mono font-bold text-slate-800">
                 100% Camo CDN Ready &bull; Instant 1-Click Embeds
               </p>
             </div>
@@ -167,7 +169,7 @@ export const AssetVaultModal: React.FC<AssetVaultModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-white hover:bg-neutral-100 text-neutral-950 border border-neutral-900 transition-all hover:scale-105 cursor-pointer"
+            className="p-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-900 border border-slate-700 transition-all hover:scale-105 cursor-pointer"
             title="Close"
           >
             <X className="w-4 h-4" />
@@ -175,7 +177,7 @@ export const AssetVaultModal: React.FC<AssetVaultModalProps> = ({
         </div>
 
         {/* Filter Pills */}
-        <div className="flex items-center px-5 py-2.5 bg-white border-b-2 border-neutral-900 gap-1.5 overflow-x-auto text-xs font-mono">
+        <div className="flex items-center px-5 py-2.5 bg-[#f8fafc] dark:bg-slate-800 border-b-2 border-slate-300 dark:border-slate-700 gap-1.5 overflow-x-auto text-xs font-mono">
           {(['all', 'dividers', 'banners', 'techs', 'badges'] as const).map(tab => (
             <button
               key={tab}
@@ -183,8 +185,8 @@ export const AssetVaultModal: React.FC<AssetVaultModalProps> = ({
               onClick={() => setActiveTab(tab)}
               className={`px-3 py-1 rounded-lg font-bold uppercase transition-all cursor-pointer ${
                 activeTab === tab
-                  ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs'
-                  : 'bg-neutral-50 text-neutral-700 hover:bg-neutral-100 border border-neutral-300'
+                  ? 'bg-[#ffe600] text-slate-900 font-black border border-slate-700 shadow-2xs'
+                  : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-600'
               }`}
             >
               {tab}
@@ -193,45 +195,45 @@ export const AssetVaultModal: React.FC<AssetVaultModalProps> = ({
         </div>
 
         {/* Assets Grid */}
-        <div className="p-5 overflow-y-auto space-y-3 bg-[#fafafa]">
+        <div className="p-5 overflow-y-auto space-y-3 bg-[#fafbfc] dark:bg-[#1e293b]">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             {filteredAssets.map(asset => (
               <div
                 key={asset.id}
-                className="p-4 bg-white rounded-xl border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] flex flex-col justify-between gap-3 hover:-translate-y-0.5 transition-transform"
+                className="p-4 bg-white dark:bg-slate-800 rounded-xl border-2 border-slate-300 dark:border-slate-600 shadow-[3px_3px_0px_#334155] flex flex-col justify-between gap-3 hover:-translate-y-0.5 transition-transform"
               >
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono font-black uppercase px-2 py-0.5 rounded bg-neutral-100 border border-neutral-300 text-neutral-700">
+                    <span className="text-[10px] font-mono font-black uppercase px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200">
                       {asset.category}
                     </span>
-                    <span className="flex items-center gap-1 text-[10px] font-mono text-emerald-700 font-bold">
+                    <span className="flex items-center gap-1 text-[10px] font-mono text-emerald-700 dark:text-emerald-400 font-bold">
                       <ShieldCheck className="w-3 h-3" /> Camo Safe
                     </span>
                   </div>
-                  <h3 className="font-mono text-xs font-black text-neutral-950">
+                  <h3 className="font-mono text-xs font-black text-slate-900 dark:text-white">
                     {asset.title}
                   </h3>
-                  <p className="font-mono text-[11px] text-neutral-600 line-clamp-2">
+                  <p className="font-mono text-[11px] text-slate-600 dark:text-slate-300 line-clamp-2">
                     {asset.description}
                   </p>
                 </div>
 
                 {/* Preformatted Markdown Snippet */}
-                <div className="p-2 bg-neutral-950 rounded-lg text-emerald-400 font-mono text-[10px] overflow-x-auto whitespace-pre truncate">
+                <div className="p-2 bg-slate-900 rounded-lg text-emerald-300 font-mono text-[10px] overflow-x-auto whitespace-pre truncate">
                   {asset.markdown.replace(/\n/g, ' ')}
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex items-center gap-2 pt-1 border-t border-neutral-200">
+                <div className="flex items-center gap-2 pt-1 border-t border-slate-200 dark:border-slate-700">
                   <button
                     type="button"
                     onClick={() => handleCopyMarkdown(asset)}
-                    className="flex-1 py-1.5 px-2 bg-white hover:bg-neutral-100 text-neutral-950 font-mono text-xs font-bold border border-neutral-900 rounded-lg transition-all flex items-center justify-center gap-1 cursor-pointer"
+                    className="flex-1 py-1.5 px-2 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 font-mono text-xs font-bold border border-slate-400 dark:border-slate-600 rounded-lg transition-all flex items-center justify-center gap-1 cursor-pointer"
                   >
                     {copiedId === asset.id ? (
                       <>
-                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <Check className="w-3.5 h-3.5 text-emerald-500" />
                         <span>COPIED</span>
                       </>
                     ) : (
@@ -245,7 +247,7 @@ export const AssetVaultModal: React.FC<AssetVaultModalProps> = ({
                   <button
                     type="button"
                     onClick={() => handleInsertSection(asset)}
-                    className="flex-1 py-1.5 px-2 bg-[#ffe600] hover:bg-[#ffdf00] text-neutral-950 font-mono text-xs font-black border border-neutral-900 rounded-lg shadow-2xs transition-all flex items-center justify-center gap-1 cursor-pointer"
+                    className="flex-1 py-1.5 px-2 bg-[#ffe600] hover:bg-amber-300 text-slate-900 font-mono text-xs font-black border border-slate-700 rounded-lg shadow-2xs transition-all flex items-center justify-center gap-1 cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>INSERT</span>
@@ -257,14 +259,14 @@ export const AssetVaultModal: React.FC<AssetVaultModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between px-5 py-3 bg-white border-t-2 border-neutral-900 text-xs font-mono">
-          <span className="text-neutral-500 text-[11px]">
+        <div className="flex items-center justify-between px-5 py-3 bg-[#f8fafc] dark:bg-slate-800 border-t-2 border-slate-300 dark:border-slate-700 text-xs font-mono">
+          <span className="text-slate-600 dark:text-slate-400 text-[11px]">
             Embed directly in GitHub README.md without external tracking servers
           </span>
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-1.5 rounded-lg bg-neutral-950 text-white font-mono text-xs font-bold border-2 border-neutral-900 hover:bg-neutral-800 transition-all cursor-pointer"
+            className="px-4 py-1.5 rounded-lg bg-slate-800 text-white font-mono text-xs font-bold border-2 border-slate-700 hover:bg-slate-700 transition-all cursor-pointer"
           >
             CLOSE
           </button>

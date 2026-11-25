@@ -208,8 +208,18 @@ export function auditReadmeContent(markdown: string): ReadmeAuditReport {
 export function autoFixReadmeContent(markdown: string): string {
   let fixed = markdown;
 
-  // 1. Upgrade http:// to https://
-  fixed = fixed.replace(/http:\/\/([^\s)]+)/gi, 'https://$1');
+  // 1. Upgrade http:// to https:// outside fenced code blocks
+  let inCodeFence = false;
+  fixed = fixed
+    .split('\n')
+    .map((line) => {
+      if (/^\s*```/.test(line)) {
+        inCodeFence = !inCodeFence;
+        return line;
+      }
+      return inCodeFence ? line : line.replace(/http:\/\/([^\s)]+)/gi, 'https://$1');
+    })
+    .join('\n');
 
   // 2. Remove illegal scripts and frames
   fixed = fixed.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
