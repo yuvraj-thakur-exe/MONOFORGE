@@ -8,7 +8,7 @@ test.describe('MonoForge Visual Wizard Flow', () => {
 
     // 1. Verify Header & Guided Studio
     await expect(page.locator('header').getByText('MonoForge')).toBeVisible();
-    await expect(page.getByText('Step-by-Step Wizard')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Step-by-Step Wizard' })).toBeVisible();
 
     // 2. Identity Step: fill inputs
     const usernameInput = page.locator('input[placeholder="e.g. torvalds"]');
@@ -44,9 +44,12 @@ test.describe('MonoForge Visual Wizard Flow', () => {
     await expect(page.getByText('Stats Cards & Interactive Widgets')).toBeVisible();
 
     // 8. Toggle a plugin widget (e.g., GitHub Readme Stats)
-    const statsToggle = page.locator('button').filter({ hasText: /GitHub Readme Stats/i });
-    if (await statsToggle.isVisible()) {
-      await statsToggle.click();
-    }
+    const statsCard = page
+      .getByRole('heading', { name: 'GitHub Readme Stats', exact: true })
+      .locator('xpath=ancestor::div[contains(@class,"rounded-xl")][1]');
+    const addStatsBtn = statsCard.getByRole('button', { name: /\+ Add Widget/i });
+    await expect(addStatsBtn).toBeVisible();
+    await addStatsBtn.click();
+    await expect(statsCard.getByRole('button', { name: /Remove Widget/i })).toBeVisible();
   });
 });

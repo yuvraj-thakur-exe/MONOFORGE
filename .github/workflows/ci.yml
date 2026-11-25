@@ -92,4 +92,7 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Run E2E tests
+        env:
+          CI: "true"
+          NEXT_TELEMETRY_DISABLED: "1"
         run: pnpm test:e2e

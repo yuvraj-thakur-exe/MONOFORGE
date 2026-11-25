@@ -12,7 +12,7 @@ test.describe('MonoForge /developer Route Flow', () => {
     await expect(page.getByRole('button', { name: 'Plugins & Presets' })).toBeVisible();
     await expect(page.getByRole('button', { name: /Copy README/i })).toBeVisible();
     await expect(page.getByRole('button', { name: /README\.md/i })).toBeVisible();
-    await expect(page.getByText('CONFIG.JSON')).toBeVisible();
+    await expect(page.getByText('CONFIG.JSON', { exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: /RENDERED/i })).toBeVisible();
   });
 
@@ -21,11 +21,11 @@ test.describe('MonoForge /developer Route Flow', () => {
 
     // Toggle plugin panel
     const pluginsBtn = page.getByRole('button', { name: 'Plugins & Presets' });
-    if (await pluginsBtn.isVisible()) {
-      await pluginsBtn.click();
-      await expect(page.getByRole('button', { name: /Plugins \(\d+\)/ })).toBeHidden();
-      await pluginsBtn.click();
-      await expect(page.getByRole('button', { name: /Plugins \(\d+\)/ })).toBeVisible();
-    }
+    await expect(pluginsBtn).toBeVisible();
+    await expect(page.getByRole('button', { name: /Plugins \(\d+\)/i })).toBeVisible();
+    await pluginsBtn.click();
+    await expect(page.getByRole('button', { name: /Plugins \(\d+\)/i })).toBeHidden();
+    await pluginsBtn.click();
+    await expect(page.getByRole('button', { name: /Plugins \(\d+\)/i })).toBeVisible();
   });
 });
