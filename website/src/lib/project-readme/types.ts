@@ -14,6 +14,30 @@ export type EcosystemType =
   | 'docker'
   | 'general';
 
+export type ProjectAnalysisSource =
+  | 'default'
+  | 'github'
+  | 'partial'
+  | 'heuristic'
+  | 'rate_limited'
+  | 'not_found'
+  | 'error';
+
+export type AnalysisSource = ProjectAnalysisSource;
+
+export type ProjectEditorCategory =
+  | 'meta'
+  | 'badges'
+  | 'features'
+  | 'architecture'
+  | 'stack'
+  | 'install'
+  | 'env'
+  | 'roadmap'
+  | 'sections';
+
+export type ProjectStudioCategory = ProjectEditorCategory;
+
 export interface ProjectBadge {
   id: string;
   label: string;
@@ -91,6 +115,7 @@ export interface ProjectReadmeConfig {
   envVariables: EnvVariable[];
   showContributing: boolean;
   showLicense: boolean;
+  showToc?: boolean;
+  includeAttribution?: boolean;
   customSections: CustomSection[];
 }
-

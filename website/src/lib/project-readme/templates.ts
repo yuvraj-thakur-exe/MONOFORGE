@@ -6,13 +6,13 @@ export const PROJECT_TEMPLATES: Record<ProjectTemplateType, ProjectReadmeConfig>
     name: 'MonoForge',
     tagline: 'The Developer Identity & README Engineering Studio',
     description:
-      'Turn ordinary software repositories and GitHub profiles into high-impact engineering showcases. Built with Next.js 16, Monaco Editor, and 47+ real-time telemetry engines.',
+      'Turn ordinary software repositories and GitHub profiles into high-impact engineering showcases. Built with Next.js 16, Monaco Editor, 330+ Profile Archetypes, 30+ SVG Visualizations, and 22 Modular Plugins.',
     template: 'developer-tool',
     ecosystem: 'node',
     repositoryUrl: 'https://github.com/yuvraj-thakur-exe/MONOFORGE',
     liveDemoUrl: 'https://monoforge-studio.vercel.app/en',
     license: 'MIT',
-    logoUrl: 'https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/public/assets/branding/monoforge-logo.svg',
+    logoUrl: 'https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/public/assets/monoforge-logo.svg',
     showBadges: true,
     badges: [
       { id: 'b1', label: 'License', text: 'MIT', color: 'blue', style: 'for-the-badge', enabled: true },
@@ -29,7 +29,7 @@ export const PROJECT_TEMPLATES: Record<ProjectTemplateType, ProjectReadmeConfig>
       },
       {
         id: 'f2',
-        title: '75+ Profile Archetypes',
+        title: '330+ Profile Archetypes',
         description: 'From high-density Bento dashboards to isometric 3D commit cities and retro terminal themes.',
       },
       {
@@ -39,8 +39,8 @@ export const PROJECT_TEMPLATES: Record<ProjectTemplateType, ProjectReadmeConfig>
       },
       {
         id: 'f4',
-        title: '47+ Telemetry Engines',
-        description: 'Modular engines covering contribution velocity, language donuts, streak radars, and LeetCode stats.',
+        title: '30+ SVG Visualizations & 22 Modular Plugins',
+        description: 'Dynamic telemetry engines covering contribution velocity, language rivers, 3D commit cities, and LeetCode stats.',
       },
       {
         id: 'f5',
@@ -57,21 +57,22 @@ export const PROJECT_TEMPLATES: Record<ProjectTemplateType, ProjectReadmeConfig>
     ],
     installSteps: [
       { id: 's1', step: 'Clone Repository', command: 'git clone https://github.com/yuvraj-thakur-exe/MONOFORGE.git' },
-      { id: 's2', step: 'Install Dependencies', command: 'pnpm install' },
+      { id: 's2', step: 'Install Dependencies', command: 'cd MONOFORGE && pnpm install' },
       { id: 's3', step: 'Start Local Development', command: 'pnpm dev' },
     ],
-    quickStartCommand: 'npx monoforge generate --username octocat',
+    quickStartCommand: 'npx github:yuvraj-thakur-exe/MONOFORGE generate -u octocat',
     showArchitecture: true,
     architectureMermaid: `flowchart TD
   User([Developer / Creator]) --> UI[MonoForge Studio Interface]
   UI --> ProjectMode[Project README Studio]
   UI --> ProfileMode[GitHub Profile Studio]
   ProjectMode --> Parser[Repo Stack Analyzer]
-  ProfileMode --> Archetype[75+ Curated Archetypes]
+  ProfileMode --> Archetype[330+ Profile Archetypes]
   Parser & Archetype --> Monaco[Monaco IDE & Compiler]
-  Monaco --> Telemetry[47+ Telemetry Engines]
-  Monaco --> CamoSVG[60fps Animated SVGs]
-  Telemetry & CamoSVG --> Output[Production GFM & Direct Git Sync]`,
+  Monaco --> Telemetry[30+ SVG Visualizations]
+  Monaco --> Plugins[22 Modular Plugins]
+  Telemetry & Plugins --> CamoSVG[60fps Animated SVGs]
+  CamoSVG --> Output[Production GFM & Direct Git Sync]`,
     showRoadmap: true,
     roadmap: [
       { id: 'r1', task: 'Visual Profile Builder & Wizard', done: true },
@@ -335,4 +336,3 @@ export const PROJECT_TEMPLATES: Record<ProjectTemplateType, ProjectReadmeConfig>
     customSections: [],
   },
 };
-

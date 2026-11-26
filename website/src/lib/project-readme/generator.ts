@@ -1,21 +1,89 @@
 import { ProjectReadmeConfig } from './types';
 
 /**
+ * Validates and sanitizes URLs used in generated Markdown/HTML attributes.
+ * Blocks unsafe schemes (`javascript:`, `data:`, `vbscript:`, etc.) even when
+ * obfuscated with whitespace or control characters.
+ */
+export function sanitizeProjectUrl(rawUrl?: string): string {
+  if (!rawUrl || typeof rawUrl !== 'string') return '';
+  const trimmed = rawUrl.trim();
+  if (!trimmed) return '';
+
+  // Strip ASCII control characters and whitespace before inspecting the scheme
+  const normalized = trimmed.replace(/[\u0000-\u0020]+/g, '');
+  if (/^(?:javascript|vbscript|data):/i.test(normalized)) {
+    return '';
+  }
+
+  // Allow safe relative references
+  if (
+    normalized.startsWith('/') ||
+    normalized.startsWith('./') ||
+    normalized.startsWith('../') ||
+    normalized.startsWith('#')
+  ) {
+    return escapeAttributeChars(trimmed);
+  }
+
+  try {
+    const parsed = new URL(trimmed);
+    if (parsed.protocol === 'http:' || parsed.protocol === 'https:' || parsed.protocol === 'mailto:') {
+      return escapeAttributeChars(trimmed);
+    }
+    return '';
+  } catch {
+    return '';
+  }
+}
+
+function escapeAttributeChars(value: string): string {
+  return value.replace(/"/g, '%22').replace(/</g, '%3C').replace(/>/g, '%3E');
+}
+
+function escapeHtmlText(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function escapeTableCell(value: string): string {
+  return value.replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
+}
+
+function slugifyHeading(heading: string): string {
+  return heading
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-');
+}
+
+/**
  * Compiles a production-grade, GitHub Flavored Markdown (GFM) project README
  * adhering to modern developer-experience standards.
  */
 export function buildProjectMarkdown(config: ProjectReadmeConfig): string {
   const parts: string[] = [];
 
+  const safeLogoUrl = sanitizeProjectUrl(config.logoUrl);
+  const safeRepoUrl = sanitizeProjectUrl(config.repositoryUrl).replace(/\/+$/, '');
+  const safeLiveDemoUrl = sanitizeProjectUrl(config.liveDemoUrl);
+  const safeNameAttr = escapeHtmlText(config.name || 'Project');
+  const safeNameHeading = escapeHtmlText(config.name || 'Project');
+  const safeTagline = escapeHtmlText(config.tagline || '');
+
   // 1. Header (Logo, Title, Tagline)
-  if (config.logoUrl) {
+  if (safeLogoUrl) {
     parts.push(
-      `<p align="center">\n  <img src="${config.logoUrl}" alt="${config.name} Logo" width="120" height="120">\n</p>\n`
+      `<p align="center">\n  <img src="${safeLogoUrl}" alt="${safeNameAttr} Logo" width="120" height="120">\n</p>\n`
     );
   }
 
   parts.push(
-    `<h1 align="center">${config.name}</h1>\n\n<p align="center">\n  <strong>${config.tagline}</strong>\n</p>\n`
+    `<h1 align="center">${safeNameHeading}</h1>\n\n<p align="center">\n  <strong>${safeTagline}</strong>\n</p>\n`
   );
 
   // 2. Badges
@@ -26,11 +94,14 @@ export function buildProjectMarkdown(config: ProjectReadmeConfig): string {
         .map((b) => {
           const encodedLabel = encodeURIComponent(b.label);
           const encodedText = encodeURIComponent(b.text);
-          const badgeUrl = `https://img.shields.io/badge/${encodedLabel}-${encodedText}-${b.color}?style=${b.style}`;
-          if (b.link) {
-            return `  <a href="${b.link}"><img src="${badgeUrl}" alt="${b.label}"></a>`;
+          const encodedColor = encodeURIComponent(b.color);
+          const badgeUrl = `https://img.shields.io/badge/${encodedLabel}-${encodedText}-${encodedColor}?style=${encodeURIComponent(b.style)}`;
+          const safeAlt = escapeHtmlText(b.label);
+          const safeLink = sanitizeProjectUrl(b.link);
+          if (safeLink) {
+            return `  <a href="${safeLink}"><img src="${badgeUrl}" alt="${safeAlt}"></a>`;
           }
-          return `  <img src="${badgeUrl}" alt="${b.label}">`;
+          return `  <img src="${badgeUrl}" alt="${safeAlt}">`;
         })
         .join('\n');
 
@@ -40,24 +111,57 @@ export function buildProjectMarkdown(config: ProjectReadmeConfig): string {
 
   // 3. Navigation Links (Demo, Docs, Report Bug)
   const navLinks: string[] = [];
-  if (config.liveDemoUrl) {
-    navLinks.push(`[Live Demo](${config.liveDemoUrl})`);
+  if (safeLiveDemoUrl) {
+    navLinks.push(`[Live Demo](${safeLiveDemoUrl})`);
   }
-  if (config.repositoryUrl) {
-    navLinks.push(`[GitHub Repository](${config.repositoryUrl})`);
-    navLinks.push(`[Report Issue](${config.repositoryUrl}/issues)`);
+  if (safeRepoUrl) {
+    navLinks.push(`[GitHub Repository](${safeRepoUrl})`);
+    navLinks.push(`[Report Issue](${safeRepoUrl}/issues)`);
   }
   if (navLinks.length > 0) {
     parts.push(`<p align="center">\n  ${navLinks.join(' • ')}\n</p>\n\n---\n`);
   }
 
+  // Collect section headings for optional Table of Contents
+  const hasOverview = Boolean(config.description?.trim());
+  const hasFeatures = config.features.length > 0;
+  const hasArchitecture = Boolean(config.showArchitecture && config.architectureMermaid.trim());
+  const hasTechStack = config.techStack.length > 0;
+  const hasGettingStarted = Boolean(config.installSteps.length > 0 || config.quickStartCommand?.trim());
+  const hasEnvVars = Boolean(config.showEnvVariables && config.envVariables.length > 0);
+  const hasRoadmap = Boolean(config.showRoadmap && config.roadmap.length > 0);
+  const validCustomSections = (config.customSections || []).filter(
+    (sec) => sec.title?.trim() && sec.content?.trim()
+  );
+
+  if (config.showToc) {
+    const tocEntries: string[] = [];
+    if (hasOverview) tocEntries.push(`- [Overview](#overview)`);
+    if (hasFeatures) tocEntries.push(`- [Key Features](#key-features)`);
+    if (hasArchitecture) tocEntries.push(`- [System Architecture](#system-architecture)`);
+    if (hasTechStack) tocEntries.push(`- [Tech Stack](#tech-stack)`);
+    if (hasGettingStarted) tocEntries.push(`- [Getting Started](#getting-started)`);
+    if (hasEnvVars) tocEntries.push(`- [Environment Variables](#environment-variables)`);
+    if (hasRoadmap) tocEntries.push(`- [Development Roadmap](#development-roadmap)`);
+    for (const sec of validCustomSections) {
+      const title = sec.title.trim();
+      tocEntries.push(`- [${title}](#${slugifyHeading(title)})`);
+    }
+    if (config.showContributing) tocEntries.push(`- [Contributing](#contributing)`);
+    if (config.showLicense) tocEntries.push(`- [License](#license)`);
+
+    if (tocEntries.length > 0) {
+      parts.push(`## Table of Contents\n\n${tocEntries.join('\n')}\n`);
+    }
+  }
+
   // 4. Description
-  if (config.description) {
-    parts.push(`## Overview\n\n${config.description}\n`);
+  if (hasOverview) {
+    parts.push(`## Overview\n\n${config.description.trim()}\n`);
   }
 
   // 5. Key Features
-  if (config.features.length > 0) {
+  if (hasFeatures) {
     parts.push(`## Key Features\n`);
     for (const feat of config.features) {
       parts.push(`- **${feat.title}**: ${feat.description}`);
@@ -66,29 +170,29 @@ export function buildProjectMarkdown(config: ProjectReadmeConfig): string {
   }
 
   // 6. Architecture / Mermaid Diagram
-  if (config.showArchitecture && config.architectureMermaid.trim()) {
+  if (hasArchitecture) {
     parts.push(
       `## System Architecture\n\n\`\`\`mermaid\n${config.architectureMermaid.trim()}\n\`\`\`\n`
     );
   }
 
   // 7. Tech Stack Table
-  if (config.techStack.length > 0) {
+  if (hasTechStack) {
     parts.push(`## Tech Stack\n`);
     parts.push(`| Layer | Technology |`);
     parts.push(`| :--- | :--- |`);
     for (const item of config.techStack) {
-      parts.push(`| **${item.category}** | \`${item.name}\` |`);
+      parts.push(`| **${escapeTableCell(item.category)}** | \`${escapeTableCell(item.name)}\` |`);
     }
     parts.push('');
   }
 
   // 8. Getting Started & Installation
-  if (config.installSteps.length > 0 || config.quickStartCommand) {
+  if (hasGettingStarted) {
     parts.push(`## Getting Started\n`);
 
-    if (config.quickStartCommand) {
-      parts.push(`### Quick Start\n\n\`\`\`bash\n${config.quickStartCommand}\n\`\`\`\n`);
+    if (config.quickStartCommand?.trim()) {
+      parts.push(`### Quick Start\n\n\`\`\`bash\n${config.quickStartCommand.trim()}\n\`\`\`\n`);
     }
 
     if (config.installSteps.length > 0) {
@@ -106,21 +210,23 @@ export function buildProjectMarkdown(config: ProjectReadmeConfig): string {
   }
 
   // 9. Environment Variables
-  if (config.showEnvVariables && config.envVariables.length > 0) {
+  if (hasEnvVars) {
     parts.push(`## Environment Variables\n`);
     parts.push(`Create a \`.env\` file in the project root with the following keys:\n`);
     parts.push(`| Variable | Description | Required | Default |`);
     parts.push(`| :--- | :--- | :---: | :--- |`);
     for (const env of config.envVariables) {
       const req = env.required ? '**Yes**' : 'No';
-      const def = env.defaultValue ? `\`${env.defaultValue}\`` : '—';
-      parts.push(`| \`${env.key}\` | ${env.description} | ${req} | ${def} |`);
+      const def = env.defaultValue ? `\`${escapeTableCell(env.defaultValue)}\`` : '—';
+      parts.push(
+        `| \`${escapeTableCell(env.key)}\` | ${escapeTableCell(env.description)} | ${req} | ${def} |`
+      );
     }
     parts.push('');
   }
 
   // 10. Roadmap
-  if (config.showRoadmap && config.roadmap.length > 0) {
+  if (hasRoadmap) {
     parts.push(`## Development Roadmap\n`);
     for (const item of config.roadmap) {
       const checkbox = item.done ? '[x]' : '[ ]';
@@ -130,12 +236,8 @@ export function buildProjectMarkdown(config: ProjectReadmeConfig): string {
   }
 
   // 11. Custom Sections
-  if (config.customSections.length > 0) {
-    for (const sec of config.customSections) {
-      if (sec.title && sec.content) {
-        parts.push(`## ${sec.title}\n\n${sec.content}\n`);
-      }
-    }
+  for (const sec of validCustomSections) {
+    parts.push(`## ${sec.title.trim()}\n\n${sec.content.trim()}\n`);
   }
 
   // 12. Contributing & License
@@ -149,11 +251,12 @@ export function buildProjectMarkdown(config: ProjectReadmeConfig): string {
     parts.push(`## License\n\nDistributed under the **${config.license}** License.\n`);
   }
 
-  // Footer Attribution
-  parts.push(
-    `---\n\n<p align="center">\n  <em>Engineered with <a href="https://monoforge-studio.vercel.app">MonoForge</a> — The Developer Identity &amp; README Engineering Studio</em>\n</p>`
-  );
+  // Footer Attribution (enabled by default unless explicitly set to false)
+  if (config.includeAttribution !== false) {
+    parts.push(
+      `---\n\n<p align="center">\n  <em>Engineered with <a href="https://monoforge-studio.vercel.app">MonoForge</a> — The Developer Identity &amp; README Engineering Studio</em>\n</p>`
+    );
+  }
 
   return parts.join('\n');
 }
-

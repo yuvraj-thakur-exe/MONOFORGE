@@ -19,27 +19,34 @@ export function GitHubStarButton({
 }: GitHubStarButtonProps) {
   const [stars, setStars] = useState<number | string>(defaultStars);
 
-  // Optional: Fetch live stargazers count from GitHub REST API
+  // Fetch cached stargazers count from internal API route (avoids browser 403 rate limits)
   useEffect(() => {
-    let isMounted = true;
-    fetch('https://api.github.com/repos/yuvraj-thakur-exe/MONOFORGE', {
-      headers: { Accept: 'application/vnd.github.v3+json' },
+    const controller = new AbortController();
+    fetch('/api/github/stars', {
+      signal: controller.signal,
+      headers: { Accept: 'application/json' },
     })
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch repo stats');
         return res.json();
       })
-      .then((data) => {
-        if (isMounted && typeof data.stargazers_count === 'number') {
+      .then((data: { stars?: unknown; stargazers_count?: unknown }) => {
+        if (controller.signal.aborted) return;
+        if (typeof data?.stars === 'number' && Number.isFinite(data.stars)) {
+          setStars(data.stars);
+        } else if (
+          typeof data?.stargazers_count === 'number' &&
+          Number.isFinite(data.stargazers_count)
+        ) {
           setStars(data.stargazers_count);
         }
       })
       .catch(() => {
-        // Fallback to default stars quietly
+        // Fallback to defaultStars quietly
       });
 
     return () => {
-      isMounted = false;
+      controller.abort();
     };
   }, []);
 
@@ -49,7 +56,7 @@ export function GitHubStarButton({
       target="_blank"
       rel="noreferrer"
       aria-label="Star on GitHub"
-      className={`flex overflow-hidden items-center text-sm font-medium focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-black text-white shadow-md hover:bg-black/90 h-9 px-4 py-2 max-w-56 whitespace-pre group relative justify-center gap-2 rounded-md transition-all duration-300 ease-out hover:ring-2 hover:ring-black hover:ring-offset-2 border border-neutral-800 ${className}`}
+      className={`flex overflow-hidden items-center text-sm font-medium focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#0f172a] text-white shadow-md hover:bg-[#1e293b] h-9 px-4 py-2 max-w-56 whitespace-pre group relative justify-center gap-2 rounded-md transition-all duration-300 ease-out hover:ring-2 hover:ring-slate-700 hover:ring-offset-2 border border-slate-700 ${className}`}
     >
       {/* Light Sweep Highlight */}
       <span
