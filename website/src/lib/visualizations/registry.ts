@@ -1,6 +1,13 @@
 import { VisualizationManifest, VisualizationId } from './types';
 
-export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManifest> = {
+export type VisualizationDataDependency = 'contributions' | 'repositories' | 'languages';
+
+export interface VisualizationRegistryEntry extends VisualizationManifest {
+  featured: boolean;
+  dataDependencies: VisualizationDataDependency[];
+}
+
+export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationRegistryEntry> = {
   // --- A. Contributor Activity Visualizations ---
   'commit-city': {
     id: 'commit-city',
@@ -14,6 +21,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: true,
+    dataDependencies: ['contributions'],
   },
   'commit-river': {
     id: 'commit-river',
@@ -27,6 +36,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: true,
+    dataDependencies: ['contributions'],
   },
   'year-clock': {
     id: 'year-clock',
@@ -40,6 +51,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: true,
+    dataDependencies: ['contributions'],
   },
   'coding-pulse': {
     id: 'coding-pulse',
@@ -53,6 +66,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: true,
+    dataDependencies: ['contributions'],
   },
   'developer-terminal': {
     id: 'developer-terminal',
@@ -66,6 +81,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: true,
+    dataDependencies: ['contributions', 'repositories', 'languages'],
   },
   'contribution-snake': {
     id: 'contribution-snake',
@@ -79,6 +96,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: true,
+    dataDependencies: ['contributions'],
   },
   'commit-waterfall': {
     id: 'commit-waterfall',
@@ -92,6 +111,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['contributions'],
   },
   'contribution-topography': {
     id: 'contribution-topography',
@@ -105,6 +126,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['contributions'],
   },
   'coding-weather': {
     id: 'coding-weather',
@@ -118,6 +141,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['contributions'],
   },
   'developer-seasons': {
     id: 'developer-seasons',
@@ -131,6 +156,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['contributions'],
   },
 
   // --- B. Repository Universe & Architecture ---
@@ -146,6 +173,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: true,
+    dataDependencies: ['repositories', 'contributions'],
   },
   'project-constellation': {
     id: 'project-constellation',
@@ -153,12 +182,14 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     tagline: 'Interconnected Stellar Graph',
     category: 'repository',
     description:
-      'Connects your public repositories as celestial stars linked by shared libraries, shared monorepo packages, and cross-repo dependencies.',
+      'Connects your public repositories as celestial stars linked by shared languages, monorepo ecosystems, and star-weighted orbital clusters.',
     badge: 'Stellar Graph',
     accent: '#a855f7',
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['repositories', 'languages'],
   },
   'codebase-blueprint': {
     id: 'codebase-blueprint',
@@ -166,12 +197,14 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     tagline: 'Engineering Schematic Blueprint',
     category: 'repository',
     description:
-      'Renders an explorable cyan architectural blueprint displaying directory topologies, data contracts, and microservice boundaries.',
+      'Renders an explorable cyan architectural blueprint displaying repository topologies, language specs, and system module cards.',
     badge: 'Technical Blueprint',
     accent: '#0284c7',
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: true,
+    dataDependencies: ['repositories', 'contributions'],
   },
   'language-river': {
     id: 'language-river',
@@ -185,6 +218,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: true,
+    dataDependencies: ['languages'],
   },
   'tech-stack-solar-system': {
     id: 'tech-stack-solar-system',
@@ -198,6 +233,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: true,
+    dataDependencies: ['languages', 'repositories'],
   },
   'release-timeline': {
     id: 'release-timeline',
@@ -211,6 +248,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['repositories', 'contributions'],
   },
   'repository-tree': {
     id: 'repository-tree',
@@ -218,12 +257,14 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     tagline: 'Botanical Architectural Branching',
     category: 'repository',
     description:
-      'Visualizes modular repository architectures as organic trees where branches represent source packages and leaves represent merged feature branches.',
+      'Visualizes modular repository architectures as organic trees where branches represent flagship repositories and leaf clusters represent language ecosystems.',
     badge: 'Botanical Tree',
     accent: '#22c55e',
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['repositories', 'languages'],
   },
   'commit-constellation': {
     id: 'commit-constellation',
@@ -231,12 +272,14 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     tagline: 'Chronological Stellar Starfield',
     category: 'repository',
     description:
-      'Deep-space astrophotography starfield where star brightness and color coordinates directly encode commit volume and programming language.',
+      'Deep-space astrophotography starfield where star brightness and color coordinates directly encode weekly commit volume and programming language.',
     badge: 'Stellar Nebula',
     accent: '#c084fc',
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['contributions', 'languages'],
   },
   'code-impact-map': {
     id: 'code-impact-map',
@@ -244,12 +287,14 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     tagline: 'Global Velocity Heat Intensity',
     category: 'repository',
     description:
-      'Chronological radar display that isolates high-impact architectural pull requests, refactors, and critical performance milestones.',
+      'Chronological radar display that isolates high-impact repositories, peak commit velocity, and critical engineering milestones.',
     badge: 'Radar Intensity',
     accent: '#ef4444',
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['repositories', 'contributions'],
   },
   'collaboration-network': {
     id: 'collaboration-network',
@@ -257,12 +302,14 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     tagline: 'Force-Directed Peer Social Graph',
     category: 'repository',
     description:
-      'Force-directed organic network illustrating co-contributor clusters, reviewed PR bonds, and open-source relationships.',
+      'Force-directed organic network illustrating repository clusters, fork/star bonds, and open-source ecosystem relationships.',
     badge: 'Social Graph',
     accent: '#3b82f6',
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['repositories'],
   },
 
   // --- C. Developer DNA & Verified Skill Systems ---
@@ -278,6 +325,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: true,
+    dataDependencies: ['languages'],
   },
   'engineering-radar': {
     id: 'engineering-radar',
@@ -291,6 +340,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: true,
+    dataDependencies: ['repositories', 'languages'],
   },
   'skill-tree': {
     id: 'skill-tree',
@@ -304,6 +355,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['languages', 'repositories'],
   },
   'skill-constellation': {
     id: 'skill-constellation',
@@ -317,6 +370,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['languages', 'repositories'],
   },
   'project-dna': {
     id: 'project-dna',
@@ -324,12 +379,14 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     tagline: 'Architecture Comparative Barcode',
     category: 'identity',
     description:
-      'Side-by-side genetic barcodes contrasting the complexity, dependency footprint, and test ratio of your top open-source repositories.',
+      'Side-by-side genetic barcodes contrasting the complexity, star footprint, and activity intensity of your top open-source repositories.',
     badge: 'Genetic Barcode',
     accent: '#d946ef',
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['repositories', 'languages'],
   },
   'opensource-footprints': {
     id: 'opensource-footprints',
@@ -337,12 +394,14 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     tagline: 'Luminescent Contributor Trails',
     category: 'identity',
     description:
-      'Traces glowing path coordinates representing upstream pull requests, issue triage, and open-source ecosystem contributions.',
+      'Traces glowing path coordinates representing upstream repositories, commit milestones, and open-source ecosystem contributions.',
     badge: 'Path Tracer',
     accent: '#10b981',
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['repositories', 'contributions'],
   },
   'pr-flightpath': {
     id: 'pr-flightpath',
@@ -356,6 +415,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['repositories', 'contributions'],
   },
   'issue-garden': {
     id: 'issue-garden',
@@ -363,12 +424,14 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     tagline: 'Generative Botanical Flora Garden',
     category: 'identity',
     description:
-      'A serene botanical garden where reported issues sprout as saplings and bloom into vibrant flowering vector plants upon successful PR resolution.',
+      'A serene botanical garden where repository activity sprouts as saplings and blooms into vibrant flowering vector plants upon milestone resolution.',
     badge: 'Generative Flora',
     accent: '#84cc16',
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['repositories', 'contributions'],
   },
   'year-in-code': {
     id: 'year-in-code',
@@ -382,6 +445,8 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['contributions', 'repositories', 'languages'],
   },
   'developer-timeline': {
     id: 'developer-timeline',
@@ -389,13 +454,18 @@ export const VISUALIZATION_REGISTRY: Record<VisualizationId, VisualizationManife
     tagline: 'Chronological Career Journey',
     category: 'identity',
     description:
-      'Clean chronological trajectory plotting career milestones, shipped open-source packages, publications, and engineering evolution.',
+      'Clean chronological trajectory plotting career milestones, shipped open-source packages, active coding streaks, and engineering evolution.',
     badge: 'Chronological Track',
     accent: '#a855f7',
     supportsCanvas: true,
     supportsSvg: true,
     exportFormats: ['svg', 'png', 'markdown', 'embed'],
+    featured: false,
+    dataDependencies: ['contributions', 'repositories', 'languages'],
   },
 };
 
 export const ALL_VISUALIZATION_IDS = Object.keys(VISUALIZATION_REGISTRY) as VisualizationId[];
+export const FEATURED_VISUALIZATION_IDS = ALL_VISUALIZATION_IDS.filter(
+  (id) => VISUALIZATION_REGISTRY[id].featured
+);

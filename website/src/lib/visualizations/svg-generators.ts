@@ -738,12 +738,15 @@ export function generateDeveloperDnaSvg(
       strand2 += ` L ${x.toFixed(1)} ${y2.toFixed(1)}`;
     }
 
-    // Color rungs by languages
-    const lang = data.languages[i % data.languages.length];
+    // Color rungs by languages (guard empty languages array)
+    const langColor =
+      data.languages.length > 0
+        ? data.languages[i % data.languages.length].color
+        : theme.accent;
 
     rungsSvg += `
       <line x1="${x.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x.toFixed(1)}" y2="${y2.toFixed(1)}"
-            stroke="${lang.color}" stroke-width="2" opacity="0.75" />
+            stroke="${langColor}" stroke-width="2" opacity="0.75" />
       <circle cx="${x.toFixed(1)}" cy="${y1.toFixed(1)}" r="4.5" fill="${theme.primary}" />
       <circle cx="${x.toFixed(1)}" cy="${y2.toFixed(1)}" r="4.5" fill="${theme.secondary}" />
     `;
@@ -936,8 +939,8 @@ export function generateEngineeringRadarSvg(
     .join(' ');
 
   return `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
-  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
   <g transform="translate(32, 32)">
     <circle cx="8" cy="8" r="4" fill="${theme.primary}" />
     <text x="20" y="12" fill="${theme.textPrimary}" font-family="monospace" font-size="12" font-weight="bold">MONOFORGE // ENGINEERING CAPABILITY RADAR</text>
@@ -976,8 +979,8 @@ export function generateCodebaseBlueprintSvg(
     .join('\n');
 
   return `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
-  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
   <!-- Blueprint grid lines -->
   <defs>
     <pattern id="blueprint-grid" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -1056,7 +1059,7 @@ export function generateLanguageRiverSvg(
   }).join('\n');
 
   return `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
   <style>
     .river-stream-0 { animation: riverWave0 6s ease-in-out infinite; }
     .river-stream-1 { animation: riverWave1 7s ease-in-out infinite; }
@@ -1117,8 +1120,8 @@ export function generateReleaseTimelineSvg(
   }).join('\n');
 
   return `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
-  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
   <g transform="translate(40, 40)">
     <text x="0" y="20" fill="${theme.primary}" font-family="monospace" font-size="16" font-weight="bold">RELEASE TIMELINE // TRANSIT ROADMAP</text>
     <text x="0" y="40" fill="${theme.textMuted}" font-family="monospace" font-size="11">${escapeXml(data.username)} &bull; ${milestones.length} Major Epochs &bull; ${data.totalContributions} Verified Commits</text>
@@ -1166,8 +1169,8 @@ export function generateTechStackSolarSystemSvg(
   }).join('\n');
 
   return `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
-  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
   <g transform="translate(40, 40)">
     <text x="0" y="20" fill="${theme.primary}" font-family="monospace" font-size="16" font-weight="bold">TECH STACK SOLAR SYSTEM // ORBITAL KINEMATICS</text>
     <text x="0" y="40" fill="${theme.textMuted}" font-family="monospace" font-size="11">${escapeXml(data.username)} &bull; Heliocentric Engineering Galaxy</text>
@@ -1194,7 +1197,7 @@ export function generateSynthwaveBentoSvg(
   const height = options.height || 460;
 
   return `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
   <defs>
     <linearGradient id="synth-sun" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#ff007f" />
@@ -1212,14 +1215,14 @@ export function generateSynthwaveBentoSvg(
     </linearGradient>
   </defs>
 
-  <rect width="100%" height="100%" fill="#0a0714" rx="16" />
+  <rect width="100%" height="100%" fill="#0f172a" rx="16" stroke="#334155" stroke-width="1" />
 
   <g transform="translate(440, 90)">
     <circle cx="0" cy="0" r="46" fill="url(#synth-sun)" />
-    <rect x="-46" y="-6" width="92" height="3" fill="#0a0714" />
-    <rect x="-46" y="8" width="92" height="4" fill="#0a0714" />
-    <rect x="-46" y="24" width="92" height="6" fill="#0a0714" />
-    <rect x="-46" y="38" width="92" height="8" fill="#0a0714" />
+    <rect x="-46" y="-6" width="92" height="3" fill="#0f172a" />
+    <rect x="-46" y="8" width="92" height="4" fill="#0f172a" />
+    <rect x="-46" y="24" width="92" height="6" fill="#0f172a" />
+    <rect x="-46" y="38" width="92" height="8" fill="#0f172a" />
   </g>
 
   <g transform="translate(40, 36)">
@@ -1251,7 +1254,7 @@ export function generateSynthwaveBentoSvg(
     <rect width="180" height="110" rx="12" fill="#151024" stroke="#00f0ff" stroke-width="1.5" />
     <circle cx="50" cy="55" r="28" fill="none" stroke="#2a1f45" stroke-width="6" />
     <circle cx="50" cy="55" r="28" fill="none" stroke="#00f0ff" stroke-width="6" stroke-dasharray="140" stroke-dashoffset="20" stroke-linecap="round" />
-    <text x="50" y="60" fill="#ffffff" font-family="monospace" font-size="13" font-weight="black" text-anchor="middle">🔥</text>
+    <text x="50" y="60" fill="#ffffff" font-family="monospace" font-size="13" font-weight="black" text-anchor="middle">MAX</text>
     <text x="96" y="46" fill="#00f0ff" font-family="monospace" font-size="18" font-weight="black">${data.maxStreak}D</text>
     <text x="96" y="68" fill="#94a3b8" font-family="monospace" font-size="10" font-weight="bold">LONGEST</text>
     <text x="96" y="82" fill="#94a3b8" font-family="monospace" font-size="10" font-weight="bold">STREAK</text>
@@ -1313,7 +1316,7 @@ export function generateNeofetchTerminalSvg(
   const langs = data.languages.map(l => l.name).slice(0, 4).join(', ') || 'TypeScript, Python, Go, Rust';
 
   return `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
   <rect width="100%" height="100%" fill="#0d1117" rx="14" stroke="#30363d" stroke-width="1.5" />
   
   <path d="M 0 14 Q 0 0 14 0 L ${width - 14} 0 Q ${width} 0 ${width} 14 L ${width} 36 L 0 36 Z" fill="#161b22" />
@@ -1359,8 +1362,780 @@ export function generateNeofetchTerminalSvg(
   `.trim();
 }
 
+/* =========================================================================
+   17. PROJECT CONSTELLATION SVG GENERATOR (INTERCONNECTED STELLAR GRAPH)
+   ========================================================================= */
+export function generateProjectConstellationSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'cyberpunk'] || VISUALIZATION_THEMES.cyberpunk;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const repos = data.repositories.slice(0, 7);
+
+  const nodes = repos.map((repo, idx) => {
+    const angle = (idx / Math.max(1, repos.length)) * Math.PI * 2 - Math.PI / 2;
+    const r = 105 + (idx % 2) * 45;
+    return {
+      repo,
+      x: width / 2 + Math.cos(angle) * r * 1.35,
+      y: height / 2 + 18 + Math.sin(angle) * (r * 0.72),
+      starR: Math.max(6, Math.min(16, Math.sqrt(repo.stars + 1) * 0.4 + 5)),
+    };
+  });
+
+  let edgesSvg = '';
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      if (nodes[i].repo.language === nodes[j].repo.language || j === i + 1) {
+        edgesSvg += `<line x1="${nodes[i].x.toFixed(1)}" y1="${nodes[i].y.toFixed(1)}" x2="${nodes[j].x.toFixed(1)}" y2="${nodes[j].y.toFixed(1)}" stroke="${theme.primary}" stroke-width="1" stroke-dasharray="4,4" opacity="0.45" />`;
+      }
+    }
+  }
+
+  const starsSvg = nodes
+    .map(
+      (n) => `
+      <g transform="translate(${n.x.toFixed(1)}, ${n.y.toFixed(1)})">
+        <circle cx="0" cy="0" r="${n.starR + 5}" fill="${n.repo.color}" opacity="0.2" />
+        <circle cx="0" cy="0" r="${n.starR}" fill="${n.repo.color}" stroke="${theme.textPrimary}" stroke-width="1.2" />
+        <text x="0" y="${n.starR + 15}" text-anchor="middle" fill="${theme.textPrimary}" font-family="monospace" font-size="10" font-weight="700">${escapeXml(n.repo.name)}</text>
+        <text x="0" y="${n.starR + 27}" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="9">${n.repo.stars} stars &bull; ${escapeXml(n.repo.language)}</text>
+      </g>`
+    )
+    .join('');
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">PROJECT CONSTELLATION // INTERCONNECTED STELLAR GRAPH</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">Repository Topology &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  <g transform="translate(${width - 230}, 28)">
+    <text x="0" y="10" fill="${theme.textMuted}" font-family="monospace" font-size="11">STELLAR CLUSTERS</text>
+    <text x="0" y="26" fill="${theme.primary}" font-family="monospace" font-size="13" font-weight="700">${repos.length} REPOS LINKED</text>
+  </g>
+  ${edgesSvg}
+  ${starsSvg || `<text x="${width / 2}" y="${height / 2}" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="12">NO PUBLIC REPOSITORIES INDEXED</text>`}
+</svg>
+  `.trim();
+}
+
+/* =========================================================================
+   18. SKILL TREE SVG GENERATOR (RPG TALENT MATRIX)
+   ========================================================================= */
+export function generateSkillTreeSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'amber'] || VISUALIZATION_THEMES.amber;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const skills = data.skills.slice(0, 8);
+
+  const rootX = width / 2;
+  const rootY = 104;
+
+  const nodesSvg = skills
+    .map((skill, idx) => {
+      const col = idx % 4;
+      const row = Math.floor(idx / 4);
+      const x = 130 + col * 205;
+      const y = 185 + row * 115;
+      const fillPct = Math.min(100, Math.max(20, skill.level * 20));
+      return `
+      <path d="M ${rootX} ${rootY + 18} C ${rootX} ${y - 45}, ${x} ${y - 45}, ${x} ${y}" fill="none" stroke="${theme.border}" stroke-width="1.5" />
+      <g transform="translate(${x - 82}, ${y})">
+        <rect width="164" height="72" rx="10" fill="${theme.cardBg}" stroke="${theme.primary}" stroke-width="1.2" />
+        <text x="12" y="22" fill="${theme.textPrimary}" font-family="monospace" font-size="11" font-weight="700">${escapeXml(skill.name)}</text>
+        <text x="12" y="38" fill="${theme.textMuted}" font-family="monospace" font-size="9">${escapeXml(skill.category.toUpperCase())} &bull; TIER ${skill.level}/5</text>
+        <rect x="12" y="48" width="140" height="8" rx="4" fill="${theme.bg}" />
+        <rect x="12" y="48" width="${(1.4 * fillPct).toFixed(0)}" height="8" rx="4" fill="${theme.primary}" />
+      </g>`;
+    })
+    .join('');
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">SKILL TREE // RPG TALENT MATRIX</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">Mastery Progression &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  <g transform="translate(${width - 230}, 28)">
+    <text x="0" y="10" fill="${theme.textMuted}" font-family="monospace" font-size="11">UNLOCKED NODES</text>
+    <text x="0" y="26" fill="${theme.primary}" font-family="monospace" font-size="13" font-weight="700">${data.skills.length} TALENTS</text>
+  </g>
+  <g transform="translate(${rootX}, ${rootY})">
+    <rect x="-74" y="-16" width="148" height="34" rx="17" fill="${theme.cardBg}" stroke="${theme.secondary}" stroke-width="2" />
+    <text x="0" y="5" text-anchor="middle" fill="${theme.secondary}" font-family="monospace" font-size="11" font-weight="800">CORE ENGINEER</text>
+  </g>
+  ${nodesSvg || `<text x="${width / 2}" y="240" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="12">0 VERIFIED SKILL NODES</text>`}
+</svg>
+  `.trim();
+}
+
+/* =========================================================================
+   19. COMMIT WATERFALL SVG GENERATOR (GRAVITY-DRIVEN CASCADE)
+   ========================================================================= */
+export function generateCommitWaterfallSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'ocean'] || VISUALIZATION_THEMES.ocean;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const recentWeeks = data.weeks.slice(-16);
+  const weekTotals = recentWeeks.map((w) => w.days.reduce((s, d) => s + d.count, 0));
+  const maxVal = Math.max(1, ...weekTotals);
+
+  const cascadesSvg = weekTotals
+    .map((total, idx) => {
+      const x = 60 + idx * 48;
+      const barH = Math.max(18, (total / maxVal) * 210);
+      const y = 95;
+      return `
+      <rect x="${x}" y="${y}" width="32" height="230" rx="8" fill="${theme.cardBg}" stroke="${theme.border}" stroke-width="0.8" />
+      <rect x="${x + 4}" y="${y + 4}" width="24" height="${barH.toFixed(1)}" rx="6" fill="${theme.primary}" opacity="0.85" />
+      <circle cx="${x + 16}" cy="${(y + barH + 14).toFixed(1)}" r="4" fill="${theme.accent}" />
+      <text x="${x + 16}" y="${y + 248}" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="9">W${idx + 1}</text>`;
+    })
+    .join('');
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">COMMIT WATERFALL // GRAVITY-DRIVEN CASCADE</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">16-Week Sprint Reservoir &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  <g transform="translate(${width - 230}, 28)">
+    <text x="0" y="10" fill="${theme.textMuted}" font-family="monospace" font-size="11">PEAK VOLUME</text>
+    <text x="0" y="26" fill="${theme.primary}" font-family="monospace" font-size="13" font-weight="700">${data.highestDay} MAX/DAY &bull; ${data.totalContributions} TOTAL</text>
+  </g>
+  ${cascadesSvg}
+  <rect x="48" y="365" width="${width - 96}" height="24" rx="12" fill="${theme.secondary}" opacity="0.22" />
+</svg>
+  `.trim();
+}
+
+/* =========================================================================
+   20. CONTRIBUTION TOPOGRAPHY SVG GENERATOR (ELEVATION CONTOUR MAP)
+   ========================================================================= */
+export function generateContributionTopographySvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'emerald'] || VISUALIZATION_THEMES.emerald;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const layers = 6;
+  const weekTotals = data.weeks.slice(-24).map((w) => w.days.reduce((s, d) => s + d.count, 0));
+  const maxVal = Math.max(1, ...weekTotals);
+
+  let contoursSvg = '';
+  for (let l = 0; l < layers; l++) {
+    const baseY = 140 + l * 38;
+    const scale = 1 - l * 0.1;
+    let d = `M 40 ${baseY}`;
+    const step = (width - 80) / Math.max(1, weekTotals.length - 1);
+    weekTotals.forEach((val, idx) => {
+      const x = 40 + idx * step;
+      const elev = (val / maxVal) * 58 * scale;
+      d += ` L ${x.toFixed(1)} ${(baseY - elev).toFixed(1)}`;
+    });
+    d += ` L ${width - 40} ${height - 30} L 40 ${height - 30} Z`;
+    const levelColor = theme.levels[Math.min(4, Math.max(1, Math.ceil((l + 1) * 0.7)))];
+    contoursSvg += `<path d="${d}" fill="${levelColor}" fill-opacity="0.35" stroke="${theme.primary}" stroke-width="1.2" />`;
+  }
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">CONTRIBUTION TOPOGRAPHY // ELEVATION CONTOUR MAP</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">Isohypse Terrain Ridges &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  <g transform="translate(${width - 230}, 28)">
+    <text x="0" y="10" fill="${theme.textMuted}" font-family="monospace" font-size="11">SUMMIT ELEVATION</text>
+    <text x="0" y="26" fill="${theme.primary}" font-family="monospace" font-size="13" font-weight="700">${data.highestDay}M PEAK &bull; ${data.activeDaysCount} ACTIVE DAYS</text>
+  </g>
+  ${contoursSvg}
+</svg>
+  `.trim();
+}
+
+/* =========================================================================
+   21. CODING WEATHER SVG GENERATOR (ATMOSPHERIC TELEMETRY)
+   ========================================================================= */
+export function generateCodingWeatherSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'tokyonight'] || VISUALIZATION_THEMES.tokyonight;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const condition =
+    data.dailyAverage >= 4
+      ? 'SOLAR SURGE'
+      : data.dailyAverage >= 1.5
+      ? 'ELECTRIC AURORA'
+      : 'CALM HORIZON';
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">CODING WEATHER // ATMOSPHERIC TELEMETRY</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">Meteorological Velocity &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  <g transform="translate(60, 100)">
+    <rect width="340" height="250" rx="14" fill="${theme.cardBg}" stroke="${theme.border}" stroke-width="1.2" />
+    <circle cx="170" cy="110" r="46" fill="${theme.primary}" opacity="0.25" />
+    <circle cx="170" cy="110" r="28" fill="${theme.secondary}" />
+    <path d="M 110 150 Q 170 115 230 150" fill="none" stroke="${theme.accent}" stroke-width="3" />
+    <text x="170" y="195" text-anchor="middle" fill="${theme.textPrimary}" font-family="monospace" font-size="16" font-weight="800">${condition}</text>
+    <text x="170" y="218" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="11">${data.dailyAverage} COMMITS/DAY VELOCITY</text>
+  </g>
+  <g transform="translate(430, 100)">
+    <rect width="390" height="74" rx="12" fill="${theme.cardBg}" stroke="${theme.border}" stroke-width="1" />
+    <text x="20" y="30" fill="${theme.textMuted}" font-family="monospace" font-size="10">BAROMETRIC COMMIT PRESSURE</text>
+    <text x="20" y="54" fill="${theme.primary}" font-family="monospace" font-size="18" font-weight="800">${data.totalContributions.toLocaleString()} hPa (COMMITS)</text>
+  </g>
+  <g transform="translate(430, 188)">
+    <rect width="390" height="74" rx="12" fill="${theme.cardBg}" stroke="${theme.border}" stroke-width="1" />
+    <text x="20" y="30" fill="${theme.textMuted}" font-family="monospace" font-size="10">STREAK WIND FRONT</text>
+    <text x="20" y="54" fill="${theme.secondary}" font-family="monospace" font-size="18" font-weight="800">${data.currentStreak} DAYS CURRENT &bull; ${data.maxStreak}D MAX</text>
+  </g>
+  <g transform="translate(430, 276)">
+    <rect width="390" height="74" rx="12" fill="${theme.cardBg}" stroke="${theme.border}" stroke-width="1" />
+    <text x="20" y="30" fill="${theme.textMuted}" font-family="monospace" font-size="10">PEAK STORM SURGE</text>
+    <text x="20" y="54" fill="${theme.accent}" font-family="monospace" font-size="18" font-weight="800">${data.highestDay} COMMITS IN 24H</text>
+  </g>
+</svg>
+  `.trim();
+}
+
+/* =========================================================================
+   22. DEVELOPER SEASONS SVG GENERATOR (QUARTERLY ECOLOGY CYCLES)
+   ========================================================================= */
+export function generateDeveloperSeasonsSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'emerald'] || VISUALIZATION_THEMES.emerald;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const quarters = [0, 0, 0, 0];
+  data.days.forEach((d) => {
+    const m = new Date(d.date).getMonth();
+    const q = Math.min(3, Math.max(0, Math.floor(m / 3)));
+    quarters[q] += d.count;
+  });
+  const maxQ = Math.max(1, ...quarters);
+  const seasonMeta = [
+    { name: 'Q1 SPRING', sub: 'Seed & Architecture', color: '#34d399' },
+    { name: 'Q2 SUMMER', sub: 'Peak Feature Bloom', color: '#fbbf24' },
+    { name: 'Q3 AUTUMN', sub: 'Release Harvest', color: '#f97316' },
+    { name: 'Q4 WINTER', sub: 'Deep Refactoring', color: '#38bdf8' },
+  ];
+
+  const cardsSvg = seasonMeta
+    .map((s, idx) => {
+      const x = 40 + idx * 204;
+      const pct = Math.round((quarters[idx] / maxQ) * 100);
+      return `
+      <g transform="translate(${x}, 96)">
+        <rect width="188" height="276" rx="14" fill="${theme.cardBg}" stroke="${theme.border}" stroke-width="1.2" />
+        <circle cx="94" cy="78" r="40" fill="${s.color}" opacity="0.2" />
+        <circle cx="94" cy="78" r="24" fill="${s.color}" opacity="0.85" />
+        <text x="94" y="148" text-anchor="middle" fill="${theme.textPrimary}" font-family="monospace" font-size="13" font-weight="800">${s.name}</text>
+        <text x="94" y="168" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="10">${s.sub}</text>
+        <text x="94" y="212" text-anchor="middle" fill="${s.color}" font-family="monospace" font-size="22" font-weight="900">${quarters[idx]}</text>
+        <text x="94" y="232" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="10">COMMITS (${pct}%)</text>
+      </g>`;
+    })
+    .join('');
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">DEVELOPER SEASONS // QUARTERLY ECOLOGY CYCLES</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">Annual Cadence Breakdown &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  ${cardsSvg}
+</svg>
+  `.trim();
+}
+
+/* =========================================================================
+   23. OPEN SOURCE FOOTPRINTS SVG GENERATOR (CONTRIBUTOR TRAILS)
+   ========================================================================= */
+export function generateOpenSourceFootprintsSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'emerald'] || VISUALIZATION_THEMES.emerald;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const repos = data.repositories.slice(0, 5);
+
+  const waypoints = repos.map((repo, idx) => ({
+    x: 110 + idx * 165,
+    y: 230 + (idx % 2 === 0 ? -45 : 45),
+    repo,
+  }));
+
+  let trailPath = '';
+  if (waypoints.length > 0) {
+    trailPath = `M ${waypoints[0].x} ${waypoints[0].y}`;
+    for (let i = 1; i < waypoints.length; i++) {
+      const prev = waypoints[i - 1];
+      const curr = waypoints[i];
+      const mx = (prev.x + curr.x) / 2;
+      trailPath += ` C ${mx} ${prev.y}, ${mx} ${curr.y}, ${curr.x} ${curr.y}`;
+    }
+  }
+
+  const markersSvg = waypoints
+    .map(
+      (w, idx) => `
+      <g transform="translate(${w.x}, ${w.y})">
+        <circle cx="0" cy="0" r="18" fill="${theme.cardBg}" stroke="${w.repo.color}" stroke-width="2.5" />
+        <text x="0" y="4" text-anchor="middle" fill="${theme.textPrimary}" font-family="monospace" font-size="10" font-weight="800">#${idx + 1}</text>
+        <text x="0" y="34" text-anchor="middle" fill="${theme.textPrimary}" font-family="monospace" font-size="10" font-weight="700">${escapeXml(w.repo.name)}</text>
+        <text x="0" y="48" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="9">${w.repo.stars} stars &bull; ${w.repo.forks} forks</text>
+      </g>`
+    )
+    .join('');
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">OPEN SOURCE FOOTPRINTS // CONTRIBUTOR TRAILS</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">Ecosystem Impact Waypoints &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  ${trailPath ? `<path d="${trailPath}" fill="none" stroke="${theme.primary}" stroke-width="3" stroke-dasharray="8,6" />` : ''}
+  ${markersSvg || `<text x="${width / 2}" y="${height / 2}" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="12">NO PUBLIC FOOTPRINTS INDEXED</text>`}
+</svg>
+  `.trim();
+}
+
+/* =========================================================================
+   24. PR FLIGHT PATH SVG GENERATOR (BALLISTIC MERGE ARCS)
+   ========================================================================= */
+export function generatePrFlightpathSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'ocean'] || VISUALIZATION_THEMES.ocean;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const repos = data.repositories.slice(0, 4);
+  const targetX = width - 130;
+  const targetY = 230;
+
+  const arcsSvg = repos
+    .map((repo, idx) => {
+      const startY = 120 + idx * 65;
+      const startX = 120;
+      const ctrlY = Math.max(70, startY - 85);
+      return `
+      <path d="M ${startX} ${startY} Q ${(startX + targetX) / 2} ${ctrlY}, ${targetX} ${targetY}" fill="none" stroke="${repo.color}" stroke-width="2" stroke-dasharray="5,4" opacity="0.85" />
+      <circle cx="${startX}" cy="${startY}" r="6" fill="${repo.color}" />
+      <text x="${startX + 14}" y="${startY + 4}" fill="${theme.textPrimary}" font-family="monospace" font-size="10" font-weight="700">${escapeXml(repo.name)}</text>`;
+    })
+    .join('');
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">PR FLIGHT PATH // BALLISTIC MERGE ARCS</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">Branch-to-Main Trajectories &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  ${arcsSvg || `<text x="${width / 2}" y="${height / 2}" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="12">NO REPOSITORY FLIGHT ARCS</text>`}
+  <g transform="translate(${targetX}, ${targetY})">
+    <circle cx="0" cy="0" r="28" fill="${theme.primary}" opacity="0.2" />
+    <circle cx="0" cy="0" r="16" fill="${theme.primary}" stroke="${theme.textPrimary}" stroke-width="2" />
+    <text x="0" y="34" text-anchor="middle" fill="${theme.textPrimary}" font-family="monospace" font-size="10" font-weight="800">MAIN MERGE</text>
+  </g>
+</svg>
+  `.trim();
+}
+
+/* =========================================================================
+   25. ISSUE GARDEN SVG GENERATOR (GENERATIVE BOTANICAL FLORA)
+   ========================================================================= */
+export function generateIssueGardenSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'emerald'] || VISUALIZATION_THEMES.emerald;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const repos = data.repositories.slice(0, 5);
+  const groundY = 345;
+
+  const plantsSvg = repos
+    .map((repo, idx) => {
+      const x = 130 + idx * 155;
+      const stemH = Math.max(65, Math.min(180, 70 + repo.activityScore * 1.1));
+      const bloomY = groundY - stemH;
+      return `
+      <g>
+        <path d="M ${x} ${groundY} Q ${x - 10} ${groundY - stemH / 2}, ${x} ${bloomY}" fill="none" stroke="${theme.primary}" stroke-width="3" />
+        <ellipse cx="${x - 14}" cy="${groundY - stemH * 0.45}" rx="12" ry="6" fill="${theme.secondary}" opacity="0.8" />
+        <ellipse cx="${x + 14}" cy="${groundY - stemH * 0.65}" rx="12" ry="6" fill="${theme.secondary}" opacity="0.8" />
+        <circle cx="${x}" cy="${bloomY}" r="16" fill="${repo.color}" stroke="${theme.textPrimary}" stroke-width="1.5" />
+        <text x="${x}" y="${groundY + 22}" text-anchor="middle" fill="${theme.textPrimary}" font-family="monospace" font-size="10" font-weight="700">${escapeXml(repo.name)}</text>
+      </g>`;
+    })
+    .join('');
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">ISSUE GARDEN // GENERATIVE BOTANICAL FLORA</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">Resolved Milestones &amp; Living Canopy &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  <line x1="50" y1="${groundY}" x2="${width - 50}" y2="${groundY}" stroke="${theme.border}" stroke-width="2" />
+  ${plantsSvg || `<text x="${width / 2}" y="220" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="12">GARDEN AWAITING FIRST REPOSITORY</text>`}
+</svg>
+  `.trim();
+}
+
+/* =========================================================================
+   26. REPOSITORY TREE SVG GENERATOR (ARCHITECTURAL BRANCHING)
+   ========================================================================= */
+export function generateRepositoryTreeSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'emerald'] || VISUALIZATION_THEMES.emerald;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const trunkX = width / 2;
+  const repos = data.repositories.slice(0, 6);
+
+  const branchesSvg = repos
+    .map((repo, idx) => {
+      const side = idx % 2 === 0 ? -1 : 1;
+      const tier = Math.floor(idx / 2);
+      const startY = 300 - tier * 58;
+      const endX = trunkX + side * (145 + tier * 35);
+      const endY = startY - 40;
+      return `
+      <path d="M ${trunkX} ${startY} Q ${trunkX + side * 60} ${startY - 10}, ${endX} ${endY}" fill="none" stroke="${theme.secondary}" stroke-width="2.5" />
+      <circle cx="${endX}" cy="${endY}" r="14" fill="${repo.color}" stroke="${theme.textPrimary}" stroke-width="1.2" />
+      <text x="${endX + side * 20}" y="${endY + 4}" text-anchor="${side > 0 ? 'start' : 'end'}" fill="${theme.textPrimary}" font-family="monospace" font-size="10" font-weight="700">${escapeXml(repo.name)} (${repo.stars}★)</text>`;
+    })
+    .join('');
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">REPOSITORY TREE // ARCHITECTURAL BRANCHING</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">Modular Canopy &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  <line x1="${trunkX}" y1="365" x2="${trunkX}" y2="120" stroke="${theme.primary}" stroke-width="6" stroke-linecap="round" />
+  ${branchesSvg || `<text x="${width / 2}" y="220" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="12">NO REPOSITORY BRANCHES</text>`}
+</svg>
+  `.trim();
+}
+
+/* =========================================================================
+   27. COMMIT CONSTELLATION SVG GENERATOR (CHRONOLOGICAL STARFIELD)
+   ========================================================================= */
+export function generateCommitConstellationSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'tokyonight'] || VISUALIZATION_THEMES.tokyonight;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const recentWeeks = data.weeks.slice(-26);
+  const maxWeek = Math.max(1, ...recentWeeks.map((w) => w.days.reduce((s, d) => s + d.count, 0)));
+
+  const pts = recentWeeks.map((w, idx) => {
+    const count = w.days.reduce((s, d) => s + d.count, 0);
+    const x = 60 + idx * ((width - 120) / Math.max(1, recentWeeks.length - 1));
+    const y = 290 - (count / maxWeek) * 165 + Math.sin(idx * 0.9) * 20;
+    const r = Math.max(2.5, (count / maxWeek) * 8 + 2);
+    const color =
+      data.languages.length > 0 ? data.languages[idx % data.languages.length].color : theme.accent;
+    return { x, y, r, color };
+  });
+
+  const linePath = pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
+  const starsSvg = pts
+    .map(
+      (p) =>
+        `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(p.r + 3).toFixed(1)}" fill="${p.color}" opacity="0.22" />
+         <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${p.r.toFixed(1)}" fill="${p.color}" stroke="${theme.textPrimary}" stroke-width="0.8" />`
+    )
+    .join('');
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">COMMIT CONSTELLATION // CHRONOLOGICAL STARFIELD</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">26-Week Stellar Cadence &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  ${pts.length > 1 ? `<path d="${linePath}" fill="none" stroke="${theme.border}" stroke-width="1.2" stroke-dasharray="3,3" />` : ''}
+  ${starsSvg}
+</svg>
+  `.trim();
+}
+
+/* =========================================================================
+   28. YEAR IN CODE SVG GENERATOR (CINEMATIC ANNUAL RECAP)
+   ========================================================================= */
+export function generateYearInCodeSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'cyberpunk'] || VISUALIZATION_THEMES.cyberpunk;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const topLang = data.languages[0]?.name || 'Polyglot';
+  const topRepo = data.repositories[0]?.name || 'Open Source';
+
+  const cards = [
+    { label: 'TOTAL COMMITS', val: data.totalContributions.toLocaleString(), sub: `${data.activeDaysCount} Active Days` },
+    { label: 'LONGEST STREAK', val: `${data.maxStreak} DAYS`, sub: `Current: ${data.currentStreak}D` },
+    { label: 'PRIMARY STACK', val: topLang, sub: `${data.languages.length} Languages` },
+    { label: 'FLAGSHIP REPO', val: topRepo, sub: `${data.repositories[0]?.stars ?? 0} Stars` },
+  ];
+
+  const cardsSvg = cards
+    .map((c, idx) => {
+      const x = 40 + idx * 204;
+      return `
+      <g transform="translate(${x}, 115)">
+        <rect width="188" height="235" rx="14" fill="${theme.cardBg}" stroke="${theme.primary}" stroke-width="1.2" />
+        <text x="18" y="34" fill="${theme.textMuted}" font-family="monospace" font-size="10" font-weight="700">${escapeXml(c.label)}</text>
+        <text x="18" y="128" fill="${theme.primary}" font-family="monospace" font-size="20" font-weight="900">${escapeXml(c.val.slice(0, 14))}</text>
+        <text x="18" y="160" fill="${theme.textPrimary}" font-family="monospace" font-size="11">${escapeXml(c.sub)}</text>
+        <rect x="18" y="198" width="152" height="6" rx="3" fill="${theme.secondary}" opacity="0.55" />
+      </g>`;
+    })
+    .join('');
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">YEAR IN CODE // CINEMATIC ANNUAL RECAP</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">Annual Engineering Retrospective &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  ${cardsSvg}
+</svg>
+  `.trim();
+}
+
+/* =========================================================================
+   29. PROJECT DNA SVG GENERATOR (COMPARATIVE REPO BARCODE)
+   ========================================================================= */
+export function generateProjectDnaSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'cyberpunk'] || VISUALIZATION_THEMES.cyberpunk;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const repos = data.repositories.slice(0, 4);
+
+  const rowsSvg = repos
+    .map((repo, idx) => {
+      const y = 96 + idx * 74;
+      const bars = Array.from({ length: 18 })
+        .map((_, bIdx) => {
+          const bx = 260 + bIdx * 28;
+          const bw = ((repo.activityScore + bIdx * 17) % 14) + 4;
+          const opacity = 0.4 + ((bIdx * 7) % 6) * 0.1;
+          return `<rect x="${bx}" y="12" width="${bw}" height="34" rx="2" fill="${repo.color}" opacity="${opacity.toFixed(2)}" />`;
+        })
+        .join('');
+      return `
+      <g transform="translate(40, ${y})">
+        <rect width="${width - 80}" height="58" rx="10" fill="${theme.cardBg}" stroke="${theme.border}" stroke-width="1" />
+        <text x="18" y="26" fill="${theme.textPrimary}" font-family="monospace" font-size="12" font-weight="800">${escapeXml(repo.name)}</text>
+        <text x="18" y="44" fill="${theme.textMuted}" font-family="monospace" font-size="10">${escapeXml(repo.language)} &bull; ${repo.stars} stars</text>
+        ${bars}
+      </g>`;
+    })
+    .join('');
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">PROJECT DNA // COMPARATIVE REPO BARCODE</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">Architectural Genetic Signatures &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  ${rowsSvg || `<text x="${width / 2}" y="${height / 2}" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="12">NO REPOSITORIES FOR GENETIC BARCODE</text>`}
+</svg>
+  `.trim();
+}
+
+/* =========================================================================
+   30. COLLABORATION NETWORK SVG GENERATOR (PEER SOCIAL GRAPH)
+   ========================================================================= */
+export function generateCollaborationNetworkSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'ocean'] || VISUALIZATION_THEMES.ocean;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const cx = width / 2;
+  const cy = height / 2 + 20;
+  const repos = data.repositories.slice(0, 6);
+
+  const nodesSvg = repos
+    .map((repo, idx) => {
+      const angle = (idx / Math.max(1, repos.length)) * Math.PI * 2;
+      const nx = cx + Math.cos(angle) * 210;
+      const ny = cy + Math.sin(angle) * 115;
+      return `
+      <line x1="${cx}" y1="${cy}" x2="${nx.toFixed(1)}" y2="${ny.toFixed(1)}" stroke="${theme.primary}" stroke-width="1.5" opacity="0.6" />
+      <g transform="translate(${nx.toFixed(1)}, ${ny.toFixed(1)})">
+        <circle cx="0" cy="0" r="18" fill="${theme.cardBg}" stroke="${repo.color}" stroke-width="2" />
+        <text x="0" y="30" text-anchor="middle" fill="${theme.textPrimary}" font-family="monospace" font-size="10" font-weight="700">${escapeXml(repo.name)}</text>
+      </g>`;
+    })
+    .join('');
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">COLLABORATION NETWORK // PEER SOCIAL GRAPH</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">Repository &amp; Ecosystem Bonds &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  ${nodesSvg}
+  <circle cx="${cx}" cy="${cy}" r="32" fill="${theme.primary}" stroke="${theme.textPrimary}" stroke-width="2" />
+  <text x="${cx}" y="${cy + 4}" text-anchor="middle" fill="${theme.bg}" font-family="monospace" font-size="10" font-weight="900">@${escapeXml(data.username.slice(0, 8))}</text>
+</svg>
+  `.trim();
+}
+
+/* =========================================================================
+   31. CODE IMPACT MAP SVG GENERATOR (VELOCITY HEAT INTENSITY)
+   ========================================================================= */
+export function generateCodeImpactMapSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'amber'] || VISUALIZATION_THEMES.amber;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const repos = data.repositories.slice(0, 6);
+
+  const cellsSvg = repos
+    .map((repo, idx) => {
+      const col = idx % 3;
+      const row = Math.floor(idx / 3);
+      const x = 40 + col * 272;
+      const y = 96 + row * 144;
+      const intensity = Math.min(1, Math.max(0.2, repo.activityScore / 100));
+      return `
+      <g transform="translate(${x}, ${y})">
+        <rect width="256" height="128" rx="12" fill="${theme.cardBg}" stroke="${theme.primary}" stroke-width="1.2" />
+        <rect x="14" y="14" width="228" height="10" rx="5" fill="${theme.bg}" />
+        <rect x="14" y="14" width="${(228 * intensity).toFixed(0)}" height="10" rx="5" fill="${theme.primary}" />
+        <text x="14" y="54" fill="${theme.textPrimary}" font-family="monospace" font-size="13" font-weight="800">${escapeXml(repo.name)}</text>
+        <text x="14" y="76" fill="${theme.textMuted}" font-family="monospace" font-size="10">${escapeXml(repo.language)} &bull; ${repo.stars} stars &bull; ${repo.forks} forks</text>
+        <text x="14" y="106" fill="${theme.accent}" font-family="monospace" font-size="11" font-weight="700">IMPACT SCORE: ${repo.activityScore}/100</text>
+      </g>`;
+    })
+    .join('');
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">CODE IMPACT MAP // VELOCITY HEAT INTENSITY</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">High-Impact Engineering Hotspots &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  ${cellsSvg || `<text x="${width / 2}" y="${height / 2}" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="12">NO REPOSITORY IMPACT DATA</text>`}
+</svg>
+  `.trim();
+}
+
+/* =========================================================================
+   32. DEVELOPER TIMELINE SVG GENERATOR (CHRONOLOGICAL CAREER JOURNEY)
+   ========================================================================= */
+export function generateDeveloperTimelineSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {}
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'tokyonight'] || VISUALIZATION_THEMES.tokyonight;
+  const width = options.width || 880;
+  const height = options.height || 420;
+  const epochs = [
+    { label: 'FOUNDATION', metric: `${data.languages[0]?.name || 'Core'}`, detail: `${data.languages.length} Languages` },
+    { label: 'SHIPPED CODE', metric: `${data.repositories.length} REPOS`, detail: `${data.repositories.reduce((s, r) => s + r.stars, 0)} Total Stars` },
+    { label: 'CONSISTENCY', metric: `${data.maxStreak}D STREAK`, detail: `${data.activeDaysCount} Active Days` },
+    { label: 'MOMENTUM', metric: `${data.totalContributions} COMMITS`, detail: `${data.dailyAverage}/day Avg` },
+  ];
+
+  const trackY = 230;
+  const nodesSvg = epochs
+    .map((ep, idx) => {
+      const x = 120 + idx * 210;
+      return `
+      <g transform="translate(${x}, ${trackY})">
+        <circle cx="0" cy="0" r="10" fill="${theme.primary}" stroke="${theme.textPrimary}" stroke-width="2" />
+        <rect x="-82" y="${idx % 2 === 0 ? -105 : 28}" width="164" height="68" rx="10" fill="${theme.cardBg}" stroke="${theme.border}" stroke-width="1.2" />
+        <text x="0" y="${idx % 2 === 0 ? -82 : 50}" text-anchor="middle" fill="${theme.textMuted}" font-family="monospace" font-size="9" font-weight="700">${ep.label}</text>
+        <text x="0" y="${idx % 2 === 0 ? -62 : 70}" text-anchor="middle" fill="${theme.primary}" font-family="monospace" font-size="13" font-weight="800">${escapeXml(ep.metric)}</text>
+        <text x="0" y="${idx % 2 === 0 ? -46 : 86}" text-anchor="middle" fill="${theme.textPrimary}" font-family="monospace" font-size="10">${escapeXml(ep.detail)}</text>
+      </g>`;
+    })
+    .join('');
+
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMidYMid meet">
+  <rect width="100%" height="100%" fill="${theme.bg}" rx="16" stroke="${theme.border}" stroke-width="1" />
+  <g transform="translate(24, 28)">
+    <circle cx="6" cy="6" r="5" fill="${theme.primary}" />
+    <text x="22" y="10" fill="${theme.textPrimary}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800">DEVELOPER TIMELINE // CHRONOLOGICAL JOURNEY</text>
+    <text x="22" y="26" fill="${theme.textMuted}" font-family="monospace" font-size="11">Engineering Evolution &bull; ${escapeXml(data.displayName)}</text>
+  </g>
+  <line x1="70" y1="${trackY}" x2="${width - 70}" y2="${trackY}" stroke="${theme.border}" stroke-width="4" stroke-linecap="round" />
+  <line x1="70" y1="${trackY}" x2="${width - 70}" y2="${trackY}" stroke="${theme.primary}" stroke-width="2" stroke-linecap="round" />
+  ${nodesSvg}
+</svg>
+  `.trim();
+}
+
 /**
- * Master dispatcher for all 30 signature visualizations.
+ * Exhaustive master dispatcher for all 30 signature visualizations.
+ * Zero silent fallbacks: every VisualizationId maps to its own distinct generator.
  */
 export function generateUniversalVisualizationSvg(
   id: VisualizationId,
@@ -1380,42 +2155,57 @@ export function generateUniversalVisualizationSvg(
       return generateDeveloperTerminalSvg(data, options);
     case 'contribution-snake':
       return generateContributionSnakeSvg(data, options);
+    case 'commit-waterfall':
+      return generateCommitWaterfallSvg(data, options);
+    case 'contribution-topography':
+      return generateContributionTopographySvg(data, options);
+    case 'coding-weather':
+      return generateCodingWeatherSvg(data, options);
+    case 'developer-seasons':
+      return generateDeveloperSeasonsSvg(data, options);
     case 'repository-galaxy':
       return generateRepositoryGalaxySvg(data, options);
-    case 'developer-dna':
-      return generateDeveloperDnaSvg(data, options);
-    case 'skill-constellation':
-      return generateSkillConstellationSvg(data, options);
-    case 'engineering-radar':
-      return generateEngineeringRadarSvg(data, options);
+    case 'project-constellation':
+      return generateProjectConstellationSvg(data, options);
     case 'codebase-blueprint':
       return generateCodebaseBlueprintSvg(data, options);
     case 'language-river':
       return generateLanguageRiverSvg(data, options);
-    case 'release-timeline':
-    case 'developer-timeline':
-      return generateReleaseTimelineSvg(data, options);
     case 'tech-stack-solar-system':
       return generateTechStackSolarSystemSvg(data, options);
-    default:
-      if (id.includes('river') || id.includes('waterfall')) {
-        return generateLanguageRiverSvg(data, options);
-      }
-      if (id.includes('radar') || id.includes('skill')) {
-        return generateEngineeringRadarSvg(data, options);
-      }
-      if (id.includes('blueprint') || id.includes('tree')) {
-        return generateCodebaseBlueprintSvg(data, options);
-      }
-      if (id.includes('timeline')) {
-        return generateReleaseTimelineSvg(data, options);
-      }
-      if (id.includes('solar') || id.includes('network')) {
-        return generateTechStackSolarSystemSvg(data, options);
-      }
-      if (id.includes('pulse') || id.includes('weather')) {
-        return generateCodingPulseSvg(data, options);
-      }
-      return generateCommitCitySvg(data, options);
+    case 'release-timeline':
+      return generateReleaseTimelineSvg(data, options);
+    case 'repository-tree':
+      return generateRepositoryTreeSvg(data, options);
+    case 'commit-constellation':
+      return generateCommitConstellationSvg(data, options);
+    case 'code-impact-map':
+      return generateCodeImpactMapSvg(data, options);
+    case 'collaboration-network':
+      return generateCollaborationNetworkSvg(data, options);
+    case 'developer-dna':
+      return generateDeveloperDnaSvg(data, options);
+    case 'engineering-radar':
+      return generateEngineeringRadarSvg(data, options);
+    case 'skill-tree':
+      return generateSkillTreeSvg(data, options);
+    case 'skill-constellation':
+      return generateSkillConstellationSvg(data, options);
+    case 'project-dna':
+      return generateProjectDnaSvg(data, options);
+    case 'opensource-footprints':
+      return generateOpenSourceFootprintsSvg(data, options);
+    case 'pr-flightpath':
+      return generatePrFlightpathSvg(data, options);
+    case 'issue-garden':
+      return generateIssueGardenSvg(data, options);
+    case 'year-in-code':
+      return generateYearInCodeSvg(data, options);
+    case 'developer-timeline':
+      return generateDeveloperTimelineSvg(data, options);
+    default: {
+      const exhaustiveCheck: never = id;
+      throw new Error(`Unsupported visualization id: ${String(exhaustiveCheck)}`);
+    }
   }
 }

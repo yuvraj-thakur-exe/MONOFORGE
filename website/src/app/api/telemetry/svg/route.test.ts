@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { NextRequest } from 'next/server';
 import { GET } from './route';
+import { ALL_VISUALIZATION_IDS } from '#/lib/visualizations/registry';
 import * as contributionsModule from '#/lib/github/contributions';
 import * as dataEngineModule from '#/lib/visualizations/data-engine';
 
@@ -206,5 +207,30 @@ describe('API Route: /api/telemetry/svg', () => {
     expect(svg).toContain('DATA UNAVAILABLE');
     expect(svg).toContain('0 COMMITS');
     expect(svg).not.toContain('999 COMMITS');
+  });
+
+  it('serves all 30 registered visualizations with distinct, Camo-safe SVGs and provenance labels', async () => {
+    const svgs: string[] = [];
+
+    for (const id of ALL_VISUALIZATION_IDS) {
+      const req = new NextRequest(
+        `http://localhost:3000/api/telemetry/svg?plugin=${id}&user=octocat&theme=emerald`
+      );
+      const res = await GET(req);
+      expect(res.status).toBe(200);
+      expect(res.headers.get('content-type')).toContain('image/svg+xml');
+
+      const svg = await res.text();
+      expect(svg.startsWith('<svg')).toBe(true);
+      expect(svg.endsWith('</svg>')).toBe(true);
+      expect(svg).toContain('preserveAspectRatio="xMidYMid meet"');
+      expect(svg).toContain('SAMPLE DATA');
+      expect(svg.toLowerCase()).not.toContain('<script');
+      expect(svg.toLowerCase()).not.toContain('<foreignobject');
+      expect(svg.toLowerCase()).not.toContain('javascript:');
+      svgs.push(svg);
+    }
+
+    expect(new Set(svgs).size).toBe(ALL_VISUALIZATION_IDS.length);
   });
 });

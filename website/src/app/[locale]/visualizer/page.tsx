@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { VisualizationStudio } from '#/components/visualizer/VisualizationStudio';
 import { TopNav } from '#/components/navigation/TopNav';
+import { GeometricLoader } from '#/components/common/GeometricLoader';
 import { config } from '#/config';
 import { routing } from '#/i18n/routing';
 
@@ -66,9 +68,18 @@ export async function generateMetadata({ params }: VisualizerPageProps): Promise
 
 export default function VisualizerPage() {
   return (
-    <div className="min-h-screen bg-slate-900 flex flex-col">
+    <div className="min-h-screen bg-[#0f172a] flex flex-col">
       <TopNav />
-      <VisualizationStudio />
+      <Suspense
+        fallback={
+          <div className="flex-1 min-h-[60vh] bg-[#0f172a] flex flex-col items-center justify-center gap-4 text-slate-400 font-mono text-xs">
+            <GeometricLoader mode="triple" size="md" />
+            <span>Loading MonoForge Visualization Studio...</span>
+          </div>
+        }
+      >
+        <VisualizationStudio />
+      </Suspense>
     </div>
   );
 }

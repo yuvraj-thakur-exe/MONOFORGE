@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 import {
   NormalizedDeveloperIdentity,
   VisualizationId,
@@ -17,6 +17,7 @@ interface CanvasVisualizerProps {
   speed?: number;
   isPlaying?: boolean;
   onHoverInfo?: (info: string | null) => void;
+  canvasRef?: RefObject<HTMLCanvasElement | null>;
 }
 
 export function CanvasVisualizer({
@@ -26,8 +27,10 @@ export function CanvasVisualizer({
   speed = 1,
   isPlaying = true,
   onHoverInfo,
+  canvasRef: externalCanvasRef,
 }: CanvasVisualizerProps) {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const internalCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const canvasRef = externalCanvasRef ?? internalCanvasRef;
   const animFrameRef = useRef<number | null>(null);
   const timeRef = useRef<number>(0);
   const mouseRef = useRef<{ x: number; y: number; active: boolean }>({ x: -1, y: -1, active: false });
