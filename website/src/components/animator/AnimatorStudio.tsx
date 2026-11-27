@@ -82,6 +82,7 @@ import {
   generateHostedDemoUrl,
 } from '#/lib/animator/export-utils';
 import { AnimationTimeline } from './AnimationTimeline';
+import { TerminalProfileKit } from './TerminalProfileKit';
 
 function renderPresetIcon(iconName: string) {
   switch (iconName) {
@@ -347,7 +348,7 @@ export function AnimatorStudio() {
   const [isMobileView, setIsMobileView] = useState(false);
   const [simulateError, setSimulateError] = useState(false);
   const [markdownTab, setMarkdownTab] = useState<'relative' | 'githubRaw' | 'dataUri' | 'hostedDemo'>('relative');
-  const [activeTab, setActiveTab] = useState<'layers' | 'presets' | 'uiMotion' | 'timeline'>('layers');
+  const [activeTab, setActiveTab] = useState<'layers' | 'presets' | 'uiMotion' | 'timeline' | 'terminalKit'>('layers');
   const [showEcosystem, setShowEcosystem] = useState(false);
   const [isPanelExpanded, setIsPanelExpanded] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(50);
@@ -591,10 +592,10 @@ export function AnimatorStudio() {
 
       {/* Main Studio Content Grid */}
       <div className="max-w-[1600px] mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Column: Effect Layers & Precise Controls (5 cols) */}
-        <div className="lg:col-span-5 space-y-6">
-          {/* Navigation Mode Tabs: Layers vs Presets vs UI Motion */}
-          <div className="flex items-center gap-1 p-1 rounded-xl bg-palette-soft/40 border border-palette-line text-xs">
+        {/* Left Column: Effect Layers & Precise Controls (5 cols, or 12 cols in Terminal Kit mode) */}
+        <div className={activeTab === 'terminalKit' ? 'lg:col-span-12 space-y-6' : 'lg:col-span-5 space-y-6'}>
+          {/* Navigation Mode Tabs: Layers vs Presets vs UI Motion vs Terminal Kit */}
+          <div className="flex flex-wrap items-center gap-1 p-1 rounded-xl bg-palette-soft/40 border border-palette-line text-xs">
             <button
               type="button"
               onClick={() => setActiveTab('layers')}
@@ -643,7 +644,21 @@ export function AnimatorStudio() {
               <Film className="w-3.5 h-3.5" />
               <span>Timeline</span>
             </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('terminalKit')}
+              className={`flex-1 py-1.5 rounded-lg font-semibold flex items-center justify-center gap-1.5 transition-all ${
+                activeTab === 'terminalKit'
+                  ? 'bg-emerald-500 text-neutral-950 font-bold shadow-sm'
+                  : 'text-neutral-400 hover:text-white'
+              }`}
+            >
+              <Terminal className="w-3.5 h-3.5" />
+              <span>Terminal Kit</span>
+            </button>
           </div>
+
+          {activeTab === 'terminalKit' && <TerminalProfileKit />}
 
           {/* TAB 1: Layer Controls (Text, Background, SVG, 3D Effects) */}
           {activeTab === 'layers' && (
@@ -1296,7 +1311,7 @@ export function AnimatorStudio() {
         </div>
 
         {/* Right Column: Live Compatibility Preview & Reliability Controls (7 cols) */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className={activeTab === 'terminalKit' ? 'hidden' : 'lg:col-span-7 space-y-6'}>
           {/* Live Preview Container with Simulation Toolbar */}
           <div className="rounded-xl border border-palette-line bg-palette-soft/40 overflow-hidden shadow-2xl">
             {/* Simulation Header */}

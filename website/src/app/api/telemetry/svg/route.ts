@@ -28,6 +28,8 @@ import {
   generateTechStackSolarSystemSvg,
   generateSynthwaveBentoSvg,
   generateNeofetchTerminalSvg,
+  generateDiagonalHeatmapSvg,
+  generateWhoamiCardSvg,
   generateUniversalVisualizationSvg,
 } from '#/lib/visualizations/svg-generators';
 import { ALL_VISUALIZATION_IDS } from '#/lib/visualizations/registry';
@@ -124,6 +126,10 @@ const SIGNATURE_VIZ_ALIASES = new Set([
   'neofetch',
   'fastfetch',
   'asciiterminal',
+  'diagonalheatmap',
+  'contribheatmap',
+  'whoami',
+  'infocard',
 ]);
 
 const NORMALIZED_REGISTRY_IDS = new Set(
@@ -633,6 +639,21 @@ export async function GET(request: NextRequest) {
     case 'fastfetch':
     case 'asciiterminal': {
       svgContent = generateNeofetchTerminalSvg(identity, { theme: requestedTheme ?? 'matrix' });
+      break;
+    }
+
+    case 'diagonal-heatmap':
+    case 'diagonalheatmap':
+    case 'contrib-heatmap':
+    case 'contribheatmap': {
+      svgContent = generateDiagonalHeatmapSvg(identity, { theme: requestedTheme ?? 'emerald' });
+      break;
+    }
+
+    case 'whoami':
+    case 'info-card':
+    case 'infocard': {
+      svgContent = generateWhoamiCardSvg(identity, { theme: requestedTheme ?? 'emerald' });
       break;
     }
 

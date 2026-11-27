@@ -23,6 +23,7 @@ import { copyToClipboard, downloadTextFile } from '#/lib/export/clipboard';
 import { useReadmeStore } from '#/store/useReadmeStore';
 import { ReadmeMarkdownRenderer } from '#/components/common/ReadmeMarkdownRenderer';
 import { CanvasVisualizer } from './CanvasVisualizer';
+import { ContributionStoryCanvases } from './ContributionStoryCanvases';
 import { ReadmeDoctorModal } from '#/components/studio/ReadmeDoctorModal';
 import {
   Sparkles,
@@ -50,7 +51,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 
-type StudioPreviewMode = OutputMode | 'readme';
+type StudioPreviewMode = OutputMode | 'readme' | 'story';
 
 const FEATURED_ARCHETYPES: Array<{
   label: string;
@@ -816,6 +817,20 @@ export function VisualizationStudio() {
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>README Preview</span>
               </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={outputMode === 'story'}
+                onClick={() => setOutputMode('story')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                  outputMode === 'story'
+                    ? 'bg-amber-400 text-slate-950 shadow-xs'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>6-Act Story</span>
+              </button>
             </div>
 
             {/* Animation Controls (Canvas Mode) */}
@@ -931,6 +946,10 @@ export function VisualizationStudio() {
                     dangerouslySetInnerHTML={{ __html: activeSvg }}
                   />
                 )}
+              </div>
+            ) : outputMode === 'story' ? (
+              <div data-testid="story-canvases-container" className="w-full">
+                <ContributionStoryCanvases data={identity} />
               </div>
             ) : (
               <div

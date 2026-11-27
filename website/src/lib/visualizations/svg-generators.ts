@@ -2209,3 +2209,159 @@ export function generateUniversalVisualizationSvg(
     }
   }
 }
+
+export interface WhoamiCardOptions extends BaseSvgOptions {
+  nowText?: string;
+  prevText?: string;
+  stackText?: string;
+  highlightsText?: string;
+  staticFrame?: boolean;
+}
+
+/**
+ * Generates a Camo-safe 53x7 diagonal-reveal contribution heatmap SVG
+ * with a Less -> More legend and stats footer that plays once and freezes.
+ */
+export function generateDiagonalHeatmapSvg(
+  data: NormalizedDeveloperIdentity,
+  options: BaseSvgOptions = {},
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'emerald'];
+  const width = options.width || 860;
+  const height = options.height || 184;
+  const weeks = data.weeks.slice(-53);
+  const cols = Math.max(1, weeks.length);
+  const cell = 11.5;
+  const gap = 3.2;
+  const step = cell + gap;
+  const gridW = cols * step - gap;
+  const startX = Math.max(20, (width - gridW) / 2);
+  const startY = 34;
+
+  const rects: string[] = [];
+  for (let w = 0; w < weeks.length; w++) {
+    const days = weeks[w].days;
+    for (let r = 0; r < days.length && r < 7; r++) {
+      const day = days[r];
+      const x = (startX + w * step).toFixed(1);
+      const y = (startY + r * step).toFixed(1);
+      const delay = ((w + r * 1.4) * 0.016).toFixed(3);
+      const fill = theme.levels[day.level] ?? theme.levels[0];
+      rects.push(
+        `<rect x="${x}" y="${y}" width="${cell}" height="${cell}" rx="2.5" fill="${fill}" class="cell" style="animation-delay:${delay}s"><title>${escapeXml(day.date)}: ${day.count} contributions</title></rect>`,
+      );
+    }
+  }
+
+  const legendX = startX + gridW - 92;
+  const footerY = startY + 7 * step + 22;
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Diagonal Contribution Heatmap for ${escapeXml(data.username)}">
+  <style>
+    .bg { fill: ${theme.bg}; stroke: ${theme.border}; stroke-width: 1; }
+    .prompt { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; fill: ${theme.primary}; font-weight: 700; }
+    .meta { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 11px; fill: ${theme.textMuted}; }
+    .meta-strong { font-family: ui-monospace, monospace; font-size: 11.5px; fill: ${theme.textPrimary}; font-weight: 700; }
+    .cell {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: diagSlide 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    @keyframes diagSlide {
+      0% { opacity: 0; transform: translateY(-6px) scale(0.75); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cell { animation: none !important; opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+  <rect class="bg" x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="12" />
+  <text x="${startX}" y="22" class="prompt">${escapeXml(data.username || 'developer')}@github ~ $ ./contributions.sh</text>
+  <text x="${(startX + gridW).toFixed(1)}" y="22" text-anchor="end" class="meta">53 weeks &bull; ${data.totalContributions.toLocaleString()} total</text>
+  <g>${rects.join('')}</g>
+  <text x="${startX}" y="${footerY}" class="meta-strong">${data.totalContributions.toLocaleString()} contributions in the last year</text>
+  <text x="${startX + 250}" y="${footerY}" class="meta">&bull; Current streak: ${data.currentStreak}d &bull; Best day: ${data.highestDay}</text>
+  <text x="${legendX - 8}" y="${footerY}" text-anchor="end" class="meta">Less</text>
+  ${theme.levels.map((lv, idx) => `<rect x="${legendX + idx * 14}" y="${footerY - 9}" width="10" height="10" rx="2" fill="${lv}" />`).join('')}
+  <text x="${legendX + 74}" y="${footerY}" class="meta">More</text>
+</svg>`;
+}
+
+/**
+ * Generates a Camo-safe neofetch-style `whoami` info card SVG with staggered
+ * fade-and-slide rows that play once and freeze.
+ */
+export function generateWhoamiCardSvg(
+  data: NormalizedDeveloperIdentity,
+  options: WhoamiCardOptions = {},
+): string {
+  const theme = VISUALIZATION_THEMES[options.theme || 'emerald'];
+  const width = options.width || 490;
+  const height = options.height || 300;
+  const staticFrame = options.staticFrame ?? false;
+
+  const topLangs =
+    data.languages
+      .slice(0, 4)
+      .map((l) => l.name)
+      .join(' · ') || 'TypeScript · Rust · Go';
+
+  const rows: Array<{ label: string; value: string; color: string }> = [
+    { label: 'User', value: `${data.displayName || data.username} (@${data.username || 'dev'})`, color: theme.primary },
+    { label: 'Now', value: options.nowText || data.bio || 'Building open-source developer tools', color: theme.accent },
+    { label: 'Prev', value: options.prevText || `${data.repositories.length} public repos · ${data.activeDaysCount} active days`, color: theme.secondary },
+    { label: 'Stack', value: options.stackText || topLangs, color: '#38bdf8' },
+    {
+      label: 'Stats',
+      value: `${data.totalContributions.toLocaleString()} commits · ${data.currentStreak}d streak · peak ${data.highestDay}/day`,
+      color: '#10b981',
+    },
+    {
+      label: 'Highlights',
+      value: options.highlightsText || (data.repositories[0] ? `${data.repositories[0].name} (${data.repositories[0].stars} stars)` : 'MonoForge Verified Profile'),
+      color: '#f59e0b',
+    },
+  ];
+
+  const rowsSvg = rows
+    .map((row, idx) => {
+      const y = 78 + idx * 34;
+      const delay = (0.08 + idx * 0.09).toFixed(2);
+      const anim = staticFrame ? '' : ` style="animation: rowSlide 0.35s ease-out ${delay}s both;"`;
+      const valTrunc = row.value.length > 48 ? `${row.value.slice(0, 45)}...` : row.value;
+      return `<g class="info-row"${anim}>
+      <text x="24" y="${y}" class="k" fill="${row.color}">${escapeXml(row.label.padEnd(11, ' '))}</text>
+      <text x="118" y="${y}" class="v">${escapeXml(valTrunc)}</text>
+    </g>`;
+    })
+    .join('\n  ');
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Neofetch Whoami Card for ${escapeXml(data.username)}">
+  <style>
+    .bg { fill: ${theme.bg}; stroke: ${theme.border}; stroke-width: 1; }
+    .hdr { fill: ${theme.cardBg}; }
+    .hdr-txt { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; fill: ${theme.primary}; font-weight: 700; }
+    .k { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; font-weight: 700; }
+    .v { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12.5px; fill: ${theme.textPrimary}; }
+    .rule { stroke: ${theme.border}; stroke-width: 1; }
+    .foot { font-family: ui-monospace, monospace; font-size: 10px; fill: ${theme.textMuted}; }
+    @keyframes rowSlide {
+      0% { opacity: 0; transform: translateX(-8px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .info-row { animation: none !important; opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+  <rect class="bg" x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="12" />
+  <rect class="hdr" x="1" y="1" width="${width - 2}" height="32" rx="11" />
+  <circle cx="18" cy="17" r="4" fill="#ef4444" />
+  <circle cx="32" cy="17" r="4" fill="#f59e0b" />
+  <circle cx="46" cy="17" r="4" fill="#10b981" />
+  <text x="64" y="21" class="hdr-txt">${escapeXml(data.username || 'developer')}@github ~ $ whoami</text>
+  <line class="rule" x1="20" y1="46" x2="${width - 20}" y2="46" />
+  ${rowsSvg}
+  <line class="rule" x1="20" y1="${height - 32}" x2="${width - 20}" y2="${height - 32}" />
+  <text x="24" y="${height - 13}" class="foot">MonoForge Telemetry &bull; ${escapeXml(theme.name)} Palette</text>
+</svg>`;
+}
