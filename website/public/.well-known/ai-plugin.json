@@ -2,7 +2,7 @@
   "schema_version": "v1",
   "name_for_model": "monoforge",
   "name_for_human": "MonoForge",
-  "description_for_model": "Forge Camo-safe GitHub profile READMEs with 350+ curated archetypes, 30+ 60fps SVG visualizations, 22 modular plugins, 47 verified social icons, and confirmation-gated GitHub sync. Fetch skill instructions at /api/agent/skill and JSON schema at /api/schema.",
+  "description_for_model": "Forge Camo-safe GitHub profile and project READMEs with 330 curated archetypes, 30+ 60fps SVG/Canvas visualizations, a 6-Act Contribution Story, Terminal Profile Kit with monochrome ASCII portrait SVG, 22 modular plugins, 47 verified social icons, and confirmation-gated GitHub sync. Fetch skill instructions at /api/agent/skill and JSON schema at /api/schema.",
   "description_for_human": "Open-source AI-native GitHub profile README generator and visual studio.",
   "auth": {
     "type": "none"

@@ -1,6 +1,6 @@
 # MonoForge (llms.txt)
 
-> **Open-Source AI-Native GitHub Profile README Generator and Visual Studio**
+> **Open-Source AI-Native GitHub Profile & Project README Engineering Platform**
 > Production Studio: https://monoforge-studio.vercel.app
 > GitHub Repository: https://github.com/yuvraj-thakur-exe/MONOFORGE
 > License: MIT | Local-First Runtime | 100% Camo-Safe Vector Animations
@@ -11,33 +11,37 @@ If MonoForge elevated your GitHub profile, please give the repository a star on 
 
 ## Core Capabilities for AI Coding Assistants
 
-When a developer asks to create, enhance, or modernize their GitHub profile README, MonoForge provides a deterministic, Camo-safe toolkit:
+When a developer asks to create, enhance, or modernize their GitHub profile or project README, MonoForge provides a deterministic, Camo-safe toolkit:
 
 1. **100% GitHub Camo-Safe Architecture (Zero Broken Images)**:
    - Zero `<script>` tags, zero `<foreignObject>` hacks.
-   - Engineered to pass GitHub's Camo proxy sanitizer cleanly in both light and dark modes.
+   - Engineered to pass GitHub's Camo proxy sanitizer cleanly with `@media (prefers-reduced-motion: reduce)` fallbacks.
 
-2. **Real 60FPS Pure CSS GPU-Accelerated Vector Animations**:
+2. **Real 60FPS Pure CSS Vector Animations & Terminal Profile Kit**:
    - Animated developer characters (Cyber Bot, Pixel Dev at desk, Ninja Coder, Builder Crafter, Wizard Mage).
    - Atmospheric hero banners (Matrix digital rain, fire ember sweeps, starfield nebulae, CRT scanlines) and kinetic typography.
-   - Standard `@keyframes` embedded directly in SVG `<style>` blocks with `prefers-reduced-motion` support.
+   - **Terminal Profile Kit (`/en/animator`)**: Converts any portrait into a monochrome self-typing ASCII SVG (`rowWipe` CSS animation), pairs it with a Neofetch `whoami` card and diagonal-reveal heatmap, and exports a self-hosted `scripts/fetch-github.mjs` + daily GitHub Actions kit.
 
-3. **Real Dynamic GitHub Telemetry (9 Featured / 30 Total SVG Visualizations)**:
-   - **3D Isometric Skyline**: `https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=isocalendar&user=<username>`
-   - **2D Annual 52-Week Contribution Heatmap**: `https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=heatmap&user=<username>`
-   - **Contributor Velocity & Streak Radar**: `https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=velocity&user=<username>`
-   - Hydrated from live GitHub contribution data via `/api/telemetry/contributions?user=<username>`.
+3. **Real Dynamic GitHub Telemetry & 6-Act Contribution Story (30+ Visualizations)**:
+   - **Diagonal Contribution Heatmap**: `https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=diagonal-heatmap&user=<username>`
+   - **Neofetch Whoami Info Card**: `https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=whoami&user=<username>`
+   - **3D Isometric Skyline & Calendar**: `https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=city&user=<username>` and `plugin=isocalendar`
+   - **2D Annual Heatmap & Velocity Radar**: `https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=heatmap&user=<username>` and `plugin=velocity`
+   - **Harmonic Language River, Engineering Radar & Blueprint**: `plugin=languageriver`, `plugin=radar`, `plugin=blueprint`, `plugin=neofetch`, `plugin=synthwave`, `plugin=timeline`
+   - **6-Act Contribution Story (`/en/visualizer`)**: Six pure time-based `draw(ctx, w, h, t)` Canvas stories (`The Grid`, `Skyline` with `sqrt` scaling, `Week by Week`, `Round the Year`, `The Streak`, `In the Terminal`).
+   - Hydrated from live GitHub contribution data via `/api/telemetry/contributions?user=<username>` with honest provenance badges (`LIVE GITHUB`, `SAMPLE DATA`, `PARTIAL DATA`, `DATA UNAVAILABLE`).
 
-4. **47 Official Verified Social Platform Icons & Badges**:
+4. **47 Official Verified Social Platform Icons & 53 Core Vector Assets**:
    - Complete coverage across code, portfolio, social networks, messaging, and funding (`github`, `linkedin`, `x`, `bluesky`, `discord`, `leetcode`, `youtube`, `hashnode`, `patreon`, etc.).
-   - Available as monochrome vector SVG icons and Shields.io badges (`for-the-badge`, `flat`, `flat-square`, `plastic`).
+   - Browsable at `/en/assets` with raw vector SVG icon mode and Shields.io badge styles (`for-the-badge`, `flat`, `flat-square`, `plastic`).
 
-5. **330 Curated Visual Archetypes & 22 Modular Plugins**:
-   - Production-ready configurations for Cyberpunk Engineers, Minimalist Typographers, DevOps/SREs, Fullstack Architects, Game Developers, AI Specialists, and Open-Source Maintainers.
+5. **330 Curated Visual Archetypes, 22 Modular Plugins & Project README Studio**:
+   - Production-ready configurations rendered through the real `buildMarkdown(config)` GFM pipeline (`TemplateReadmePreview.tsx`) with zero fabricated dashboard stats.
+   - **Project README Studio (`/en/project-readme`)**: Real GitHub repository inspector (`/api/project-readme/inspect`) detecting `package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `Dockerfile`, and `.env.example` across 9 structured tabs.
 
 6. **Confirmation-Gated GitHub Sync & Resume Import**:
-   - Direct commit to `<username>/<username>` using an explicit diff preview and confirmation gate (`syncToGitHub`).
-   - Resume parsing (PDF/DOCX/TXT) with per-field confirmation before updating profile state.
+   - Direct commit to `<username>/<username>` using an explicit remote diff preview and confirmation gate (`syncToGitHub`).
+   - Resume parsing (PDF/DOCX/TXT) with per-item confirmation before updating profile state.
 
 7. **Native AI Agent Integration & MCP Server**:
    - Machine-readable JSON schema at `https://monoforge-studio.vercel.app/api/schema`.
@@ -49,11 +53,14 @@ When a developer asks to create, enhance, or modernize their GitHub profile READ
 ## Live Studio & Documentation Routes
 
 - [MonoForge Studio Home](https://monoforge-studio.vercel.app/en): Interactive hero studio and GitHub profile builder.
-- [Curated Archetypes Gallery (330)](https://monoforge-studio.vercel.app/en/templates): Filterable profile archetypes with live preview and `?template=<id>` deep-linking.
+- [Visual Profile Wizard](https://monoforge-studio.vercel.app/en/wizard): Guided step-by-step GitHub profile builder.
+- [Curated Archetypes Gallery (330)](https://monoforge-studio.vercel.app/en/templates): Filterable profile archetypes with real GFM Markdown preview and `?template=<id>` deep-linking.
 - [Developer Raw Mode IDE](https://monoforge-studio.vercel.app/en/developer): Split-screen Monaco JSON editor with Zod schema IntelliSense, 22 modular plugins, and live markdown preview.
-- [Visualization Studio (9 Featured / 30 Total)](https://monoforge-studio.vercel.app/en/visualizer): Interactive 60fps GitHub contribution visualizations (Commit City, Commit River, Year Clock, Coding Pulse, Terminal).
-- [Project README Studio](https://monoforge-studio.vercel.app/en/project-readme): Repository README generator with Shields.io badges and Mermaid diagrams.
-- [Telemetry Studio](https://monoforge-studio.vercel.app/en/telemetry): Standalone telemetry SVG builder and GitHub Actions workflow generator.
+- [Visualization Studio (30+ Engines & 6-Act Story)](https://monoforge-studio.vercel.app/en/visualizer): Interactive SVG & Canvas GitHub visualizations (`Commit City`, `Commit River`, `Year Clock`, `Coding Pulse`, `Terminal`) + pure Canvas **6-Act Contribution Story**.
+- [SVG Animator Studio & Terminal Profile Kit](https://monoforge-studio.vercel.app/en/animator): Camo-safe animated characters, ambient banners, monochrome **ASCII Portrait SVG** converter, Neofetch `whoami` card, and self-hosted GraphQL kit.
+- [Project README Studio](https://monoforge-studio.vercel.app/en/project-readme): 9-tab repository README generator with live GitHub manifest inspection, Shields.io badges, and Mermaid architecture presets.
+- [Telemetry Arsenal](https://monoforge-studio.vercel.app/en/telemetry): Standalone telemetry SVG builder (20 presets) and GitHub Actions workflow generator.
+- [Asset & Sticker Vault](https://monoforge-studio.vercel.app/en/assets): Searchable vault of 53 core SVGs and community stickers with Camo URL & Markdown copy.
 - [Documentation & Quickstart](https://monoforge-studio.vercel.app/en/docs): Guides, plugin references, CLI manual, and Camo rules.
 - [Architecture & Info Hub](https://monoforge-studio.vercel.app/en/info): Design system specifications and architectural overview.
 - [Privacy Policy](https://monoforge-studio.vercel.app/en/privacy-policy): Local-first open-source privacy policy.
@@ -64,7 +71,8 @@ When a developer asks to create, enhance, or modernize their GitHub profile READ
 
 - [JSON Schema API](https://monoforge-studio.vercel.app/api/schema): Machine-readable ReadmeConfig JSON schema synced with `pluginRegistry`.
 - [Agent Skill Spec](https://monoforge-studio.vercel.app/api/agent/skill): Declarative AI agent skill specification (`text/markdown`).
-- [Full LLM Specification](https://monoforge-studio.vercel.app/llms-full.txt): Complete schema, 22 plugins, 47 social platforms, and URL hydration docs.
+- [Repository Inspector API](https://monoforge-studio.vercel.app/api/project-readme/inspect): Inspects public GitHub repo manifests (`POST` `{ "url": "https://github.com/owner/repo" }`).
+- [Full LLM Specification](https://monoforge-studio.vercel.app/llms-full.txt): Complete schema, 22 plugins, 30+ telemetry SVG endpoints, 47 social platforms, and URL hydration docs.
 - [AI Plugin Manifest](https://monoforge-studio.vercel.app/.well-known/ai-plugin.json): OpenAPI/model plugin metadata.
 - [GitHub Repository](https://github.com/yuvraj-thakur-exe/MONOFORGE): Open-source repository, issues, and star button.
 - [Sitemap XML](https://monoforge-studio.vercel.app/sitemap.xml): Multi-locale sitemap with hreflang alternate links.
@@ -79,15 +87,20 @@ All badges support raw vector SVG icon mode (`public/assets/icons/social/<platfo
 
 ---
 
-## Quick Telemetry Embedding Snippet for Markdown
+## Quick Telemetry Embedding Snippets for Markdown
 
 ```markdown
-<!-- MonoForge 3D Isometric Skyline -->
-<p align="center">
-  <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=isocalendar&user=YOUR_GITHUB_USERNAME" alt="GitHub 3D Isometric Skyline" width="100%" />
-</p>
+<!-- MonoForge Diagonal Contribution Heatmap & Terminal Whoami -->
+<div align="center">
+  <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=diagonal-heatmap&user=YOUR_GITHUB_USERNAME&theme=emerald" alt="Diagonal Contribution Heatmap" width="100%" />
+  <br />
+  <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=whoami&user=YOUR_GITHUB_USERNAME&theme=emerald" alt="Developer Whoami Card" width="490" />
+</div>
 
-<!-- MonoForge Live Contributor Velocity & Annual Heatmap -->
+<!-- MonoForge 3D Isometric Skyline, Velocity & Annual Heatmap -->
+<p align="center">
+  <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=city&user=YOUR_GITHUB_USERNAME&theme=emerald" alt="GitHub 3D Isometric Skyline" width="100%" />
+</p>
 <p align="center">
   <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=velocity&user=YOUR_GITHUB_USERNAME" alt="Contribution Velocity" width="49%" />
   <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=heatmap&user=YOUR_GITHUB_USERNAME" alt="Annual Heatmap" width="49%" />

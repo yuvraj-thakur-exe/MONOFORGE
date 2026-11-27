@@ -34,11 +34,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const coreRoutes = [
     '',
+    '/wizard',
     '/templates',
     '/developer',
     '/visualizer',
+    '/animator',
     '/project-readme',
     '/telemetry',
+    '/assets',
     '/docs',
     '/info',
     '/privacy-policy',

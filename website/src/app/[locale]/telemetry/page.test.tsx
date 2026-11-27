@@ -2,9 +2,22 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import TelemetryStudioPage from './page';
 
-// Mock TopNav
+// Mock TopNav & next-intl navigation to keep unit suite isolated in JSDOM
 vi.mock('#/components/navigation/TopNav', () => ({
   TopNav: () => <div data-testid="top-nav">TopNav</div>,
+}));
+
+vi.mock('#/i18n/navigation', () => ({
+  Link: ({ children, href, className }: { children: React.ReactNode; href: string; className?: string }) => (
+    <a href={href} className={className}>
+      {children}
+    </a>
+  ),
+  usePathname: () => '/telemetry',
+  useRouter: () => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+  }),
 }));
 
 // Mock sonner toast
@@ -54,7 +67,7 @@ describe('MonoForge Telemetry Studio Page', () => {
     // Switch to URL tab
     const urlTab = screen.getByTestId('tab-url');
     fireEvent.click(urlTab);
-    expect(screen.getByText('Direct SVG Endpoint (Native Server)')).toBeDefined();
+    expect(screen.getByText('Direct SVG Endpoint (Hosted Camo-Safe URL)')).toBeDefined();
   });
 
   it('allows selecting standalone SVG visualizers such as Languages Donut and Terminal HUD', () => {
@@ -65,11 +78,11 @@ describe('MonoForge Telemetry Studio Page', () => {
     const previewTab = screen.getByTestId('tab-preview');
     fireEvent.click(previewTab);
 
-    expect(screen.getByText(/telemetry-languages\.svg/)).toBeDefined();
+    expect(screen.getByText(/languages\.svg/i)).toBeDefined();
 
     const terminalBtn = screen.getAllByText('Terminal HUD')[0];
     fireEvent.click(terminalBtn);
-    expect(screen.getByText(/telemetry-terminal\.svg/)).toBeDefined();
+    expect(screen.getByText(/terminal\.svg/i)).toBeDefined();
   });
 
   it('allows filtering plugins by category and search term', () => {

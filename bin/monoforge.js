@@ -1460,8 +1460,324 @@ export const ARCHETYPES = [
   },
 ];
 
+const REPO_ASSETS_DIR = path.resolve(__dirname, '../public/assets');
+const RAW_ASSET_BASE = 'https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/public/assets';
+const STUDIO_URL = 'https://monoforge-studio.vercel.app';
+
+export const SUPPORTED_THEMES = [
+  'emerald',
+  'matrix',
+  'cyberpunk',
+  'tokyonight',
+  'amber',
+  'slate',
+  'ocean',
+];
+
+export const VISUALIZATION_CATALOG = [
+  { id: 'diagonal-heatmap', name: 'Diagonal Contribution Heatmap', category: 'activity', tagline: '53x7 CSS staggered diagonal wave heatmap + streak footer' },
+  { id: 'whoami', name: 'Neofetch Whoami Info Card', category: 'identity', tagline: 'Staggered terminal profile card pairable with ASCII portrait' },
+  { id: 'city', name: 'Commit City (3D Skyline)', category: 'activity', tagline: '3D isometric voxel skyline scaled to daily commit intensity' },
+  { id: 'isocalendar', name: '3D Isometric Calendar', category: 'activity', tagline: 'Isometric contribution blocks with streak and average summary' },
+  { id: 'river', name: 'Commit River', category: 'activity', tagline: 'Luminous fluid streamlines across seasonal sprint peaks' },
+  { id: 'languageriver', name: 'Language River', category: 'architecture', tagline: 'Multi-stream polyglot river mapping repository languages' },
+  { id: 'yearclock', name: 'Developer Year Clock', category: 'activity', tagline: '360-degree radial chronometer with radar sweep' },
+  { id: 'pulse', name: 'Coding Pulse (EKG)', category: 'activity', tagline: 'Weekly commit rhythm rendered as a glowing phosphor EKG' },
+  { id: 'radar', name: 'Engineering Radar', category: 'skills', tagline: 'Hexagonal radar contrasting full-stack engineering dimensions' },
+  { id: 'blueprint', name: 'Codebase Blueprint', category: 'architecture', tagline: 'Architectural schematic tracing modules, languages & health' },
+  { id: 'neofetch', name: 'Fastfetch Terminal', category: 'identity', tagline: 'Retro ASCII system telemetry card driven by GitHub data' },
+  { id: 'synthwave', name: 'Synthwave Outrun Bento', category: 'identity', tagline: 'High-contrast perspective grid bento profile card' },
+  { id: 'timeline', name: 'Release Timeline', category: 'architecture', tagline: 'Horizontal milestone track of repositories and commit peaks' },
+  { id: 'dna', name: 'Developer DNA', category: 'skills', tagline: 'Double-helix biometric strand encoded from language ratios' },
+  { id: 'galaxy', name: 'Repository Galaxy', category: 'architecture', tagline: 'Orbiting planetary repository constellation sized by stars' },
+  { id: 'solarsystem', name: 'Tech Stack Solar System', category: 'architecture', tagline: 'Core language sun orbited by tool & framework satellites' },
+  { id: 'heatmap', name: '52-Week Contribution Heatmap', category: 'activity', tagline: 'Classic annual GitHub matrix with peak day callout' },
+  { id: 'velocity', name: 'Contributor Velocity', category: 'activity', tagline: 'Streak momentum and daily velocity gauge' },
+  { id: 'leetcode', name: 'LeetCode Progress Card', category: 'skills', tagline: 'Algorithm problem-solving scorecard' },
+  { id: 'music', name: 'Now Playing Vinyl Card', category: 'identity', tagline: 'Camo-safe animated equalizer soundtrack card' },
+  { id: 'pagespeed', name: 'Lighthouse PageSpeed Card', category: 'skills', tagline: 'Radial performance, accessibility, best practices & SEO gauges' },
+  { id: 'stamp', name: 'MonoForge Camo Stamp', category: 'identity', tagline: 'Verified Camo-safe MonoForge seal badge' },
+];
+
+function classifyAsset(filename) {
+  const lower = filename.toLowerCase();
+  if (lower.includes('divider') || lower.includes('hands')) return 'divider';
+  if (lower.includes('telemetry-')) return 'telemetry';
+  if (['snake.svg', 'pacman.svg', 'breakout.svg', 'bomberman.svg', 'galaga.svg', 'puzzle-bobble.svg'].includes(lower)) return 'arcade';
+  if (['roaming-bot.svg', 'coding-unicorn.svg', 'developer-desk.svg', 'owl-confetti.svg', 'octocat-coffee.svg', 'cyber-monkey-mascot.svg', 'peeking-cat-header.svg', 'animated-heroes-squad.svg', 'animated-characters.svg'].includes(lower)) return 'mascot';
+  if (lower.includes('hud') || lower.includes('banner') || lower.includes('terminal') || lower.includes('header') || lower.includes('text-effects') || lower.includes('wow-profile') || lower.includes('bento-dashboard') || lower.includes('isometric') || lower.includes('developer-mode')) return 'banner';
+  if (lower.includes('logo') || lower.includes('stamp') || lower.includes('icon')) return 'branding';
+  return 'sticker';
+}
+
+export function listRepoAssets() {
+  const results = [];
+  if (fs.existsSync(REPO_ASSETS_DIR)) {
+    const entries = fs.readdirSync(REPO_ASSETS_DIR, { withFileTypes: true });
+    for (const entry of entries) {
+      if (entry.isFile() && /\.(svg|png|jpg|jpeg|webp|gif)$/i.test(entry.name)) {
+        const id = entry.name.replace(/\.[^.]+$/, '');
+        const rawUrl = `${RAW_ASSET_BASE}/${entry.name}`;
+        results.push({
+          id,
+          filename: entry.name,
+          kind: classifyAsset(entry.name),
+          relativePath: `public/assets/${entry.name}`,
+          rawUrl,
+          markdown: `<img src="${rawUrl}" alt="${id}" />`,
+        });
+      }
+    }
+    const socialDir = path.join(REPO_ASSETS_DIR, 'icons', 'social');
+    if (fs.existsSync(socialDir)) {
+      const platforms = fs.readdirSync(socialDir, { withFileTypes: true });
+      for (const p of platforms) {
+        if (p.isDirectory() && fs.existsSync(path.join(socialDir, p.name, 'default.svg'))) {
+          const rawUrl = `${RAW_ASSET_BASE}/icons/social/${p.name}/default.svg`;
+          results.push({
+            id: `social-${p.name}`,
+            platform: p.name,
+            filename: `icons/social/${p.name}/default.svg`,
+            kind: 'social',
+            relativePath: `public/assets/icons/social/${p.name}/default.svg`,
+            rawUrl,
+            markdown: `<a href="https://github.com"><img src="${rawUrl}" width="28" height="28" alt="${p.name}" /></a>`,
+          });
+        }
+      }
+    }
+  }
+  return results;
+}
+
+export function searchRepoAssets(query = '', kind = 'all', limit = 30) {
+  const all = listRepoAssets();
+  const q = String(query || '').trim().toLowerCase();
+  const k = String(kind || 'all').trim().toLowerCase();
+  return all
+    .filter((item) => (k === 'all' || item.kind === k))
+    .filter((item) => !q || item.id.toLowerCase().includes(q) || item.kind.includes(q) || (item.platform || '').includes(q))
+    .slice(0, Math.max(1, Math.min(100, Number(limit) || 30)));
+}
+
+export function inspectRepoAsset(assetIdOrPath) {
+  const clean = String(assetIdOrPath || '').trim();
+  if (!clean) {
+    return { error: 'Asset id or path is required.' };
+  }
+  const all = listRepoAssets();
+  const matched = all.find(
+    (a) =>
+      a.id.toLowerCase() === clean.toLowerCase() ||
+      a.filename.toLowerCase() === clean.toLowerCase() ||
+      a.relativePath.toLowerCase() === clean.toLowerCase() ||
+      a.platform?.toLowerCase() === clean.toLowerCase()
+  );
+
+  const relFromAssets = matched ? matched.filename : clean.replace(/^public\/assets\//i, '');
+  const resolved = path.resolve(REPO_ASSETS_DIR, relFromAssets);
+  if (!resolved.startsWith(REPO_ASSETS_DIR + path.sep) && resolved !== REPO_ASSETS_DIR) {
+    return { error: 'Path traversal is not permitted outside public/assets.' };
+  }
+  if (!fs.existsSync(resolved) || fs.statSync(resolved).isDirectory()) {
+    return { error: `Asset not found: ${clean}` };
+  }
+
+  const stat = fs.statSync(resolved);
+  const rawUrl = matched ? matched.rawUrl : `${RAW_ASSET_BASE}/${relFromAssets.replace(/\\/g, '/')}`;
+  let viewBox = null;
+  let width = null;
+  let height = null;
+  let camoSafe = true;
+  const violations = [];
+
+  if (resolved.toLowerCase().endsWith('.svg')) {
+    const content = fs.readFileSync(resolved, 'utf8');
+    const vbMatch = content.match(/viewBox=["']([^"']+)["']/i);
+    const wMatch = content.match(/\bwidth=["']([^"']+)["']/i);
+    const hMatch = content.match(/\bheight=["']([^"']+)["']/i);
+    viewBox = vbMatch ? vbMatch[1] : null;
+    width = wMatch ? wMatch[1] : null;
+    height = hMatch ? hMatch[1] : null;
+    if (/<script\b/i.test(content)) violations.push('Contains <script>');
+    if (/<foreignObject\b/i.test(content)) violations.push('Contains <foreignObject>');
+    if (/\son[a-z]+\s*=/i.test(content)) violations.push('Contains inline event handler');
+    camoSafe = violations.length === 0;
+  }
+
+  const label = matched ? matched.id : path.basename(resolved, path.extname(resolved));
+  return {
+    id: label,
+    kind: matched ? matched.kind : classifyAsset(path.basename(resolved)),
+    relativePath: `public/assets/${relFromAssets.replace(/\\/g, '/')}`,
+    rawUrl,
+    bytes: stat.size,
+    viewBox,
+    width,
+    height,
+    camoSafe,
+    violations,
+    htmlImg: `<img src="${rawUrl}" alt="${label}" width="100%" />`,
+    clickableButtonSnippet: `<a href="${STUDIO_URL}/en/assets">\n  <img src="${rawUrl}" alt="${label}" width="260" />\n</a>`,
+  };
+}
+
+export function buildTelemetryEmbedSnippet(options = {}) {
+  const user = String(options.username || options.user || 'octocat').trim() || 'octocat';
+  const plugin = String(options.plugin || 'diagonal-heatmap').trim() || 'diagonal-heatmap';
+  const theme = SUPPORTED_THEMES.includes(options.theme) ? options.theme : 'emerald';
+  const alt = String(options.alt || `${user} ${plugin} Telemetry`).replace(/"/g, '&quot;');
+  const width = String(options.width || '100%');
+  const linkToStudio = options.linkToStudio !== false;
+  const imgUrl = `${STUDIO_URL}/api/telemetry/svg?plugin=${encodeURIComponent(plugin)}&user=${encodeURIComponent(user)}&theme=${encodeURIComponent(theme)}`;
+  const studioHref = `${STUDIO_URL}/en/visualizer?user=${encodeURIComponent(user)}&viz=${encodeURIComponent(plugin)}&theme=${encodeURIComponent(theme)}`;
+  const imgTag = `<img src="${imgUrl}" alt="${alt}" width="${width}" />`;
+  const markdown = linkToStudio
+    ? `<p align="center">\n  <a href="${studioHref}">\n    ${imgTag}\n  </a>\n</p>`
+    : `<p align="center">\n  ${imgTag}\n</p>`;
+  return { imgUrl, studioHref, markdown };
+}
+
+export function buildInteractiveReadme(options = {}) {
+  const user = String(options.username || options.u || 'octocat').trim() || 'octocat';
+  const name = String(options.name || user);
+  const role = String(options.role || 'Full-Stack Software Engineer & Open-Source Builder');
+  const bio = String(
+    options.bio ||
+      'Architecting resilient systems, interactive developer tools, and open-source software with measurable engineering clarity.'
+  );
+  const location = options.location ? String(options.location) : '';
+  const status = options.status ? String(options.status) : 'Shipping high-leverage developer tooling';
+  const theme = SUPPORTED_THEMES.includes(options.theme) ? options.theme : 'emerald';
+  const themeAccentHex =
+    theme === 'amber'
+      ? 'f59e0b'
+      : theme === 'cyberpunk'
+        ? 'd946ef'
+        : theme === 'tokyonight'
+          ? '7aa2f7'
+          : theme === 'ocean'
+            ? '0284c7'
+            : theme === 'slate'
+              ? '475569'
+              : '10b981';
+
+  const heroMascotMap = {
+    hud: `${RAW_ASSET_BASE}/monkey-code-hud.svg`,
+    wow: `${RAW_ASSET_BASE}/wow-profile-full.svg`,
+    bento: `${RAW_ASSET_BASE}/bento-dashboard-full.svg`,
+    bot: `${RAW_ASSET_BASE}/roaming-bot.svg`,
+    unicorn: `${RAW_ASSET_BASE}/coding-unicorn.svg`,
+    desk: `${RAW_ASSET_BASE}/developer-desk.svg`,
+    owl: `${RAW_ASSET_BASE}/owl-confetti.svg`,
+    terminal: `${RAW_ASSET_BASE}/terminal_animated.svg`,
+  };
+  const mascotKey = String(options.mascot || 'desk').toLowerCase();
+  const mascotUrl = heroMascotMap[mascotKey] || heroMascotMap.desk;
+
+  const stackIcons =
+    Array.isArray(options.stack) && options.stack.length > 0
+      ? options.stack.join(',')
+      : String(options.stack || 'ts,react,nextjs,rust,go,python,docker,postgres,git,linux');
+
+  const socialInput = Array.isArray(options.socials) ? options.socials : [];
+  const defaultSocials =
+    socialInput.length > 0
+      ? socialInput
+      : [
+          { platform: 'github', url: `https://github.com/${user}`, label: 'GitHub', color: '1e293b' },
+          { platform: 'linkedin', url: `https://linkedin.com/in/${user}`, label: 'LinkedIn', color: '0284c7' },
+          { platform: 'x', url: `https://x.com/${user}`, label: 'X', color: '334155' },
+        ];
+
+  const socialButtonsHtml = defaultSocials
+    .map((s) => {
+      const p = String(s.platform || 'github').toLowerCase();
+      const href = String(s.url || `https://github.com/${user}`);
+      const label = String(s.label || p);
+      const color = String(s.color || themeAccentHex).replace('#', '');
+      return `  <a href="${href}"><img src="https://img.shields.io/badge/${encodeURIComponent(label)}-${color}?style=for-the-badge&logo=${encodeURIComponent(p)}&logoColor=white" alt="${label}" /></a>`;
+    })
+    .join('\n');
+
+  const ctaButtons = [
+    `<a href="${STUDIO_URL}/en/developer?user=${encodeURIComponent(user)}"><img src="https://img.shields.io/badge/%E2%97%88_Edit_Profile_in_IDE-1e293b?style=for-the-badge&logo=visualstudiocode&logoColor=f59e0b" alt="Edit in MonoForge IDE" /></a>`,
+    `<a href="${STUDIO_URL}/en/visualizer?user=${encodeURIComponent(user)}&theme=${encodeURIComponent(theme)}"><img src="https://img.shields.io/badge/%E2%96%B8_Launch_6--Act_Story-${themeAccentHex}?style=for-the-badge&logo=chartdotjs&logoColor=white" alt="Launch 6-Act Story" /></a>`,
+    `<a href="${STUDIO_URL}/en/animator"><img src="https://img.shields.io/badge/%E2%9C%A6_ASCII_%26_Terminal_Kit-334155?style=for-the-badge&logo=windowsterminal&logoColor=34d399" alt="Open ASCII Terminal Kit" /></a>`,
+  ];
+  if (options.websiteUrl) {
+    ctaButtons.unshift(
+      `<a href="${options.websiteUrl}"><img src="https://img.shields.io/badge/Portfolio-0f172a?style=for-the-badge&logo=vercel&logoColor=white" alt="Portfolio" /></a>`
+    );
+  }
+
+  const telemetryViz = Array.isArray(options.visualizations) && options.visualizations.length > 0
+    ? options.visualizations
+    : ['diagonal-heatmap', 'whoami', 'city', 'radar'];
+
+  const heroBanner =
+    options.bannerStyle === 'capsule'
+      ? `<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1e293b,100:${themeAccentHex}&height=200&section=header&text=${encodeURIComponent(name)}&desc=${encodeURIComponent(role)}&fontSize=38&fontColor=ffffff&fontAlignY=40&descAlignY=63&descSize=16" width="100%" alt="${name} Header Banner" />`
+      : `<a href="${STUDIO_URL}/en/templates?user=${encodeURIComponent(user)}">\n    <img src="${RAW_ASSET_BASE}/monkey-code-hud.svg" width="100%" alt="${name} Interactive Workstation Header" />\n  </a>`;
+
+  const projects = Array.isArray(options.projects) && options.projects.length > 0
+    ? options.projects
+    : [
+        { name: `${user}/core-platform`, summary: 'Primary architecture & high-throughput runtime engine', stack: 'TypeScript · Rust', url: `https://github.com/${user}` },
+        { name: `${user}/devtools-cli`, summary: 'Zero-dependency developer automation and CLI workflows', stack: 'Node.js · Go', url: `https://github.com/${user}` },
+      ];
+
+  const projectsTableRows = projects
+    .map(
+      (p) =>
+        `    <tr>\n      <td><a href="${p.url || `https://github.com/${user}`}"><b>${p.name}</b></a></td>\n      <td>${p.summary || ''}</td>\n      <td><code>${p.stack || 'OSS'}</code></td>\n    </tr>`
+    )
+    .join('\n');
+
+  const heatmapUrl = `${STUDIO_URL}/api/telemetry/svg?plugin=diagonal-heatmap&user=${encodeURIComponent(user)}&theme=${encodeURIComponent(theme)}`;
+  const whoamiUrl = `${STUDIO_URL}/api/telemetry/svg?plugin=whoami&user=${encodeURIComponent(user)}&theme=${encodeURIComponent(theme)}`;
+  const secondaryPlugin = telemetryViz.find((v) => v !== 'diagonal-heatmap' && v !== 'whoami') || 'city';
+  const secondaryUrl = `${STUDIO_URL}/api/telemetry/svg?plugin=${encodeURIComponent(secondaryPlugin)}&user=${encodeURIComponent(user)}&theme=${encodeURIComponent(theme)}`;
+  const tertiaryPlugin = telemetryViz.find((v) => v !== 'diagonal-heatmap' && v !== 'whoami' && v !== secondaryPlugin) || 'radar';
+  const tertiaryUrl = `${STUDIO_URL}/api/telemetry/svg?plugin=${encodeURIComponent(tertiaryPlugin)}&user=${encodeURIComponent(user)}&theme=${encodeURIComponent(theme)}`;
+
+  const parts = [
+    `<div align="center" id="top">\n  ${heroBanner}\n  <h1>◈ ${name}</h1>\n  <p><strong>${role}</strong></p>\n  <p>${bio}</p>\n  <p>\n    ${ctaButtons.join('\n    ')}\n  </p>\n</div>\n`,
+    `<p align="center">\n  <img src="${RAW_ASSET_BASE}/digital-hands-divider.svg" width="100%" alt="Animated Section Divider" />\n</p>\n`,
+    `<table>\n  <tr>\n    <td valign="top" width="62%">\n      <h3>▸ Operator Signal &amp; Telemetry</h3>\n      <ul>\n        <li><b>◈ Focus:</b> ${status}</li>${location ? `\n        <li><b>▸ Location:</b> ${location}</li>` : ''}\n        <li><b>✦ Stack:</b> <code>${stackIcons.split(',').slice(0, 8).join(' · ')}</code></li>\n        <li><b>⟐ Interactive Studio:</b> <a href="${STUDIO_URL}/en/visualizer?user=${encodeURIComponent(user)}">Open live 6-Act contribution canvas →</a></li>\n      </ul>\n      <br />\n      <p>\n${socialButtonsHtml}\n      </p>\n    </td>\n    <td valign="middle" width="38%" align="center">\n      <a href="${STUDIO_URL}/en/animator">\n        <img src="${mascotUrl}" width="250" alt="Animated Developer Character" />\n      </a>\n    </td>\n  </tr>\n</table>\n`,
+    `<div align="center">\n  <h3>▸ Live Contribution Activity &amp; Terminal Identity</h3>\n  <a href="${STUDIO_URL}/en/visualizer?user=${encodeURIComponent(user)}&viz=diagonal-heatmap&theme=${encodeURIComponent(theme)}">\n    <img src="${heatmapUrl}" width="100%" alt="${user} Diagonal Contribution Heatmap" />\n  </a>\n  <br /><br />\n  <a href="${STUDIO_URL}/en/animator">\n    <img src="${whoamiUrl}" width="490" alt="${user} Terminal Whoami Card" />\n  </a>\n</div>\n`,
+    `<div align="center">\n  <h3>✦ Engineering Stack</h3>\n  <a href="https://skillicons.dev">\n    <img src="https://skillicons.dev/icons?i=${encodeURIComponent(stackIcons)}&theme=dark&perline=10" alt="${user} Tech Stack" />\n  </a>\n</div>\n`,
+    `<details>\n  <summary><b>◈ Interactive Deep Dive — 3D Telemetry, Architecture &amp; Featured Work</b> <em>(click to expand)</em></summary>\n\n<div align="center">\n  <br />\n  <a href="${STUDIO_URL}/en/visualizer?user=${encodeURIComponent(user)}&viz=${encodeURIComponent(secondaryPlugin)}&theme=${encodeURIComponent(theme)}">\n    <img src="${secondaryUrl}" width="49%" alt="${secondaryPlugin}" />\n  </a>\n  <a href="${STUDIO_URL}/en/visualizer?user=${encodeURIComponent(user)}&viz=${encodeURIComponent(tertiaryPlugin)}&theme=${encodeURIComponent(theme)}">\n    <img src="${tertiaryUrl}" width="49%" alt="${tertiaryPlugin}" />\n  </a>\n</div>\n\n<table>\n  <thead>\n    <tr>\n      <th>Project</th>\n      <th>Engineering Summary</th>\n      <th>Stack</th>\n    </tr>\n  </thead>\n  <tbody>\n${projectsTableRows}\n  </tbody>\n</table>`,
+  ];
+
+  if (options.includeMermaid !== false) {
+    parts.push(
+      `\n\`\`\`mermaid\nflowchart LR\n    Ideas([Ideas & Specs]) --> Build[Code & Tests]\n    Build --> Telemetry[Live GitHub Activity]\n    Telemetry --> Impact([Open-Source Releases])\n\`\`\``
+    );
+  }
+
+  if (options.includeArcade !== false) {
+    parts.push(
+      `\n<p align="center">\n  <a href="${STUDIO_URL}/en/visualizer?user=${encodeURIComponent(user)}&viz=contribution-snake">\n    <img src="${RAW_ASSET_BASE}/snake.svg" width="85%" alt="Contribution Grid Snake Animation" />\n  </a>\n</p>`
+    );
+  }
+
+  parts.push(`\n</details>\n`);
+
+  if (options.includeFooter !== false) {
+    parts.push(
+      `---\n<p align="center">\n  <a href="#top"><img src="https://img.shields.io/badge/Back_to_Top-%E2%86%91-1e293b?style=flat-square" alt="Back to Top" /></a>\n  <a href="${STUDIO_URL}/en/developer?user=${encodeURIComponent(user)}"><img src="https://img.shields.io/badge/Remix_in-MonoForge-f59e0b?style=flat-square" alt="Remix in MonoForge" /></a>\n  <br /><br />\n  <sub>Forged with <a href="https://github.com/yuvraj-thakur-exe/MONOFORGE"><b>MonoForge</b></a> • Camo-Safe 60fps Vectors &amp; Real GitHub Telemetry</sub>\n</p>`
+    );
+  }
+
+  return parts.join('\n');
+}
+
 // Helper to generate profile markdown with footer attribution
 export function generateProfile(options) {
+  if (options.interactive) {
+    return buildInteractiveReadme(options);
+  }
   const archetypeId = options.archetype || 'wow-3d-city-cat';
   const archetype =
     ARCHETYPES.find((a) => a.id === archetypeId || (archetypeId === 'metrics-telemetry-dashboard' && a.id === 'forge-telemetry-dashboard')) ||
@@ -1510,23 +1826,27 @@ function parseArgs(args) {
 function showHelp() {
   console.log(`
 MonoForge — Forge a GitHub profile that gets noticed.
-Autonomous Profile Generator, AI Agent Skill, and MCP Server.
+Autonomous Profile Generator, Interactive README Builder, AI Agent Skill & 7-Tool MCP Server.
 Web Studio: https://monoforge-studio.vercel.app
 Repository: https://github.com/yuvraj-thakur-exe/MONOFORGE
 
 USAGE:
+  npx github:yuvraj-thakur-exe/MONOFORGE build --username <handle> [options]
   npx github:yuvraj-thakur-exe/MONOFORGE generate --username <handle> [options]
   npx github:yuvraj-thakur-exe/MONOFORGE list
+  npx github:yuvraj-thakur-exe/MONOFORGE visualizations
   npx github:yuvraj-thakur-exe/MONOFORGE skill-install [--target <dir>]
   npx github:yuvraj-thakur-exe/MONOFORGE mcp
 
   (Or locally after cloning: node bin/monoforge.js <command> [options])
 
 COMMANDS:
-  generate          Forge a complete GitHub profile README.md
-  list              List all available visual archetypes
+  build             Build an interactive README.md with animated SVGs, buttons, <details>, & live telemetry
+  generate          Forge a complete GitHub profile README.md from 40 archetypes
+  list              List all 40 built-in CLI archetypes
+  visualizations    List all 22+ live SVG telemetry endpoints and 7 themes
   skill-install     Install MonoForge as an AI Agent Skill (.agents/skills/monoforge/)
-  mcp               Start Model Context Protocol (MCP) stdio server for AI agents
+  mcp               Start Model Context Protocol (MCP) stdio server (7 tools)
 
 OPTIONS:
   --username, -u    GitHub username (default: 'octocat')
@@ -1534,10 +1854,16 @@ OPTIONS:
   --output, -o      Output file path (default: 'README.md', use '-' for stdout)
   --name            Display name (default: auto-detected or persona name)
   --role            Developer headline or role
-  --help, -h        Show this help message
+  --theme           Telemetry theme: emerald, matrix, cyberpunk, tokyonight, amber, slate, ocean
+  --mascot          Animated SVG mascot: desk, bot, unicorn, owl, hud, terminal
+  --interactive     Use interactive builder inside generate command
+  --help, -h        Show help message
 
 EXAMPLES:
-  # 1-Liner: Generate #1 Wow Profile for your GitHub username
+  # 1-Liner: Build an interactive README with buttons, <details> accordions, SVGs & live telemetry
+  npx github:yuvraj-thakur-exe/MONOFORGE build --username octocat --theme emerald
+
+  # Generate #1 Wow Profile for your GitHub username
   npx github:yuvraj-thakur-exe/MONOFORGE generate --username octocat --archetype wow-3d-city-cat
 
   # Stream generated Markdown directly to stdout
@@ -1555,31 +1881,31 @@ function installAgentSkill(targetDir = '.') {
 
   const skillContent = `---
 name: monoforge
-description: AI Agent skill for generating, customizing, and validating high-impact, Camo-compliant GitHub profile READMEs with 18+ visual archetypes, animated vector SVGs, 3D contribution cities, and telemetry bento widgets.
+description: Autonomous AI Agent skill for forging interactive, Camo-compliant GitHub profile and project READMEs with 330 Web Studio archetypes, 40 CLI archetypes, 30+ SVG/Canvas telemetry engines, 6-Act Contribution Story, monochrome ASCII portrait converter, 53 core vector SVGs, and 47 verified social icons.
 ---
 
 # MonoForge Agent Skill
 
-Use this skill whenever asked to create, revamp, or forge a developer's GitHub profile README.md.
+Use this skill whenever asked to create, revamp, animate, or upgrade a developer's GitHub profile or project README.md.
 
-## Available Archetypes
-- \`wow-3d-city-cat\`: #1 Wow Profile with peeking black cat mascot, retro pixel-art avatar, 3D contribution city, and glowing language stack.
-- \`bento-signal-dashboard\`: #5 Signal Dashboard with anime silhouette bento header, live signal metrics widgets, and contribution heatmap.
-- \`forge-telemetry-dashboard\`: Dark telemetry dashboard with PageSpeed scores, 3D calendar, and coding habits graphs.
-- \`neon-craftsman-owl\`: Curved waving purple neon header banner with celebratory owl mascot holding party popper cannon.
-- \`minimal-light-unicorn\`: Clean light-mode layout with checkmarked achievements and cute pastel coding unicorn at laptop sticker.
-- \`constellation-devops-desk\`: Deep space constellation header with DevOps engineer at workstation desk illustration.
-- \`isometric-terminal-connect\`: 3D isometric terminal cube banner with glossy social badges arsenal.
-- \`pinterest-lofi-aesthetic\`: Cozy animated Lo-Fi midnight coding desk artwork from Pinterest with ambient music aesthetics.
+## Available MCP Tools (7 Tools via .mcp.json / monoforge mcp)
+- build_interactive_readme: Generates an interactive README with animated SVGs, clickable Studio buttons, verified social badges, live telemetry, <details> accordions, and Mermaid architecture diagrams.
+- generate_profile_readme: Generates Markdown from 40 built-in archetypes.
+- list_archetypes: Lists all 40 archetypes with descriptions.
+- list_visualizations: Lists all live SVG telemetry engines (diagonal-heatmap, whoami, city, isocalendar, river, radar, blueprint, pulse, neofetch, synthwave) and 7 themes.
+- search_assets: Searches 53 core vector SVGs and 47 verified social icons in public/assets/.
+- inspect_asset: Checks real dimensions, viewBox, bytes, and Camo safety (0 <script>, 0 <foreignObject>).
+- generate_telemetry_embed: Returns ready-to-embed SVG HTML wrapped in clickable MonoForge Studio deep-links.
 
 ## CLI Execution
 \`\`\`bash
+npx github:yuvraj-thakur-exe/MONOFORGE build --username <github-username> --theme emerald
 npx github:yuvraj-thakur-exe/MONOFORGE generate --username <github-username> --archetype <archetype-id>
 \`\`\`
 `;
 
   fs.writeFileSync(path.join(destDir, 'SKILL.md'), skillContent, 'utf8');
-  console.log(`✅ MonoForge AI Agent Skill installed to ${destDir}/SKILL.md`);
+  console.log(`MonoForge AI Agent Skill installed to ${destDir}/SKILL.md`);
 }
 
 // Model Context Protocol (MCP) stdio JSON-RPC 2.0 Server
@@ -1617,7 +1943,7 @@ function startMcpServer() {
         result: {
           protocolVersion: '2024-11-05',
           capabilities: { tools: {} },
-          serverInfo: { name: 'monoforge-mcp', version: '1.0.0' },
+          serverInfo: { name: 'monoforge-mcp', version: '1.1.0' },
         },
       });
       return;
@@ -1630,8 +1956,53 @@ function startMcpServer() {
         result: {
           tools: [
             {
+              name: 'build_interactive_readme',
+              description:
+                'Build a richly customized, interactive, Camo-compliant GitHub profile README.md featuring animated SVG visuals/mascots, clickable Studio & social CTA buttons, verified symbols, diagonal-heatmap + whoami telemetry, collapsible <details> accordions, arcade Snake animation, and a native Mermaid architecture diagram.',
+              inputSchema: {
+                type: 'object',
+                properties: {
+                  username: { type: 'string', description: 'Target GitHub username' },
+                  name: { type: 'string', description: 'Developer display name' },
+                  role: { type: 'string', description: 'Developer headline or title' },
+                  bio: { type: 'string', description: 'Short introduction or engineering mission' },
+                  location: { type: 'string', description: 'Geographical location' },
+                  status: { type: 'string', description: 'Current focus or active project' },
+                  websiteUrl: { type: 'string', description: 'Optional portfolio/website URL for top CTA button' },
+                  theme: {
+                    type: 'string',
+                    enum: SUPPORTED_THEMES,
+                    description: 'Telemetry palette (emerald, matrix, cyberpunk, tokyonight, amber, slate, ocean)',
+                  },
+                  mascot: {
+                    type: 'string',
+                    enum: ['desk', 'bot', 'unicorn', 'owl', 'terminal', 'hud', 'wow', 'bento'],
+                    description: 'Animated Camo-safe SVG character or workstation asset',
+                  },
+                  bannerStyle: {
+                    type: 'string',
+                    enum: ['hud', 'capsule'],
+                    description: 'Top header style (MonoForge animated HUD or gradient capsule wave)',
+                  },
+                  stack: {
+                    type: 'array',
+                    items: { type: 'string' },
+                    description: 'SkillIcons IDs (e.g. ["ts", "react", "rust", "docker"])',
+                  },
+                  visualizations: {
+                    type: 'array',
+                    items: { type: 'string' },
+                    description: 'Preferred telemetry plugin IDs (e.g. ["diagonal-heatmap", "whoami", "city", "radar"])',
+                  },
+                  includeMermaid: { type: 'boolean', description: 'Include collapsible Mermaid workflow diagram (default true)' },
+                  includeArcade: { type: 'boolean', description: 'Include animated snake contribution SVG (default true)' },
+                },
+                required: ['username'],
+              },
+            },
+            {
               name: 'generate_profile_readme',
-              description: 'Generate a production-ready, Camo-compliant GitHub profile README.md using visual archetypes.',
+              description: 'Generate a Camo-compliant GitHub profile README.md from any of the 40 MonoForge CLI archetypes.',
               inputSchema: {
                 type: 'object',
                 properties: {
@@ -1642,14 +2013,72 @@ function startMcpServer() {
                   },
                   name: { type: 'string', description: 'Developer display name' },
                   role: { type: 'string', description: 'Developer headline or title' },
+                  interactive: { type: 'boolean', description: 'Set true to compose with interactive Studio buttons and <details> accordions' },
                 },
                 required: ['username'],
               },
             },
             {
               name: 'list_archetypes',
-              description: 'List all available MonoForge visual archetypes with descriptions and styles.',
-              inputSchema: { type: 'object', properties: {} },
+              description: 'List all 40 built-in MonoForge CLI visual archetypes (optionally filtered by category).',
+              inputSchema: {
+                type: 'object',
+                properties: {
+                  category: { type: 'string', description: 'Optional category filter (e.g. Popular, Design, DevOps, AI & Data)' },
+                },
+              },
+            },
+            {
+              name: 'list_visualizations',
+              description: 'List MonoForge Camo-safe live SVG telemetry endpoints, themes, and interactive Visualizer deep-links.',
+              inputSchema: {
+                type: 'object',
+                properties: {
+                  category: { type: 'string', description: 'Optional category filter (activity, architecture, skills, identity)' },
+                },
+              },
+            },
+            {
+              name: 'search_assets',
+              description: 'Search real MonoForge Camo-safe SVG visuals (mascots, banners, dividers, arcade animations, telemetry cards) and 47 verified social icons in public/assets/.',
+              inputSchema: {
+                type: 'object',
+                properties: {
+                  query: { type: 'string', description: 'Search keyword (e.g. "bot", "unicorn", "snake", "divider", "github")' },
+                  kind: {
+                    type: 'string',
+                    enum: ['all', 'mascot', 'banner', 'telemetry', 'arcade', 'divider', 'branding', 'sticker', 'social'],
+                    description: 'Filter by asset kind',
+                  },
+                  limit: { type: 'number', description: 'Maximum results to return (default 25)' },
+                },
+              },
+            },
+            {
+              name: 'inspect_asset',
+              description: 'Inspect a MonoForge SVG asset in public/assets/ to get its dimensions, viewBox, byte size, Camo safety validation, and copy-ready clickable HTML snippets.',
+              inputSchema: {
+                type: 'object',
+                properties: {
+                  asset: { type: 'string', description: 'Asset id, filename, or relative path (e.g. "roaming-bot", "digital-hands-divider.svg", "social-github")' },
+                },
+                required: ['asset'],
+              },
+            },
+            {
+              name: 'generate_telemetry_embed',
+              description: 'Generate a ready-to-embed live Camo-safe telemetry SVG card optionally wrapped in an interactive Studio link.',
+              inputSchema: {
+                type: 'object',
+                properties: {
+                  username: { type: 'string', description: 'GitHub username' },
+                  plugin: { type: 'string', description: 'Telemetry plugin ID (default: diagonal-heatmap)' },
+                  theme: { type: 'string', enum: SUPPORTED_THEMES, description: 'Palette theme (default: emerald)' },
+                  width: { type: 'string', description: 'HTML width attribute (e.g. "100%", "490")' },
+                  linkToStudio: { type: 'boolean', description: 'Wrap image in a clickable link to the interactive MonoForge Visualizer (default true)' },
+                },
+                required: ['username'],
+              },
             },
           ],
         },
@@ -1658,29 +2087,110 @@ function startMcpServer() {
     }
 
     if (method === 'tools/call') {
-      const { name, arguments: args } = params;
+      const { name, arguments: args = {} } = params || {};
+
       if (name === 'list_archetypes') {
+        const cat = args.category ? String(args.category).toLowerCase() : '';
+        const list = ARCHETYPES.filter((a) => !cat || a.category.toLowerCase().includes(cat)).map((a) => ({
+          id: a.id,
+          name: a.name,
+          category: a.category,
+          accent: a.accent,
+          description: a.description,
+        }));
+        sendMcp({
+          jsonrpc: '2.0',
+          id,
+          result: { content: [{ type: 'text', text: JSON.stringify(list, null, 2) }] },
+        });
+        return;
+      }
+
+      if (name === 'list_visualizations') {
+        const cat = args.category ? String(args.category).toLowerCase() : '';
+        const list = VISUALIZATION_CATALOG.filter((v) => !cat || v.category.toLowerCase().includes(cat));
         sendMcp({
           jsonrpc: '2.0',
           id,
           result: {
-            content: [{ type: 'text', text: JSON.stringify(ARCHETYPES, null, 2) }],
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(
+                  {
+                    endpoint: `${STUDIO_URL}/api/telemetry/svg?plugin=<id>&user=<username>&theme=<theme>`,
+                    themes: SUPPORTED_THEMES,
+                    visualizations: list,
+                  },
+                  null,
+                  2
+                ),
+              },
+            ],
           },
         });
         return;
       }
 
-      if (name === 'generate_profile_readme') {
-        const md = generateProfile(args || {});
+      if (name === 'search_assets') {
+        const matches = searchRepoAssets(args.query, args.kind, args.limit);
+        sendMcp({
+          jsonrpc: '2.0',
+          id,
+          result: { content: [{ type: 'text', text: JSON.stringify(matches, null, 2) }] },
+        });
+        return;
+      }
+
+      if (name === 'inspect_asset') {
+        const info = inspectRepoAsset(args.asset);
         sendMcp({
           jsonrpc: '2.0',
           id,
           result: {
-            content: [{ type: 'text', text: md }],
+            isError: Boolean(info.error),
+            content: [{ type: 'text', text: JSON.stringify(info, null, 2) }],
           },
         });
         return;
       }
+
+      if (name === 'generate_telemetry_embed') {
+        const embed = buildTelemetryEmbedSnippet(args);
+        sendMcp({
+          jsonrpc: '2.0',
+          id,
+          result: { content: [{ type: 'text', text: JSON.stringify(embed, null, 2) }] },
+        });
+        return;
+      }
+
+      if (name === 'build_interactive_readme') {
+        const md = buildInteractiveReadme(args);
+        sendMcp({
+          jsonrpc: '2.0',
+          id,
+          result: { content: [{ type: 'text', text: md }] },
+        });
+        return;
+      }
+
+      if (name === 'generate_profile_readme') {
+        const md = generateProfile(args);
+        sendMcp({
+          jsonrpc: '2.0',
+          id,
+          result: { content: [{ type: 'text', text: md }] },
+        });
+        return;
+      }
+
+      sendMcp({
+        jsonrpc: '2.0',
+        id,
+        error: { code: -32601, message: `Unknown tool: ${name}` },
+      });
+      return;
     }
 
     // Default response for unhandled notifications/methods
@@ -1706,7 +2216,7 @@ async function main() {
   }
 
   if (command === 'list') {
-    console.log('\n📦 MonoForge Visual Archetypes Catalog:\n');
+    console.log('\nMonoForge Visual Archetypes Catalog:\n');
     console.log(
       'ID'.padEnd(30) +
         'CATEGORY'.padEnd(14) +
@@ -1722,13 +2232,50 @@ async function main() {
           a.name
       );
     }
-    console.log('\nRun "npx github:yuvraj-thakur-exe/MONOFORGE generate --archetype <id>" to forge any archetype!\n');
+    console.log('\nRun "npx github:yuvraj-thakur-exe/MONOFORGE generate --archetype <id>" or "build -u <handle>" to forge!\n');
+    return;
+  }
+
+  if (command === 'visualizations' || command === 'viz') {
+    console.log('\nMonoForge Live Telemetry & Visualization Endpoints:\n');
+    console.log('PLUGIN ID'.padEnd(22) + 'CATEGORY'.padEnd(14) + 'NAME');
+    console.log('-'.repeat(80));
+    for (const v of VISUALIZATION_CATALOG) {
+      console.log(v.id.padEnd(22) + v.category.padEnd(14) + v.name);
+    }
+    console.log(`\nThemes: ${SUPPORTED_THEMES.join(', ')}\n`);
     return;
   }
 
   if (command === 'skill-install') {
     const target = args.target || '.';
     installAgentSkill(target);
+    return;
+  }
+
+  if (command === 'build') {
+    const username = args.username || args.u || 'octocat';
+    const outputFile = args.output || args.o || 'README.md';
+    const md = buildInteractiveReadme({
+      username,
+      name: args.name,
+      role: args.role,
+      bio: args.bio,
+      theme: args.theme,
+      mascot: args.mascot,
+      bannerStyle: args.banner,
+      location: args.location,
+      status: args.status,
+      websiteUrl: args.website,
+      stack: args.stack ? String(args.stack).split(',') : undefined,
+    });
+    if (outputFile === '-') {
+      process.stdout.write(md + '\n');
+    } else {
+      fs.writeFileSync(outputFile, md, 'utf8');
+      console.log(`Successfully built interactive README for @${username} -> ${path.resolve(outputFile)}`);
+      console.log('⭐ If MonoForge elevated your GitHub profile, please give the repository a star on GitHub: https://github.com/yuvraj-thakur-exe/MONOFORGE');
+    }
     return;
   }
 
@@ -1742,15 +2289,18 @@ async function main() {
       archetype,
       name: args.name,
       role: args.role,
+      theme: args.theme,
+      mascot: args.mascot,
+      interactive: Boolean(args.interactive || args.i),
     });
 
     if (outputFile === '-') {
       process.stdout.write(md + '\n');
     } else {
       fs.writeFileSync(outputFile, md, 'utf8');
-      console.log(`✨ Successfully forged GitHub Profile README (${archetype}) for @${username}!`);
-      console.log(`📄 Saved to: ${path.resolve(outputFile)}`);
-      console.log(`⭐ If MonoForge elevated your GitHub profile, please give the repository a star on GitHub: https://github.com/yuvraj-thakur-exe/MONOFORGE`);
+      console.log(`Successfully forged GitHub Profile README (${archetype}) for @${username}!`);
+      console.log(`Saved to: ${path.resolve(outputFile)}`);
+      console.log('⭐ If MonoForge elevated your GitHub profile, please give the repository a star on GitHub: https://github.com/yuvraj-thakur-exe/MONOFORGE');
     }
     return;
   }
@@ -1759,7 +2309,9 @@ async function main() {
   showHelp();
 }
 
-main().catch((err) => {
-  console.error('MonoForge CLI Error:', err);
-  process.exit(1);
-});
+if (!process.env.VITEST) {
+  main().catch((err) => {
+    console.error('MonoForge CLI Error:', err);
+    process.exit(1);
+  });
+}

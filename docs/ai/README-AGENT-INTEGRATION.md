@@ -14,8 +14,12 @@
 - **Frontend Core**: Next.js 16 (App Router with Turbopack), React 19, TypeScript 5.8, Tailwind CSS, Radix UI.
 - **State Architecture**: Single source of truth in Zustand store (`website/src/store/useReadmeStore.ts` with `website/src/stores/readme-store.ts` backward-compatible export).
 - **Markdown Serialization**: Pure, side-effect-free function `buildMarkdown(config)` in `website/src/lib/buildMarkdown.ts` validated by unit tests.
-- **Asset Intelligence**: Centralized manifest (`src/assets/manifest.generated.json` and `website/src/assets/manifest.generated.json`) indexing 170+ Camo-safe SVGs, brand emblems, and social vectors with cryptographic SHA-256 integrity checks.
-- **Telemetry Endpoints**: Serverless SVG synthesis in `/api/telemetry/svg` providing dynamic 3D isometric skylines, 52-week heatmaps, velocity radars, and polyglot donuts.
+- **Asset Intelligence**: Centralized manifest (`website/src/assets/manifest.generated.json`) indexing 53 core Camo-safe SVGs, brand emblems, and 47 social icon families (`website/src/lib/assets/registry.ts`) with integrity checks.
+- **Telemetry & Storytelling Endpoints**:
+  - Serverless SVG synthesis in `/api/telemetry/svg` (`isocalendar`, `heatmap`, `diagonal-heatmap`, `whoami`, `city`, `river`, `yearclock`, `pulse`, `radar`, `blueprint`, `neofetch`, `synthwave`, `timeline`, `velocity`, etc.) with explicit provenance badges (`LIVE GITHUB`, `SAMPLE DATA`, `PARTIAL DATA`, `DATA UNAVAILABLE`).
+  - **6-Act Pure Canvas Contribution Story** (`website/src/lib/visualizations/contribution-story.ts` & `ContributionStoryCanvases.tsx`): Diagonal wave Grid, `sqrt`-scaled 3D Skyline, Week-by-Week sparkline, Radial Year Ring, Streak Tracer, and Terminal scramble.
+  - **Terminal Profile Kit & ASCII Portrait** (`website/src/lib/animator/ascii-portrait.ts` & `TerminalProfileKit.tsx`): Monochrome photo-to-ASCII SVG (`rowWipe`), Neofetch `whoami` card, and self-hosted GitHub GraphQL automation (`scripts/fetch-github.mjs` → `data/github.json`).
+  - **Project README Studio** (`/en/project-readme` + `/api/project-readme/inspect`): Live repository manifest analysis (`package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `Dockerfile`, `.env.example`) and 9-tab Markdown generation (`website/src/lib/project-readme/`).
 
 ---
 

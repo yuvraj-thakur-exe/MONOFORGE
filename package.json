@@ -1,7 +1,7 @@
 {
     "name":  "monoforge",
     "displayName":  "MonoForge",
-    "description":  "?? MonoForge: Forge iconic GitHub profile READMEs with Monaco IDE split-preview, 60fps animated SVG characters, 47+ modular telemetry plugins, and 1-click GitHub sync.",
+    "description":  "MonoForge: Forge iconic GitHub profile & project READMEs with Monaco IDE split-preview, 60fps Camo-safe SVG animations, 6-Act contribution stories, 30+ telemetry visualizations, and confirmation-gated GitHub sync.",
     "version":  "1.0.0",
     "license":  "MIT",
     "author":  "MonoForge Contributors",

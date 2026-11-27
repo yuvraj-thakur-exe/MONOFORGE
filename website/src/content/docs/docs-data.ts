@@ -60,7 +60,7 @@ export const DOCS_DATA: DocItem[] = [
 
 Unlike traditional generators that output rigid markdown tables or rely on fragile external proxy servers, MonoForge operates on a **strictly deterministic, client-first architecture**:
 
-- **Unified Zustand State**: A single store (\`src/store/useReadmeStore.ts\`) synchronizes all visual form inputs and raw code editors.
+- **Unified Zustand State**: A single store (\`website/src/store/useReadmeStore.ts\`) synchronizes all visual form inputs and raw code editors.
 - **Pure Markdown Compilation**: A pure function (\`buildMarkdown(config)\`) translates the profile configuration into GitHub Flavored Markdown (GFM) without side effects.
 - **60fps GitHub Camo Safe**: Every dynamic asset is engineered with pure CSS \`@keyframes\` that pass GitHub Camo CDN sanitization with zero runtime tracking or external scripts.
 - **Confirmation-Gated Operations**: Automated resume extractions and direct GitHub repository writes are strictly confirmation-gated.
@@ -80,11 +80,13 @@ MonoForge is built on four core tenets:
 
 ## Key Capabilities
 
-- **Visual Studio Mode**: Drag-and-drop block builder, live form controls for avatars, social banners, tech badges, and pinned repositories.
+- **Visual Studio Mode & Real GFM Previews**: All ${TEMPLATE_COUNT} archetypes render real \`buildMarkdown(config)\` output via \`unified\`/\`remark\`/\`rehype\` with zero fabricated analytics cards.
 - **Developer IDE (Monaco Split Mode)**: Split Monaco code editor with live syntax highlighting, keyboard shortcuts (\`Ctrl+S\`, \`Ctrl+K\`), and an AST-safe schema validator.
-- **${VIZ_FEATURED_COUNT} Featured / ${VIZ_TOTAL_COUNT} Total Visualizations & ${PLUGIN_COUNT} Modular Plugins**: ISO contribution calendars, 3D commit cities, WakaTime programming stats, habit radars, and LeetCode cards.
-- **SVG Animator Studio**: Vector animation engine featuring Cyber Bot, Pixel Dev at dual-monitor desk, Ninja Coder, and matrix rain backgrounds.
-- **1-Click GitHub Sync**: Authenticated OAuth integration with live remote README diffing before pushing changes directly to your \`username/username\` repository.
+- **${VIZ_FEATURED_COUNT} Featured / ${VIZ_TOTAL_COUNT} Total Visualizations & 6-Act Story**: Commit City, Commit River, Year Clock, Diagonal Heatmap, Whoami Info Card, and 6 pure time-based Canvas animations.
+- **SVG Animator & Terminal Profile Kit**: Vector character animations, Matrix rain, and browser-side Monochrome ASCII Portrait SVG converter paired with a self-hosted GitHub GraphQL kit.
+- **Project README Studio (/project-readme)**: Live GitHub repository manifest inspector across 9 structured documentation tabs with Mermaid presets.
+- **Asset & Sticker Vault (/assets)**: Searchable catalog of 53 protected core SVGs and 47 verified social icon sets.
+- **1-Click GitHub Sync**: Authenticated REST API integration with live remote README diffing before pushing changes directly to your \`username/username\` repository.
 
 ---
 
@@ -154,10 +156,12 @@ http://localhost:3000/en
 ## Step 4: Forge Your Profile
 
 1. Click **Templates** in the top navigation bar or navigate directly to \`/templates\`.
-2. Select your preferred engine:
-   - **Templates Showcase**: ${TEMPLATE_COUNT} battle-tested developer archetypes.
-   - **Telemetry Studio**: Configure and drop in any of the ${VIZ_FEATURED_COUNT} featured / ${VIZ_TOTAL_COUNT} total visualizations and ${PLUGIN_COUNT} modular plugins.
-   - **SVG Animator**: Customize animated vector characters and ambient banners.
+2. Select your preferred studio workspace:
+   - **Templates Showcase (\`/templates\`)**: ${TEMPLATE_COUNT} battle-tested developer archetypes rendered live via \`buildMarkdown(config)\`.
+   - **Visualizer & 6-Act Story (\`/visualizer\`)**: ${VIZ_TOTAL_COUNT} SVG/Canvas visualizations and 6 pure time-based HTML5 Canvas contribution animations.
+   - **SVG Animator & Terminal Kit (\`/animator\`)**: Animated vector characters, ambient banners, and photo-to-ASCII portrait conversion.
+   - **Project README Studio (\`/project-readme\`)**: Inspect any public GitHub repository URL and build structured documentation in 9 tabs.
+   - **Telemetry Studio (\`/telemetry\`)**: 20 telemetry engine presets and ${PLUGIN_COUNT} modular plugins.
 
 ---
 
@@ -188,7 +192,7 @@ Once satisfied with your profile:
 MonoForge guarantees that profile state never drifts or becomes fragmented across different views. A single Zustand store located at:
 
 \`\`\`
-src/store/useReadmeStore.ts
+website/src/store/useReadmeStore.ts
 \`\`\`
 
 acts as the definitive source of truth. Whether a change is made through a visual slider, a badge toggle, an archetype preset, or the Monaco code editor, all updates are written directly to this store.
@@ -205,7 +209,7 @@ Markdown generation is handled strictly through a pure TypeScript function:
 buildMarkdown(config: ReadmeConfig): string
 \`\`\`
 
-Located at \`src/lib/buildMarkdown.ts\`, this function:
+Located at \`website/src/lib/buildMarkdown.ts\`, this function:
 - Contains zero React hooks or UI dependencies.
 - Has zero side effects and performs no network calls.
 - Is covered by automated Vitest unit tests verifying deterministic output.
@@ -618,33 +622,34 @@ Copy the generated markdown or download a ready-to-commit README.md file directl
     content: `
 ## The Telemetry & Visualization Arsenal
 
-MonoForge includes a built-in catalog of ${VIZ_FEATURED_COUNT} featured / ${VIZ_TOTAL_COUNT} total SVG visualizations and ${PLUGIN_COUNT} modular plugins covering every facet of a developer's digital identity. Access the full telemetry gallery at:
+MonoForge includes **${VIZ_FEATURED_COUNT} featured / ${VIZ_TOTAL_COUNT} total SVG & Canvas visualizations**, a **6-Act Contribution Story** engine (\`contribution-story.ts\`), **20 telemetry infographic presets**, and **${PLUGIN_COUNT} modular plugins** covering every facet of a developer's digital identity. Access the telemetry & visualization studios at:
 
 \`\`\`
+http://localhost:3000/en/visualizer
 http://localhost:3000/en/telemetry
 \`\`\`
 
-Or via the **Telemetry** view mode in the developer workspace.
+All hosted SVGs via \`/api/telemetry/svg\` carry explicit provenance labels (\`LIVE GITHUB\`, \`SAMPLE DATA\`, \`PARTIAL DATA\`, or \`DATA UNAVAILABLE\`).
 
 ---
 
 ## Popular Telemetry Modules
 
-- **3D Isometric Commit City**: Visualizes your GitHub commit history as a futuristic voxel 3D skyline.
-- **GitHub Readme Streak Stats**: Displays current streak, longest streak, and total contributions.
-- **WakaTime Coding Metrics**: Charts your top programming languages and hours coded over the last 7 or 30 days.
-- **SkillIcons Tech Arsenal**: Beautiful, rounded icons for languages, frameworks, cloud platforms, and databases.
-- **GitHub Profile Trophies**: Displays golden, silver, and diamond achievement cups based on repository stars, commits, and PR reviews.
-- **Activity Velocity Graph**: Smooth Bezier SVG curve charting annual commit velocity.
+- **Diagonal Contribution Heatmap (\`plugin=diagonal-heatmap\`)**: 53x7 staggered CSS diagonal reveal grid with streak and best-day footer.
+- **Neofetch Whoami Info Card (\`plugin=whoami\`)**: Staggered terminal profile card engineered to pair beside a monochrome ASCII portrait.
+- **3D Isometric Commit City (\`plugin=city\` / \`plugin=isocalendar\`)**: Extruded 3D contribution skyline driven by live GitHub calendar data.
+- **6-Act Contribution Story (\`/visualizer\` → \`6-Act Story\`)**: Pure \`draw(ctx, w, h, t)\` Canvas animations for **The Grid**, **Skyline**, **Week by Week**, **Round the Year**, **The Streak**, and **In the Terminal** with \`t = Infinity\` reduced-motion support.
+- **Engineering Radar, Language River & Year Clock**: Real repository language ratios and commit momentum rendered as Camo-safe SVGs.
+- **SkillIcons Tech Arsenal & Profile Trophies**: Verified technology stack grids and repository achievement trophies.
 
 ---
 
 ## Customizing Engine Parameters
 
-Every telemetry card in the studio provides configurable controls:
-- **Theme Selection**: Tokyonight, Radical, Gruvbox, Nord, Catppuccin, OneDark, Dracula.
-- **Background Toggles**: Transparent or solid borders.
-- **Cache Duration**: Control Camo cache TTL to ensure your latest stats display promptly.
+Every visualization and telemetry card provides configurable controls:
+- **SVG Theme Selection**: \`emerald\`, \`matrix\`, \`cyberpunk\`, \`tokyonight\`, \`amber\`, \`slate\`, \`ocean\`.
+- **Provenance Modes**: Explicit \`mode=live\` or \`mode=sample\` verification without silent fabrication.
+- **Cache Duration**: Optimal \`Cache-Control\` headers balancing GitHub Camo freshness with API rate limit conservation.
 `,
   },
   {
@@ -684,9 +689,10 @@ http://localhost:3000/en/animator
 
 ## Ambient Atmospheric Banners
 
-- **Matrix Digital Rain**: Cascading green glyphs fading into a deep obsidian canvas.
-- **Fire & Ember Rise**: Ascending ember particles with realistic turbulence and glowing heat gradients.
+- **Matrix Digital Rain**: Cascading green glyphs fading into a deep slate canvas.
+- **Fire & Ember Rise**: Ascending ember particles with turbulence gradients.
 - **Cyber Laser Perimeter**: Traveling neon border beams utilizing \`stroke-dasharray\` animations.
+- **Terminal Profile Kit & ASCII Portrait (\`Terminal Kit\` tab)**: Upload any portrait in-browser to synthesize a monochrome ASCII SVG (\`rowWipe\` CSS animation, contrast & threshold sliders) paired with a customizable Neofetch \`whoami\` card, diagonal heatmap, and self-hosted \`scripts/fetch-github.mjs\` + daily GitHub Actions kit.
 
 ---
 
@@ -788,7 +794,7 @@ MonoForge includes a local parsing pipeline that extracts profile information di
 - **PDF documents** (\`.pdf\`)
 - **Microsoft Word documents** (\`.docx\`)
 
-Files are processed locally or through the self-hosted Next.js server endpoint (\`src/app/api/enrichment/resume/route.ts\`).
+Files are processed locally or through the self-hosted Next.js server endpoint (\`website/src/app/api/enrichment/resume/route.ts\`).
 
 ---
 
@@ -798,7 +804,7 @@ Under the MonoForge architectural rules:
 
 > **No parsed data may write to the profile store silently.**
 
-When extraction completes, MonoForge opens the **Confirm Gate Dialog** (\`src/components/enrichment/ConfirmGate.tsx\`):
+When extraction completes, MonoForge opens the **Confirm Gate Dialog** (\`website/src/components/enrichment/ConfirmGate.tsx\`):
 - Extracted technologies appear as individually selectable check boxes.
 - Extracted social links show source URLs for your verification.
 - Extracted bio statements allow inline editing before accepting.
@@ -837,19 +843,19 @@ MonoForge follows a unidirectional data flow architecture designed for zero stat
                             ▼
 ┌─────────────────────────────────────────────────────────┐
 │                  SINGLE ZUSTAND STORE                   │
-│             (src/store/useReadmeStore.ts)               │
+│         (website/src/store/useReadmeStore.ts)           │
 └───────────────────────────┬─────────────────────────────┘
                             │ Pure Input
                             ▼
 ┌─────────────────────────────────────────────────────────┐
 │                PURE COMPILER PIPELINE                   │
-│               (src/lib/buildMarkdown.ts)                │
+│           (website/src/lib/buildMarkdown.ts)            │
 └───────────────────────────┬─────────────────────────────┘
                             │ Deterministic Markdown
                             ▼
 ┌─────────────────────────────────────────────────────────┐
 │                 OUTPUT & DISTRIBUTION                   │
-│   [ Live Preview ]  [ Clipboard ]  [ GitHub 1-Click Push ] │
+│   [ GFM Renderer ]  [ Clipboard ]  [ GitHub 1-Click Push ] │
 └─────────────────────────────────────────────────────────┘
 \`\`\`
 
@@ -860,7 +866,7 @@ MonoForge follows a unidirectional data flow architecture designed for zero stat
 1. **State Mutation**: The user adjusts a control in the Visual Studio or types in Monaco.
 2. **Store Synchronization**: The mutation updates \`useReadmeStore\`, which validates against \`ReadmeConfigSchema\`.
 3. **Pure Compilation**: \`buildMarkdown(config)\` runs in milliseconds, compiling the profile AST into GitHub Flavored Markdown.
-4. **Sanitized Rendering**: The markdown is rendered in the live preview using GitHub's sanitized HTML profile stylesheet.
+4. **Sanitized Rendering**: The markdown is rendered through \`unified\` / \`remark-gfm\` / \`rehype-sanitize\` in \`ReadmeMarkdownRenderer.tsx\`.
 5. **Confirmation-Gated Push**: When requested, the output diff is previewed and committed via GitHub REST API.
 
 ---
@@ -868,21 +874,30 @@ MonoForge follows a unidirectional data flow architecture designed for zero stat
 ## Repository Directory Map
 
 \`\`\`
-src/
-├── app/                  # Next.js App Router (locale routing, API endpoints)
-│   ├── [locale]/         # Localized pages (developer, templates, telemetry, docs)
-│   └── api/              # API routes (enrichment, telemetry, schema)
-├── components/           # UI components
-│   ├── developer/        # Monaco editor, plugin panel, live preview, export bar
-│   ├── docs/             # Documentation layout, sidebar, TOC, search modal
-│   ├── studio/           # Visual studio controls, hero, bento grid
-│   └── sync/             # GitHub OAuth, diff preview, commit modal
-├── lib/                  # Core engines and utilities
-│   ├── buildMarkdown.ts  # Pure markdown compiler (unit tested)
-│   ├── plugins/          # Plugin registry and individual plugin modules
-│   └── forge-telemetry/  # ${VIZ_TOTAL_COUNT} SVG visualizations and telemetry builders
-├── store/                # Unified Zustand store (useReadmeStore.ts)
-└── content/docs/         # Documentation source data and metadata
+website/src/
+├── app/                      # Next.js App Router (locale routing, API endpoints)
+│   ├── [locale]/             # Localized studios (developer, templates, visualizer, animator, project-readme, assets, telemetry, wizard, docs)
+│   └── api/                  # API routes (enrichment, project-readme/inspect, telemetry, schema, agent/skill)
+├── components/               # UI components
+│   ├── animator/             # AnimatorStudio, AnimationTimeline, TerminalProfileKit
+│   ├── common/               # ReadmeMarkdownRenderer, loaders, brand icons
+│   ├── developer/            # Monaco editor, plugin panel, live preview, export bar
+│   ├── docs/                 # Documentation layout, sidebar, TOC, search modal
+│   ├── landing/              # TemplateGallery, TemplateReadmePreview, CompareModal
+│   ├── navigation/           # TopNav & global Cmd+K CommandPalette
+│   ├── project-readme/       # 9-tab ProjectReadmeStudio
+│   ├── studio/               # Visual studio controls, hero, bento grid
+│   ├── sync/                 # GitHub OAuth, diff preview, commit modal
+│   └── visualizer/           # VisualizationStudio, CanvasVisualizer, ContributionStoryCanvases
+├── lib/                      # Core engines and utilities
+│   ├── animator/             # Presets, timeline, validator & ascii-portrait.ts
+│   ├── buildMarkdown.ts      # Pure profile markdown compiler (unit tested)
+│   ├── forge-telemetry/      # 20 telemetry engine presets & SVG generators
+│   ├── plugins/              # 22 modular plugins + Zod schemas
+│   ├── project-readme/       # Repo analyzer, templates & pure project markdown compiler
+│   └── visualizations/       # ${VIZ_TOTAL_COUNT} SVG/Canvas visualizations & contribution-story.ts
+├── store/                    # useReadmeStore.ts & useProjectReadmeStore.ts
+└── content/docs/             # Documentation source data and metadata
 \`\`\`
 `,
   },
@@ -901,7 +916,7 @@ src/
     content: `
 ## The Plugin Contract
 
-Every feature, telemetry engine, and section generator in MonoForge is implemented as a **Plugin**. A plugin is a plain TypeScript object that adheres strictly to the \`Plugin\` interface defined in \`src/lib/plugins/types.ts\`.
+Every feature, telemetry engine, and section generator in MonoForge is implemented as a **Plugin**. A plugin is a plain TypeScript object that adheres strictly to the \`Plugin\` interface defined in \`website/src/lib/plugins/types.ts\`.
 
 ---
 
@@ -927,11 +942,11 @@ export interface Plugin {
 ## Registration Lifecycle
 
 To register a new plugin:
-1. Create a dedicated module inside \`src/lib/plugins/wrappers/<plugin-id>.ts\`.
+1. Create a dedicated module inside \`website/src/lib/plugins/wrappers/<plugin-id>.ts\`.
 2. Implement the \`render\` function returning valid GitHub Flavored Markdown.
 3. Import and append the plugin to \`pluginRegistry\` inside:
    \`\`\`
-   src/lib/plugins/registry.ts
+   website/src/lib/plugins/registry.ts
    \`\`\`
 4. Once registered, the plugin automatically surfaces in the Developer Studio, Visual Studio, and Telemetry Arsenal without manual UI wiring.
 `,
@@ -1301,8 +1316,8 @@ pnpm test
 
 - **Framework**: Next.js 16 (App Router) with TypeScript in strict mode.
 - **Styling**: Tailwind CSS utility classes.
-- **State Management**: Zustand store at \`src/store/useReadmeStore.ts\`. Do not create secondary state stores.
-- **Markdown Compiler**: Keep \`src/lib/buildMarkdown.ts\` pure and side-effect free.
+- **State Management**: Zustand store at \`website/src/store/useReadmeStore.ts\`. Do not create secondary state stores.
+- **Markdown Compiler**: Keep \`website/src/lib/buildMarkdown.ts\` pure and side-effect free.
 - **Commit Messages**: Use Conventional Commits (\`feat:\`, \`fix:\`, \`docs:\`, \`chore:\`, \`refactor:\`).
 
 ---
@@ -1333,7 +1348,7 @@ Before opening a pull request, ensure all verification steps pass:
     content: `
 ## Step 1: Create the Plugin Wrapper
 
-Create a new file inside \`src/lib/plugins/wrappers/my-awesome-telemetry.ts\`:
+Create a new file inside \`website/src/lib/plugins/wrappers/my-awesome-telemetry.ts\`:
 
 \`\`\`typescript
 import { Plugin } from '#/lib/plugins/types';
@@ -1367,7 +1382,7 @@ export const myAwesomeTelemetryPlugin: Plugin = {
 
 ## Step 2: Colocate Vitest Unit Test
 
-Create \`src/lib/plugins/wrappers/my-awesome-telemetry.test.ts\`:
+Create \`website/src/lib/plugins/wrappers/my-awesome-telemetry.test.ts\`:
 
 \`\`\`typescript
 import { describe, it, expect } from 'vitest';
@@ -1389,7 +1404,7 @@ describe('myAwesomeTelemetryPlugin', () => {
 
 ## Step 3: Register in Registry
 
-Open \`src/lib/plugins/registry.ts\` and append your plugin to \`pluginRegistry\`:
+Open \`website/src/lib/plugins/registry.ts\` and append your plugin to \`pluginRegistry\`:
 
 \`\`\`typescript
 import { myAwesomeTelemetryPlugin } from './wrappers/my-awesome-telemetry';

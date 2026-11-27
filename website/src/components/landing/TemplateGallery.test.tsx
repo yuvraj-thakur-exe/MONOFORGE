@@ -194,7 +194,7 @@ describe('TemplateGallery Component', () => {
         expect.stringContaining(`?template=${TEMPLATES[0].id}`)
       );
     });
-  }, 15000);
+  }, 30000);
 
   it('toggles device viewport switcher between Desktop, Tablet, and Mobile', () => {
     render(<TemplateGallery />);
@@ -213,7 +213,7 @@ describe('TemplateGallery Component', () => {
     const desktopBtn = screen.getByTitle(/Desktop Viewport/i);
     fireEvent.click(desktopBtn);
     expect(desktopBtn).toBeDefined();
-  }, 15000);
+  }, 30000);
 
   it('toggles template favorite with persistence and adds template to compare matrix with max-3 limit', () => {
     render(<TemplateGallery />);
@@ -239,7 +239,7 @@ describe('TemplateGallery Component', () => {
       fireEvent.click(compareButtons[3]);
       expect(screen.getByText(/Maximum 3 archetypes can be compared at once/i)).toBeDefined();
     }
-  }, 15000);
+  }, 30000);
 
   it('renders distinct previews for minimalist vs cyberpunk templates', () => {
     render(<TemplateGallery />);

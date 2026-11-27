@@ -1,5 +1,5 @@
 # MonoForge — Complete AI Agent Technical Reference (llms-full.txt)
-> https://monoforge-studio.vercel.app | Comprehensive schema, 22 modular plugins, 30+ SVG visualizations, 47 verified social platforms, and URL hydration instructions.
+> https://monoforge-studio.vercel.app | Comprehensive schema, 22 modular plugins, 30+ SVG/Canvas visualizations, 6-Act Contribution Story, Terminal Profile Kit & ASCII Portrait, Project README Studio, 47 verified social platforms, and URL hydration instructions.
 
 ## 1. Zod Schema Specification (TypeScript)
 
@@ -88,7 +88,29 @@ Registered plugin IDs in `website/src/lib/plugins/registry.ts`:
 - `visitor-counter` — Profile view counter badge
 - `portfolio-contributions` — 3D/2D contribution heatmap
 
-## 4. URL Hydration & Deep-Linking
+## 4. Telemetry & Visualization SVG API (`/api/telemetry/svg`)
+
+Endpoint: `GET https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=<id>&user=<github_handle>&theme=<theme>`
+
+- **Supported Themes (`theme`)**: `emerald`, `matrix`, `cyberpunk`, `tokyonight`, `amber`, `slate`, `ocean`
+- **Optional Mode (`mode`)**: `live` or `sample` (defaults to live GitHub GraphQL/REST lookup with explicit provenance badge `LIVE GITHUB`, `SAMPLE DATA`, `PARTIAL DATA`, or `DATA UNAVAILABLE`).
+- **Telemetry & Storytelling Plugins (`plugin`)**:
+  - `diagonal-heatmap` (aliases: `diagonalheatmap`, `contrib-heatmap`, `contribheatmap`) — 53x7 staggered CSS diagonal sweep heatmap + streak/peak footer
+  - `whoami` (aliases: `info-card`, `infocard`) — Neofetch terminal info card pairable beside an ASCII portrait SVG
+  - `city` (aliases: `commitcity`, `skyline`) — 3D isometric commit city skyline
+  - `isocalendar` (aliases: `calendar`, `iso`) — 3D isometric contribution calendar
+  - `heatmap` (`contributions`, `matrix`), `velocity` (`momentum`), `languages` (`langs`), `habits` (`rhythm`), `achievements` (`trophies`)
+  - `river` (`commitriver`), `languageriver` (`polyglot`), `yearclock` (`radial`), `pulse` (`ekg`), `radar` (`engineeringradar`), `blueprint` (`schematic`), `timeline` (`releasetimeline`), `solarsystem` (`techstack`), `synthwave` (`outrun`, `bento`), `neofetch` (`fastfetch`, `asciiterminal`), `dna`, `galaxy`, `constellation`, `snake`, `terminal`
+  - Plus any registered ID in `ALL_VISUALIZATION_IDS` (30 total) and standalone cards: `leetcode`, `music`, `pagespeed`, `stamp`.
+
+## 5. Studio Workflows (Visualizer 6-Act Story, Terminal Kit, Project README, Assets)
+
+- **6-Act Contribution Story (`/en/visualizer` -> `6-Act Story` tab)**: Pure HTML5 Canvas `draw(ctx, w, h, t)` animations (`drawStoryGrid`, `drawStorySkyline`, `drawStoryPulse`, `drawStoryRing`, `drawStoryStreak`, `drawStoryTerminal`) with `IntersectionObserver`, `t = Infinity` reduced-motion mode, and GitHub 5-green ramp toggle.
+- **Terminal Profile Kit & ASCII Portrait (`/en/animator` -> `Terminal Kit` tab)**: Converts uploaded portraits into monochrome ASCII SVGs (`ASCII_DENSITY_RAMP`, CSS `rowWipe` animation), builds `whoami` + diagonal heatmap pairs, and outputs self-hosted `scripts/fetch-github.mjs` (`data/github.json`) + GitHub Action YAML.
+- **Project README Studio (`/en/project-readme`)**: `POST /api/project-readme/inspect` parses live GitHub repo metadata and manifests (`package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `Dockerfile`, `.env.example`) into 9 editable tabs.
+- **Asset & Sticker Vault (`/en/assets`)**: Searchable directory of 53 protected core vector SVGs and community stickers.
+
+## 6. URL Hydration & Deep-Linking
 
 ### Full Profile Config Hydration (`/en/developer?config=...`)
 Encode a `ReadmeConfig` JSON payload using UTF-8 safe base64:
@@ -100,7 +122,7 @@ const url = `https://monoforge-studio.vercel.app/en/developer?config=${encodeURI
 ```
 
 ### Archetype Preview Deep-Link (`/en/templates?template=<id>`)
-Share or open any of the 330 archetypes directly:
+Share or open any of the 330 curated archetypes directly:
 ```text
 https://monoforge-studio.vercel.app/en/templates?template=01-minimal-professional
 ```

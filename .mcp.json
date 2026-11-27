@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "monoforge": {
+      "command": "node",
+      "args": ["./bin/monoforge.js", "mcp"],
+      "description": "MonoForge MCP Server — Generate interactive GitHub READMEs, inspect Camo-safe animated SVGs, search 47 social icons & 53 assets, and configure 30+ telemetry embeds."
+    }
+  }
+}
