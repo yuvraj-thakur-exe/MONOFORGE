@@ -151,8 +151,8 @@
     "music": {
       "currently": {
         "callout": "Para mostrar a música atual do seu Spotify, você precisará:",
-        "links": "Links relacionados ao projeto {project}:",
-        "list-item-1": "Criar um <a href=\"https://developer.spotify.com/dashboard/applications\" target=\"_blank\">aplicativo do Spotify</a>; você pode seguir este <a href=\"https://github.com/novatorem/novatorem/blob/master/SetUp.md#spotify-api\" target=\"_blank\">guia</a>.",
+        "links": "Guia de configuração para {project}:",
+        "list-item-1": "Criar um <a href=\"https://developer.spotify.com/dashboard/applications\" target=\"_blank\" rel=\"noreferrer\">aplicativo do Spotify</a> e seguir o <a href=\"/pt-BR/docs\">guia de configuração do MonoForge</a>.",
         "list-item-2": "Escolher um dos projetos disponíveis.",
         "list-item-3": "Enviar sua própria instância do projeto.",
         "list-item-4": "Depois, inserir aqui a URL do seu aplicativo."
@@ -410,6 +410,7 @@
     "recently": "Recentemente",
     "currently": "Atualmente",
     "github": "GitHub",
+    "setup-guide": "Guia de configuração",
     "setup-to-deploy": "Configuração para implantação",
     "deploy-to-vercel": "Implantar na Vercel",
     "deploy-to-heroku": "Implantar no Heroku",

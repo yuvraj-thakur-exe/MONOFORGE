@@ -108,7 +108,7 @@ export const githubProfileTrophyPlugin: Plugin = {
     const url = `${baseUrl}/?username=${user}&theme=${theme}&row=${row}&column=${column}${noBg}${noFrame}`;
 
     return {
-      markdown: `<div align="${align}">\n  <a href="https://github.com/ryo-ma/github-profile-trophy">\n    <img src="${url}" alt="${effectiveUser} trophies" />\n  </a>\n</div>`,
+      markdown: `<div align="${align}">\n  <img src="${url}" alt="${effectiveUser} trophies" />\n</div>`,
     };
   },
 };

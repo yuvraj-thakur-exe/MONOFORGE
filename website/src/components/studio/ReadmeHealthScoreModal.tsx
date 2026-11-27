@@ -30,7 +30,7 @@ export const ReadmeHealthScoreModal: React.FC<ReadmeHealthScoreModalProps> = ({
   const report = calculateProfileQualityScore(config);
 
   const handleApplyQuickFix = (type: string) => {
-    const ghUser = config.settings.user.github || 'octocat';
+    const ghUser = config.settings.user.github || 'developer';
     if (type === 'telemetry') {
       addSection('telemetry-isocalendar', {
         content: { username: ghUser, format: 'isocalendar', duration: 'half-year' },
@@ -84,19 +84,19 @@ export const ReadmeHealthScoreModal: React.FC<ReadmeHealthScoreModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/65 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="relative w-full max-w-2xl bg-white border-2 border-neutral-900 rounded-2xl shadow-[8px_8px_0px_#18181b] overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/65 backdrop-blur-xs animate-in fade-in duration-150">
+      <div className="relative w-full max-w-2xl bg-white border-2 border-slate-700 rounded-2xl shadow-[8px_8px_0px_#334155] overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 bg-[#ffe600] border-b-2 border-neutral-900 text-neutral-950">
+        <div className="flex items-center justify-between px-5 py-4 bg-[#ffe600] border-b-2 border-slate-700 text-slate-950">
           <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-lg bg-neutral-950 text-[#ffe600] border border-neutral-900 shadow-xs">
+            <div className="p-1.5 rounded-lg bg-slate-900 text-[#ffe600] border border-slate-700 shadow-xs">
               <TrendingUp className="w-5 h-5" />
             </div>
             <div>
               <h2 className="text-base font-black tracking-tight font-mono uppercase">
                 README Profile Health &amp; Camo Audit
               </h2>
-              <p className="text-xs font-mono font-bold text-neutral-800">
+              <p className="text-xs font-mono font-bold text-slate-800">
                 Real-time AST Analysis &bull; Camo CDN Compliance
               </p>
             </div>
@@ -104,7 +104,7 @@ export const ReadmeHealthScoreModal: React.FC<ReadmeHealthScoreModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-white hover:bg-neutral-100 text-neutral-950 border border-neutral-900 transition-all hover:scale-105 cursor-pointer"
+            className="p-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-950 border border-slate-700 transition-all hover:scale-105 cursor-pointer"
             title="Close"
           >
             <X className="w-4 h-4" />
@@ -112,22 +112,22 @@ export const ReadmeHealthScoreModal: React.FC<ReadmeHealthScoreModalProps> = ({
         </div>
 
         {/* Content */}
-        <div className="p-5 overflow-y-auto space-y-5 bg-[#fafafa]">
+        <div className="p-5 overflow-y-auto space-y-5 bg-[#f8fafc]">
           {/* Main Score Card */}
-          <div className="flex flex-col sm:flex-row items-center justify-between p-4 bg-white rounded-xl border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between p-4 bg-white rounded-xl border-2 border-slate-700 shadow-[3px_3px_0px_#334155] gap-4">
             <div className="flex items-center gap-4">
               <div
-                className="w-20 h-20 rounded-2xl border-2 border-neutral-900 flex flex-col items-center justify-center font-mono shadow-[2px_2px_0px_#18181b]"
-                style={{ backgroundColor: report.overallScore >= 75 ? '#ffe600' : '#f4f4f5' }}
+                className="w-20 h-20 rounded-2xl border-2 border-slate-700 flex flex-col items-center justify-center font-mono shadow-[2px_2px_0px_#334155]"
+                style={{ backgroundColor: report.overallScore >= 75 ? '#ffe600' : '#f1f5f9' }}
               >
-                <span className="text-2xl font-black text-neutral-950 leading-none">
+                <span className="text-2xl font-black text-slate-950 leading-none">
                   {report.overallScore}
                 </span>
-                <span className="text-[10px] font-bold text-neutral-600 uppercase mt-0.5">/ 100</span>
+                <span className="text-[10px] font-bold text-slate-600 uppercase mt-0.5">/ 100</span>
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-sm font-black px-2 py-0.5 rounded bg-neutral-950 text-white border border-neutral-900">
+                  <span className="font-mono text-sm font-black px-2 py-0.5 rounded bg-slate-900 text-white border border-slate-700">
                     {report.grade}
                   </span>
                   {report.camoCompliant ? (
@@ -140,7 +140,7 @@ export const ReadmeHealthScoreModal: React.FC<ReadmeHealthScoreModalProps> = ({
                     </span>
                   )}
                 </div>
-                <p className="text-xs font-mono text-neutral-600 mt-1.5">
+                <p className="text-xs font-mono text-slate-600 mt-1.5">
                   {report.overallScore >= 90
                     ? 'Exceptional profile! Your layout commands authority and max recruiter attention.'
                     : report.overallScore >= 75
@@ -153,22 +153,22 @@ export const ReadmeHealthScoreModal: React.FC<ReadmeHealthScoreModalProps> = ({
 
           {/* Metric Breakdown */}
           <div className="space-y-2.5">
-            <h3 className="text-xs font-mono font-black uppercase text-neutral-900 tracking-wider">
+            <h3 className="text-xs font-mono font-black uppercase text-slate-900 tracking-wider">
               Diagnostic Breakdown (5 Pillars)
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {report.metrics.map(metric => (
                 <div
                   key={metric.category}
-                  className="p-3 bg-white rounded-xl border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] space-y-1.5"
+                  className="p-3 bg-white rounded-xl border-2 border-slate-700 shadow-[2px_2px_0px_#334155] space-y-1.5"
                 >
                   <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="font-bold text-neutral-900">{metric.label}</span>
-                    <span className="font-black text-neutral-950">
+                    <span className="font-bold text-slate-900">{metric.label}</span>
+                    <span className="font-black text-slate-950">
                       {metric.score} / {metric.maxScore}
                     </span>
                   </div>
-                  <div className="w-full h-2 rounded-full bg-neutral-100 border border-neutral-300 overflow-hidden">
+                  <div className="w-full h-2 rounded-full bg-slate-100 border border-slate-300 overflow-hidden">
                     <div
                       className="h-full transition-all duration-500 rounded-full"
                       style={{
@@ -183,7 +183,7 @@ export const ReadmeHealthScoreModal: React.FC<ReadmeHealthScoreModalProps> = ({
                     />
                   </div>
                   {metric.recommendation && (
-                    <p className="text-[10px] font-mono text-neutral-500 leading-tight">
+                    <p className="text-[10px] font-mono text-slate-500 leading-tight">
                       &bull; {metric.recommendation}
                     </p>
                   )}
@@ -194,8 +194,8 @@ export const ReadmeHealthScoreModal: React.FC<ReadmeHealthScoreModalProps> = ({
 
           {/* Actionable Recommendations */}
           {report.actionableImprovements.length > 0 && (
-            <div className="p-4 bg-white rounded-xl border-2 border-neutral-900 shadow-[3px_3px_0px_#18181b] space-y-3">
-              <h3 className="text-xs font-mono font-black uppercase text-neutral-900 flex items-center gap-1.5">
+            <div className="p-4 bg-white rounded-xl border-2 border-slate-700 shadow-[3px_3px_0px_#334155] space-y-3">
+              <h3 className="text-xs font-mono font-black uppercase text-slate-900 flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                 <span>Instant 1-Click Fixes</span>
               </h3>
@@ -203,14 +203,14 @@ export const ReadmeHealthScoreModal: React.FC<ReadmeHealthScoreModalProps> = ({
                 {report.actionableImprovements.map((imp, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center justify-between p-2.5 rounded-lg bg-neutral-50 border border-neutral-300 text-xs font-mono gap-3"
+                    className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-300 text-xs font-mono gap-3"
                   >
-                    <span className="text-neutral-800">{imp}</span>
+                    <span className="text-slate-800">{imp}</span>
                     {imp.toLowerCase().includes('telemetry') ? (
                       <button
                         type="button"
                         onClick={() => handleApplyQuickFix('telemetry')}
-                        className="shrink-0 px-2.5 py-1 rounded-md bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs hover:bg-[#ffdf00] transition-all cursor-pointer flex items-center gap-1 text-[11px]"
+                        className="shrink-0 px-2.5 py-1 rounded-md bg-[#ffe600] text-slate-950 font-black border border-slate-700 shadow-2xs hover:bg-amber-300 transition-all cursor-pointer flex items-center gap-1 text-[11px]"
                       >
                         <Zap className="w-3 h-3 fill-current" />
                         <span>Add 3D Calendar</span>
@@ -219,7 +219,7 @@ export const ReadmeHealthScoreModal: React.FC<ReadmeHealthScoreModalProps> = ({
                       <button
                         type="button"
                         onClick={() => handleApplyQuickFix('techs')}
-                        className="shrink-0 px-2.5 py-1 rounded-md bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs hover:bg-[#ffdf00] transition-all cursor-pointer flex items-center gap-1 text-[11px]"
+                        className="shrink-0 px-2.5 py-1 rounded-md bg-[#ffe600] text-slate-950 font-black border border-slate-700 shadow-2xs hover:bg-amber-300 transition-all cursor-pointer flex items-center gap-1 text-[11px]"
                       >
                         <Zap className="w-3 h-3 fill-current" />
                         <span>Add Tech Stack</span>
@@ -228,7 +228,7 @@ export const ReadmeHealthScoreModal: React.FC<ReadmeHealthScoreModalProps> = ({
                       <button
                         type="button"
                         onClick={() => handleApplyQuickFix('socials')}
-                        className="shrink-0 px-2.5 py-1 rounded-md bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs hover:bg-[#ffdf00] transition-all cursor-pointer flex items-center gap-1 text-[11px]"
+                        className="shrink-0 px-2.5 py-1 rounded-md bg-[#ffe600] text-slate-950 font-black border border-slate-700 shadow-2xs hover:bg-amber-300 transition-all cursor-pointer flex items-center gap-1 text-[11px]"
                       >
                         <Zap className="w-3 h-3 fill-current" />
                         <span>Add Social Badges</span>
@@ -242,14 +242,14 @@ export const ReadmeHealthScoreModal: React.FC<ReadmeHealthScoreModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between px-5 py-3 bg-white border-t-2 border-neutral-900 text-xs font-mono">
-          <span className="text-neutral-500 text-[11px]">
+        <div className="flex items-center justify-between px-5 py-3 bg-white border-t-2 border-slate-700 text-xs font-mono">
+          <span className="text-slate-500 text-[11px]">
             Audited via MonoForge Camo AST Lint Engine
           </span>
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-1.5 rounded-lg bg-[#ffe600] text-neutral-950 font-black border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] hover:bg-[#ffdf00] transition-all cursor-pointer"
+            className="px-4 py-1.5 rounded-lg bg-[#ffe600] text-slate-950 font-black border-2 border-slate-700 shadow-[2px_2px_0px_#334155] hover:bg-amber-300 transition-all cursor-pointer"
           >
             DONE
           </button>

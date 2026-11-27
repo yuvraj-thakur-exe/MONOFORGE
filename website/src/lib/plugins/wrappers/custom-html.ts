@@ -26,7 +26,7 @@ export const customHtmlPlugin: Plugin = {
       name: 'content',
       label: 'HTML / Markdown Content',
       type: 'text',
-      defaultValue: '<div align="center">\n  <h3>🚀 Continuous Innovation</h3>\n  <p>Crafting high-performance distributed systems and tactile developer tools.</p>\n</div>',
+      defaultValue: '<div align="center">\n  <h3>Continuous Innovation</h3>\n  <p>Crafting high-performance distributed systems and tactile developer tools.</p>\n</div>',
       placeholder: 'Enter sanitized HTML or Markdown...',
       required: true,
     },
@@ -44,11 +44,13 @@ export const customHtmlPlugin: Plugin = {
     },
   ],
   defaultConfig: {
-    content: '<div align="center">\n  <h3>🚀 Continuous Innovation</h3>\n  <p>Crafting high-performance distributed systems and tactile developer tools.</p>\n</div>',
+    content: '<div align="center">\n  <h3>Continuous Innovation</h3>\n  <p>Crafting high-performance distributed systems and tactile developer tools.</p>\n</div>',
     align: 'left',
   },
   renderMarkdown: (props: Record<string, unknown>, settings: UserSettings) => {
-    const rawContent = (props.content as string) || (props.markdown as string) || (props.raw as string) || (props.text as string) || '';
+    const candidates = [props.content, props.html, props.markdown, props.raw, props.text];
+    const rawContent =
+      candidates.find((value): value is string => typeof value === 'string' && value.trim().length > 0) || '';
     const safeContent = sanitizeCustomHtml(rawContent);
 
     if (!safeContent.trim()) {

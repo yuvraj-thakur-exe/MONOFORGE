@@ -73,7 +73,7 @@ export const readmeTypingSvgPlugin: Plugin = {
     const url = `https://readme-typing-svg.demolab.com?font=Fira+Code&size=${size}&duration=${duration}&pause=${pause}&color=${color}${center}&vCenter=true&width=500&lines=${lines}`;
 
     return {
-      markdown: `<div align="${align}">\n  <a href="https://git.io/typing-svg">\n    <img src="${url}" alt="Typing SVG" />\n  </a>\n</div>`,
+      markdown: `<div align="${align}">\n  <img src="${url}" alt="Typing SVG" />\n</div>`,
     };
   },
 };

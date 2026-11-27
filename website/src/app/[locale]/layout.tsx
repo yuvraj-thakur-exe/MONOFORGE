@@ -26,6 +26,7 @@ import {
   setRequestLocale,
 } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { Toaster } from 'sonner';
 
 import { config } from '#/config';
 import { Handles } from '#/components/handles';
@@ -36,6 +37,10 @@ import { ThemeProvider } from '#/components/theme/ThemeProvider';
 import { ScrollProgressIndicator } from '#/components/common/ScrollProgressIndicator';
 import { ScrollToTopButton } from '#/components/common/ScrollToTopButton';
 import { StudioCursor } from '#/components/studio/StudioCursor';
+import { CommandPalette } from '#/components/navigation/CommandPalette';
+import { TEMPLATES } from '#/lib/templates/catalog';
+import { ALL_VISUALIZATION_IDS } from '#/lib/visualizations/registry';
+import { pluginRegistry } from '#/lib/plugins/registry';
 
 type LocaleLayoutProps = {
   children: React.ReactNode;
@@ -102,7 +107,7 @@ export async function generateMetadata({
       'ai:agent-skill': `${appUrl}/api/agent/skill`,
       'ai:mcp': 'npx github:yuvraj-thakur-exe/MONOFORGE mcp',
       'ai:description':
-        'MonoForge is an open-source AI-native GitHub Profile README generator featuring 350+ curated archetypes, Camo-safe 60fps SVG animations, 30+ SVG visualizations, 22 modular plugins, 47 verified social icons, and confirmation-gated GitHub sync.',
+        `MonoForge is an open-source AI-native GitHub Profile README generator featuring ${TEMPLATES.length} curated archetypes, Camo-safe 60fps SVG animations, ${ALL_VISUALIZATION_IDS.length} SVG visualizations, ${pluginRegistry.length} modular plugins, 47 verified social icons, and confirmation-gated GitHub sync.`,
       'ai:capability':
         'camo-safe-svg, 60fps-animation, telemetry-bento, dynamic-isometric-skyline, direct-github-sync, monaco-raw-editor, live-heatmap',
       'llms-txt': `${appUrl}/llms.txt`,
@@ -199,7 +204,7 @@ export default async function RootLayout({
                   url: config.general.urls.app,
                   name: 'MonoForge',
                   description:
-                    'AI-native GitHub profile README engine with 350+ curated archetypes, 30+ SVG visualizations, 22 modular plugins, and Camo-safe 60fps SVG animations.',
+                    `AI-native GitHub profile README engine with ${TEMPLATES.length} curated archetypes, ${ALL_VISUALIZATION_IDS.length} SVG visualizations, ${pluginRegistry.length} modular plugins, and Camo-safe 60fps SVG animations.`,
                   potentialAction: {
                     '@type': 'SearchAction',
                     target: `${config.general.urls.app}/en/docs?q={search_term_string}`,
@@ -220,9 +225,9 @@ export default async function RootLayout({
                   operatingSystem: 'All',
                   url: config.general.urls.app,
                   description:
-                    'Open-source AI-native GitHub profile README generator and visual studio featuring 350+ curated archetypes, 47 verified social icons, 30+ Camo-safe 60fps vector SVG visualizations, 22 modular plugins, and confirmation-gated GitHub push.',
+                    `Open-source AI-native GitHub profile README generator and visual studio featuring ${TEMPLATES.length} curated archetypes, 47 verified social icons, ${ALL_VISUALIZATION_IDS.length} Camo-safe 60fps vector SVG visualizations, ${pluginRegistry.length} modular plugins, and confirmation-gated GitHub push.`,
                   featureList: [
-                    '350+ Curated Starter Archetypes (3D Isometric, Bento, Terminal, Cyberpunk)',
+                    `${TEMPLATES.length} Curated Starter Archetypes (3D Isometric, Bento, Terminal, Cyberpunk)`,
                     '47 Official Verified Brand Social Platform Badges & Icons',
                     '100% Camo-Safe 60FPS Pure CSS SVG Animations (Zero Script, Zero Bitrot)',
                     'Real GitHub Dynamic Contributor Telemetry & Skyline Heatmaps',
@@ -250,7 +255,6 @@ export default async function RootLayout({
                   logo: `${config.general.urls.app}/assets/monoforge-monkey-logo.jpg`,
                   sameAs: [
                     'https://github.com/yuvraj-thakur-exe/MONOFORGE',
-                    'https://github.com/yuvraj-thakur-exe',
                   ],
                 },
               ],
@@ -268,6 +272,8 @@ export default async function RootLayout({
 
             {children}
 
+            <CommandPalette showTrigger={false} />
+            <Toaster richColors position="bottom-right" />
             <Modal />
             <Features />
           </NextIntlClientProvider>

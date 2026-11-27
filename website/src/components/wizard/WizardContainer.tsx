@@ -1,12 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { useRouter } from '#/i18n/navigation';
 import { useReadmeStore } from '#/store/useReadmeStore';
+import { buildMarkdown } from '#/lib/buildMarkdown';
+import { copyToClipboard, downloadTextFile } from '#/lib/export/clipboard';
 import { pluginRegistry } from '#/lib/plugins/registry';
 import { generatePersonalizedProfile, DeveloperPersonaRole } from '#/lib/personalization/profile-generator';
 import { social_icons } from '#/resources/social_icons';
 import { LivePreviewPane } from './LivePreviewPane';
+import { GitHubSyncModal } from '#/components/sync/GitHubSyncModal';
 import { FadeIn } from '#/components/motion/FadeIn';
+import { toast } from 'sonner';
 import {
   User,
   Palette,
@@ -19,6 +24,11 @@ import {
   CheckCircle2,
   Sparkles,
   Search,
+  Copy,
+  Check,
+  Download,
+  Github,
+  Terminal,
 } from 'lucide-react';
 
 const STEPS = [
@@ -70,12 +80,96 @@ function resolveSocialUrl(name: string, input: string): string {
 }
 
 export function WizardContainer() {
+  const router = useRouter();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [socialSearch, setSocialSearch] = useState('');
+  const [isSyncOpen, setIsSyncOpen] = useState(false);
+  const [copiedFinish, setCopiedFinish] = useState(false);
   const { config, setGithub, updateSettings, addSection, removeSection, updateSection, setEntireConfig } = useReadmeStore();
 
   const user = config.settings.user;
   const currentStep = STEPS[currentStepIndex];
+
+  const highlightsSection = config.sections.find(
+    s =>
+      s.type === 'custom-html' &&
+      (s.props?.content?.source === 'wizard-highlights' ||
+        s.props?.content?.currentlyBuilding !== undefined ||
+        s.props?.content?.funFact !== undefined)
+  );
+  const currentlyBuilding = (highlightsSection?.props?.content?.currentlyBuilding as string) ?? '';
+  const funFact = (highlightsSection?.props?.content?.funFact as string) ?? '';
+
+  const updateHighlights = (nextBuilding: string, nextFunFact: string) => {
+    const lines: string[] = [];
+    if (nextBuilding.trim()) {
+      lines.push(`- **Currently Building:** ${nextBuilding.trim()}`);
+    }
+    if (nextFunFact.trim()) {
+      lines.push(`- **Fun Fact:** ${nextFunFact.trim()}`);
+    }
+
+    if (lines.length === 0) {
+      if (highlightsSection) {
+        removeSection(highlightsSection.id);
+      }
+      return;
+    }
+
+    const formattedMd = `### Highlights\n\n${lines.join('\n')}`;
+    if (highlightsSection) {
+      updateSection(highlightsSection.id, {
+        content: {
+          ...highlightsSection.props.content,
+          source: 'wizard-highlights',
+          currentlyBuilding: nextBuilding,
+          funFact: nextFunFact,
+          content: formattedMd,
+          html: formattedMd,
+        },
+      });
+    } else {
+      addSection('custom-html', {
+        content: {
+          source: 'wizard-highlights',
+          currentlyBuilding: nextBuilding,
+          funFact: nextFunFact,
+          content: formattedMd,
+          html: formattedMd,
+          align: config.settings.align || 'left',
+          title: 'Highlights',
+        },
+      });
+    }
+  };
+
+  const compiledMarkdown = useMemo(() => {
+    try {
+      return buildMarkdown(config);
+    } catch {
+      return '';
+    }
+  }, [config]);
+
+  const handleCopyFinishMarkdown = async () => {
+    const res = await copyToClipboard(compiledMarkdown);
+    if (res.ok) {
+      setCopiedFinish(true);
+      toast.success('Copied README.md to clipboard');
+      setTimeout(() => setCopiedFinish(false), 2000);
+    } else {
+      toast.error(res.error || 'Failed to copy markdown');
+    }
+  };
+
+  const handleDownloadFinishMarkdown = () => {
+    const res = downloadTextFile('README.md', compiledMarkdown);
+    if (res.ok) {
+      toast.success('Downloaded README.md');
+    } else {
+      toast.error(res.error || 'Failed to download README.md');
+    }
+  };
 
   // Helper to check if a plugin is active in sections
   const isPluginActive = (pluginId: string) =>
@@ -823,11 +917,11 @@ export function WizardContainer() {
 
             {/* Step 6: Projects & Highlights */}
             {currentStep.id === 'projects' && (
-              <div className="space-y-4">
+              <div className="space-y-5">
                 <div>
-                  <h3 className="text-base font-semibold text-palette-contrast">Projects & Fun Highlights</h3>
+                  <h3 className="text-base font-semibold text-palette-contrast">Projects &amp; Fun Highlights</h3>
                   <p className="text-xs text-palette-contrast/60">
-                    Showcase key featured repositories and personal facts.
+                    Showcase key featured work, personal notes, and export or sync your finished README.
                   </p>
                 </div>
 
@@ -836,6 +930,8 @@ export function WizardContainer() {
                     <label className="text-xs font-medium text-palette-contrast/80">Currently Building</label>
                     <input
                       type="text"
+                      value={currentlyBuilding}
+                      onChange={e => updateHighlights(e.target.value, funFact)}
                       placeholder="e.g. An AI-powered profile README generator"
                       className="w-full px-3 py-2 text-sm rounded-lg border border-palette-line bg-palette-soft text-palette-contrast focus:border-amber-500 focus:outline-none"
                     />
@@ -845,15 +941,69 @@ export function WizardContainer() {
                     <label className="text-xs font-medium text-palette-contrast/80">Fun Fact / Personal Note</label>
                     <input
                       type="text"
-                      placeholder="e.g. I run on coffee and open-source contributions ☕"
+                      value={funFact}
+                      onChange={e => updateHighlights(currentlyBuilding, e.target.value)}
+                      placeholder="e.g. I run on coffee and open-source contributions"
                       className="w-full px-3 py-2 text-sm rounded-lg border border-palette-line bg-palette-soft text-palette-contrast focus:border-amber-500 focus:outline-none"
                     />
+                  </div>
+                </div>
+
+                {/* Final Export & Sync Actions */}
+                <div className="p-4 rounded-xl border border-amber-500/30 bg-amber-500/5 space-y-3">
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-amber-500">
+                      Publish &amp; Export README
+                    </h4>
+                    <p className="text-[11px] text-palette-contrast/60 mt-0.5">
+                      Copy, download, push with diff preview, or continue editing raw JSON in Developer IDE.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <button
+                      type="button"
+                      onClick={handleCopyFinishMarkdown}
+                      className="flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-lg border border-palette-line bg-palette-soft hover:border-amber-500 text-xs font-semibold text-palette-contrast transition-colors cursor-pointer"
+                    >
+                      {copiedFinish ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 text-amber-500" />}
+                      <span>{copiedFinish ? 'Copied Markdown!' : 'Copy Markdown'}</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleDownloadFinishMarkdown}
+                      className="flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-lg border border-palette-line bg-palette-soft hover:border-amber-500 text-xs font-semibold text-palette-contrast transition-colors cursor-pointer"
+                    >
+                      <Download className="w-4 h-4 text-emerald-500" />
+                      <span>Download README.md</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setIsSyncOpen(true)}
+                      className="flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-lg bg-[#ffe600] hover:bg-amber-300 text-slate-950 border border-slate-700 text-xs font-black transition-colors cursor-pointer"
+                    >
+                      <Github className="w-4 h-4" />
+                      <span>Sync to GitHub</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => router.push('/developer')}
+                      className="flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-xs font-bold transition-colors cursor-pointer"
+                    >
+                      <Terminal className="w-4 h-4 text-[#ffe600]" />
+                      <span>Open in Developer IDE</span>
+                    </button>
                   </div>
                 </div>
               </div>
             )}
           </FadeIn>
         </div>
+
+        <GitHubSyncModal isOpen={isSyncOpen} onClose={() => setIsSyncOpen(false)} />
 
         {/* Step Navigation Controls */}
         <div className="flex items-center justify-between pt-2">

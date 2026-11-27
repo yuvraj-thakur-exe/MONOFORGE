@@ -17,6 +17,14 @@ import {
   TELEMETRY_CATEGORIES,
 } from '#/lib/forge-telemetry/catalog';
 import {
+  VISUALIZATION_REGISTRY,
+  ALL_VISUALIZATION_IDS,
+} from '#/lib/visualizations/registry';
+import { VISUALIZATION_THEMES } from '#/lib/visualizations/themes';
+import { VisualizationId, VisualizationTheme } from '#/lib/visualizations/types';
+import { useReadmeStore } from '#/store/useReadmeStore';
+import { useRouter } from '#/i18n/navigation';
+import {
   BarChart3,
   Calendar,
   Code2,
@@ -35,18 +43,70 @@ import {
   Music,
   Search,
   Filter,
+  Palette,
+  PlusCircle,
 } from 'lucide-react';
 import { toast } from 'sonner';
 
+type ClassicPresetId =
+  | 'isocalendar'
+  | 'languages'
+  | 'habits'
+  | 'achievements'
+  | 'terminal'
+  | 'pagespeed'
+  | 'music'
+  | 'leetcode'
+  | 'full';
+
+type ActiveTelemetryPreset = ClassicPresetId | VisualizationId;
+
+const REAL_FALLBACK_ASSETS: Record<string, string> = {
+  isocalendar: '/assets/telemetry-isocalendar-3d.svg',
+  languages: '/assets/telemetry-languages-donut.svg',
+  habits: '/assets/telemetry-habits-radar.svg',
+  achievements: '/assets/telemetry-achievements-rack.svg',
+  terminal: '/assets/telemetry-terminal-hud.svg',
+  pagespeed: '/assets/telemetry-pagespeed-audit.svg',
+  music: '/assets/telemetry-music-player.svg',
+  leetcode: '/assets/telemetry-leetcode-stats.svg',
+};
+
+function getTelemetryFallbackAsset(preset: ActiveTelemetryPreset): string {
+  if (preset in REAL_FALLBACK_ASSETS) {
+    return REAL_FALLBACK_ASSETS[preset];
+  }
+  const vizMeta = VISUALIZATION_REGISTRY[preset as VisualizationId];
+  if (vizMeta) {
+    if (preset === 'language-river' || preset === 'tech-stack-solar-system') {
+      return '/assets/telemetry-languages-donut.svg';
+    }
+    if (preset === 'developer-terminal') {
+      return '/assets/telemetry-terminal-hud.svg';
+    }
+    if (vizMeta.category === 'skills') {
+      return '/assets/telemetry-habits-radar.svg';
+    }
+    if (vizMeta.category === 'identity') {
+      return '/assets/telemetry-achievements-rack.svg';
+    }
+  }
+  return '/assets/telemetry-isocalendar-3d.svg';
+}
+
 export function TelemetryClient() {
+  const router = useRouter();
+  const addSection = useReadmeStore((s) => s.addSection);
+
   // Primary State
   const [username, setUsername] = useState('octocat');
   const [template, setTemplate] = useState<TelemetryTemplate>('classic');
+  const [vizTheme, setVizTheme] = useState<VisualizationTheme>('emerald');
   const [outputMode, setOutputMode] = useState<TelemetryOutputMode>('direct_svg');
   const [activeTab, setActiveTab] = useState<'preview' | 'markdown' | 'action' | 'url'>('preview');
-  const [selectedPluginPreset, setSelectedPluginPreset] = useState<
-    'isocalendar' | 'languages' | 'habits' | 'achievements' | 'terminal' | 'pagespeed' | 'music' | 'leetcode' | 'full'
-  >('isocalendar');
+  const [selectedPluginPreset, setSelectedPluginPreset] = useState<ActiveTelemetryPreset>('isocalendar');
+  const [presetCatalogTab, setPresetCatalogTab] = useState<'classic' | 'signatures'>('classic');
+  const [vizSearch, setVizSearch] = useState('');
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   // Search & Filter State
@@ -88,7 +148,6 @@ export function TelemetryClient() {
   const [baseCommunity, setBaseCommunity] = useState(true);
   const [baseRepositories, setBaseRepositories] = useState(true);
 
-  // Filtered plugins catalog
   const filteredPlugins = useMemo(() => {
     return TELEMETRY_PLUGINS_CATALOG.filter(plugin => {
       const matchesCategory = selectedCategory === 'all' || plugin.category === selectedCategory;
@@ -101,7 +160,20 @@ export function TelemetryClient() {
     });
   }, [searchQuery, selectedCategory]);
 
-  // Unified Config Object
+  const filteredSignatureIds = useMemo(() => {
+    const q = vizSearch.trim().toLowerCase();
+    if (!q) return ALL_VISUALIZATION_IDS;
+    return ALL_VISUALIZATION_IDS.filter(id => {
+      const m = VISUALIZATION_REGISTRY[id];
+      return (
+        m.name.toLowerCase().includes(q) ||
+        m.tagline.toLowerCase().includes(q) ||
+        m.category.toLowerCase().includes(q) ||
+        id.toLowerCase().includes(q)
+      );
+    });
+  }, [vizSearch]);
+
   const telemetryConfig: ForgeTelemetryConfig = useMemo(() => {
     return {
       username: username.trim() || 'octocat',
@@ -161,28 +233,75 @@ export function TelemetryClient() {
     pluginOptions,
   ]);
 
-  // Derived outputs (100% native, zero external dependencies)
   const embedUrl = useMemo(() => buildTelemetryEmbedUrl(telemetryConfig), [telemetryConfig]);
   const actionWorkflow = useMemo(() => buildTelemetryActionWorkflow(telemetryConfig), [telemetryConfig]);
   const markdownSnippet = useMemo(() => buildTelemetryMarkdownSnippet(telemetryConfig, 'center'), [telemetryConfig]);
 
   const activeSvgUrl = useMemo(() => {
-    if (selectedPluginPreset === 'full') return embedUrl;
-    const cleanUser = encodeURIComponent(username.trim() || 'octocat');
-    return `/api/telemetry/svg?plugin=${selectedPluginPreset}&user=${cleanUser}`;
-  }, [selectedPluginPreset, username, embedUrl]);
+    const cleanUser = username.trim() || 'octocat';
+    const params = new URLSearchParams();
+
+    if (selectedPluginPreset === 'full') {
+      const basePath = embedUrl.startsWith('http')
+        ? new URL(embedUrl)
+        : new URL(embedUrl, 'https://monoforge-studio.vercel.app');
+      basePath.searchParams.forEach((v, k) => params.set(k, v));
+    } else {
+      const pluginParam = selectedPluginPreset.replace(/-/g, '');
+      params.set('plugin', pluginParam);
+      params.set('user', cleanUser);
+    }
+
+    params.set('theme', vizTheme);
+    if (template !== 'classic') {
+      params.set('template', template);
+    }
+
+    if (selectedPluginPreset === 'isocalendar' || selectedPluginPreset === 'full') {
+      params.set('duration', String(pluginOptions['isocalendar.duration'] || 'half-year'));
+    }
+    if (selectedPluginPreset === 'languages' || selectedPluginPreset === 'full') {
+      params.set('limit', String(pluginOptions['languages.limit'] || 8));
+      if (pluginOptions['languages.indepth']) params.set('indepth', 'true');
+    }
+    if (selectedPluginPreset === 'habits' || selectedPluginPreset === 'full') {
+      params.set('days', String(pluginOptions['habits.days'] || 14));
+      params.set('from', String(pluginOptions['habits.from'] || 200));
+    }
+    if (selectedPluginPreset === 'achievements' || selectedPluginPreset === 'full') {
+      params.set('threshold', String(pluginOptions['achievements.threshold'] || 'B'));
+      if (pluginOptions['achievements.secrets']) params.set('secrets', 'true');
+    }
+    if (selectedPluginPreset === 'pagespeed' && pluginOptions['pagespeed.url']) {
+      params.set('url', String(pluginOptions['pagespeed.url']));
+    }
+    if (selectedPluginPreset === 'music' && pluginOptions['music.provider']) {
+      params.set('provider', String(pluginOptions['music.provider']));
+    }
+    if (cleanUser.toLowerCase() === 'octocat') {
+      params.set('mode', 'sample');
+    }
+
+    return `/api/telemetry/svg?${params.toString()}`;
+  }, [selectedPluginPreset, username, embedUrl, vizTheme, template, pluginOptions]);
+
+  const hostedSvgUrl = useMemo(() => `https://monoforge-studio.vercel.app${activeSvgUrl}`, [activeSvgUrl]);
 
   const activeMarkdownSnippet = useMemo(() => {
-    if (selectedPluginPreset === 'full') return markdownSnippet;
+    if (selectedPluginPreset === 'full' && outputMode === 'action') {
+      return markdownSnippet;
+    }
     const cleanUser = username.trim() || 'octocat';
-    return `<!-- MonoForge Standalone Telemetry: ${selectedPluginPreset.toUpperCase()} -->
-<p align="center">
-  <img src="https://raw.githubusercontent.com/${cleanUser}/${cleanUser}/main/public/assets/telemetry-${selectedPluginPreset}.svg" alt="${cleanUser}'s MonoForge Telemetry" width="100%" />
-</p>
+    const label =
+      selectedPluginPreset in VISUALIZATION_REGISTRY
+        ? VISUALIZATION_REGISTRY[selectedPluginPreset as VisualizationId].name
+        : selectedPluginPreset.toUpperCase();
 
-<!-- Native dynamic API route: -->
-<!-- <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=${selectedPluginPreset}&user=${cleanUser}" alt="${cleanUser}'s MonoForge Telemetry" /> -->`;
-  }, [selectedPluginPreset, username, markdownSnippet]);
+    return `<!-- MonoForge Telemetry: ${label} -->
+<p align="center">
+  <img src="${hostedSvgUrl}" alt="${cleanUser}'s MonoForge Telemetry (${label})" width="100%" />
+</p>`;
+  }, [selectedPluginPreset, outputMode, markdownSnippet, username, hostedSvgUrl]);
 
   const handleCopy = (text: string, key: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -210,12 +329,30 @@ export function TelemetryClient() {
     }
   };
 
-  const templates: Array<{ id: TelemetryTemplate; label: string; desc: string }> = [
-    { id: 'classic', label: 'Classic', desc: 'Standard balanced card format' },
-    { id: 'terminal', label: 'Terminal', desc: 'Sleek CLI command-line aesthetic' },
-    { id: 'repository', label: 'Repository', desc: 'Repository-centric statistics' },
-    { id: 'markdown', label: 'Markdown', desc: 'Lightweight native tables' },
-    { id: 'community', label: 'Community', desc: 'Spotlight on discussions & PRs' },
+  const handleAddToProfileIde = () => {
+    const cleanUser = username.trim() || 'octocat';
+    addSection('telemetry-engine', {
+      username: cleanUser,
+      activeVizId: selectedPluginPreset === 'full' ? 'commit-city' : selectedPluginPreset,
+      plugin: selectedPluginPreset === 'full' ? 'isocalendar' : selectedPluginPreset.replace(/-/g, ''),
+      theme: vizTheme,
+      template,
+      outputMode,
+      isocalendar: enabledPlugins.isocalendar,
+      languages: enabledPlugins.languages,
+      habits: enabledPlugins.habits,
+      achievements: enabledPlugins.achievements,
+    });
+    toast.success('Added telemetry widget to Profile IDE');
+    router.push('/developer');
+  };
+
+  const templates: Array<{ id: TelemetryTemplate; label: string; desc: string; suggestedTheme: VisualizationTheme }> = [
+    { id: 'classic', label: 'Classic', desc: 'Standard balanced card format', suggestedTheme: 'emerald' },
+    { id: 'terminal', label: 'Terminal', desc: 'Sleek CLI command-line aesthetic', suggestedTheme: 'matrix' },
+    { id: 'repository', label: 'Repository', desc: 'Repository-centric statistics', suggestedTheme: 'ocean' },
+    { id: 'markdown', label: 'Markdown', desc: 'Lightweight native tables', suggestedTheme: 'slate' },
+    { id: 'community', label: 'Community', desc: 'Spotlight on discussions & PRs', suggestedTheme: 'amber' },
   ];
 
   const svgPresets = [
@@ -270,11 +407,11 @@ export function TelemetryClient() {
                 MonoForge Telemetry
               </h1>
               <span className="px-2 py-0.5 text-[11px] font-mono font-medium rounded-full bg-amber-500/10 text-amber-700 border border-amber-500/30">
-                {TELEMETRY_PLUGINS_CATALOG.length} Engines &bull; 30+ SVG Visualizations
+                {TELEMETRY_PLUGINS_CATALOG.length} Engines &bull; {ALL_VISUALIZATION_IDS.length}+ SVG Visualizations
               </span>
             </div>
             <p className="text-xs sm:text-sm text-slate-600 max-w-2xl">
-              High-performance GitHub profile infographics &amp; developer telemetry. Live preview, customizable templates, and 1-click GitHub Actions or standalone SVG embeds. Zero external proxies.
+              High-performance GitHub profile infographics &amp; developer telemetry. Live preview, customizable templates, and 1-click GitHub Actions or standalone SVG embeds across all {ALL_VISUALIZATION_IDS.length} signature engines.
             </p>
           </div>
 
@@ -329,27 +466,62 @@ export function TelemetryClient() {
               </div>
             </div>
 
-            {/* Template Selector Cards */}
-            <div className="p-4 rounded-xl border border-slate-800 bg-white shadow-[3px_3px_0px_#334155] space-y-2.5">
-              <label className="block text-xs font-semibold text-slate-800">
-                Visual Template Theme
-              </label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {templates.map(tpl => (
-                  <button
-                    key={tpl.id}
-                    type="button"
-                    onClick={() => setTemplate(tpl.id)}
-                    className={`p-2.5 rounded-lg border text-left transition-all cursor-pointer ${
-                      template === tpl.id
-                        ? 'border-amber-500 bg-amber-500/10 text-slate-900 ring-1 ring-amber-500/30'
-                        : 'border-slate-300 bg-slate-50 text-slate-600 hover:text-slate-900 hover:border-slate-800'
-                    }`}
-                  >
-                    <div className="font-semibold text-xs text-slate-900">{tpl.label}</div>
-                    <div className="text-[10px] text-slate-500 mt-0.5 line-clamp-1">{tpl.desc}</div>
-                  </button>
-                ))}
+            {/* Visual Theme Spectrum & Template Selector */}
+            <div className="p-4 rounded-xl border border-slate-800 bg-white shadow-[3px_3px_0px_#334155] space-y-4">
+              <div className="space-y-2">
+                <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-800">
+                  <Palette className="w-3.5 h-3.5 text-amber-500" />
+                  SVG Theme Palette
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+                  {(Object.keys(VISUALIZATION_THEMES) as VisualizationTheme[]).map(tKey => {
+                    const tObj = VISUALIZATION_THEMES[tKey];
+                    return (
+                      <button
+                        key={tKey}
+                        type="button"
+                        onClick={() => setVizTheme(tKey)}
+                        className={`flex items-center gap-1.5 px-2 py-1.5 rounded-lg border text-[11px] font-mono font-bold transition-all cursor-pointer ${
+                          vizTheme === tKey
+                            ? 'border-amber-500 bg-amber-500/15 text-slate-950 ring-1 ring-amber-500/40'
+                            : 'border-slate-300 bg-slate-50 text-slate-700 hover:border-slate-800'
+                        }`}
+                      >
+                        <span
+                          className="w-2.5 h-2.5 rounded-full shrink-0 border border-slate-400"
+                          style={{ backgroundColor: tObj.primary }}
+                        />
+                        <span className="truncate">{tObj.name.split(' ')[0]}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-slate-200">
+                <label className="block text-xs font-semibold text-slate-800">
+                  Visual Template Layout
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {templates.map(tpl => (
+                    <button
+                      key={tpl.id}
+                      type="button"
+                      onClick={() => {
+                        setTemplate(tpl.id);
+                        setVizTheme(tpl.suggestedTheme);
+                      }}
+                      className={`p-2.5 rounded-lg border text-left transition-all cursor-pointer ${
+                        template === tpl.id
+                          ? 'border-amber-500 bg-amber-500/10 text-slate-900 ring-1 ring-amber-500/30'
+                          : 'border-slate-300 bg-slate-50 text-slate-600 hover:text-slate-900 hover:border-slate-800'
+                      }`}
+                    >
+                      <div className="font-semibold text-xs text-slate-900">{tpl.label}</div>
+                      <div className="text-[10px] text-slate-500 mt-0.5 line-clamp-1">{tpl.desc}</div>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -424,7 +596,7 @@ export function TelemetryClient() {
               </div>
 
               {/* Scrollable Plugin Cards List */}
-              <div className="space-y-2 max-h-[440px] overflow-y-auto pr-1 scrollbar-thin">
+              <div className="space-y-2 max-h-[380px] overflow-y-auto pr-1 scrollbar-thin">
                 {filteredPlugins.map(plugin => {
                   const isEnabled = Boolean(enabledPlugins[plugin.id]);
                   return (
@@ -455,7 +627,6 @@ export function TelemetryClient() {
                         {plugin.description}
                       </p>
 
-                      {/* Configurable Sub-options */}
                       {isEnabled && plugin.inputs.length > 0 && (
                         <div className="mt-2.5 pt-2 border-t border-slate-200 pl-6 space-y-2">
                           {plugin.inputs.map(input => {
@@ -517,41 +688,103 @@ export function TelemetryClient() {
 
           {/* RIGHT: Live Preview Stage & Export Panel (7 cols) */}
           <div className="lg:col-span-7 space-y-4">
-            {/* Visualizer Preset Switcher Row */}
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between text-xs text-slate-600 font-mono px-1">
-                <span className="flex items-center gap-1.5 text-slate-800 font-semibold">
+            {/* Visualizer Preset Switcher (Classic + All 30 Registry Visualizations) */}
+            <div className="p-3.5 rounded-xl border border-slate-800 bg-white shadow-[3px_3px_0px_#334155] space-y-2.5">
+              <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600 font-mono">
+                <div className="flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                  Standalone Vector Visualizers (100% Native Pure SVG)
-                </span>
-                <span className="text-[11px] text-emerald-700 font-mono">
-                  GitHub Camo Proxy Safe
-                </span>
+                  <span className="text-slate-900 font-bold">
+                    Standalone Vector Visualizers ({svgPresets.length - 1} Core + {ALL_VISUALIZATION_IDS.length} Signature)
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-1 bg-slate-100 p-0.5 rounded-lg border border-slate-300">
+                  <button
+                    type="button"
+                    onClick={() => setPresetCatalogTab('classic')}
+                    className={`px-2.5 py-1 rounded-md text-[11px] font-bold cursor-pointer ${
+                      presetCatalogTab === 'classic' ? 'bg-[#ffe600] text-slate-950' : 'text-slate-600'
+                    }`}
+                  >
+                    Core Telemetry (9)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPresetCatalogTab('signatures')}
+                    className={`px-2.5 py-1 rounded-md text-[11px] font-bold cursor-pointer ${
+                      presetCatalogTab === 'signatures' ? 'bg-[#ffe600] text-slate-950' : 'text-slate-600'
+                    }`}
+                  >
+                    All {ALL_VISUALIZATION_IDS.length} Registry SVGs
+                  </button>
+                </div>
               </div>
-              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
-                {svgPresets.map(preset => {
-                  const Icon = preset.icon;
-                  const isSelected = selectedPluginPreset === preset.id;
-                  return (
-                    <button
-                      key={preset.id}
-                      type="button"
-                      onClick={() => setSelectedPluginPreset(preset.id)}
-                      className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
-                        isSelected
-                          ? 'border-amber-500 bg-amber-500/15 text-slate-900 shadow-sm ring-1 ring-amber-500/30'
-                          : 'border-slate-300 bg-white text-slate-600 hover:text-slate-900 hover:border-slate-800'
-                      }`}
-                    >
-                      <Icon className="w-3.5 h-3.5 text-amber-500" />
-                      <span>{preset.label}</span>
-                      <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-100 text-slate-900 border border-slate-300 font-mono font-bold">
-                        {preset.tag}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
+
+              {presetCatalogTab === 'classic' ? (
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
+                  {svgPresets.map(preset => {
+                    const Icon = preset.icon;
+                    const isSelected = selectedPluginPreset === preset.id;
+                    return (
+                      <button
+                        key={preset.id}
+                        type="button"
+                        onClick={() => setSelectedPluginPreset(preset.id)}
+                        className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
+                          isSelected
+                            ? 'border-amber-500 bg-amber-500/15 text-slate-900 shadow-sm ring-1 ring-amber-500/30'
+                            : 'border-slate-300 bg-white text-slate-600 hover:text-slate-900 hover:border-slate-800'
+                        }`}
+                      >
+                        <Icon className="w-3.5 h-3.5 text-amber-500" />
+                        <span>{preset.label}</span>
+                        <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-100 text-slate-900 border border-slate-300 font-mono font-bold">
+                          {preset.tag}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <div className="relative">
+                    <Search className="w-3.5 h-3.5 absolute left-2.5 top-2 text-slate-400" />
+                    <input
+                      type="text"
+                      value={vizSearch}
+                      onChange={e => setVizSearch(e.target.value)}
+                      placeholder={`Filter all ${ALL_VISUALIZATION_IDS.length} /api/telemetry/svg visualizations...`}
+                      className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-slate-50 border border-slate-300 text-xs font-mono text-slate-900 focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 max-h-40 overflow-y-auto pr-1">
+                    {filteredSignatureIds.map(vizId => {
+                      const manifest = VISUALIZATION_REGISTRY[vizId];
+                      const isSelected = selectedPluginPreset === vizId;
+                      return (
+                        <button
+                          key={vizId}
+                          type="button"
+                          onClick={() => setSelectedPluginPreset(vizId)}
+                          className={`p-2 rounded-lg border text-left transition-all cursor-pointer ${
+                            isSelected
+                              ? 'border-amber-500 bg-amber-500/15 text-slate-950 ring-1 ring-amber-500/30'
+                              : 'border-slate-200 bg-slate-50 hover:border-slate-800 text-slate-700'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between gap-1">
+                            <span className="text-[11px] font-bold truncate">{manifest.name}</span>
+                            <span className="text-[9px] font-mono uppercase px-1 rounded bg-white border border-slate-300 text-slate-700 shrink-0">
+                              {manifest.category}
+                            </span>
+                          </div>
+                          <div className="text-[10px] text-slate-500 truncate mt-0.5">{manifest.tagline}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Output View Tabs */}
@@ -583,7 +816,6 @@ export function TelemetryClient() {
                 })}
               </div>
 
-              {/* Status Badge */}
               <div className="flex items-center gap-1.5 text-xs text-emerald-700 font-mono">
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">60fps Keyframes Ready</span>
@@ -592,14 +824,13 @@ export function TelemetryClient() {
 
             {/* Stage Body */}
             <div className="rounded-xl border border-slate-800 bg-white overflow-hidden min-h-[520px] flex flex-col justify-between shadow-lg">
-              {/* TAB 1: Live Interactive SVG Preview */}
               {activeTab === 'preview' && (
                 <div className="p-4 sm:p-6 flex-1 flex flex-col items-center justify-center">
                   <div className="w-full max-w-2xl mx-auto rounded-lg border border-slate-300 bg-white p-3 sm:p-4 shadow-inner flex flex-col items-center">
                     <div className="w-full flex items-center justify-between pb-2 mb-3 border-b border-slate-200 text-[11px] font-mono text-slate-600">
                       <span className="flex items-center gap-1.5">
                         <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                        telemetry-{selectedPluginPreset}.svg ({selectedPluginPreset === 'full' ? template : 'Vector SVG'})
+                        {selectedPluginPreset}.svg ({vizTheme} &bull; {template})
                       </span>
                       <div className="flex items-center gap-3">
                         {selectedPluginPreset !== 'full' && (
@@ -632,14 +863,13 @@ export function TelemetryClient() {
                         className="max-w-full h-auto rounded shadow-md border border-slate-200"
                         onError={(e) => {
                           const target = e.currentTarget;
-                          if (selectedPluginPreset !== 'full' && !target.src.includes(`/assets/`)) {
-                            target.src = `/assets/telemetry-${selectedPluginPreset}.svg`;
+                          if (!target.src.includes('/assets/')) {
+                            target.src = getTelemetryFallbackAsset(selectedPluginPreset);
                           }
                         }}
                       />
                     </div>
 
-                    {/* Badge footer info */}
                     <div className="w-full pt-3 mt-2 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-600 font-mono">
                       <span>GitHub Camo safe (0 &lt;foreignObject&gt;)</span>
                       <span className="text-amber-600 font-bold">MonoForge Native Engine</span>
@@ -648,7 +878,6 @@ export function TelemetryClient() {
                 </div>
               )}
 
-              {/* TAB 2: Markdown Embed Code */}
               {activeTab === 'markdown' && (
                 <div className="p-4 sm:p-6 flex-1 flex flex-col">
                   <div className="flex items-center justify-between pb-2 mb-3 border-b border-slate-200 text-xs text-slate-600 font-mono">
@@ -668,7 +897,6 @@ export function TelemetryClient() {
                 </div>
               )}
 
-              {/* TAB 3: GitHub Actions Workflow */}
               {activeTab === 'action' && (
                 <div className="p-4 sm:p-6 flex-1 flex flex-col">
                   <div className="flex items-center justify-between pb-2 mb-3 border-b border-slate-200 text-xs text-slate-600 font-mono">
@@ -688,23 +916,22 @@ export function TelemetryClient() {
                 </div>
               )}
 
-              {/* TAB 4: Direct URL / cURL */}
               {activeTab === 'url' && (
                 <div className="p-4 sm:p-6 flex-1 flex flex-col space-y-4">
                   <div>
                     <label className="block text-xs font-semibold text-slate-600 mb-1 font-mono">
-                      Direct SVG Endpoint (Native Server)
+                      Direct SVG Endpoint (Hosted Camo-Safe URL)
                     </label>
                     <div className="flex items-center gap-2">
                       <input
                         type="text"
                         readOnly
-                        value={activeSvgUrl}
+                        value={hostedSvgUrl}
                         className="w-full px-3 py-2 rounded-lg bg-white border border-slate-800 font-mono text-xs text-slate-800"
                       />
                       <button
                         type="button"
-                        onClick={() => handleCopy(activeSvgUrl, 'url', 'Embed URL')}
+                        onClick={() => handleCopy(hostedSvgUrl, 'url', 'Embed URL')}
                         className="px-3 py-2 rounded-lg bg-slate-900 hover:bg-[#ffe600] hover:text-slate-950 text-white text-xs font-mono font-bold flex items-center gap-1 transition-all cursor-pointer"
                       >
                         {copiedKey === 'url' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -718,7 +945,7 @@ export function TelemetryClient() {
                       cURL Command
                     </label>
                     <pre className="p-3 rounded-lg bg-slate-900 border-2 border-slate-700 font-mono text-xs text-emerald-400 overflow-x-auto shadow-inner">
-                      curl -s &quot;https://monoforge-studio.vercel.app{activeSvgUrl}&quot; -o telemetry-{selectedPluginPreset}.svg
+                      curl -s &quot;{hostedSvgUrl}&quot; -o telemetry-{selectedPluginPreset}.svg
                     </pre>
                   </div>
                 </div>
@@ -729,7 +956,16 @@ export function TelemetryClient() {
                 <span className="text-slate-500 font-mono">
                   Engine: <span className="text-slate-800">@monoforge/telemetry</span> &bull; Module: <span className="text-amber-600 font-bold">{selectedPluginPreset}</span>
                 </span>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleAddToProfileIde}
+                    className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-bold border-2 border-slate-800 shadow-[2px_2px_0px_#334155] btn-tactile transition-all flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <PlusCircle className="w-3.5 h-3.5 text-[#ffe600]" />
+                    <span>Add to Profile IDE</span>
+                  </button>
+
                   {selectedPluginPreset !== 'full' && (
                     <button
                       type="button"
@@ -743,7 +979,7 @@ export function TelemetryClient() {
                   <button
                     type="button"
                     onClick={() => handleCopy(activeMarkdownSnippet, 'bottom_md', 'Markdown Snippet')}
-                    className="px-3.5 py-1.5 rounded-lg bg-[#ffe600] hover:bg-[#ffdf00] text-slate-950 font-mono text-xs font-black border-2 border-slate-800 shadow-[2px_2px_0px_#334155] btn-tactile transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="px-3.5 py-1.5 rounded-lg bg-[#ffe600] hover:bg-amber-300 text-slate-950 font-mono text-xs font-black border-2 border-slate-800 shadow-[2px_2px_0px_#334155] btn-tactile transition-all flex items-center gap-1.5 cursor-pointer"
                   >
                     <Copy className="w-3.5 h-3.5" />
                     <span>Copy Markdown</span>

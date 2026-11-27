@@ -27,7 +27,7 @@ export const Currently = observer(function Currently() {
     'props.content.currently.project'
   )!;
 
-  const links = projects_links[project];
+  const links = projects_links[project] ?? [];
 
   const listItems = [1, 2, 3, 4].map(id => ({
     id,
@@ -55,11 +55,23 @@ export const Currently = observer(function Currently() {
 
       <Callout className="palette-orange mb-sm">
         {tUi('music.currently.links', { project })}
-        <div className="flex flex-col">
-          {links.map(link => (
-            <Text.Link key={link.label} href={link.link} target="_blank">
-              {translate(link.label)}
-            </Text.Link>
+        <div className="flex flex-col gap-1 mt-1">
+          {links.map(item => (
+            <div key={item.label} className="flex flex-col gap-0.5">
+              {item.instruction && (
+                <p className="text-xs opacity-90">{item.instruction}</p>
+              )}
+              {item.link && (
+                <Text.Link
+                  href={item.link}
+                  {...(item.link.startsWith('http')
+                    ? { target: '_blank', rel: 'noopener noreferrer' }
+                    : {})}
+                >
+                  {translate(item.label)}
+                </Text.Link>
+              )}
+            </div>
           ))}
         </div>
       </Callout>

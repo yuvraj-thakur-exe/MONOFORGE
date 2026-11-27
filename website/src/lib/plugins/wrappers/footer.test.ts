@@ -19,6 +19,7 @@ describe('footerPlugin', () => {
     expect(output).toContain('Let us connect on LinkedIn!');
     expect(output).toContain('[↑ Back to Top]');
     expect(output).toContain('align="center"');
+    expect(output).toContain('https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/website/public/assets/monoforge-stamp.svg');
   });
 
   it('omits back to top anchor when disabled', () => {

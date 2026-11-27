@@ -466,6 +466,9 @@ export function VisualizationStudio() {
     }
     addSection('telemetry-engine', {
       username: safeUser,
+      activeVizId,
+      plugin: activeVizId.replace(/-/g, ''),
+      theme,
       template: theme === 'matrix' ? 'terminal' : 'classic',
       outputMode: 'direct_svg',
       isocalendar: true,
@@ -482,7 +485,7 @@ export function VisualizationStudio() {
   return (
     <div className="min-h-screen bg-[#0f172a] text-slate-100 flex flex-col font-sans overflow-x-hidden">
       {/* Studio Header Bar */}
-      <header className="border-b border-slate-800 bg-[#0f172a]/90 backdrop-blur-md px-4 sm:px-8 py-3.5 sticky top-0 z-40 flex flex-wrap items-center justify-between gap-3">
+      <header className="border-b border-slate-800 bg-[#0f172a]/90 backdrop-blur-md px-4 sm:px-8 py-3.5 sticky top-14 z-40 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
           <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 shrink-0">
             <Sparkles className="w-5 h-5" />

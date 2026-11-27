@@ -6,6 +6,80 @@ import {
 } from './types';
 import { suggest_assets, search_assets } from '../assets/asset-discovery';
 
+const MONOFORGE_RAW_ASSET_BASE =
+  'https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/website/public/assets';
+
+export function extractPlainTextBio(
+  markdown: string,
+  context?: AiRequest['context']
+): string {
+  const fallbackBio =
+    context?.currentBio?.trim() ||
+    `${context?.role?.trim() || 'Software Engineer'} building open-source tooling and developer experiences.`;
+
+  if (!markdown || typeof markdown !== 'string') {
+    return fallbackBio;
+  }
+
+  const stripped = markdown
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/^\[[^\]]+\]:\s*\S+.*$/gm, '');
+
+  const lines = stripped
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .filter((line) => !/^#{1,6}\s+/.test(line))
+    .filter((line) => !/^[-*_]{3,}$/.test(line))
+    .filter((line) => !/^\|[\s|:-]+\|$/.test(line))
+    .map((line) =>
+      line
+        .replace(/^>\s*/, '')
+        .replace(/^[-*+]\s+/, '')
+        .replace(/^\d+\.\s+/, '')
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+        .replace(/\[([^\]]+)\]\[[^\]]*\]/g, '$1')
+        .replace(/[*_`~]/g, '')
+        .replace(/\|/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+    )
+    .filter((line) => line.length > 0 && !/^https?:\/\//i.test(line));
+
+  const candidate =
+    lines.find((line) => line.length >= 24) ||
+    lines.join(' ').trim();
+
+  if (!candidate || candidate.length < 8) {
+    return fallbackBio;
+  }
+
+  if (candidate.length <= 200) {
+    return candidate;
+  }
+
+  const sliced = candidate.slice(0, 197);
+  const lastSpace = sliced.lastIndexOf(' ');
+  const cleanCut = lastSpace > 100 ? sliced.slice(0, lastSpace) : sliced;
+  return `${cleanCut.trim()}...`;
+}
+
+function toAbsoluteAssetUrl(publicUrl: string): string {
+  const trimmed = publicUrl.trim();
+  if (!trimmed) return '';
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  if (trimmed.startsWith('/assets/')) {
+    return `${MONOFORGE_RAW_ASSET_BASE}/${trimmed.slice('/assets/'.length)}`;
+  }
+  if (trimmed.startsWith('assets/')) {
+    return `${MONOFORGE_RAW_ASSET_BASE}/${trimmed.slice('assets/'.length)}`;
+  }
+  return trimmed;
+}
+
 /**
  * Heuristic synthesizer for offline mode or demo accounts without OpenRouter key.
  */
@@ -15,6 +89,7 @@ export function synthesizeFallbackAiResponse(
   context?: AiRequest['context']
 ): AiResponseResult {
   const cleanPrompt = prompt.trim();
+  const effectiveUser = context?.username?.trim() || 'octocat';
 
   switch (action) {
     case 'search-assets': {
@@ -29,8 +104,9 @@ export function synthesizeFallbackAiResponse(
       }));
 
       const topAsset = fallbackSearch[0];
+      const topAssetUrl = topAsset ? toAbsoluteAssetUrl(topAsset.publicUrl) : '';
       const markdown = topAsset
-        ? `<p align="center">\n  <img src="${topAsset.publicUrl}" alt="${topAsset.name}" width="${topAsset.width || '100%'}" />\n</p>`
+        ? `<p align="center">\n  <img src="${topAssetUrl}" alt="${topAsset.name}" width="${topAsset.width || '100%'}" />\n</p>`
         : '';
 
       return {
@@ -78,10 +154,10 @@ export function synthesizeFallbackAiResponse(
       return {
         projects: [
           {
-            name: cleanPrompt.length < 30 ? cleanPrompt : 'MonoForge Engine',
+            name: cleanPrompt.length > 0 && cleanPrompt.length < 30 ? cleanPrompt : 'MonoForge Engine',
             description:
-              'A high-performance open-source developer toolkit and profile README generator with 47+ native telemetry modules.',
-            url: 'https://github.com/octocat/hello-world',
+              'A high-performance open-source developer toolkit and profile README generator with 30 native telemetry visualizations.',
+            url: 'https://monoforge-studio.vercel.app/en/developer',
             tags: ['TypeScript', 'Next.js', 'Tailwind', 'SVG'],
           },
         ],
@@ -95,7 +171,7 @@ export function synthesizeFallbackAiResponse(
       const current = context?.rawMarkdown || prompt;
       const improved = current.includes('# ')
         ? current
-        : `# ${cleanPrompt || 'Developer Profile'}\n\n${current}\n\n### 🚀 Telemetry & Metrics\n\n![Stats](https://github-readme-stats.vercel.app/api?username=octocat&show_icons=true&theme=tokyonight)`;
+        : `# ${cleanPrompt || 'Developer Profile'}\n\n${current}\n\n### Telemetry & Metrics\n\n<p align="center">\n  <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=commit-city&user=${encodeURIComponent(effectiveUser)}&theme=emerald" alt="Commit City Telemetry" width="100%" />\n</p>`;
 
       return {
         markdown: improved,
@@ -127,16 +203,16 @@ export function synthesizeFallbackAiResponse(
 
 > Designing resilient distributed state machines and high-throughput stream engines.
 
-### ⚡ Technical Stack
+### Technical Stack
 \`Rust\` \`TypeScript\` \`Go\` \`PostgreSQL\` \`Kubernetes\` \`Docker\` \`Kafka\`
 
-### 🏆 Featured Artifacts
-- **[AetherNet](https://github.com)** — Zero-copy peer-to-peer event broker.
-- **[VoxelGrid](https://github.com)** — 60fps GPU telemetry engine for web.
+### Featured Artifacts
+- **AetherNet** — Zero-copy peer-to-peer event broker.
+- **VoxelGrid** — 60fps GPU telemetry engine for web.
 
-### 📊 Activity Radar
+### Activity Radar
 <p align="center">
-  <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?type=radar&user=octocat&theme=cyberpunk" alt="Radar Telemetry" />
+  <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=engineering-radar&user=${encodeURIComponent(effectiveUser)}&theme=cyberpunk" alt="Radar Telemetry" />
 </p>
 `;
       return {
@@ -285,22 +361,22 @@ export function synthesizeFallbackAiResponse(
 
 ---
 
-### 💻 Mastered Stack
+### Mastered Stack
 <p align="center">
   <img src="https://skillicons.dev/icons?i=ts,react,next,node,postgres,docker,git" alt="My Skills" />
 </p>
 
 ---
 
-### 🛠️ Featured Open-Source Projects
-- **[HyperDrive](https://github.com)** — Distributed in-memory cache with sub-millisecond p99 latencies.
-- **[NeonPulse](https://github.com)** — 60fps GPU-accelerated SVG visualization dashboard.
+### Featured Open-Source Projects
+- **HyperDrive** — Distributed in-memory cache with sub-millisecond p99 latencies.
+- **NeonPulse** — 60fps GPU-accelerated SVG visualization dashboard.
 
 ---
 
-### 📊 GitHub Activity Telemetry
+### GitHub Activity Telemetry
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=octocat&show_icons=true&theme=tokyonight" alt="GitHub Stats" />
+  <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=commit-city&user=${encodeURIComponent(effectiveUser)}&theme=emerald" alt="GitHub Activity Telemetry" width="100%" />
 </p>
 `;
       return {

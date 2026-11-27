@@ -1,7 +1,8 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import { NomokeyHero } from './NomokeyHero';
 import { TEMPLATES } from '#/lib/templates/catalog';
+import { useReadmeStore } from '#/store/useReadmeStore';
 
 vi.mock('#/i18n/navigation', () => ({
   Link: ({ children, href, onClick, className }: any) => (
@@ -17,6 +18,10 @@ vi.mock('#/lib/sound/sound-effects', () => ({
 }));
 
 describe('NomokeyHero', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   it('renders hero with properly paired tagline text', () => {
     render(<NomokeyHero />);
 
@@ -29,6 +34,23 @@ describe('NomokeyHero', () => {
     expect(screen.getByText(/YOUR GITHUB PROFILE/i)).toBeDefined();
     expect(screen.getByText(/BUILD MY PROFILE/i)).toBeDefined();
     expect(screen.getByText(new RegExp(`${TEMPLATES.length} TEMPLATES`, 'i'))).toBeDefined();
+  });
+
+  it('provides quick-start bar links wired to entered GitHub handle', () => {
+    render(<NomokeyHero />);
+    const input = screen.getByLabelText(/Enter GitHub handle/i);
+    fireEvent.change(input, { target: { value: 'torvalds' } });
+
+    const ideLink = screen.getByRole('link', { name: /Open in Developer IDE/i });
+    const wizardLink = screen.getByRole('link', { name: /Open Wizard/i });
+    const visualizerLink = screen.getByRole('link', { name: /Preview Visualizer/i });
+
+    expect(ideLink.getAttribute('href')).toBe('/developer?user=torvalds');
+    expect(wizardLink.getAttribute('href')).toBe('/wizard?user=torvalds');
+    expect(visualizerLink.getAttribute('href')).toBe('/visualizer?user=torvalds');
+
+    fireEvent.click(ideLink);
+    expect(useReadmeStore.getState().config.settings.user.github).toBe('torvalds');
   });
 
   it('switches between monkey core and generated preview views', () => {

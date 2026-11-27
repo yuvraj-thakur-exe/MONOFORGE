@@ -39,4 +39,15 @@ describe('customHtmlPlugin', () => {
     expect(output).toContain('<div align="center">');
     expect(output).toContain('Hello Centered');
   });
+
+  it('accepts props.html alongside content, markdown, raw, and text', () => {
+    const output = customHtmlPlugin.renderMarkdown(
+      { html: '<p>From HTML Prop</p>', align: 'center' },
+      dummySettings
+    );
+    expect(output).toContain('<p>From HTML Prop</p>');
+    expect(output).toContain('<div align="center">');
+
+    expect(String(customHtmlPlugin.defaultConfig.content)).not.toContain('🚀');
+  });
 });

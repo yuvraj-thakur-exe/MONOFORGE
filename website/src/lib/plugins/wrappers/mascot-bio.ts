@@ -96,7 +96,7 @@ export const mascotBioPlugin: Plugin = {
       .map(line => `<li>${line}</li>`)
       .join('\n            ');
 
-    const ASSET_BASE = 'https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/public/assets';
+    const ASSET_BASE = 'https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/website/public/assets';
     const MASCOT_URLS: Record<string, string> = {
       'owl-confetti': `${ASSET_BASE}/owl-confetti.svg`,
       'coding-unicorn': `${ASSET_BASE}/coding-unicorn.svg`,

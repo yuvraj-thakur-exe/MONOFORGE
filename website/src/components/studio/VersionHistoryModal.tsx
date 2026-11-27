@@ -39,7 +39,6 @@ export const VersionHistoryModal: React.FC<VersionHistoryModalProps> = ({
   const [snapshots, setSnapshots] = useState<SnapshotEntry[]>([]);
   const [newSnapshotName, setNewSnapshotName] = useState('');
 
-  // Load snapshots from localStorage
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
@@ -107,19 +106,19 @@ export const VersionHistoryModal: React.FC<VersionHistoryModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/65 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="relative w-full max-w-xl bg-white border-2 border-neutral-900 rounded-2xl shadow-[8px_8px_0px_#18181b] overflow-hidden flex flex-col max-h-[85vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/65 backdrop-blur-xs animate-in fade-in duration-150">
+      <div className="relative w-full max-w-xl bg-white border-2 border-slate-700 rounded-2xl shadow-[8px_8px_0px_#334155] overflow-hidden flex flex-col max-h-[85vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 bg-[#ffe600] border-b-2 border-neutral-900 text-neutral-950">
+        <div className="flex items-center justify-between px-5 py-4 bg-[#ffe600] border-b-2 border-slate-700 text-slate-950">
           <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-lg bg-neutral-950 text-[#ffe600] border border-neutral-900 shadow-xs">
+            <div className="p-1.5 rounded-lg bg-slate-900 text-[#ffe600] border border-slate-700 shadow-xs">
               <History className="w-5 h-5" />
             </div>
             <div>
               <h2 className="text-base font-black tracking-tight font-mono uppercase">
                 Version History &amp; Snapshots
               </h2>
-              <p className="text-xs font-mono font-bold text-neutral-800">
+              <p className="text-xs font-mono font-bold text-slate-800">
                 Local Rollback Points &bull; Zero Data Loss
               </p>
             </div>
@@ -127,7 +126,7 @@ export const VersionHistoryModal: React.FC<VersionHistoryModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-white hover:bg-neutral-100 text-neutral-950 border border-neutral-900 transition-all hover:scale-105 cursor-pointer"
+            className="p-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-950 border border-slate-700 transition-all hover:scale-105 cursor-pointer"
             title="Close"
           >
             <X className="w-4 h-4" />
@@ -135,10 +134,10 @@ export const VersionHistoryModal: React.FC<VersionHistoryModalProps> = ({
         </div>
 
         {/* Content */}
-        <div className="p-5 overflow-y-auto space-y-4 bg-[#fafafa]">
+        <div className="p-5 overflow-y-auto space-y-4 bg-[#f8fafc]">
           {/* Create New Snapshot Bar */}
-          <div className="p-3.5 bg-white rounded-xl border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] space-y-2">
-            <label className="block text-xs font-mono font-bold text-neutral-800">
+          <div className="p-3.5 bg-white rounded-xl border-2 border-slate-700 shadow-[2px_2px_0px_#334155] space-y-2">
+            <label className="block text-xs font-mono font-bold text-slate-800">
               Save Current Studio State:
             </label>
             <div className="flex gap-2">
@@ -147,13 +146,13 @@ export const VersionHistoryModal: React.FC<VersionHistoryModalProps> = ({
                 value={newSnapshotName}
                 onChange={e => setNewSnapshotName(e.target.value)}
                 placeholder="e.g. Before changing to cyber theme"
-                className="flex-1 px-3 py-1.5 bg-neutral-50 border-2 border-neutral-900 rounded-lg text-xs font-mono text-neutral-950 placeholder:text-neutral-400 focus:outline-none focus:bg-white"
+                className="flex-1 px-3 py-1.5 bg-slate-50 border-2 border-slate-700 rounded-lg text-xs font-mono text-slate-950 placeholder:text-slate-400 focus:outline-none focus:bg-white"
                 onKeyDown={e => e.key === 'Enter' && handleCreateSnapshot()}
               />
               <button
                 type="button"
                 onClick={handleCreateSnapshot}
-                className="px-3.5 py-1.5 bg-[#ffe600] text-neutral-950 text-xs font-mono font-black border-2 border-neutral-900 rounded-lg shadow-[2px_2px_0px_#18181b] hover:bg-[#ffdf00] transition-all cursor-pointer flex items-center gap-1.5"
+                className="px-3.5 py-1.5 bg-[#ffe600] text-slate-950 text-xs font-mono font-black border-2 border-slate-700 rounded-lg shadow-[2px_2px_0px_#334155] hover:bg-amber-300 transition-all cursor-pointer flex items-center gap-1.5"
               >
                 <Save className="w-3.5 h-3.5" />
                 <span>SAVE</span>
@@ -163,7 +162,7 @@ export const VersionHistoryModal: React.FC<VersionHistoryModalProps> = ({
 
           {/* Snapshot List */}
           <div className="space-y-2">
-            <div className="flex items-center justify-between text-xs font-mono text-neutral-600 px-1">
+            <div className="flex items-center justify-between text-xs font-mono text-slate-600 px-1">
               <span className="font-bold uppercase tracking-wider">
                 Saved Snapshots ({snapshots.length})
               </span>
@@ -171,7 +170,7 @@ export const VersionHistoryModal: React.FC<VersionHistoryModalProps> = ({
                 <button
                   type="button"
                   onClick={handleExportBackup}
-                  className="flex items-center gap-1 text-[11px] hover:text-neutral-950 font-bold underline cursor-pointer"
+                  className="flex items-center gap-1 text-[11px] hover:text-slate-950 font-bold underline cursor-pointer"
                 >
                   <Download className="w-3 h-3" />
                   <span>Backup JSON</span>
@@ -180,8 +179,8 @@ export const VersionHistoryModal: React.FC<VersionHistoryModalProps> = ({
             </div>
 
             {snapshots.length === 0 ? (
-              <div className="p-8 text-center bg-white rounded-xl border-2 border-dashed border-neutral-300 font-mono text-xs text-neutral-500 space-y-1">
-                <p className="font-bold text-neutral-700">No saved snapshots yet.</p>
+              <div className="p-8 text-center bg-white rounded-xl border-2 border-dashed border-slate-300 font-mono text-xs text-slate-500 space-y-1">
+                <p className="font-bold text-slate-700">No saved snapshots yet.</p>
                 <p>Create a snapshot above to save restore points while designing your profile.</p>
               </div>
             ) : (
@@ -189,13 +188,13 @@ export const VersionHistoryModal: React.FC<VersionHistoryModalProps> = ({
                 {snapshots.map(entry => (
                   <div
                     key={entry.id}
-                    className="flex items-center justify-between p-3 bg-white rounded-xl border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] gap-2"
+                    className="flex items-center justify-between p-3 bg-white rounded-xl border-2 border-slate-700 shadow-[2px_2px_0px_#334155] gap-2"
                   >
                     <div className="space-y-0.5 min-w-0">
-                      <p className="font-mono text-xs font-bold text-neutral-950 truncate">
+                      <p className="font-mono text-xs font-bold text-slate-950 truncate">
                         {entry.name}
                       </p>
-                      <div className="flex items-center gap-3 text-[10px] font-mono text-neutral-500">
+                      <div className="flex items-center gap-3 text-[10px] font-mono text-slate-500">
                         <span className="flex items-center gap-1">
                           <Calendar className="w-3 h-3" />
                           {new Date(entry.timestamp).toLocaleDateString()} {new Date(entry.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -211,7 +210,7 @@ export const VersionHistoryModal: React.FC<VersionHistoryModalProps> = ({
                       <button
                         type="button"
                         onClick={() => handleRestoreSnapshot(entry)}
-                        className="px-2.5 py-1 bg-[#ffe600] text-neutral-950 text-xs font-mono font-black border border-neutral-900 rounded-md shadow-2xs hover:bg-[#ffdf00] transition-all cursor-pointer flex items-center gap-1"
+                        className="px-2.5 py-1 bg-[#ffe600] text-slate-950 text-xs font-mono font-black border border-slate-700 rounded-md shadow-2xs hover:bg-amber-300 transition-all cursor-pointer flex items-center gap-1"
                         title="Restore this snapshot"
                       >
                         <RotateCcw className="w-3 h-3" />
@@ -220,7 +219,7 @@ export const VersionHistoryModal: React.FC<VersionHistoryModalProps> = ({
                       <button
                         type="button"
                         onClick={() => handleDeleteSnapshot(entry.id, entry.name)}
-                        className="p-1 text-neutral-400 hover:text-red-600 transition-colors cursor-pointer"
+                        className="p-1 text-slate-400 hover:text-red-600 transition-colors cursor-pointer"
                         title="Delete snapshot"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -234,14 +233,14 @@ export const VersionHistoryModal: React.FC<VersionHistoryModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between px-5 py-3 bg-white border-t-2 border-neutral-900 text-xs font-mono">
-          <span className="text-neutral-500 text-[11px]">
+        <div className="flex items-center justify-between px-5 py-3 bg-white border-t-2 border-slate-700 text-xs font-mono">
+          <span className="text-slate-500 text-[11px]">
             Persisted securely in your browser local storage
           </span>
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-1.5 rounded-lg bg-neutral-950 text-white font-mono text-xs font-bold border-2 border-neutral-900 hover:bg-neutral-800 transition-all cursor-pointer"
+            className="px-4 py-1.5 rounded-lg bg-slate-800 text-white font-mono text-xs font-bold border-2 border-slate-700 hover:bg-slate-700 transition-all cursor-pointer"
           >
             CLOSE
           </button>

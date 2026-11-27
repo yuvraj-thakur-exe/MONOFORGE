@@ -21,6 +21,9 @@ describe('buildMarkdown', () => {
     expect(output).toContain('MonoForge');
     expect(output).toContain('Forge a GitHub profile that gets noticed');
     expect(output).toContain('https://monoforge-studio.vercel.app/en?ref=badge');
+    expect(output).toContain(
+      'https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/website/public/assets/monoforge-stamp.svg'
+    );
   });
 
   it('omits automatic attribution footer when includeAttribution is false or a visible footer-block is present', () => {
@@ -316,6 +319,36 @@ console.log(greeting);
       const out = buildMarkdown(config);
       expect(out).not.toContain('Hidden Project');
       expect(out).toContain('Visible Project');
+    });
+
+    it('renders custom-html props.html and telemetry-engine activeVizId cleanly', () => {
+      const config: ReadmeConfig = {
+        version: '1.0.0',
+        title: 'Custom HTML & Telemetry 3.0',
+        settings: {
+          user: { github: 'devpro' },
+          theme: 'dark',
+          accentColor: '#f59e0b',
+          badgeStyle: 'for-the-badge',
+          align: 'center',
+        },
+        sections: [
+          {
+            id: 'sec-html',
+            type: 'custom-html',
+            props: { content: { html: '<p>From HTML Payload</p>' }, styles: {} },
+          },
+          {
+            id: 'sec-viz',
+            type: 'telemetry-engine',
+            props: { content: { activeVizId: 'commit-city', theme: 'emerald' }, styles: {} },
+          },
+        ],
+      };
+
+      const out = buildMarkdown(config);
+      expect(out).toContain('<p>From HTML Payload</p>');
+      expect(out).toContain('https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=commit-city&user=devpro&theme=emerald');
     });
   });
 });

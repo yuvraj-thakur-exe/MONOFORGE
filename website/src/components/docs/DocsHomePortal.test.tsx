@@ -1,6 +1,9 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import { DocsHomePortal } from './DocsHomePortal';
+import { TEMPLATES } from '#/lib/templates/catalog';
+import { ALL_VISUALIZATION_IDS } from '#/lib/visualizations/registry';
+import { pluginRegistry } from '#/lib/plugins/registry';
 
 // Mock navigation
 vi.mock('#/i18n/navigation', () => ({
@@ -27,7 +30,11 @@ vi.mock('#/lib/sound/sound-effects', () => ({
 }));
 
 describe('DocsHomePortal', () => {
-  it('renders home portal with hero, brand emblem, start forging CTA, and capabilities', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
+  it('renders docs portal with standardized counts, start forging CTA, and telemetry lab', () => {
     render(<DocsHomePortal />);
 
     // Brand emblem and titles
@@ -36,12 +43,13 @@ describe('DocsHomePortal', () => {
     // Primary CTA
     expect(screen.getByText(/START FORGING NOW/i)).toBeDefined();
 
-    // Capabilities Matrix
-    expect(screen.getByText(/WHAT MONOFORGE CAN DO & WHAT IT HAS/i)).toBeDefined();
+    // Live Telemetry SVG Endpoint Lab
+    expect(screen.getByText(/LIVE TELEMETRY SVG ENDPOINT LAB/i)).toBeDefined();
 
-    // Secondary navigation modes
-    expect(screen.getByText(/47\+ TELEMETRY/i)).toBeDefined();
-    expect(screen.getByText(/75\+ Curated Archetypes/i)).toBeDefined();
+    // Standardized navigation counts
+    expect(screen.getAllByText(new RegExp(`${ALL_VISUALIZATION_IDS.length} SVG VISUALIZATIONS`, 'i')).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(new RegExp(`${TEMPLATES.length} Curated Archetypes`, 'i')).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(new RegExp(`${pluginRegistry.length} Modular Plugins`, 'i')).length).toBeGreaterThanOrEqual(1);
   });
 
   it('triggers sound and tab change when clicking terminal install tabs', () => {

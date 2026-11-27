@@ -18,11 +18,20 @@ export function Recently() {
       <Callout className="palette-orange">
         {tUi('music.recently.callout')}
         <div className="flex flex-col">
-          {info_links.map(link => (
-            <Text.Link key={link.label} href={link.link} target="_blank">
-              {translate(link.label)}
-            </Text.Link>
-          ))}
+          {info_links.map(link => {
+            const isExternal = link.link.startsWith('http');
+            return (
+              <Text.Link
+                key={link.label}
+                href={link.link}
+                {...(isExternal
+                  ? { target: '_blank', rel: 'noopener noreferrer' }
+                  : {})}
+              >
+                {translate(link.label)}
+              </Text.Link>
+            );
+          })}
         </div>
       </Callout>
 

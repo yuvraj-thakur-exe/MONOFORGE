@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { TopNav } from '#/components/navigation/TopNav';
 import { DocsSidebar } from './DocsSidebar';
 import { DocsBreadcrumbs } from './DocsBreadcrumbs';
@@ -28,18 +28,6 @@ export function DocsLayout({ currentDoc }: DocsLayoutProps) {
   const prevDoc = currentIndex > 0 ? allDocs[currentIndex - 1] : undefined;
   const nextDoc = currentIndex < allDocs.length - 1 ? allDocs[currentIndex + 1] : undefined;
 
-  // Global Ctrl+K / Cmd+K listener
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        setIsSearchOpen((prev) => !prev);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
   return (
     <div className="min-h-screen bg-[#fafbfc] dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors selection:bg-[#ffe600] selection:text-slate-950">
       {/* Top Navigation */}
@@ -62,7 +50,7 @@ export function DocsLayout({ currentDoc }: DocsLayoutProps) {
           className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300"
         >
           <Search className="w-3.5 h-3.5" />
-          <span>Search...</span>
+          <span>Search Docs...</span>
         </button>
       </div>
 
@@ -134,7 +122,7 @@ export function DocsLayout({ currentDoc }: DocsLayoutProps) {
                   <button
                     type="button"
                     onClick={() => setFeedback('yes')}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer"
                   >
                     <ThumbsUp className="w-3.5 h-3.5 text-emerald-500" />
                     <span>Yes</span>
@@ -142,7 +130,7 @@ export function DocsLayout({ currentDoc }: DocsLayoutProps) {
                   <button
                     type="button"
                     onClick={() => setFeedback('no')}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer"
                   >
                     <ThumbsDown className="w-3.5 h-3.5 text-rose-500" />
                     <span>No</span>
@@ -160,7 +148,7 @@ export function DocsLayout({ currentDoc }: DocsLayoutProps) {
         <DocsTableOfContents headings={currentDoc.headings} />
       </div>
 
-      {/* Client-side Search Modal */}
+      {/* Client-side Docs Search Modal */}
       <DocsSearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}

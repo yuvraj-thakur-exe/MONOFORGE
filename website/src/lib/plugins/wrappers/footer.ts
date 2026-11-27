@@ -56,7 +56,7 @@ export const footerPlugin: Plugin = {
 
     if (showAttribution) {
       parts.push('<sub>⚡ Crafted with <a href="https://monoforge-studio.vercel.app/en?ref=badge"><b>MonoForge</b></a> — Open-source GitHub Profile Studio</sub>');
-      parts.push('<div align="right">\n  <a href="https://monoforge-studio.vercel.app/en?ref=badge" target="_blank" rel="noopener noreferrer">\n    <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/public/assets/monoforge-stamp.svg" alt="Built with MonoForge" height="28" />\n  </a>\n</div>');
+      parts.push('<div align="right">\n  <a href="https://monoforge-studio.vercel.app/en?ref=badge" target="_blank" rel="noopener noreferrer">\n    <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/website/public/assets/monoforge-stamp.svg" alt="Built with MonoForge" height="28" />\n  </a>\n</div>');
     }
 
     lines.push(`<div align="${align}">\n\n${parts.join('\n\n')}\n\n</div>`);

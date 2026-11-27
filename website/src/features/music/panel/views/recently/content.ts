@@ -5,7 +5,7 @@ const info_links = [
   },
   {
     label: 'More info',
-    link: 'https://github.com/JeffreyCA/spotify-recently-played-readme#getting-started',
+    link: '/docs',
   },
 ];
 

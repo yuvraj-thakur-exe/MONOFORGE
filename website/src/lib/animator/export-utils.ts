@@ -40,6 +40,24 @@ export function generateHostedDemoUrl(
   return `${baseUrl}/animator?c=${encoded}`;
 }
 
+const MONOFORGE_RAW_ASSET_BASE =
+  'https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/website/public/assets';
+
+function resolveAssetSrc(filename: string): string {
+  const trimmed = filename.trim();
+  if (/^https?:\/\//i.test(trimmed) || trimmed.startsWith('data:')) {
+    return trimmed;
+  }
+  const normalized = trimmed.replace(/^\.\//, '');
+  if (normalized.startsWith('/assets/')) {
+    return `${MONOFORGE_RAW_ASSET_BASE}/${normalized.slice('/assets/'.length)}`;
+  }
+  if (normalized.startsWith('assets/')) {
+    return `${MONOFORGE_RAW_ASSET_BASE}/${normalized.slice('assets/'.length)}`;
+  }
+  return trimmed;
+}
+
 /**
  * Generates ready-to-paste markdown snippets for the animation.
  */
@@ -54,18 +72,19 @@ export function generateMarkdownSnippet(
     .replace(/"/g, '%22');
 
   const hostedUrl = generateHostedDemoUrl(config, baseUrl);
+  const resolvedSrc = resolveAssetSrc(filename);
 
   const relative = `<!-- Self-Hosted / Local Asset (Recommended for fastest load) -->
 <div align="${config.alignment}">
   <a href="${hostedUrl}">
-    <img src="${filename}" width="${config.width}" alt="${config.headline}" />
+    <img src="${resolvedSrc}" width="${config.width}" alt="${config.headline}" />
   </a>
 </div>`;
 
   const githubRaw = `<!-- GitHub Raw URL (Replace <username>/<repo>) -->
 <div align="${config.alignment}">
   <a href="${hostedUrl}">
-    <img src="https://raw.githubusercontent.com/<username>/<repo>/main/${filename}" width="${config.width}" alt="${config.headline}" />
+    <img src="https://raw.githubusercontent.com/<username>/<repo>/main/${filename.replace(/^\/+/, '')}" width="${config.width}" alt="${config.headline}" />
   </a>
 </div>`;
 
@@ -74,7 +93,7 @@ export function generateMarkdownSnippet(
   <img src="data:image/svg+xml;utf8,${encoded}" width="${config.width}" alt="${config.headline}" />
 </div>`;
 
-  const hostedDemo = `[![Interactive Demo](${filename})](${hostedUrl})`;
+  const hostedDemo = `[![Interactive Demo](${resolvedSrc})](${hostedUrl})`;
 
   return { relative, githubRaw, dataUri, hostedDemo };
 }

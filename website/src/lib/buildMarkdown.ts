@@ -106,6 +106,8 @@ export function buildMarkdownWithWorkflows(config: ReadmeConfig): BuildMarkdownR
         else if (as === 'h2') markdownParts.push(`## ${text}`);
         else if (as === 'h3') markdownParts.push(`### ${text}`);
         else markdownParts.push(text);
+      } else if (typeof content?.html === 'string' && content.html.trim()) {
+        markdownParts.push(sanitizeInputText(content.html.trim()));
       } else if (typeof content?.markdown === 'string' && content.markdown.trim()) {
         markdownParts.push(sanitizeInputText(content.markdown.trim()));
       } else if (typeof content?.raw === 'string' && content.raw.trim()) {
@@ -124,7 +126,7 @@ export function buildMarkdownWithWorkflows(config: ReadmeConfig): BuildMarkdownR
   );
 
   if (settings?.includeAttribution !== false && !hasVisibleFooterBlock) {
-    const footer = `\n---\n<p align="center">\n  <sub>⚡ Powered by <a href="https://monoforge-studio.vercel.app/en?ref=badge"><b>MonoForge</b></a> — Forge a GitHub profile that gets noticed.</sub>\n</p>\n\n<div align="right">\n  <a href="https://monoforge-studio.vercel.app/en?ref=badge" target="_blank" rel="noopener noreferrer">\n    <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/public/assets/monoforge-stamp.svg" alt="Built with MonoForge" height="28" />\n  </a>\n</div>`;
+    const footer = `\n---\n<p align="center">\n  <sub>⚡ Powered by <a href="https://monoforge-studio.vercel.app/en?ref=badge"><b>MonoForge</b></a> — Forge a GitHub profile that gets noticed.</sub>\n</p>\n\n<div align="right">\n  <a href="https://monoforge-studio.vercel.app/en?ref=badge" target="_blank" rel="noopener noreferrer">\n    <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/website/public/assets/monoforge-stamp.svg" alt="Built with MonoForge" height="28" />\n  </a>\n</div>`;
     markdownParts.push(footer);
   }
 

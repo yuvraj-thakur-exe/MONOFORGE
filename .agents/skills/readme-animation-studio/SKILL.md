@@ -170,8 +170,8 @@ Before releasing any animation or studio update:
 
 1. Run unit test suite:
    ```bash
-   corepack pnpm vitest run src/lib/animator/animator.test.ts
+   corepack pnpm exec vitest run website/src/lib/animator/animator.test.ts
    ```
-2. Validate SVG against the GitHub sanitizer rules in `src/lib/animator/validator.ts`.
+2. Validate SVG against the GitHub sanitizer rules in `website/src/lib/animator/validator.ts`.
 3. Check size budget: banners should stay under **200 KB** (uncompressed) to load instantly over mobile networks.
 4. Verify accessibility: toggle `reducedMotion` to ensure the banner remains legible and frozen for sensitive users.

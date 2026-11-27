@@ -81,7 +81,7 @@ RUN mkdir .next
 RUN chown node:node .next
 
 # Copy production assets
-COPY --from=builder --chown=node:node /app/public ./public
+COPY --from=builder --chown=node:node /app/website/public ./public
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing

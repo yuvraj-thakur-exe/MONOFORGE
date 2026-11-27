@@ -88,6 +88,16 @@ export const AssetLibraryModal: React.FC<AssetLibraryModalProps> = ({
     });
   };
 
+  const handleCopyUrl = (asset: AssetDefinition, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    const url = `https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/website/public${asset.publicUrl}`;
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(url);
+      setCopiedId(`url:${asset.id}`);
+      setTimeout(() => setCopiedId(null), 2000);
+    }
+  };
+
   const handleCopyMarkdown = (asset: AssetDefinition, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     const md = `<p align="center">\n  <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/website/public${asset.publicUrl}" alt="${asset.name}" width="${asset.width || '100%'}" />\n</p>`;
@@ -104,10 +114,14 @@ export const AssetLibraryModal: React.FC<AssetLibraryModalProps> = ({
       onClose();
       return;
     }
-    // Default action: inject as a custom image section
+    const htmlSnippet = `<p align="center">\n  <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/website/public${asset.publicUrl}" alt="${asset.name}" width="${asset.width || '100%'}" />\n</p>`;
+    // Default action: inject as a custom-html section matching customHtmlPlugin
     addSection('custom-html', {
       content: {
-        html: `<p align="center">\n  <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/website/public${asset.publicUrl}" alt="${asset.name}" />\n</p>`,
+        content: htmlSnippet,
+        html: htmlSnippet,
+        align: 'center',
+        title: asset.name,
       },
     });
     onClose();
@@ -426,7 +440,16 @@ export const AssetLibraryModal: React.FC<AssetLibraryModalProps> = ({
                   className="w-full py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-bold border border-slate-300 dark:border-slate-700 flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer"
                 >
                   <Copy className="w-3.5 h-3.5" />
-                  <span>Copy Markdown Link</span>
+                  <span>{copiedId === activeInspection.asset.id ? 'Copied Markdown!' : 'Copy Markdown Link'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleCopyUrl(activeInspection.asset)}
+                  className="w-full py-2 rounded-xl bg-slate-100 dark:bg-slate-800/70 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold border border-slate-300 dark:border-slate-700 flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer"
+                >
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>{copiedId === `url:${activeInspection.asset.id}` ? 'Copied Camo URL!' : 'Copy Camo URL'}</span>
                 </button>
               </div>
             </div>

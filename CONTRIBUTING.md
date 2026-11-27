@@ -8,7 +8,7 @@ MonoForge is 100% open-source software built by and for the global developer com
 
 - **Web Studio & UI**: Next.js 16 (App Router), TypeScript, Tailwind CSS, Shadcn/ui, Radix, Zustand, react-hook-form.
 - **MonoForge Telemetry (`/telemetry`)**: Infographics & developer telemetry engine with 47+ plugins, templates (`classic`, `terminal`, `repository`, `markdown`, `community`), and native SVG infographic generation.
-- **Plugins (`src/lib/plugins/`)**: Registry-driven modular wrappers validated against a unified Zod schema.
+- **Plugins (`website/src/lib/plugins/`)**: Registry-driven modular wrappers validated against a unified Zod schema.
 - **Animated Vector Engine**: Standalone, Camo-compliant SVG animations with CSS keyframes and zero external JavaScript.
 
 ---
@@ -36,7 +36,7 @@ pnpm dev
 ### 3. Export Standalone Telemetry SVGs
 ```bash
 npx tsx scripts/export-telemetry-svgs.ts
-# Generates all standalone SVGs into public/assets/
+# Generates all standalone SVGs into website/public/assets/
 ```
 
 ---
@@ -50,7 +50,7 @@ Before submitting a Pull Request, verify all checks locally:
 pnpm test
 
 # 2. Strict TypeScript Type Check
-npx tsc --noEmit
+pnpm type-check
 
 # 3. Biome Code Linter & Formatter
 pnpm lint
@@ -61,10 +61,10 @@ pnpm format:check
 
 ## 🧩 Adding a New Plugin
 
-1. Create a wrapper file in `src/lib/plugins/wrappers/<plugin-name>.ts`.
-2. Implement the `Plugin` interface (`src/lib/plugins/types.ts`).
-3. Colocate a test file `src/lib/plugins/wrappers/<plugin-name>.test.ts`.
-4. Register the plugin in `src/lib/plugins/registry.ts`.
+1. Create a wrapper file in `website/src/lib/plugins/wrappers/<plugin-name>.ts`.
+2. Implement the `Plugin` interface (`website/src/lib/plugins/types.ts`).
+3. Colocate a test file `website/src/lib/plugins/wrappers/<plugin-name>.test.ts`.
+4. Register the plugin in `website/src/lib/plugins/registry.ts`.
 5. Run `pnpm test` to verify automatic registry discovery and Zod validation.
 
 ---

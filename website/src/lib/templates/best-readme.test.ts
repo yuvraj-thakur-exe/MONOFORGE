@@ -50,7 +50,9 @@ describe('Best-README Suite & Generator Engine', () => {
     expect(md).toContain('## License');
     expect(md).toContain('## Contact');
     expect(md).toContain('## Acknowledgments');
-    expect(md).toContain('https://github.com/othneildrew/Best-README-Template');
+    expect(md).toContain('https://github.com/yuvraj-thakur-exe/MONOFORGE');
+    expect(md).toContain('https://monoforge-studio.vercel.app');
+    expect(md).not.toContain('https://github.com/othneildrew/Best-README-Template');
     expect(md).toContain('<!-- MARKDOWN REFERENCE LINKS & IMAGES -->');
     expect(md).toContain('Real-Time Contributor Telemetry');
   });

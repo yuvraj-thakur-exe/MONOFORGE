@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useReadmeStore } from '#/store/useReadmeStore';
 import {
   X,
@@ -28,91 +28,97 @@ interface VaultAsset {
   badgeStyle?: string;
 }
 
-const VAULT_ASSETS: VaultAsset[] = [
-  // Dividers
-  {
-    id: 'div-hands',
-    category: 'dividers',
-    title: 'Digital Hands Kinematic Divider',
-    description: 'Minimalist animated hands reaching across a cyber divide.',
-    markdown: '<p align="center">\n  <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/public/assets/digital-hands-divider.svg" width="100%" alt="Divider" />\n</p>',
-    previewUrl: '/assets/digital-hands-divider.svg',
-  },
-  {
-    id: 'div-wave',
-    category: 'dividers',
-    title: 'Cyber Laser Beam Ribbon',
-    description: 'Crisp SVG neon wave with 60fps continuous sweep.',
-    markdown: '<p align="center">\n  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=1,6,12&height=100&section=header" width="100%" alt="Laser Ribbon" />\n</p>',
-  },
-  // Banners
-  {
-    id: 'ban-dynamic-capsule',
-    category: 'banners',
-    title: 'Neon Gradient Header Banner',
-    description: 'Header capsule with custom typography and subtext.',
-    markdown: '<p align="center">\n  <img src="https://capsule-render.vercel.app/api?type=slice&color=18181b&text=BUILDING%20THE%20FUTURE&fontColor=ffe600&fontSize=42&height=180" width="100%" alt="Header Banner" />\n</p>',
-  },
-  {
-    id: 'ban-terminal-hud',
-    category: 'banners',
-    title: 'Terminal HUD Vector Banner',
-    description: 'CRT green developer status console with real-time repo telemetry.',
-    markdown: '<p align="center">\n  <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=terminal&user=octocat" width="100%" alt="Terminal HUD" />\n</p>',
-  },
-  // Tech Stacks
-  {
-    id: 'tech-modern-frontend',
-    category: 'techs',
-    title: 'Modern Frontend Power Stack',
-    description: 'React, Next.js, TypeScript, Tailwind, Vite, Redux.',
-    markdown: '<p align="center">\n  <a href="https://skillicons.dev">\n    <img src="https://skillicons.dev/icons?i=react,nextjs,ts,tailwind,vite,redux&theme=dark" alt="Frontend Stack" />\n  </a>\n</p>',
-  },
-  {
-    id: 'tech-backend-systems',
-    category: 'techs',
-    title: 'Distributed Backend & Cloud Systems',
-    description: 'Node.js, Rust, Go, Python, Docker, Kubernetes, AWS, PostgreSQL.',
-    markdown: '<p align="center">\n  <a href="https://skillicons.dev">\n    <img src="https://skillicons.dev/icons?i=nodejs,rust,go,py,docker,k8s,aws,postgres&theme=dark" alt="Backend Stack" />\n  </a>\n</p>',
-  },
-  {
-    id: 'tech-ai-datascience',
-    category: 'techs',
-    title: 'AI, Machine Learning & Data',
-    description: 'Python, PyTorch, TensorFlow, Scikit-Learn, FastApi, Pandas.',
-    markdown: '<p align="center">\n  <a href="https://skillicons.dev">\n    <img src="https://skillicons.dev/icons?i=py,pytorch,tensorflow,fastapi,postgres,git&theme=dark" alt="AI & ML Stack" />\n  </a>\n</p>',
-  },
-  // Badges & Telemetry
-  {
-    id: 'badge-camo-counter',
-    category: 'badges',
-    title: 'Cyberpunk Visitor Counter',
-    description: 'Real-time profile visits with glowing neon border.',
-    markdown: '<p align="center">\n  <img src="https://komarev.com/ghpvc/?username=octocat&label=PROFILE+VIEWS&color=ffe600&style=for-the-badge" alt="Profile Views" />\n</p>',
-  },
-  {
-    id: 'badge-social-trio',
-    category: 'badges',
-    title: 'Developer Social Connect Trio',
-    description: 'High-contrast for-the-badge links for GitHub, LinkedIn, and X.',
-    markdown: '<p align="center">\n  <a href="https://github.com"><img src="https://img.shields.io/badge/GITHUB-18181B?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>\n  <a href="https://linkedin.com"><img src="https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>\n  <a href="https://twitter.com"><img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" alt="X" /></a>\n</p>',
-  },
-];
+function buildVaultAssets(username: string): VaultAsset[] {
+  const cleanUser = encodeURIComponent(username.trim() || 'developer');
+  return [
+    // Dividers
+    {
+      id: 'div-hands',
+      category: 'dividers',
+      title: 'Digital Hands Kinematic Divider',
+      description: 'Minimalist animated hands reaching across a cyber divide.',
+      markdown: '<p align="center">\n  <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/website/public/assets/digital-hands-divider.svg" width="100%" alt="Divider" />\n</p>',
+      previewUrl: '/assets/digital-hands-divider.svg',
+    },
+    {
+      id: 'div-wave',
+      category: 'dividers',
+      title: 'Cyber Laser Beam Ribbon',
+      description: 'Crisp SVG neon wave with 60fps continuous sweep.',
+      markdown: '<p align="center">\n  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=1,6,12&height=100&section=header" width="100%" alt="Laser Ribbon" />\n</p>',
+    },
+    // Banners
+    {
+      id: 'ban-dynamic-capsule',
+      category: 'banners',
+      title: 'Neon Gradient Header Banner',
+      description: 'Header capsule with custom typography and subtext.',
+      markdown: '<p align="center">\n  <img src="https://capsule-render.vercel.app/api?type=slice&color=1e293b&text=BUILDING%20THE%20FUTURE&fontColor=ffe600&fontSize=42&height=180" width="100%" alt="Header Banner" />\n</p>',
+    },
+    {
+      id: 'ban-terminal-hud',
+      category: 'banners',
+      title: 'Terminal HUD Vector Banner',
+      description: 'CRT green developer status console with real-time repo telemetry.',
+      markdown: `<p align="center">\n  <img src="https://monoforge-studio.vercel.app/api/telemetry/svg?plugin=terminal&user=${cleanUser}" width="100%" alt="Terminal HUD" />\n</p>`,
+    },
+    // Tech Stacks
+    {
+      id: 'tech-modern-frontend',
+      category: 'techs',
+      title: 'Modern Frontend Power Stack',
+      description: 'React, Next.js, TypeScript, Tailwind, Vite, Redux.',
+      markdown: '<p align="center">\n  <img src="https://skillicons.dev/icons?i=react,nextjs,ts,tailwind,vite,redux&theme=dark" alt="Frontend Stack" />\n</p>',
+    },
+    {
+      id: 'tech-backend-systems',
+      category: 'techs',
+      title: 'Distributed Backend & Cloud Systems',
+      description: 'Node.js, Rust, Go, Python, Docker, Kubernetes, AWS, PostgreSQL.',
+      markdown: '<p align="center">\n  <img src="https://skillicons.dev/icons?i=nodejs,rust,go,py,docker,k8s,aws,postgres&theme=dark" alt="Backend Stack" />\n</p>',
+    },
+    {
+      id: 'tech-ai-datascience',
+      category: 'techs',
+      title: 'AI, Machine Learning & Data',
+      description: 'Python, PyTorch, TensorFlow, Scikit-Learn, FastApi, Pandas.',
+      markdown: '<p align="center">\n  <img src="https://skillicons.dev/icons?i=py,pytorch,tensorflow,fastapi,postgres,git&theme=dark" alt="AI & ML Stack" />\n</p>',
+    },
+    // Badges & Telemetry
+    {
+      id: 'badge-camo-counter',
+      category: 'badges',
+      title: 'Cyberpunk Visitor Counter',
+      description: 'Real-time profile visits with glowing neon border.',
+      markdown: `<p align="center">\n  <img src="https://komarev.com/ghpvc/?username=${cleanUser}&label=PROFILE+VIEWS&color=ffe600&style=for-the-badge" alt="Profile Views" />\n</p>`,
+    },
+    {
+      id: 'badge-social-trio',
+      category: 'badges',
+      title: 'Developer Social Connect Trio',
+      description: 'High-contrast for-the-badge shields for GitHub, LinkedIn, and X.',
+      markdown: '<p align="center">\n  <img src="https://img.shields.io/badge/GITHUB-334155?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />\n  <img src="https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />\n  <img src="https://img.shields.io/badge/X-1E293B?style=for-the-badge&logo=x&logoColor=white" alt="X" />\n</p>',
+    },
+  ];
+}
 
 export const AssetVaultModal: React.FC<AssetVaultModalProps> = ({
   isOpen,
   onClose,
 }) => {
   const addSection = useReadmeStore(state => state.addSection);
+  const githubUser = useReadmeStore(state => state.config.settings.user.github);
 
   const [activeTab, setActiveTab] = useState<'all' | 'dividers' | 'banners' | 'techs' | 'badges'>('all');
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
+  const vaultAssets = useMemo(() => buildVaultAssets(githubUser || 'developer'), [githubUser]);
+
   if (!isOpen) return null;
 
   const filteredAssets = activeTab === 'all'
-    ? VAULT_ASSETS
-    : VAULT_ASSETS.filter(a => a.category === activeTab);
+    ? vaultAssets
+    : vaultAssets.filter(a => a.category === activeTab);
 
   const handleCopyMarkdown = async (asset: VaultAsset) => {
     try {
@@ -136,6 +142,7 @@ export const AssetVaultModal: React.FC<AssetVaultModalProps> = ({
       addSection('custom-html', {
         content: {
           content: asset.markdown,
+          html: asset.markdown,
           raw: asset.markdown,
           align: 'center',
           title: asset.title,

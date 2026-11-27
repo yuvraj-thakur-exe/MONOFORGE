@@ -1,6 +1,6 @@
 const templates = [
   {
-    inspired: 'https://github.com/monoforge',
+    inspired: 'https://github.com/yuvraj-thakur-exe/MONOFORGE',
     template: [
       {
         type: 'text',
@@ -313,7 +313,7 @@ const templates = [
   },
 
   {
-    inspired: 'https://github.com/rafaballerini',
+    inspired: '',
     template: [
       {
         type: 'text',
@@ -693,7 +693,7 @@ const templates = [
   },
 
   {
-    inspired: 'https://github.com/itsZed0',
+    inspired: '',
     template: [
       {
         type: 'image',

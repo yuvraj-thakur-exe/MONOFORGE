@@ -1,11 +1,17 @@
 import { Plugin, UserSettings, resolveEffectiveUsername } from '../types';
-import { buildTelemetryActionWorkflow, buildTelemetryEmbedUrl } from '../../forge-telemetry/builder';
-import { ForgeTelemetryConfig, TelemetryTemplate, TelemetryOutputMode } from '../../forge-telemetry/types';
+import {
+  buildTelemetryActionWorkflow,
+  buildTelemetryEmbedUrl,
+  TelemetryBuilderConfig,
+} from '../../forge-telemetry/builder';
+import { TelemetryTemplate, TelemetryOutputMode } from '../../forge-telemetry/types';
+import { ALL_VISUALIZATION_IDS, VISUALIZATION_REGISTRY } from '../../visualizations/registry';
+import { VISUALIZATION_THEMES } from '../../visualizations/themes';
 
 export const telemetryEnginePlugin: Plugin = {
   id: 'telemetry-engine',
   name: 'MonoForge Telemetry',
-  description: 'Infographics generator with 47+ plugins (isometric calendar, languages, habits, achievements, leetcode, wakatime) rendered via GitHub Actions or native SVG.',
+  description: 'Infographics generator with 30 signature visualizations and telemetry plugins (isometric calendar, languages, habits, achievements, leetcode) rendered via GitHub Actions or native SVG.',
   author: 'MonoForge',
   repository: 'https://github.com/yuvraj-thakur-exe/MONOFORGE',
   category: 'stats',
@@ -17,6 +23,41 @@ export const telemetryEnginePlugin: Plugin = {
       type: 'text',
       defaultValue: '',
       placeholder: 'e.g. octocat or leave blank',
+      required: false,
+    },
+    {
+      name: 'activeVizId',
+      label: 'Visualization Module (All 30 Engines)',
+      type: 'select',
+      defaultValue: '',
+      options: [
+        { label: 'Auto (From Toggles Below)', value: '' },
+        { label: '3D Isometric Calendar (Telemetry)', value: 'isocalendar' },
+        { label: 'Annual Contribution Heatmap', value: 'heatmap' },
+        { label: 'Contributor Velocity Radar', value: 'velocity' },
+        { label: 'Polyglot Languages Donut', value: 'languages' },
+        { label: 'Coding Habits 24h Radar', value: 'habits' },
+        { label: 'Gamified Achievements Rack', value: 'achievements' },
+        { label: 'Cyberpunk Terminal HUD', value: 'terminal' },
+        ...ALL_VISUALIZATION_IDS.map((id) => ({
+          label: VISUALIZATION_REGISTRY[id].name,
+          value: id,
+        })),
+      ],
+      required: false,
+    },
+    {
+      name: 'theme',
+      label: 'Visualization Color Theme',
+      type: 'select',
+      defaultValue: '',
+      options: [
+        { label: 'Default Engine Palette', value: '' },
+        ...Object.values(VISUALIZATION_THEMES).map((t) => ({
+          label: t.name,
+          value: t.id,
+        })),
+      ],
       required: false,
     },
     {
@@ -128,6 +169,8 @@ export const telemetryEnginePlugin: Plugin = {
     },
   ],
   defaultConfig: {
+    activeVizId: '',
+    theme: '',
     template: 'classic',
     outputMode: 'direct_svg',
     isocalendar: true,
@@ -146,11 +189,21 @@ export const telemetryEnginePlugin: Plugin = {
     const user = effectiveUser || 'octocat';
     const template = (props.template as TelemetryTemplate) || 'classic';
     const outputMode = (props.outputMode as TelemetryOutputMode) || 'direct_svg';
+    const requestedPlugin =
+      (typeof props.activeVizId === 'string' && props.activeVizId.trim()) ||
+      (typeof props.plugin === 'string' && props.plugin.trim()) ||
+      (typeof props.viz === 'string' && props.viz.trim()) ||
+      undefined;
+    const requestedTheme =
+      typeof props.theme === 'string' && props.theme.trim() ? props.theme.trim() : undefined;
 
-    const config: ForgeTelemetryConfig = {
+    const config: TelemetryBuilderConfig = {
       username: user,
       template,
       outputMode,
+      activeVizId: requestedPlugin,
+      plugin: requestedPlugin,
+      theme: requestedTheme,
       base: {
         header: true,
         activity: true,

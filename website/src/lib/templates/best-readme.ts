@@ -77,8 +77,8 @@ export function buildBestReadmeMarkdown(opts: BestReadmeOptions): string {
   const license = opts.user.license || 'MIT';
   const demoUrl = opts.demoUrl || `https://${repo}.vercel.app`;
   const docsUrl = opts.docsUrl || `https://github.com/${gh}/${repo}#readme`;
-  const banner = opts.bannerUrl || 'https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/public/assets/best-readme/banner.svg';
-  const screenshot = opts.screenshotUrl || 'https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/public/assets/best-readme/screenshot.png';
+  const banner = opts.bannerUrl || 'https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/website/public/assets/best-readme/banner.svg';
+  const screenshot = opts.screenshotUrl || 'https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/website/public/assets/best-readme/screenshot.png';
 
   const techKeys = opts.technologies && opts.technologies.length > 0
     ? opts.technologies
@@ -303,7 +303,7 @@ Live Demo Application: [${demoUrl}](${demoUrl})
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [Best-README-Template by othneildrew](https://github.com/othneildrew/Best-README-Template) — The foundational open-source documentation standard.
+* [MonoForge Best-README Architecture](https://github.com/yuvraj-thakur-exe/MONOFORGE) — Open-source GitHub README architecture and dynamic documentation standard.
 * [MonoForge Studio](https://monoforge-studio.vercel.app) — Camo-compliant dynamic vector and telemetry portfolio engine.
 * [Shields.io](https://shields.io) — Quality badges for open source projects.
 * [contrib.rocks](https://contrib.rocks) — Real-time contributor avatar wall generation.
@@ -337,7 +337,7 @@ export const BEST_README_TEMPLATES: TemplateItem[] = [
   {
     id: 'best-readme-flagship',
     name: 'Best-README Flagship (Open Source)',
-    description: 'The definitive open-source project README inspired by othneildrew/Best-README-Template, rebranded with 60fps Camo banners, reference shields, and contributor telemetry.',
+    description: 'The definitive open-source project README engineered by MonoForge Studio with 60fps Camo banners, reference shields, and contributor telemetry.',
     category: 'Best-README',
     accent: '#ffe600',
     prompt:

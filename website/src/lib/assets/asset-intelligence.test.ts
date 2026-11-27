@@ -16,28 +16,26 @@ import { getAllAssets, getAssetById } from './registry';
 
 describe('MonoForge Asset Intelligence System', () => {
   describe('Phase 1 — Asset Restoration & Protection Verification', () => {
-    it('verifies src/assets/icons/social/discord/default.svg exists and is valid', () => {
-      const discordSrc = path.resolve(process.cwd(), 'src/assets/icons/social/discord/default.svg');
+    it('verifies website/src/assets/icons/social/discord/default.svg exists and is valid', () => {
       const discordWeb = path.resolve(process.cwd(), 'website/src/assets/icons/social/discord/default.svg');
 
-      expect(fs.existsSync(discordSrc), 'src/assets discord default.svg must exist').toBe(true);
       expect(fs.existsSync(discordWeb), 'website/src/assets discord default.svg must exist').toBe(true);
 
-      const content = fs.readFileSync(discordSrc, 'utf-8');
+      const content = fs.readFileSync(discordWeb, 'utf-8');
       expect(content).toContain('<svg');
       expect(content).toContain('</svg>');
       expect(content).toContain('<path');
     });
 
     it('identifies Discord and official logos as protected assets', () => {
-      expect(isAssetProtected('src/assets/icons/social/discord/default.svg')).toBe(true);
+      expect(isAssetProtected('website/src/assets/icons/social/discord/default.svg')).toBe(true);
       expect(isAssetProtected('public/assets/monoforge-logo.svg')).toBe(true);
       expect(isAssetProtected('public/assets/telemetry-isocalendar-3d.svg')).toBe(true);
       expect(isAssetProtected('public/assets/characters/dragonborn-paladin.svg')).toBe(true);
     });
 
     it('blocks deletion of protected assets via deletion guard', () => {
-      const res = validateAssetDeletion('src/assets/icons/social/discord/default.svg');
+      const res = validateAssetDeletion('website/src/assets/icons/social/discord/default.svg');
       expect(res.allowed).toBe(false);
       expect(res.reason).toContain('is protected');
     });

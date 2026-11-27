@@ -30,6 +30,8 @@ import {
   Code2,
   Film,
   ChevronUp,
+  ChevronLeft,
+  ChevronRight,
   Flame,
   Droplets,
   Zap,
@@ -40,8 +42,19 @@ import {
   Bot,
   Hammer,
   Footprints,
+  BarChart3,
+  Gamepad2,
+  Trophy,
+  Calendar,
+  Globe,
+  BookOpen,
+  GripVertical,
+  Plus,
+  Trash2,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { toast } from 'sonner';
+import { useReadmeStore } from '#/store/useReadmeStore';
 import {
   AnimationConfig,
   AnimationPresetId,
@@ -96,8 +109,238 @@ function renderPresetIcon(iconName: string) {
   }
 }
 
+interface StageShelfWidget {
+  id: string;
+  label: string;
+  pluginType: string;
+  presetHint: AnimationPresetId;
+  accentClass: string;
+  added: boolean;
+}
+
+const DEFAULT_STAGE_WIDGETS: StageShelfWidget[] = [
+  { id: 'stats', label: 'Stats', pluginType: 'github-readme-stats', presetHint: 'neon', accentClass: 'text-cyan-400', added: true },
+  { id: 'snake', label: 'Snake', pluginType: 'snk', presetHint: 'matrix', accentClass: 'text-emerald-400', added: true },
+  { id: 'trophy', label: 'Trophy', pluginType: 'github-profile-trophy', presetHint: 'telemetry-achievements', accentClass: 'text-amber-400', added: true },
+  { id: 'calendar', label: 'Calendar', pluginType: 'telemetry-isocalendar', presetHint: 'telemetry-isocalendar', accentClass: 'text-emerald-300', added: false },
+  { id: 'typing', label: 'Typing', pluginType: 'readme-typing-svg', presetHint: 'typing', accentClass: 'text-sky-400', added: false },
+  { id: 'terminal', label: 'Terminal', pluginType: 'telemetry-engine', presetHint: 'terminal', accentClass: 'text-amber-300', added: false },
+];
+
+function renderShelfWidgetIcon(id: string) {
+  switch (id) {
+    case 'stats':
+      return <BarChart3 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />;
+    case 'snake':
+      return <Gamepad2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />;
+    case 'trophy':
+      return <Trophy className="w-3.5 h-3.5 text-amber-400 shrink-0" />;
+    case 'calendar':
+      return <Calendar className="w-3.5 h-3.5 text-emerald-300 shrink-0" />;
+    case 'typing':
+      return <Code2 className="w-3.5 h-3.5 text-sky-400 shrink-0" />;
+    case 'terminal':
+    default:
+      return <Terminal className="w-3.5 h-3.5 text-amber-300 shrink-0" />;
+  }
+}
+
+function decodePresetPayload(raw: string): Partial<AnimationConfig> | null {
+  const direct = decodeConfigFromBase64(raw);
+  if (direct && typeof direct === 'object') {
+    return direct;
+  }
+  try {
+    const normalized = raw.trim().replace(/ /g, '+').replace(/-/g, '+').replace(/_/g, '/');
+    const padLen = normalized.length % 4 === 0 ? 0 : 4 - (normalized.length % 4);
+    const padded = normalized + '='.repeat(padLen);
+    const bin = atob(padded);
+    const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+    const json = new TextDecoder().decode(bytes);
+    const parsed = JSON.parse(json);
+    return parsed && typeof parsed === 'object' ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+function buildPresetDefaults(preset: AnimationPresetId): Partial<AnimationConfig> {
+  switch (preset) {
+    case 'fire':
+      return {
+        preset,
+        textEffect: 'glitch',
+        backgroundEffect: 'fire',
+        frameEffect: 'fire-border',
+        svgEffect: 'animated-logo',
+        threeDEffect: 'interactive-card',
+        primaryColor: '#ff2a2a',
+        secondaryColor: '#ff9900',
+        accentColor: '#ffee55',
+        backgroundColor: '#1e0b0b',
+      };
+    case 'water':
+      return {
+        preset,
+        textEffect: 'wave',
+        backgroundEffect: 'water',
+        frameEffect: 'glassmorphism',
+        svgEffect: 'line-drawing',
+        threeDEffect: 'none',
+        primaryColor: '#00b4d8',
+        secondaryColor: '#48cae4',
+        accentColor: '#90e0ef',
+        backgroundColor: '#071b2e',
+      };
+    case 'matrix':
+      return {
+        preset,
+        textEffect: 'scramble',
+        backgroundEffect: 'matrix',
+        frameEffect: 'hologram',
+        svgEffect: 'none',
+        threeDEffect: 'none',
+        primaryColor: '#22c55e',
+        secondaryColor: '#86efac',
+        accentColor: '#4ade80',
+        backgroundColor: '#0a1f12',
+      };
+    case 'glitch':
+      return {
+        preset,
+        textEffect: 'glitch',
+        backgroundEffect: 'grids',
+        svgEffect: 'line-drawing',
+        threeDEffect: 'interactive-card',
+        primaryColor: '#ef4444',
+        secondaryColor: '#06b6d4',
+        accentColor: '#f43f5e',
+        backgroundColor: '#1e293b',
+      };
+    case 'typing':
+      return {
+        preset,
+        textEffect: 'typing',
+        backgroundEffect: 'solid',
+        svgEffect: 'none',
+        threeDEffect: 'none',
+        primaryColor: '#38bdf8',
+        secondaryColor: '#94a3b8',
+        accentColor: '#10b981',
+        backgroundColor: '#0f172a',
+      };
+    case 'wave':
+      return {
+        preset,
+        textEffect: 'wave',
+        backgroundEffect: 'animated-gradient',
+        svgEffect: 'line-drawing',
+        threeDEffect: 'none',
+        primaryColor: '#818cf8',
+        secondaryColor: '#38bdf8',
+        accentColor: '#c084fc',
+        backgroundColor: '#0f172a',
+      };
+    case 'particle':
+      return {
+        preset,
+        textEffect: 'gradient',
+        backgroundEffect: 'particles',
+        svgEffect: 'animated-logo',
+        threeDEffect: 'particle-environment',
+        primaryColor: '#38bdf8',
+        secondaryColor: '#c084fc',
+        accentColor: '#facc15',
+        backgroundColor: '#0f172a',
+      };
+    case 'terminal':
+      return {
+        preset,
+        textEffect: 'typing',
+        backgroundEffect: 'solid',
+        svgEffect: 'none',
+        threeDEffect: 'interactive-card',
+        primaryColor: '#38bdf8',
+        secondaryColor: '#94a3b8',
+        accentColor: '#10b981',
+        backgroundColor: '#0f172a',
+      };
+    case '3d-banner':
+      return {
+        preset,
+        textEffect: 'reveal',
+        backgroundEffect: 'grids',
+        svgEffect: 'path-morphing',
+        threeDEffect: 'rotating-cube',
+        primaryColor: '#6366f1',
+        secondaryColor: '#38bdf8',
+        accentColor: '#c084fc',
+        backgroundColor: '#0f172a',
+      };
+    case 'minimal':
+      return {
+        preset,
+        textEffect: 'reveal',
+        backgroundEffect: 'solid',
+        svgEffect: 'none',
+        threeDEffect: 'none',
+        primaryColor: '#94a3b8',
+        secondaryColor: '#cbd5e1',
+        accentColor: '#e2e8f0',
+        backgroundColor: '#0f172a',
+      };
+    case 'telemetry-isocalendar':
+      return {
+        preset,
+        primaryColor: '#10b981',
+        secondaryColor: '#34d399',
+        accentColor: '#fbbf24',
+        backgroundColor: '#0d1117',
+      };
+    case 'telemetry-languages':
+      return {
+        preset,
+        primaryColor: '#3178c6',
+        secondaryColor: '#dea584',
+        accentColor: '#38bdf8',
+        backgroundColor: '#0d1117',
+      };
+    case 'telemetry-habits':
+      return {
+        preset,
+        primaryColor: '#f59e0b',
+        secondaryColor: '#34d399',
+        accentColor: '#38bdf8',
+        backgroundColor: '#0d1117',
+      };
+    case 'telemetry-achievements':
+      return {
+        preset,
+        primaryColor: '#f59e0b',
+        secondaryColor: '#10b981',
+        accentColor: '#ec4899',
+        backgroundColor: '#0d1117',
+      };
+    case 'neon':
+    default:
+      return {
+        preset,
+        textEffect: 'gradient',
+        backgroundEffect: 'grids',
+        svgEffect: 'animated-logo',
+        threeDEffect: 'interactive-card',
+        primaryColor: '#6366f1',
+        secondaryColor: '#38bdf8',
+        accentColor: '#c084fc',
+        backgroundColor: '#0f172a',
+      };
+  }
+}
+
 export function AnimatorStudio() {
   const searchParams = useSearchParams();
+  const addSection = useReadmeStore(s => s.addSection);
+  const storeGithub = useReadmeStore(s => s.config.settings.user.github);
   const [config, setConfig] = useState<AnimationConfig>(DEFAULT_ANIMATION_CONFIG);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [previewTheme, setPreviewTheme] = useState<'dark' | 'light'>('dark');
@@ -109,16 +352,28 @@ export function AnimatorStudio() {
   const [isPanelExpanded, setIsPanelExpanded] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(50);
   const [showGifModal, setShowGifModal] = useState(false);
+  const [stageWidgets, setStageWidgets] = useState<StageShelfWidget[]>(DEFAULT_STAGE_WIDGETS);
+  const [draggedWidgetId, setDraggedWidgetId] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Restore state from hosted demo link `?c=<base64>`
+  // Restore state from hosted demo link `?c=<base64>` or `?preset=<id>`
   useEffect(() => {
-    const compressed = searchParams.get('c');
+    const compressed =
+      searchParams.get('c') ||
+      (typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('c') : null);
     if (compressed) {
-      const decoded = decodeConfigFromBase64(compressed);
-      if (decoded && decoded.headline) {
-        setConfig(prev => ({ ...prev, ...decoded }));
+      const decoded = decodePresetPayload(compressed);
+      if (decoded) {
+        const presetDefaults = decoded.preset ? buildPresetDefaults(decoded.preset) : {};
+        setConfig(prev => ({ ...prev, ...presetDefaults, ...decoded }));
+        toast.success('Loaded shared animation preset from URL');
+        return;
       }
+    }
+
+    const presetParam = searchParams.get('preset') as AnimationPresetId | null;
+    if (presetParam && PRESET_METADATA.some(p => p.id === presetParam)) {
+      setConfig(prev => ({ ...prev, ...buildPresetDefaults(presetParam) }));
     }
   }, [searchParams]);
 
@@ -148,193 +403,81 @@ export function AnimatorStudio() {
   };
 
   const handlePresetSelect = (preset: AnimationPresetId) => {
-    setConfig(prev => {
-      switch (preset) {
-        case 'fire':
-          return {
-            ...prev,
-            preset,
-            textEffect: 'glitch',
-            backgroundEffect: 'fire',
-            frameEffect: 'fire-border',
-            svgEffect: 'animated-logo',
-            threeDEffect: 'interactive-card',
-            primaryColor: '#ff2a2a',
-            secondaryColor: '#ff9900',
-            accentColor: '#ffee55',
-            backgroundColor: '#0d0404',
-          };
-        case 'water':
-          return {
-            ...prev,
-            preset,
-            textEffect: 'wave',
-            backgroundEffect: 'water',
-            frameEffect: 'glassmorphism',
-            svgEffect: 'line-drawing',
-            threeDEffect: 'none',
-            primaryColor: '#00b4d8',
-            secondaryColor: '#48cae4',
-            accentColor: '#90e0ef',
-            backgroundColor: '#02121e',
-          };
-        case 'matrix':
-          return {
-            ...prev,
-            preset,
-            textEffect: 'scramble',
-            backgroundEffect: 'matrix',
-            frameEffect: 'hologram',
-            svgEffect: 'none',
-            threeDEffect: 'none',
-            primaryColor: '#22c55e',
-            secondaryColor: '#86efac',
-            accentColor: '#4ade80',
-            backgroundColor: '#051309',
-          };
-        case 'glitch':
-          return {
-            ...prev,
-            preset,
-            textEffect: 'glitch',
-            backgroundEffect: 'grids',
-            svgEffect: 'line-drawing',
-            threeDEffect: 'interactive-card',
-            primaryColor: '#ef4444',
-            secondaryColor: '#06b6d4',
-            accentColor: '#f43f5e',
-            backgroundColor: '#09090b',
-          };
-        case 'typing':
-          return {
-            ...prev,
-            preset,
-            textEffect: 'typing',
-            backgroundEffect: 'solid',
-            svgEffect: 'none',
-            threeDEffect: 'none',
-            primaryColor: '#38bdf8',
-            secondaryColor: '#94a3b8',
-            accentColor: '#10b981',
-            backgroundColor: '#0f172a',
-          };
-        case 'wave':
-          return {
-            ...prev,
-            preset,
-            textEffect: 'wave',
-            backgroundEffect: 'animated-gradient',
-            svgEffect: 'line-drawing',
-            threeDEffect: 'none',
-            primaryColor: '#818cf8',
-            secondaryColor: '#38bdf8',
-            accentColor: '#c084fc',
-            backgroundColor: '#0a0d17',
-          };
-        case 'particle':
-          return {
-            ...prev,
-            preset,
-            textEffect: 'gradient',
-            backgroundEffect: 'particles',
-            svgEffect: 'animated-logo',
-            threeDEffect: 'particle-environment',
-            primaryColor: '#38bdf8',
-            secondaryColor: '#c084fc',
-            accentColor: '#facc15',
-            backgroundColor: '#0a0c16',
-          };
-        case 'terminal':
-          return {
-            ...prev,
-            preset,
-            textEffect: 'typing',
-            backgroundEffect: 'solid',
-            svgEffect: 'none',
-            threeDEffect: 'interactive-card',
-            primaryColor: '#38bdf8',
-            secondaryColor: '#94a3b8',
-            accentColor: '#10b981',
-            backgroundColor: '#030712',
-          };
-        case '3d-banner':
-          return {
-            ...prev,
-            preset,
-            textEffect: 'reveal',
-            backgroundEffect: 'grids',
-            svgEffect: 'path-morphing',
-            threeDEffect: 'rotating-cube',
-            primaryColor: '#6366f1',
-            secondaryColor: '#38bdf8',
-            accentColor: '#c084fc',
-            backgroundColor: '#0f172a',
-          };
-        case 'minimal':
-          return {
-            ...prev,
-            preset,
-            textEffect: 'reveal',
-            backgroundEffect: 'solid',
-            svgEffect: 'none',
-            threeDEffect: 'none',
-            primaryColor: '#94a3b8',
-            secondaryColor: '#cbd5e1',
-            accentColor: '#e2e8f0',
-            backgroundColor: '#0f172a',
-          };
-        case 'telemetry-isocalendar':
-          return {
-            ...prev,
-            preset,
-            primaryColor: '#10b981',
-            secondaryColor: '#34d399',
-            accentColor: '#fbbf24',
-            backgroundColor: '#0d1117',
-          };
-        case 'telemetry-languages':
-          return {
-            ...prev,
-            preset,
-            primaryColor: '#3178c6',
-            secondaryColor: '#dea584',
-            accentColor: '#38bdf8',
-            backgroundColor: '#0d1117',
-          };
-        case 'telemetry-habits':
-          return {
-            ...prev,
-            preset,
-            primaryColor: '#f59e0b',
-            secondaryColor: '#34d399',
-            accentColor: '#38bdf8',
-            backgroundColor: '#0d1117',
-          };
-        case 'telemetry-achievements':
-          return {
-            ...prev,
-            preset,
-            primaryColor: '#f59e0b',
-            secondaryColor: '#10b981',
-            accentColor: '#ec4899',
-            backgroundColor: '#0d1117',
-          };
-        case 'neon':
-        default:
-          return {
-            ...prev,
-            preset,
-            textEffect: 'gradient',
-            backgroundEffect: 'grids',
-            svgEffect: 'animated-logo',
-            threeDEffect: 'interactive-card',
-            primaryColor: '#6366f1',
-            secondaryColor: '#38bdf8',
-            accentColor: '#c084fc',
-            backgroundColor: '#0a0d17',
-          };
+    setConfig(prev => ({
+      ...prev,
+      ...buildPresetDefaults(preset),
+    }));
+  };
+
+  const toggleStageWidget = (id: string) => {
+    setStageWidgets(prev =>
+      prev.map(w => (w.id === id ? { ...w, added: !w.added } : w))
+    );
+  };
+
+  const moveStageWidget = (id: string, direction: -1 | 1) => {
+    setStageWidgets(prev => {
+      const idx = prev.findIndex(w => w.id === id);
+      if (idx === -1) return prev;
+      const target = idx + direction;
+      if (target < 0 || target >= prev.length) return prev;
+      const next = [...prev];
+      const [item] = next.splice(idx, 1);
+      next.splice(target, 0, item);
+      return next;
+    });
+  };
+
+  const handleDropStageWidget = (targetId: string) => {
+    if (!draggedWidgetId || draggedWidgetId === targetId) return;
+    setStageWidgets(prev => {
+      const fromIdx = prev.findIndex(w => w.id === draggedWidgetId);
+      const toIdx = prev.findIndex(w => w.id === targetId);
+      if (fromIdx === -1 || toIdx === -1) return prev;
+      const next = [...prev];
+      const [moved] = next.splice(fromIdx, 1);
+      next.splice(toIdx, 0, moved);
+      return next;
+    });
+    setDraggedWidgetId(null);
+  };
+
+  const handleInsertStageWidgetsToStore = () => {
+    const active = stageWidgets.filter(w => w.added);
+    if (active.length === 0) {
+      toast.error('Select at least one stage widget first');
+      return;
+    }
+    const targetUser = storeGithub?.trim() || 'developer';
+    active.forEach(w => {
+      if (w.pluginType === 'github-readme-stats') {
+        addSection('github-readme-stats', { content: { username: targetUser, showIcons: true } });
+      } else if (w.pluginType === 'snk') {
+        addSection('snk', { content: { username: targetUser } });
+      } else if (w.pluginType === 'github-profile-trophy') {
+        addSection('github-profile-trophy', { content: { username: targetUser } });
+      } else if (w.pluginType === 'telemetry-isocalendar') {
+        addSection('telemetry-isocalendar', { content: { username: targetUser, format: 'isocalendar', duration: 'half-year' } });
+      } else if (w.pluginType === 'readme-typing-svg') {
+        addSection('readme-typing-svg', { content: { lines: [config.headline, config.subtitle] } });
+      } else {
+        addSection('telemetry-engine', { content: { username: targetUser, activeVizId: 'developer-terminal', template: 'terminal', outputMode: 'direct_svg' } });
       }
     });
+    toast.success(`Added ${active.length} reordered stage widget(s) to Profile IDE`);
+  };
+
+  const handleInsertAnimatedBannerToStore = () => {
+    const html = snippets.dataUri;
+    addSection('custom-html', {
+      content: {
+        content: html,
+        html,
+        align: config.alignment,
+        title: config.headline || 'Animated SVG Banner',
+      },
+    });
+    toast.success('Inserted animated SVG banner into Profile IDE');
   };
 
   const handleLoadConfig = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -969,28 +1112,127 @@ export function AnimatorStudio() {
                 </div>
               </div>
 
-              {/* 4. Drag & Drop Tactile Shelf Preview */}
-              <div className="p-3.5 rounded-lg border border-palette-line/60 bg-palette-base/60 space-y-2">
-                <span className="font-semibold text-neutral-200 block text-[11px]">
-                  4. Reorderable Widget Drag &bull; Drop
-                </span>
-                <div className="grid grid-cols-3 gap-1.5 text-center font-mono text-[10px]">
-                  <div className="p-2 rounded bg-neutral-950 border border-neutral-800 text-neutral-400 cursor-grab active:cursor-grabbing hover:border-amber-500 transition-colors">
-                    :: 📊 Stats
-                  </div>
-                  <div className="p-2 rounded bg-neutral-950 border border-neutral-800 text-neutral-400 cursor-grab active:cursor-grabbing hover:border-amber-500 transition-colors">
-                    :: 🐍 Snake
-                  </div>
-                  <div className="p-2 rounded bg-neutral-950 border border-neutral-800 text-neutral-400 cursor-grab active:cursor-grabbing hover:border-amber-500 transition-colors">
-                    :: 🏆 Trophy
-                  </div>
+              {/* 4. Interactive Reorderable Stage Widget Shelf */}
+              <div className="p-3.5 rounded-lg border border-palette-line/60 bg-palette-base/60 space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-semibold text-slate-200 block text-[11px]">
+                    4. Reorderable Stage &amp; Profile Shelf
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleInsertStageWidgetsToStore}
+                    className="px-2 py-1 rounded bg-[#ffe600] hover:bg-amber-300 text-slate-950 font-bold text-[10px] flex items-center gap-1 cursor-pointer"
+                  >
+                    <Plus className="w-3 h-3" />
+                    <span>Sync Shelf ({stageWidgets.filter(w => w.added).length})</span>
+                  </button>
+                </div>
+
+                {/* Available / Clickable Shelf Pills */}
+                <div className="grid grid-cols-3 gap-1.5 font-mono text-[10px]">
+                  {stageWidgets.map((widget, idx) => (
+                    <div
+                      key={widget.id}
+                      draggable
+                      onDragStart={() => setDraggedWidgetId(widget.id)}
+                      onDragOver={e => e.preventDefault()}
+                      onDrop={() => handleDropStageWidget(widget.id)}
+                      className={`p-2 rounded-lg border transition-all flex flex-col gap-1.5 cursor-grab active:cursor-grabbing ${
+                        widget.added
+                          ? 'bg-slate-800 border-amber-400/70 text-slate-100'
+                          : 'bg-slate-900/70 border-slate-700 text-slate-400 hover:border-slate-500'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-1">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            toggleStageWidget(widget.id);
+                            handlePresetSelect(widget.presetHint);
+                          }}
+                          className="flex items-center gap-1 truncate text-left cursor-pointer"
+                          title={widget.added ? `Remove ${widget.label} from stage` : `Add ${widget.label} to stage`}
+                        >
+                          <GripVertical className="w-3 h-3 text-slate-500 shrink-0" />
+                          {renderShelfWidgetIcon(widget.id)}
+                          <span className="font-bold truncate">{widget.label}</span>
+                        </button>
+                      </div>
+
+                      <div className="flex items-center justify-between gap-1 border-t border-slate-700/70 pt-1">
+                        <div className="flex items-center gap-0.5">
+                          <button
+                            type="button"
+                            disabled={idx === 0}
+                            onClick={() => moveStageWidget(widget.id, -1)}
+                            className="p-0.5 rounded hover:bg-slate-700 disabled:opacity-30 cursor-pointer"
+                            title={`Move ${widget.label} earlier`}
+                            aria-label={`Move ${widget.label} earlier`}
+                          >
+                            <ChevronLeft className="w-3 h-3" />
+                          </button>
+                          <button
+                            type="button"
+                            disabled={idx === stageWidgets.length - 1}
+                            onClick={() => moveStageWidget(widget.id, 1)}
+                            className="p-0.5 rounded hover:bg-slate-700 disabled:opacity-30 cursor-pointer"
+                            title={`Move ${widget.label} later`}
+                            aria-label={`Move ${widget.label} later`}
+                          >
+                            <ChevronRight className="w-3 h-3" />
+                          </button>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => toggleStageWidget(widget.id)}
+                          className={`px-1.5 py-0.5 rounded text-[9px] font-bold cursor-pointer ${
+                            widget.added
+                              ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                              : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                          }`}
+                        >
+                          {widget.added ? 'Active' : '+ Add'}
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Live Active Stage Order Readout */}
+                <div className="flex flex-wrap items-center gap-1.5 pt-1 text-[10px] font-mono">
+                  <span className="text-slate-400">Stage Order:</span>
+                  {stageWidgets.filter(w => w.added).length === 0 ? (
+                    <span className="text-slate-500">None selected — click a widget above to add</span>
+                  ) : (
+                    stageWidgets
+                      .filter(w => w.added)
+                      .map((w, i) => (
+                        <span
+                          key={w.id}
+                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-800 border border-slate-600 text-slate-200"
+                        >
+                          <span className="text-amber-400 font-bold">{i + 1}.</span>
+                          {renderShelfWidgetIcon(w.id)}
+                          <span>{w.label}</span>
+                          <button
+                            type="button"
+                            onClick={() => toggleStageWidget(w.id)}
+                            className="text-slate-400 hover:text-rose-400 ml-0.5 cursor-pointer"
+                            aria-label={`Remove ${w.label}`}
+                          >
+                            <Trash2 className="w-2.5 h-2.5" />
+                          </button>
+                        </span>
+                      ))
+                  )}
                 </div>
               </div>
 
               {/* 5. Scroll Effects Laboratory */}
               <div className="p-3.5 rounded-lg border border-palette-line/60 bg-palette-base/60 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-neutral-200 block text-[11px]">
+                  <span className="font-semibold text-slate-200 block text-[11px]">
                     5. Scroll Effects (Reveal &bull; Parallax &bull; Pinned &bull; Sequence)
                   </span>
                   <span className="font-mono text-cyan-400 text-[10px]">{scrollProgress}% Scrolled</span>
@@ -1007,7 +1249,7 @@ export function AnimatorStudio() {
                 />
 
                 {/* Interactive Simulated Scroll Canvas */}
-                <div className="relative h-28 rounded-lg bg-neutral-950 border border-neutral-800 overflow-hidden p-2 text-[10px]">
+                <div className="relative h-28 rounded-lg bg-slate-900 border border-slate-700 overflow-hidden p-2 text-[10px]">
                   {/* Sticky / Pinned Section Anchor */}
                   <div className="sticky top-0 z-10 px-2 py-1 bg-amber-500/10 backdrop-blur border border-amber-500/40 rounded flex items-center justify-between">
                     <span className="font-bold text-amber-200">Pinned Section Anchor</span>
@@ -1067,49 +1309,45 @@ export function AnimatorStudio() {
                 </span>
               </div>
 
-              {/* Simulation Controls */}
-              <div className="flex items-center gap-2">
-                {/* Dark / Light GitHub Simulator */}
-                <button
-                  type="button"
-                  onClick={() => setPreviewTheme(prev => (prev === 'dark' ? 'light' : 'dark'))}
-                  className="flex items-center gap-1 px-2.5 py-1 rounded-md border border-neutral-700 bg-neutral-950 text-[11px] font-medium text-neutral-300 hover:text-white transition-colors"
-                  title="Toggle GitHub Theme Background"
-                >
-                  {previewTheme === 'dark' ? <Moon className="w-3 h-3 text-cyan-400" /> : <Sun className="w-3 h-3 text-amber-400" />}
-                  <span>{previewTheme === 'dark' ? 'GitHub Dark' : 'GitHub Light'}</span>
-                </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setPreviewTheme(prev => (prev === 'dark' ? 'light' : 'dark'))}
+                className="flex items-center gap-1 px-2.5 py-1 rounded-md border border-slate-700 bg-slate-800 text-[11px] font-medium text-slate-300 hover:text-white transition-colors"
+                title="Toggle GitHub Theme Background"
+              >
+                {previewTheme === 'dark' ? <Moon className="w-3 h-3 text-cyan-400" /> : <Sun className="w-3 h-3 text-amber-400" />}
+                <span>{previewTheme === 'dark' ? 'GitHub Dark' : 'GitHub Light'}</span>
+              </button>
 
-                {/* Mobile / Desktop Toggle */}
-                <button
-                  type="button"
-                  onClick={() => setIsMobileView(prev => !prev)}
-                  className={`flex items-center gap-1 px-2.5 py-1 rounded-md border text-[11px] font-medium transition-colors ${
-                    isMobileView
-                      ? 'border-cyan-500 bg-cyan-950 text-cyan-300'
-                      : 'border-neutral-700 bg-neutral-950 text-neutral-400 hover:text-white'
-                  }`}
-                  title="Toggle Mobile Viewport Simulation"
-                >
-                  {isMobileView ? <Smartphone className="w-3 h-3" /> : <Monitor className="w-3 h-3" />}
-                  <span>{isMobileView ? 'Mobile (375px)' : 'Desktop'}</span>
-                </button>
+              <button
+                type="button"
+                onClick={() => setIsMobileView(prev => !prev)}
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-md border text-[11px] font-medium transition-colors ${
+                  isMobileView
+                    ? 'border-cyan-500 bg-cyan-950 text-cyan-300'
+                    : 'border-slate-700 bg-slate-800 text-slate-400 hover:text-white'
+                }`}
+                title="Toggle Mobile Viewport Simulation"
+              >
+                {isMobileView ? <Smartphone className="w-3 h-3" /> : <Monitor className="w-3 h-3" />}
+                <span>{isMobileView ? 'Mobile (375px)' : 'Desktop'}</span>
+              </button>
 
-                {/* Simulate Loading Failure Toggle */}
-                <button
-                  type="button"
-                  onClick={() => setSimulateError(prev => !prev)}
-                  className={`flex items-center gap-1 px-2 py-1 rounded-md border text-[11px] font-medium transition-colors ${
-                    simulateError
-                      ? 'border-amber-500 bg-amber-950 text-amber-300'
-                      : 'border-neutral-800 bg-neutral-950 text-neutral-500 hover:text-neutral-300'
-                  }`}
-                  title="Simulate image loading failure or broken link"
-                >
-                  <AlertTriangle className="w-3 h-3" />
-                  <span>{simulateError ? 'Fallback Active' : 'Test Fallback'}</span>
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => setSimulateError(prev => !prev)}
+                className={`flex items-center gap-1 px-2 py-1 rounded-md border text-[11px] font-medium transition-colors ${
+                  simulateError
+                    ? 'border-amber-500 bg-amber-950 text-amber-300'
+                    : 'border-slate-700 bg-slate-800 text-slate-400 hover:text-slate-200'
+                }`}
+                title="Simulate image loading failure or broken link"
+              >
+                <AlertTriangle className="w-3 h-3" />
+                <span>{simulateError ? 'Fallback Active' : 'Test Fallback'}</span>
+              </button>
+            </div>
             </div>
 
             {/* Preview Stage */}
@@ -1247,7 +1485,7 @@ export function AnimatorStudio() {
             </div>
 
             {/* Code Box */}
-            <div className="relative rounded-lg bg-neutral-950 border border-palette-line p-3 font-mono text-xs overflow-x-auto text-neutral-300">
+            <div className="relative rounded-lg bg-slate-900 border border-slate-700 p-3 font-mono text-xs overflow-x-auto text-slate-200">
               <pre className="whitespace-pre-wrap break-all max-h-36 overflow-y-auto">
                 {markdownTab === 'relative'
                   ? snippets.relative
@@ -1272,7 +1510,7 @@ export function AnimatorStudio() {
                     'markdown'
                   )
                 }
-                className="absolute top-2.5 right-2.5 px-2.5 py-1 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-[11px] flex items-center gap-1 transition-colors"
+                className="absolute top-2.5 right-2.5 px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] flex items-center gap-1 transition-colors"
               >
                 {copiedKey === 'markdown' ? (
                   <>
@@ -1292,8 +1530,17 @@ export function AnimatorStudio() {
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-1">
               <button
                 type="button"
+                onClick={handleInsertAnimatedBannerToStore}
+                className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#ffe600] hover:bg-amber-300 text-slate-950 text-xs font-bold transition-colors cursor-pointer"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>Add to Profile</span>
+              </button>
+
+              <button
+                type="button"
                 onClick={() => handleCopy(svgCode, 'svg')}
-                className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-palette-line bg-palette-base hover:border-neutral-700 text-xs font-medium text-neutral-200 transition-colors"
+                className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-palette-line bg-palette-base hover:border-slate-600 text-xs font-medium text-slate-200 transition-colors cursor-pointer"
               >
                 {copiedKey === 'svg' ? (
                   <>
@@ -1311,7 +1558,7 @@ export function AnimatorStudio() {
               <button
                 type="button"
                 onClick={() => downloadSvgFile(config)}
-                className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-cyan-500/50 bg-cyan-950/20 hover:bg-cyan-950/40 text-cyan-300 text-xs font-medium transition-colors"
+                className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-cyan-500/50 bg-cyan-950/20 hover:bg-cyan-950/40 text-cyan-300 text-xs font-medium transition-colors cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Save .svg</span>
@@ -1320,7 +1567,7 @@ export function AnimatorStudio() {
               <button
                 type="button"
                 onClick={() => downloadAnimationConfigJson(config)}
-                className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-palette-line bg-palette-base hover:border-neutral-700 text-xs font-medium text-neutral-200 transition-colors"
+                className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-palette-line bg-palette-base hover:border-slate-600 text-xs font-medium text-slate-200 transition-colors cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Save .json</span>
@@ -1329,10 +1576,10 @@ export function AnimatorStudio() {
               <button
                 type="button"
                 onClick={() => setShowGifModal(prev => !prev)}
-                className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border text-xs font-medium transition-colors ${
+                className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border text-xs font-medium transition-colors cursor-pointer ${
                   showGifModal
                     ? 'border-amber-500 bg-amber-950/40 text-amber-300'
-                    : 'border-palette-line bg-palette-base hover:border-amber-500/50 text-neutral-200'
+                    : 'border-palette-line bg-palette-base hover:border-amber-500/50 text-slate-200'
                 }`}
               >
                 <Film className="w-3.5 h-3.5 text-amber-400" />
@@ -1350,21 +1597,21 @@ export function AnimatorStudio() {
                   </div>
                   <span className="text-[10px] font-mono text-amber-400/80">PIL + NumPy 24fps</span>
                 </div>
-                <p className="text-[11px] text-neutral-300">
+                <p className="text-[11px] text-slate-300">
                   Generate optimized 24-frame looping WebP and GIF animations with cybernetic ember particles and holographic scanline sweeps for GitHub READMEs.
                 </p>
-                <div className="p-2 rounded bg-neutral-950 border border-neutral-800 font-mono text-[10px] text-cyan-300 flex items-center justify-between">
+                <div className="p-2 rounded bg-slate-900 border border-slate-700 font-mono text-[10px] text-cyan-300 flex items-center justify-between">
                   <code>python scripts/animate_hero.py</code>
                   <button
                     type="button"
                     onClick={() => handleCopy('python scripts/animate_hero.py', 'gif-cmd')}
-                    className="px-2 py-0.5 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-300 text-[9px]"
+                    className="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[9px]"
                   >
                     {copiedKey === 'gif-cmd' ? 'Copied!' : 'Copy'}
                   </button>
                 </div>
-                <div className="text-[10px] text-neutral-400">
-                  Outputs: <code className="text-neutral-200">public/assets/hero-animated.gif</code> &bull; <code className="text-neutral-200">public/assets/hero-animated.webp</code>
+                <div className="text-[10px] text-slate-400">
+                  Outputs: <code className="text-slate-200">website/public/assets/hero-animated.gif</code> &bull; <code className="text-slate-200">website/public/assets/hero-animated.webp</code>
                 </div>
               </div>
             )}
@@ -1378,21 +1625,21 @@ export function AnimatorStudio() {
           <button
             type="button"
             onClick={() => setShowEcosystem(prev => !prev)}
-            className="w-full flex items-center justify-between p-4 bg-palette-soft/60 hover:bg-palette-soft transition-colors text-left"
+            className="w-full flex items-center justify-between p-4 bg-palette-soft/60 hover:bg-palette-soft transition-colors text-left cursor-pointer"
           >
             <div className="flex items-center gap-2.5">
-              <Layers className="w-4 h-4 text-cyan-400" />
+              <Globe className="w-4 h-4 text-cyan-400" />
               <div>
                 <span className="font-bold text-xs uppercase tracking-wider text-white">
-                  🌐 Cross-Platform Animation &amp; Motion Ecosystem Reference
+                  Cross-Platform Animation &amp; Motion Ecosystem Reference
                 </span>
-                <span className="text-[11px] text-neutral-400 block sm:inline sm:ml-2">
+                <span className="text-[11px] text-slate-400 block sm:inline sm:ml-2">
                   (Libraries &amp; Frameworks for Web, Mobile, Games, Math &amp; Portable Assets)
                 </span>
               </div>
             </div>
             <ChevronDown
-              className={`w-4 h-4 text-neutral-400 transition-transform ${
+              className={`w-4 h-4 text-slate-400 transition-transform ${
                 showEcosystem ? 'rotate-180' : ''
               }`}
             />
@@ -1497,9 +1744,10 @@ export function AnimatorStudio() {
                 ))}
               </div>
 
-              <div className="pt-2 border-t border-palette-line/40 flex flex-wrap items-center justify-between gap-2 text-[11px] text-neutral-400">
-                <span>
-                  📚 <b>Official References:</b>{' '}
+              <div className="pt-2 border-t border-palette-line/40 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400">
+                <span className="flex items-center gap-1.5 flex-wrap">
+                  <BookOpen className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                  <b>Official References:</b>{' '}
                   <a href="https://www.manim.community/" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">Manim</a> &bull;{' '}
                   <a href="https://docs.flutter.dev/ui/animations" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">Flutter animations</a> &bull;{' '}
                   <a href="https://docs.swmansion.com/react-native-reanimated/" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">React Native Reanimated</a> &bull;{' '}

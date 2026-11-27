@@ -14,7 +14,6 @@
       "!website/public/**",
       "!coverage/**",
       "!node_modules/**",
-      "!src/assets/**/*.svg",
       "!website/src/assets/**/*.svg"
     ]
   },

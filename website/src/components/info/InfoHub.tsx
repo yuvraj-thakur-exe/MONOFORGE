@@ -32,6 +32,7 @@ import {
   RefreshCw,
   Sliders,
   Globe,
+  Trophy,
 } from 'lucide-react';
 import { useReadmeStore } from '#/store/useReadmeStore';
 import { buildMarkdown } from '#/lib/buildMarkdown';
@@ -181,7 +182,7 @@ export function InfoHub() {
     };
 
     useReadmeStore.getState().setEntireConfig(customConfig);
-    router.push('/');
+    router.push('/developer');
   };
 
   const handleRunCliCommand = (cmd: string) => {
@@ -479,7 +480,10 @@ export function InfoHub() {
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 text-xs">
                     <div className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">COMMIT STREAK</div>
-                    <div className="text-sm font-black text-amber-600 dark:text-amber-400 font-mono mt-0.5">🔥 86 Days</div>
+                    <div className="text-sm font-black text-amber-600 dark:text-amber-400 font-mono mt-0.5 flex items-center gap-1">
+                      <Flame className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                      <span>86 Days</span>
+                    </div>
                   </div>
                 </div>
 
@@ -603,8 +607,9 @@ export function InfoHub() {
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-amber-400/20 text-amber-700 dark:text-amber-400 border border-amber-400/30">
-                      ⚡ 1-LINE QUICKSTART
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-amber-400/20 text-amber-700 dark:text-amber-400 border border-amber-400/30">
+                      <Zap className="w-3 h-3" />
+                      1-LINE QUICKSTART
                     </span>
                     <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                       Automated Development Setup
@@ -1225,8 +1230,9 @@ export function InfoHub() {
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-amber-400/20 text-amber-700 dark:text-amber-400 border border-amber-400/30">
-                      ⚡ LIVE SIMULATOR
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-amber-400/20 text-amber-700 dark:text-amber-400 border border-amber-400/30">
+                      <Zap className="w-3 h-3" />
+                      LIVE SIMULATOR
                     </span>
                     <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                       Instant Profile Playground
@@ -1375,7 +1381,7 @@ export function InfoHub() {
                       {/* Banner / Header */}
                       <div className="space-y-1">
                         <h2 className="text-xl font-extrabold text-slate-900 dark:text-white">
-                          Hi there, I&apos;m {pgName || 'Developer'} 👋
+                          Hi there, I&apos;m {pgName || 'Developer'}
                         </h2>
                         <h3 className="text-xs font-semibold text-amber-600 dark:text-amber-400 font-mono">
                           {pgRole || 'Software Craftsman'}
@@ -1410,7 +1416,10 @@ export function InfoHub() {
                         {pgShowTrophies && (
                           <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 text-[11px] font-mono">
                             <div className="text-amber-500 font-bold mb-1">GitHub Profile Trophy</div>
-                            <div className="text-slate-600 dark:text-slate-400">🏆 Multi-Lang • ⚡ Committer</div>
+                            <div className="text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+                              <Trophy className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                              <span>Multi-Lang &bull; Top Committer</span>
+                            </div>
                           </div>
                         )}
                       </div>
@@ -1442,8 +1451,9 @@ export function InfoHub() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-amber-400/20 text-amber-700 dark:text-amber-400 border border-amber-400/30">
-                      ⚡ SHIELDS &amp; ICONS
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-amber-400/20 text-amber-700 dark:text-amber-400 border border-amber-400/30">
+                      <Zap className="w-3 h-3" />
+                      SHIELDS &amp; ICONS
                     </span>
                     <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                       Tech Badge Arsenal
@@ -1456,7 +1466,7 @@ export function InfoHub() {
 
                 {/* Categories */}
                 <div className="flex items-center gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-x-auto scrollbar-none font-mono text-xs">
-                  {['all', 'lang', 'frontend', 'backend', 'database', 'devops', 'mobile'].map(cat => (
+                  {['all', 'lang', 'frontend', 'backend', 'database', 'devops', 'ai', 'mobile'].map(cat => (
                     <button
                       key={cat}
                       type="button"
@@ -1627,7 +1637,7 @@ export function InfoHub() {
             <div className="card-hover-lift p-6 sm:p-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-amber-400 flex items-center justify-center text-slate-950 font-black text-xl shadow-xs shrink-0">
-                  ⚡
+                  <Zap className="w-6 h-6" />
                 </div>
                 <div>
                   <h4 className="text-base font-black text-slate-900 dark:text-white">MonoForge Core Contributors</h4>

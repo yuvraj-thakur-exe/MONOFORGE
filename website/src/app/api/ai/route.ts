@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { AiRequestSchema } from '#/lib/ai/types';
-import { synthesizeFallbackAiResponse } from '#/lib/ai/ai-service';
+import { extractPlainTextBio, synthesizeFallbackAiResponse } from '#/lib/ai/ai-service';
 import { buildMonoForgeSystemPrompt } from '#/lib/ai/system-prompt';
 
 export async function POST(req: NextRequest) {
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
             success: true,
             result: {
               markdown: content,
-              bio: content.slice(0, 200),
+              bio: extractPlainTextBio(content, context),
               suggestions: ['Generated via OpenRouter model ' + model],
             },
             modelUsed: model,

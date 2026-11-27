@@ -25,7 +25,6 @@ export function generateAssetManifest(workspaceRoot: string = process.cwd()): As
     path.join(workspaceRoot, 'website', 'public', 'assets'),
     path.join(workspaceRoot, 'public', 'assets'),
     path.join(workspaceRoot, 'website', 'src', 'assets'),
-    path.join(workspaceRoot, 'src', 'assets'),
   ];
 
   for (const baseDir of scanDirs) {
@@ -126,7 +125,6 @@ export function writeManifestFile(workspaceRoot: string = process.cwd()): { path
 
   const targets = [
     path.join(workspaceRoot, 'website', 'src', 'assets', 'manifest.generated.json'),
-    path.join(workspaceRoot, 'src', 'assets', 'manifest.generated.json'),
   ];
 
   for (const target of targets) {

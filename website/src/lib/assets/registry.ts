@@ -78,7 +78,7 @@ export const COMMUNITY_ASSET_REGISTRY: CommunityAsset[] = [
     version: '1.1.0',
     camoCompliant: true,
     previewUrl: '/assets/digital-hands-divider.svg',
-    rawMarkdown: '<p align="center">\n  <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/public/assets/digital-hands-divider.svg" width="100%" alt="Digital Hands Divider" />\n</p>',
+    rawMarkdown: '<p align="center">\n  <img src="https://raw.githubusercontent.com/yuvraj-thakur-exe/MONOFORGE/main/website/public/assets/digital-hands-divider.svg" width="100%" alt="Digital Hands Divider" />\n</p>',
   },
 
   // 3. Badges

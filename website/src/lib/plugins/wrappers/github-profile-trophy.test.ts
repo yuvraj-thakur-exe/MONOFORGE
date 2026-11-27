@@ -31,6 +31,8 @@ describe('githubProfileTrophyPlugin', () => {
     expect(md).toContain('column=6');
     expect(md).toContain('&no-bg=true');
     expect(md).toContain('alt="octocat trophies"');
+    expect(md).not.toContain('https://github.com/ryo-ma/github-profile-trophy');
+    expect(md).not.toContain('<a href=');
   });
 
   it('allows switching to alternate high-availability mirror', () => {

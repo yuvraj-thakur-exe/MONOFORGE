@@ -36,7 +36,6 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
   const [savedTemplates, setSavedTemplates] = useState<SavedTemplate[]>([]);
   const [exportHistory, setExportHistory] = useState<ExportedAssetRecord[]>([]);
 
-  // Form states
   const [newProjectName, setNewProjectName] = useState('');
   const [newProjectVariant, setNewProjectVariant] = useState('work');
   const [newTemplateName, setNewTemplateName] = useState('');
@@ -77,15 +76,13 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
       particleCount: 35,
       spread: 60,
       origin: { y: 0.7 },
-      colors: ['#ffe600', '#18181b'],
+      colors: ['#ffe600', '#334155'],
     });
   };
 
   const handleSwitchProject = (project: ProjectProfile) => {
     const ws = getWorkspace();
-    // Save current config to current active project first
     ws.updateProjectConfig(activeProjectId, currentConfig);
-    // Switch to new project
     ws.switchProject(project.id);
     setEntireConfig(project.config);
     refreshWorkspace();
@@ -147,12 +144,12 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/70 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="relative w-full max-w-3xl bg-white border-2 border-neutral-900 rounded-2xl shadow-[8px_8px_0px_#18181b] overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-xs animate-in fade-in duration-150">
+      <div className="relative w-full max-w-3xl bg-white border-2 border-slate-700 rounded-2xl shadow-[8px_8px_0px_#334155] overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 bg-[#ffe600] border-b-2 border-neutral-900 text-neutral-950">
+        <div className="flex items-center justify-between px-5 py-4 bg-[#ffe600] border-b-2 border-slate-700 text-slate-950">
           <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-lg bg-neutral-950 text-[#ffe600] border border-neutral-900 shadow-xs">
+            <div className="p-1.5 rounded-lg bg-slate-900 text-[#ffe600] border border-slate-700 shadow-xs">
               <FolderKanban className="w-5 h-5" />
             </div>
             <div>
@@ -160,11 +157,11 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
                 <h2 className="text-base font-black tracking-tight font-mono uppercase">
                   Developer Profile Workspace
                 </h2>
-                <span className="px-2 py-0.5 rounded bg-neutral-950 text-[#ffe600] text-[10px] font-mono font-bold">
+                <span className="px-2 py-0.5 rounded bg-slate-900 text-[#ffe600] text-[10px] font-mono font-bold">
                   LOCAL-FIRST
                 </span>
               </div>
-              <p className="text-xs font-mono font-bold text-neutral-800">
+              <p className="text-xs font-mono font-bold text-slate-800">
                 Multiple Projects &bull; Profile Variants &bull; Zero Cloud Lock-In
               </p>
             </div>
@@ -172,7 +169,7 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-white hover:bg-neutral-100 text-neutral-950 border border-neutral-900 transition-all hover:scale-105 cursor-pointer"
+            className="p-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-950 border border-slate-700 transition-all hover:scale-105 cursor-pointer"
             title="Close"
           >
             <X className="w-4 h-4" />
@@ -180,14 +177,14 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
         </div>
 
         {/* Tabs */}
-        <div className="flex items-center px-5 py-2 bg-white border-b-2 border-neutral-900 gap-1 overflow-x-auto text-xs font-mono">
+        <div className="flex items-center px-5 py-2 bg-white border-b-2 border-slate-700 gap-1 overflow-x-auto text-xs font-mono">
           <button
             type="button"
             onClick={() => setActiveTab('projects')}
             className={`px-3 py-1 rounded-lg font-bold uppercase transition-all cursor-pointer ${
               activeTab === 'projects'
-                ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs'
-                : 'text-neutral-700 hover:bg-neutral-100'
+                ? 'bg-[#ffe600] text-slate-950 font-black border border-slate-700 shadow-2xs'
+                : 'text-slate-700 hover:bg-slate-100'
             }`}
           >
             Projects ({projects.length})
@@ -197,8 +194,8 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
             onClick={() => setActiveTab('templates')}
             className={`px-3 py-1 rounded-lg font-bold uppercase transition-all cursor-pointer ${
               activeTab === 'templates'
-                ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs'
-                : 'text-neutral-700 hover:bg-neutral-100'
+                ? 'bg-[#ffe600] text-slate-950 font-black border border-slate-700 shadow-2xs'
+                : 'text-slate-700 hover:bg-slate-100'
             }`}
           >
             Saved Templates ({savedTemplates.length})
@@ -208,8 +205,8 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
             onClick={() => setActiveTab('history')}
             className={`px-3 py-1 rounded-lg font-bold uppercase transition-all cursor-pointer ${
               activeTab === 'history'
-                ? 'bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 shadow-2xs'
-                : 'text-neutral-700 hover:bg-neutral-100'
+                ? 'bg-[#ffe600] text-slate-950 font-black border border-slate-700 shadow-2xs'
+                : 'text-slate-700 hover:bg-slate-100'
             }`}
           >
             Export History ({exportHistory.length})
@@ -217,25 +214,25 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
         </div>
 
         {/* Content */}
-        <div className="p-5 overflow-y-auto space-y-4 bg-[#fafafa] font-mono text-xs">
+        <div className="p-5 overflow-y-auto space-y-4 bg-[#f8fafc] font-mono text-xs">
           {/* TAB 1: PROJECTS */}
           {activeTab === 'projects' && (
             <div className="space-y-4">
               {/* New Project Creator */}
-              <div className="p-3.5 bg-white rounded-xl border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] space-y-2">
-                <span className="font-bold text-neutral-900 text-xs">Create New Profile Project:</span>
+              <div className="p-3.5 bg-white rounded-xl border-2 border-slate-700 shadow-[2px_2px_0px_#334155] space-y-2">
+                <span className="font-bold text-slate-900 text-xs">Create New Profile Project:</span>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <input
                     type="text"
                     value={newProjectName}
                     onChange={e => setNewProjectName(e.target.value)}
                     placeholder="e.g. Open Source Maintainer Profile"
-                    className="flex-1 px-3 py-1.5 bg-neutral-50 border-2 border-neutral-900 rounded-lg text-xs font-mono text-neutral-950 placeholder:text-neutral-400 focus:outline-none focus:bg-white"
+                    className="flex-1 px-3 py-1.5 bg-slate-50 border-2 border-slate-700 rounded-lg text-xs font-mono text-slate-950 placeholder:text-slate-400 focus:outline-none focus:bg-white"
                   />
                   <select
                     value={newProjectVariant}
                     onChange={e => setNewProjectVariant(e.target.value)}
-                    className="px-3 py-1.5 bg-neutral-50 border-2 border-neutral-900 rounded-lg text-xs font-mono text-neutral-950"
+                    className="px-3 py-1.5 bg-slate-50 border-2 border-slate-700 rounded-lg text-xs font-mono text-slate-950"
                   >
                     <option value="main">Main Profile</option>
                     <option value="work">Enterprise / Work</option>
@@ -245,7 +242,7 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
                   <button
                     type="button"
                     onClick={handleCreateProject}
-                    className="px-3.5 py-1.5 bg-[#ffe600] text-neutral-950 text-xs font-black border-2 border-neutral-900 rounded-lg shadow-2xs hover:bg-[#ffdf00] transition-all cursor-pointer flex items-center justify-center gap-1.5 shrink-0"
+                    className="px-3.5 py-1.5 bg-[#ffe600] text-slate-950 text-xs font-black border-2 border-slate-700 rounded-lg shadow-2xs hover:bg-amber-300 transition-all cursor-pointer flex items-center justify-center gap-1.5 shrink-0"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>CREATE</span>
@@ -262,27 +259,27 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
                       key={project.id}
                       className={`p-3.5 rounded-xl border-2 transition-all flex items-center justify-between gap-3 ${
                         isActive
-                          ? 'bg-amber-50/50 border-neutral-900 shadow-[3px_3px_0px_#18181b] ring-2 ring-[#ffe600]'
-                          : 'bg-white border-neutral-900 shadow-[2px_2px_0px_#18181b]'
+                          ? 'bg-amber-50/50 border-slate-700 shadow-[3px_3px_0px_#334155] ring-2 ring-[#ffe600]'
+                          : 'bg-white border-slate-700 shadow-[2px_2px_0px_#334155]'
                       }`}
                     >
                       <div className="space-y-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <h4 className="font-black text-xs text-neutral-950 truncate">
+                          <h4 className="font-black text-xs text-slate-950 truncate">
                             {project.name}
                           </h4>
                           {isActive && (
-                            <span className="px-2 py-0.2 rounded bg-neutral-950 text-[#ffe600] text-[9px] font-black uppercase">
+                            <span className="px-2 py-0.2 rounded bg-slate-900 text-[#ffe600] text-[9px] font-black uppercase">
                               Active Project
                             </span>
                           )}
                           {project.variantLabel && (
-                            <span className="px-1.5 py-0.2 rounded bg-neutral-100 border border-neutral-300 text-[9px] uppercase font-bold text-neutral-700">
+                            <span className="px-1.5 py-0.2 rounded bg-slate-100 border border-slate-300 text-[9px] uppercase font-bold text-slate-700">
                               {project.variantLabel}
                             </span>
                           )}
                         </div>
-                        <div className="flex items-center gap-3 text-[10px] text-neutral-500">
+                        <div className="flex items-center gap-3 text-[10px] text-slate-500">
                           <span className="flex items-center gap-1">
                             <Calendar className="w-3 h-3" />
                             Updated: {new Date(project.updatedAt).toLocaleDateString()}
@@ -299,7 +296,7 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
                           <button
                             type="button"
                             onClick={() => handleSwitchProject(project)}
-                            className="px-3 py-1.5 bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 rounded-lg shadow-2xs hover:bg-[#ffdf00] transition-all cursor-pointer"
+                            className="px-3 py-1.5 bg-[#ffe600] text-slate-950 font-black border border-slate-700 rounded-lg shadow-2xs hover:bg-amber-300 transition-all cursor-pointer"
                           >
                             SWITCH
                           </button>
@@ -312,7 +309,7 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
                         <button
                           type="button"
                           onClick={() => handleDuplicateProject(project.id)}
-                          className="p-1.5 rounded-lg bg-neutral-100 border border-neutral-300 text-neutral-800 hover:bg-neutral-200 cursor-pointer"
+                          className="p-1.5 rounded-lg bg-slate-100 border border-slate-300 text-slate-800 hover:bg-slate-200 cursor-pointer"
                           title="Duplicate variant"
                         >
                           <Copy className="w-3.5 h-3.5" />
@@ -322,7 +319,7 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
                           <button
                             type="button"
                             onClick={() => handleDeleteProject(project.id, project.name)}
-                            className="p-1.5 rounded-lg bg-neutral-100 border border-neutral-300 text-neutral-400 hover:text-red-600 cursor-pointer"
+                            className="p-1.5 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 hover:text-red-600 cursor-pointer"
                             title="Delete project"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -340,27 +337,27 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
           {activeTab === 'templates' && (
             <div className="space-y-4">
               {/* Save current state as template */}
-              <div className="p-3.5 bg-white rounded-xl border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] space-y-2">
-                <span className="font-bold text-neutral-900 text-xs">Save Current Profile as Template Preset:</span>
+              <div className="p-3.5 bg-white rounded-xl border-2 border-slate-700 shadow-[2px_2px_0px_#334155] space-y-2">
+                <span className="font-bold text-slate-900 text-xs">Save Current Profile as Template Preset:</span>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <input
                     type="text"
                     value={newTemplateName}
                     onChange={e => setNewTemplateName(e.target.value)}
                     placeholder="Template Name (e.g. My SRE Layout)"
-                    className="flex-1 px-3 py-1.5 bg-neutral-50 border-2 border-neutral-900 rounded-lg text-xs font-mono text-neutral-950"
+                    className="flex-1 px-3 py-1.5 bg-slate-50 border-2 border-slate-700 rounded-lg text-xs font-mono text-slate-950"
                   />
                   <input
                     type="text"
                     value={newTemplateDesc}
                     onChange={e => setNewTemplateDesc(e.target.value)}
                     placeholder="Short Description"
-                    className="flex-1 px-3 py-1.5 bg-neutral-50 border-2 border-neutral-900 rounded-lg text-xs font-mono text-neutral-950"
+                    className="flex-1 px-3 py-1.5 bg-slate-50 border-2 border-slate-700 rounded-lg text-xs font-mono text-slate-950"
                   />
                   <button
                     type="button"
                     onClick={handleSaveAsTemplate}
-                    className="px-3.5 py-1.5 bg-[#ffe600] text-neutral-950 text-xs font-black border-2 border-neutral-900 rounded-lg shadow-2xs hover:bg-[#ffdf00] transition-all cursor-pointer flex items-center justify-center gap-1.5 shrink-0"
+                    className="px-3.5 py-1.5 bg-[#ffe600] text-slate-950 text-xs font-black border-2 border-slate-700 rounded-lg shadow-2xs hover:bg-amber-300 transition-all cursor-pointer flex items-center justify-center gap-1.5 shrink-0"
                   >
                     <Bookmark className="w-3.5 h-3.5" />
                     <span>SAVE</span>
@@ -369,7 +366,7 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
               </div>
 
               {savedTemplates.length === 0 ? (
-                <div className="p-8 text-center bg-white rounded-xl border-2 border-dashed border-neutral-300 text-xs text-neutral-500">
+                <div className="p-8 text-center bg-white rounded-xl border-2 border-dashed border-slate-300 text-xs text-slate-500">
                   No custom saved templates yet. Save your current profile design as a reusable archetype above!
                 </div>
               ) : (
@@ -377,12 +374,12 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
                   {savedTemplates.map(tpl => (
                     <div
                       key={tpl.id}
-                      className="p-3.5 bg-white rounded-xl border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] flex items-center justify-between gap-3"
+                      className="p-3.5 bg-white rounded-xl border-2 border-slate-700 shadow-[2px_2px_0px_#334155] flex items-center justify-between gap-3"
                     >
                       <div>
-                        <h4 className="font-black text-xs text-neutral-950">{tpl.name}</h4>
-                        <p className="text-[11px] text-neutral-600">{tpl.description}</p>
-                        <span className="text-[10px] text-neutral-400">
+                        <h4 className="font-black text-xs text-slate-950">{tpl.name}</h4>
+                        <p className="text-[11px] text-slate-600">{tpl.description}</p>
+                        <span className="text-[10px] text-slate-400">
                           Saved: {new Date(tpl.createdAt).toLocaleDateString()} &bull; {tpl.config.sections?.length || 0} modules
                         </span>
                       </div>
@@ -391,14 +388,14 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
                         <button
                           type="button"
                           onClick={() => handleApplyTemplate(tpl)}
-                          className="px-3 py-1.5 bg-[#ffe600] text-neutral-950 font-black border border-neutral-900 rounded-lg shadow-2xs hover:bg-[#ffdf00] cursor-pointer"
+                          className="px-3 py-1.5 bg-[#ffe600] text-slate-950 font-black border border-slate-700 rounded-lg shadow-2xs hover:bg-amber-300 cursor-pointer"
                         >
                           APPLY
                         </button>
                         <button
                           type="button"
                           onClick={() => handleDeleteTemplate(tpl.id, tpl.name)}
-                          className="p-1.5 rounded-lg bg-neutral-100 border border-neutral-300 text-neutral-400 hover:text-red-600 cursor-pointer"
+                          className="p-1.5 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 hover:text-red-600 cursor-pointer"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -414,8 +411,8 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
           {activeTab === 'history' && (
             <div className="space-y-3">
               {exportHistory.length === 0 ? (
-                <div className="p-8 text-center bg-white rounded-xl border-2 border-dashed border-neutral-300 text-xs text-neutral-500">
-                  <History className="w-5 h-5 mx-auto mb-2 text-neutral-400" />
+                <div className="p-8 text-center bg-white rounded-xl border-2 border-dashed border-slate-300 text-xs text-slate-500">
+                  <History className="w-5 h-5 mx-auto mb-2 text-slate-400" />
                   No export history recorded yet. Files exported or copied in the studio will be logged here.
                 </div>
               ) : (
@@ -423,15 +420,15 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
                   {exportHistory.map(item => (
                     <div
                       key={item.id}
-                      className="p-3 bg-white rounded-xl border-2 border-neutral-900 shadow-[2px_2px_0px_#18181b] flex items-center justify-between text-xs"
+                      className="p-3 bg-white rounded-xl border-2 border-slate-700 shadow-[2px_2px_0px_#334155] flex items-center justify-between text-xs"
                     >
                       <div className="flex items-center gap-2">
-                        <span className="px-2 py-0.5 rounded bg-neutral-950 text-[#ffe600] font-black uppercase text-[10px]">
+                        <span className="px-2 py-0.5 rounded bg-slate-900 text-[#ffe600] font-black uppercase text-[10px]">
                           {item.format}
                         </span>
-                        <span className="font-bold text-neutral-950">{item.name}</span>
+                        <span className="font-bold text-slate-950">{item.name}</span>
                       </div>
-                      <div className="flex items-center gap-3 text-[11px] text-neutral-500">
+                      <div className="flex items-center gap-3 text-[11px] text-slate-500">
                         <span>{item.byteSize} bytes</span>
                         <span>{new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                       </div>
@@ -444,14 +441,14 @@ export const WorkspaceManagerModal: React.FC<WorkspaceManagerModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between px-5 py-3 bg-white border-t-2 border-neutral-900 text-xs font-mono">
-          <span className="text-neutral-500 text-[11px]">
+        <div className="flex items-center justify-between px-5 py-3 bg-white border-t-2 border-slate-700 text-xs font-mono">
+          <span className="text-slate-500 text-[11px]">
             Workspace state persisted in your browser local storage
           </span>
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-1.5 rounded-lg bg-neutral-950 text-white font-bold border-2 border-neutral-900 hover:bg-neutral-800 transition-all cursor-pointer"
+            className="px-4 py-1.5 rounded-lg bg-slate-800 text-white font-bold border-2 border-slate-700 hover:bg-slate-700 transition-all cursor-pointer"
           >
             CLOSE
           </button>
